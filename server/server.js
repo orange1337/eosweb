@@ -84,6 +84,7 @@ app.use(function(req,res,next){
 
 app.use(express.static(path.join(__dirname, '../dist')));
 require('./router/main.router')(app, config, request, log);
+require(`./api/eos.api.${config.apiV}`)(app, config, request, log);
 
 // ========== cron tasks
 //require('./crons/main.cron')();

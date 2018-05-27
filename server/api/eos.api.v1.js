@@ -1,25 +1,49 @@
-const Eos = require('eosjs') // Eos = require('./src')
+/*
+* Created by Rost
+*/
+const EOS 		= require('eosjs');
 
-wif = '5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3'
-pubkey = 'EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV'
+const wif 		= '5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3';
+const pubkey 	= 'EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV';
+const eos 		= EOS.Localnet({keyProvider: wif});
 
-eos = Eos.Localnet({keyProvider: wif}) // 127.0.0.1:8888
+module.exports 	= function(router, config, request, log) {
 
-// All API methods print help when called with no-arguments.
-eos.getBlock()
+	router.get('/api/v1/get_block/:block_num_or_id', (req, res) => {
+	   	 eos.getBlock({ block_num_or_id: req.params.block_num_or_id })
+	   	 	.then(result => {
+	   	 		res.json(result);
+	   	 	})
+	   	 	.catch(err => {
+	   	 		log.error(err);
+	   	 		res.status(501).end();
+	   	 	})
+	});
 
-// Next, your going to need nodeosd running on localhost:8888 (see ./docker)
+// ============== END of exports 
+};
 
-// If a callback is not provided, a Promise is returned
-eos.getBlock(1).then(result => {console.log(result)})
 
-// Parameters can be sequential or an object
-eos.getBlock({block_num_or_id: 1}).then(result => console.log(result))
 
-// Callbacks are similar
-const callback = (err, res) => {err ? console.error(err) : console.log(res)}
-eos.getBlock(1, callback)
-eos.getBlock({block_num_or_id: 1}, callback)
 
-// Provide an empty object or a callback if an API call has no arguments
-eos.getInfo({}).then(result => {console.log(result)})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

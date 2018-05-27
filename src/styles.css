@@ -1,1 +1,231 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "assets/css/grid12.css";
+@import "assets/css/cryptofont.min.css";
+/*@import "https://use.fontawesome.com/releases/v5.0.6/css/all.css"*/
+
+@font-face {
+  font-family: Crypto;
+  src: url(assets/fonts/cryptofont-webfont.ttf);
+}
+
+@font-face {
+  font-family: ClanProBook;
+  src: url(assets/fonts/ClanPro-Book.otf);
+}
+
+@font-face {
+  font-family: ClanProNews;
+  src: url(assets/fonts/ClanPro-News.otf);
+}
+
+html {
+    position: relative;
+    width: 100vw;
+    min-height: 100%;
+}
+body{
+	margin: 0;
+	font-family: 'ClanProNews';
+	overflow-x: hidden;
+	height: auto;
+	padding-bottom: 200px;
+	-webkit-font-smoothing: antialiased;
+}
+.text-center{
+	text-align: center !important;
+}
+.no-padding{
+	padding: 0;
+}
+.color-grey-text{
+	color: #b2b6be;
+}
+.color-green{
+	color: #71d479 !important;
+}
+.color-red{
+	color: #e36956 !important;
+}
+.icon-rignt{
+	margin-right: 5px;
+}
+.container{
+	width: 1280px;
+}
+.spinner-container{
+	width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    background: rgba(255,255,255,0.7);
+}
+.spinner-container .mat-spinner{
+	margin: -50px auto;
+	top: 50%;
+}
+.simple-notification-wrapper{
+	z-index: 100000 !important;
+}
+.market-header{
+	font-family: 'ClanProNews';
+	color: #23232a;
+}
+.coin-page-header .mat-header-row, .mat-row{
+	min-height: 70px !important;
+}
+
+
+/* Global style for forms signup login reset pass */
+.sign-up{
+	background-color: #3f48b9;
+	font-weight: normal;
+	font-family: 'ClanProNews';
+}
+.sign-up:hover{
+	background-color: #3b43a7 !important;
+	color: #fff !important;
+}
+.dialog-main-container{
+	padding: 20px 0;
+	position: relative;
+}
+.top-text-header{
+	font-size: 20px;
+	color: #000;
+	text-align: center;
+	margin-top: 10px;
+}
+.top-text-small{
+	font-size: 15px;
+	text-align: center;
+	color: #98999f;	
+	padding: 10px 50px;
+}
+.social-buttons{
+	margin-top: 10px;
+	margin-bottom: 20px;
+	padding: 5px 120px;
+}
+.main-form{
+	padding: 5px 120px;
+}
+.btn-social{
+	padding: 9px 20px;
+	margin-top: 11px;
+	display: block;
+	text-align: center;
+	border: 1px solid #e5e6e8;
+	border-radius: 4px;
+	cursor: pointer;
+}
+.main-form .sign-up-btn{
+    float: right;
+    margin-top: 11px;
+    background: #3c5de0;
+    font-weight: 300;
+    padding: 3px 40px;
+    font-family: 'ClanProNews';
+}
+.facebook-btn{
+	background-color: #395697;
+	color: #fff;
+}
+.privacy-terms{
+    margin-top: 25px;
+    color: #a8a8a8;
+    font-size: 13px;
+    line-height: 21px;
+}
+.already-has-account{
+	font-size: 16px;
+    margin-top: 40px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    text-align: center;
+    box-shadow: 4px 4px 7px #f2f2f3;
+}
+.link{
+	color: #5473ed;
+	text-decoration: none;
+}
+.link:hover{
+	text-decoration: underline;
+	cursor: pointer;
+}
+.terms-link{
+	color: #333;
+	text-decoration: none;
+}
+.terms-link:hover{
+ 	text-decoration: underline;
+}
+.main-form mat-form-field{
+	margin-bottom: 5px;
+}
+.main-form .mat-form-field-ripple{
+	background-color: #3c5de0 !important;
+}
+.main-form .mat-form-field-invalid .mat-form-field-ripple{
+	background-color: #e36956 !important;
+}
+.main-form .mat-form-field-underline{
+	background-color: #e5e6e8 !important;
+}
+.main-form .mat-form-field-invalid .mat-form-field-placeholder{
+	color: #e36956 !important;
+}
+.main-form .mat-form-field-placeholder{
+	font-size: 14px;
+}
+.icon-close{
+	color: #d6d6d7;
+    font-size: 22px;
+    display: table;
+    position: absolute;
+    right: 0;
+    top: -5px;
+    cursor: pointer;
+}
+.forgot-pass{
+	float: left;
+    font-size: 13px;
+    display: table;
+    margin-top: 22px;
+}
+.new-pass{
+	margin-bottom: 28px;
+}
+/* End Global style for forms signup login reset pass */
+
+/* Customize notify messages */
+.simple-notification-wrapper.top{
+	top: 70px !important;
+}
+.simple-notification .sn-title{
+	font-size: 18px !important;
+	font-family: 'ClanProNews';
+}
+.simple-notification .sn-content{
+	font-size: 14px !important;
+	font-family: 'ClanProNews';
+}
+.simple-notification .icon{
+	display: none;
+}
+/*.simple-notification.error{
+	background-color: #e36956 !important; 
+}
+.simple-notification.success{
+	background-color: #71d479 !important;
+}
+ End Customize notify messages */
+
+
+
+
+
+
+
+
+
