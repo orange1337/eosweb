@@ -211,7 +211,15 @@ footer ul li{
 	padding: 10px 15px;
 	font-size: 13px;
 	font-weight: 300;
+}
+footer a{
+	color: #fff;
+	text-decoration: none;
+	font-size: 14px;
 }	
+footer i{
+	font-size: 20px;
+}
 .mainpage-currency-name{
 	width: 50px;
 }

@@ -1,6 +1,5 @@
-import { NgModule } from '@angular/core';
-import { MainPageComponent } from './main_page.component';
-import { MainTableModule } from '../../components/main_table/main_table.module';
+import { NgModule, PLATFORM_ID,  Inject } from '@angular/core';
+import { MainTableComponent } from '../../components/main_table/main_table.component';
 import { MatAutocompleteModule,
          MatButtonModule,
          MatInputModule,
@@ -10,10 +9,10 @@ import { MatAutocompleteModule,
          MatSortModule,
          MatTableModule,
          MatFormFieldModule } from '@angular/material';
-//import { MainPageService } from '../../services/main_page.service';
 import { CommonModule } from '@angular/common';
 import { appRoutes } from '../../main.router';
 
+import { environment } from '../../../environments/environment';
 
 let imports = [
     MatAutocompleteModule,
@@ -26,17 +25,17 @@ let imports = [
     MatSortModule,
     MatTableModule,
     CommonModule,
-    appRoutes,
-    MainTableModule ];
+    appRoutes ];
 
 @NgModule({
   declarations: [
-    MainPageComponent
+    MainTableComponent
   ],
   imports:  imports,
-  providers: [ /*MainPageService*/ ],
-  bootstrap: [ MainPageComponent ]
+  exports: [ MainTableComponent ],
+  providers: [ ],
+  bootstrap: [ MainTableComponent ]
 })
-export class MainPageModule {}
+export class MainTableModule {}
 
 

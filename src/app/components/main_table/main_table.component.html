@@ -1,0 +1,84 @@
+    
+
+<div class="example-container mat-elevation-z8 main-table">
+  
+  <!--<div class="example-header">
+    <div class="col-sm-11">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Currency">
+    </mat-form-field>      
+    </div>
+    <div class="col-sm-1">
+      <mat-form-field class="mainpage-currency-name">
+        <mat-select [(value)]="selected">
+          <mat-option *ngFor="let elem of currencies" value="{{elem}}" (click)="selectCurrency($event, selected)">{{elem}}</mat-option>
+        </mat-select>
+      </mat-form-field>      
+    </div>
+  </div>-->
+
+  <mat-table #table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="Name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i = index"> <span class='currency-index'>{{ counter + i }} </span><img src="/assets/images/tmp/{{ element.Name }}.png" width="16" class="crypto-img"> <a [routerLink]="['/coin', element.Name + '_' + currencyName]" class="custom-coin-link">{{ element.Name }}</a> </mat-cell>
+    </ng-container>
+    
+    <!-- Name Column -->
+    <ng-container matColumnDef="Marketcap">
+      <mat-header-cell *matHeaderCellDef> Marketcap </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="marketcap-container"> <strong [innerHtml]="symbolsMap[currencyName]"></strong> {{ element.Market_cap }} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="Price">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
+      <mat-cell *matCellDef="let element"> <a class="custom-coin-link" [routerLink]="['/coin', element.Name + '_' + currencyName]"><strong [innerHtml]="symbolsMap[currencyName]"></strong> {{element.Price}}</a></mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="High/Low">
+      <mat-header-cell *matHeaderCellDef> High / Low 24h</mat-header-cell>
+      <mat-cell *matCellDef="let element"> 
+                    <div class="change_green high-trend"><span [innerHtml]="symbolsMap[currencyName]"></span> {{ element.high }} <i class="material-icons high_low_text">arrow_upward</i></div> 
+                    <div class="change_red"><span [innerHtml]="symbolsMap[currencyName]"></span> {{ element.low }} <i class="material-icons high_low_text">arrow_downward</i></div>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="Vol/Volume">
+      <mat-header-cell *matHeaderCellDef> Vol / Volume 24h</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="color-light-grey"> 
+        <div><span [innerHtml]="symbolsMap[currencyName]"></span> {{element.Vol}} </div>
+        <div class="volume-coins-container">{{element.Volume}} <span>{{ element.Name }}</span></div>
+      </mat-cell>
+    </ng-container>
+
+    
+    <!-- Name Column -->
+    <ng-container matColumnDef="Change (24H)">
+      <mat-header-cell *matHeaderCellDef> Change 24h </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="text-center change-container"> 
+            <div class="change_green" [ngClass]="{'change_red': element.Change < 0}">
+              <i class="material-icons">{{ (element.Change < 0) ? 'arrow_drop_down' : 'keyboard_arrow_up' }}</i>
+              {{ element.Change.replace('-', '') }} <i class="fas fa-percent"></i>
+            </div>
+
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Chart (7D)">
+      <mat-header-cell *matHeaderCellDef> Chart 7D </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+             
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator
+                 [pageSize]="100"
+                 [pageSizeOptions]="[50, 100]">
+  </mat-paginator>
+</div>

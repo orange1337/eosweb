@@ -19,6 +19,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 //import { AuthService } from './services/auth.service';
 
+import { MainPageModule } from './pages/main_page/main_page.module';
+
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     MatMenuModule,
     MatSelectModule,
     //MainTcustomizeModule,
-    SimpleNotificationsModule.forRoot()
+    SimpleNotificationsModule.forRoot(),
+    MainPageModule
   ],
   providers: [appRoutingProviders],
   bootstrap: [AppComponent]
