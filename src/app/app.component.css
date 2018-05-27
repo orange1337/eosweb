@@ -40,7 +40,15 @@
 .logo span{
     margin-left: 10px;
     float: right;
-    margin-top: 18px;
+    color: #fff;
+    margin-top: 13px;
+}
+.logo .name-eos{
+	font-size: 20px;
+}
+.logo .name-explorer{
+	margin-top: 20px;
+	margin-left: 5px;
 }
 .example-container {
   display: flex;
@@ -82,14 +90,27 @@
 	color: #fff;
 }
 .main-search{
-    width: 250px;
+	width: 300px;
+    float: left;
+    display: table;
     background-color: rgba(255, 255, 255, 0.1);
     outline: none;
-    margin: 3px 22px;
+    margin: 14px 0px;
     border-radius: 8px;
     padding: 9px 15px;
     border: none;
     color: #fff;
+}
+.main-search input{
+	background: rgba(1,1,1,0);
+    padding: 3px 10px;
+    width: 90%;
+    margin-left: 10px;
+    outline: none;
+    border: 0;
+    font-size: 12px;
+    border-left: 1px solid #4c4b4d;
+    color: #bebdbe;
 }
 .main-search::placeholder{
 	color: #fafafa;

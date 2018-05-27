@@ -1,15 +1,18 @@
 <nav class="main-navigation">
   <a routerLink="" class="logo pull-left">
-    <img src="/assets/images/logo_test_2.svg" width="170" alt="">
-    <span>All about cryptocurrencies.</span>
+    <img src="/assets/images/eos_logo.png" width="25" alt="">
+    <span class="name-explorer">blockchain explorer</span>
+    <span class="name-eos">EOS</span> 
   </a>
-  <ul class="pull-right main-nav-right">  
-    <!--<li><button mat-button color="basic" routerLink="">Add Portfolio</button></li>-->
-    <li><i class="fal fa-search"></i></li> 
-  </ul>
+  <div class="main-search">
+    <i class="fal fa-search"></i>
+    <input type="text" placeholder="Search by tx number, hash, blockid ..">
+  </div>
   <ul class="pull-right main-nav-middle">
-    <li><button mat-button color="basic" routerLink="coins">Coins</button></li>
-    <li><button mat-button color="basic" routerLink="exchanges">Exchanges</button></li>
+    <li><button mat-button color="basic" routerLink="coins">Blocks</button></li>
+    <li><button mat-button color="basic" routerLink="coins">Transactions</button></li>
+    <li><button mat-button color="basic" routerLink="coins">Pending Tx's</button></li>
+    <li><button mat-button color="basic" routerLink="exchanges">API</button></li>
     <!--<li><button mat-button color="basic" routerLink="">Trading</button></li>-->
   </ul>
 </nav>
