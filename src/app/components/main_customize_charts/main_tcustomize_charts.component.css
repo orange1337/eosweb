@@ -1,0 +1,103 @@
+.grid-cs-5-inline{
+    display: block;
+    width: 18.67%;
+    float: left;
+}
+.chart-child-container{
+    color: #fff;
+    padding: 16px 10px 10px 13px;
+    font-family: 'ClanProNews';
+    text-transform: uppercase;
+    font-size: 14px;
+    border-radius: 3px;
+    height: 80px;
+    cursor: -webkit-grab;
+}
+.chart-child-container-dollar{
+	color: #fff;
+    font-size: 15px;
+    display: table;
+    width: 100%;
+    margin-top: 13px;
+}
+.customize-containers-not-active{
+    background-color: #29292d; 
+    margin-right: 5px;
+}
+.customize-containers-active{
+    padding-top: 0;
+    padding-right: 1px; 
+    padding-bottom: 0; 
+    width: 23.5%;
+}
+.first-container-change{
+    padding-right: 13px;
+}
+.widget-chart-container{
+    height: 100%;
+    background-color: #2d2d32;
+    padding-top: 6px;
+}
+.first-container-widget{
+    padding-top: 16px;
+}
+.chart-child-container img{
+	margin-right: 5px;
+}
+.customize-button{
+    color: #fff;
+    text-decoration: none;
+    text-transform: initial;
+    font-size: 15px;
+    display: table;
+}
+.main-chart-cust-container{
+	background-color: #111113;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+.currency-page-main-chart{
+	background-color: #23232c;
+    margin-left: -20px;
+}
+.customize-container{
+    background: linear-gradient(to right, #2936b5, #3e74e2);
+    border: none;
+    letter-spacing: 0;
+    font-family: 'ClanProBook';
+}
+.custom-widget-title{
+    position: relative;
+}
+.custom-widget-title .far{
+    position: absolute;
+    right: -20px;
+    top: 1px;
+    font-size: 14px;
+}
+.customize{
+    font-weight: bold;
+    font-family: 'ClanProNews';
+}
+.chart-child-container-change{
+    font-size: 13px;
+}
+.chart-child-container-change .material-icons{
+	font-size: 15px;
+    padding-top: 1px;
+    padding-right: 2px;
+    float: left;
+    display: table;
+}
+.fa-percent{
+    font-size: 11px;
+}
+.learn-more{
+    text-align: left;
+    font-size: 12px;
+    margin-top: 15px;
+}
+.learn-more .fas{
+    font-size: 10px;
+    margin-left: 4px;
+}

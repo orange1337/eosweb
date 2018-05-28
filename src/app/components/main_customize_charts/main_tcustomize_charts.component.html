@@ -1,0 +1,86 @@
+<div class="main-chart-cust-container"> 
+<div class="container">
+<div class="row main-custom-chart-container">
+    
+    <div class="col-sm-4 chart-child-container customize-containers-not-active customize-containers-active grid-cs-5-inline">
+      <div class="col-sm-8 no-padding first-container-widget">
+       <div class="color-grey-text">eos - usd</div> 
+       <div class="chart-child-container-dollar">
+          <div class="pull-left"><i class="fas fa-dollar-sign"></i> {{ currencyObj?.RAW?.EOS?.USD?.PRICE }}</div>
+          <div class="pull-right chart-child-container-change first-container-change"> 
+            <div class="color-green" [ngClass]="{'color-red': currencyObj?.RAW?.EOS?.USD?.CHANGEDAY < 0}">
+              <i class="material-icons">{{ (currencyObj?.RAW?.EOS?.USD?.CHANGEDAY < 0) ? 'arrow_drop_down' : 'keyboard_arrow_up' }}</i>
+              {{ (currencyObj?.RAW?.EOS?.USD?.CHANGEDAY.toFixed(2)).replace('-', '') }} <i class="fas fa-percent"></i>
+            </div>
+          </div>
+       </div>        
+      </div>
+      <div class="col-sm-4 no-padding widget-chart-container">
+          <div class="currency-page-main-chart"> 
+            <ngx-charts-line-chart *ngIf="mainCurrencyChartDataRes; else loading"
+              [view]="ngxChartOptions.view"
+              [scheme]="ngxChartOptions.colorScheme"
+              [results]="[{ name: 'EOS_USD', series: mainCurrencyChartDataRes || [{name: '0', value: 1}] }]"
+              [gradient]="ngxChartOptions.gradient"
+              [xAxis]="ngxChartOptions.showXAxis"
+              [yAxis]="ngxChartOptions.showYAxis"
+              [legend]="ngxChartOptions.showLegend"
+              [showXAxisLabel]="ngxChartOptions.showXAxisLabel"
+              [showYAxisLabel]="ngxChartOptions.showYAxisLabel"
+              [xAxisLabel]="ngxChartOptions.xAxisLabel"
+              [yAxisLabel]="ngxChartOptions.yAxisLabel"
+              [autoScale]="ngxChartOptions.autoScale"
+              [curve]="curve">
+            </ngx-charts-line-chart> 
+            <ng-template #loading> <div class="loading-charts"></div> </ng-template>
+          </div>        
+      </div> 
+    </div>
+
+    <div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline">
+       <div class="color-grey-text">eth - usd</div>
+       <div class="chart-child-container-dollar">
+          <div class="pull-left"><i class="fas fa-dollar-sign"></i> {{ currencyObj?.ETH_USD?.price.toFixed(2) }}</div>
+          <div class="pull-right chart-child-container-change"> 
+            <div class="color-green" [ngClass]="{'color-red': currencyObj?.ETH_USD?.change < 0}">
+            <i class="material-icons">{{ (currencyObj?.ETH_USD?.change < 0) ? 'arrow_drop_down' : 'keyboard_arrow_up' }}</i>
+          {{ (currencyObj?.ETH_USD?.change.toFixed(2) + '').replace('-', '') }} <i class="fas fa-percent"></i></div>
+          </div>
+       </div>
+    </div>
+
+    <div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline">
+       <div class="color-grey-text">ltc - usd</div>
+       <div class="chart-child-container-dollar">
+          <div class="pull-left"><i class="fas fa-dollar-sign"></i> {{ currencyObj?.LTC_USD?.price.toFixed(2) }}</div>
+          <div class="pull-right chart-child-container-change"> 
+            <div class="color-green" [ngClass]="{'color-red': currencyObj?.LTC_USD?.change < 0}">
+            <i class="material-icons">{{ (currencyObj?.LTC_USD?.change < 0) ? 'arrow_drop_down' : 'keyboard_arrow_up' }}</i>
+          {{ (currencyObj?.LTC_USD?.change.toFixed(2) + '').replace('-', '') }} <i class="fas fa-percent"></i></div>
+          </div>
+       </div> 
+    </div>  
+
+    <div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline">
+       <div class="color-grey-text">XRP - usd</div> 
+       <div class="chart-child-container-dollar">
+          <div class="pull-left"><i class="fas fa-dollar-sign"></i> {{ currencyObj?.XRP_USD?.price.toFixed(2) }}</div>
+          <div class="pull-right chart-child-container-change"> 
+            <div class="color-green" [ngClass]="{'color-red': currencyObj?.XRP_USD?.change < 0}">
+            <i class="material-icons">{{ (currencyObj?.XRP_USD?.change < 0) ? 'arrow_drop_down' : 'keyboard_arrow_up' }}</i>
+          {{ (currencyObj?.XRP_USD?.change.toFixed(2) + '').replace('-', '') }} <i class="fas fa-percent"></i></div>
+          </div>
+       </div> 
+    </div> 
+
+    <div class="col-sm-2 chart-child-container customize-container grid-cs-5-inline">
+      <a class="customize-button text-center"> 
+        <div class="custom-widget-title"><span class="customize">Customize</span> widgets <i class="far fa-question-circle"></i></div>
+        <div class="learn-more">Learn more <i class="fas fa-chevron-right"></i></div>
+      </a>
+    </div>   
+</div>
+</div>
+</div>
+
+

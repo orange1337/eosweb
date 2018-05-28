@@ -20,7 +20,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 //import { AuthService } from './services/auth.service';
 
 import { MainPageModule } from './pages/main_page/main_page.module';
-
+import { MainTcustomizeModule } from './components/main_customize_charts/main_tcustomize.module';
 
 
 @NgModule({
@@ -39,7 +39,7 @@ import { MainPageModule } from './pages/main_page/main_page.module';
     MatInputModule,
     MatMenuModule,
     MatSelectModule,
-    //MainTcustomizeModule,
+    MainTcustomizeModule,
     SimpleNotificationsModule.forRoot(),
     MainPageModule
   ],
