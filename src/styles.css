@@ -43,6 +43,7 @@ body{
 }
 .color-green{
 	color: #71d479 !important;
+	text-decoration: none;
 }
 .color-red{
 	color: #e36956 !important;
@@ -70,6 +71,7 @@ body{
 .market-header{
 	font-family: 'ClanProNews';
 	color: #23232a;
+	margin-top: 40px;
 }
 .coin-page-header .mat-header-row, .mat-row{
 	min-height: 70px !important;

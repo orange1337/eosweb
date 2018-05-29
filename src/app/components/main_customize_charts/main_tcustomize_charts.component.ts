@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Socket } from 'ng-socket-io';
 import * as shape from 'd3-shape';
 
 @Component({
@@ -26,8 +27,9 @@ export class MainCustomizeChartsComponent implements OnInit{
       autoScale : true,
   }; 
   curve = shape.curveBasis;
+  blockchainData;
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient, private socket: Socket){}
 
   getData() {
         this.http.get('https://min-api.cryptocompare.com/data/pricemultifull?fsyms=EOS&tsyms=USD')
@@ -51,6 +53,17 @@ export class MainCustomizeChartsComponent implements OnInit{
                       });
   }
 
+  getBlockchainData(){
+        this.http.get('/api/v1/get_info')
+                  .subscribe(
+                      (res: any) => {
+                           this.blockchainData = res;
+                      },
+                      (error) => {
+                          console.error(error);
+                      });
+  }
+
   createChartArr(data){
     let result = [];
       data.forEach(elem => {
@@ -62,5 +75,10 @@ export class MainCustomizeChartsComponent implements OnInit{
   ngOnInit() {
       this.getData();
       this.getChart();
+      this.getBlockchainData();
+
+      this.socket.on('get_info', res => {
+          this.blockchainData = res;
+      });
   }
 }

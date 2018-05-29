@@ -1,13 +1,11 @@
 /*
 * Created by Rost
 */
-const EOS 		= require('eosjs');
 
-//const wif 	= '5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3';
-//const pubkey 	= 'EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV';
-const eos 		= EOS.Localnet();
+const async = require('async');
+const customFunctions = require('./eos.api.v1.custom');
 
-module.exports 	= function(router, config, request, log) {
+module.exports 	= function(router, config, request, log, eos) {
 
     //============ HISTORY API
 	/*
@@ -23,6 +21,25 @@ module.exports 	= function(router, config, request, log) {
 	   	 		log.error(err);
 	   	 		res.status(501).end();
 	   	 	});
+	});
+
+    /*
+	* router - get_last_blocks
+	* params - offset (number of last blocks you want to get)
+	*/
+	router.get('/api/v1/get_last_blocks/:offset', (req, res) => {
+		let elements = [];
+		let offset = req.params.offset;
+		for(let i = 0; i <= offset; i++){
+			elements.push(i);
+		}
+		customFunctions.getLastBlocks(eos, elements, (err, result) => {
+				if (err){
+					log.error(err);
+					return res.status(501).end();
+				}
+				res.json(result);
+		});
 	});
 
 	/*
@@ -49,13 +66,37 @@ module.exports 	= function(router, config, request, log) {
 	* params - transaction_id_type
 	*/
 	router.get('/api/v1/get_transaction/:transaction_id_type', (req, res) => {
-	   	 eos.getInfo({ transaction_id_type: req.params.transaction_id_type })
+	   	 eos.getTransaction({ transaction_id_type: req.params.transaction_id_type })
 	   	 	.then(result => {
 	   	 		res.json(result);
 	   	 	})
 	   	 	.catch(err => {
 	   	 		log.error(err);
 	   	 		res.status(501).end();
+	   	 	});
+	});
+
+	/*
+	* router - get_transactions
+	* params - transaction_id_type
+	*/
+	router.get('/api/v1/get_transactions', (req, res) => {
+	   	 eos.getTransaction({})
+	   	 	.then(result => {
+	   	 		res.json(result);
+	   	 	})
+	   	 	.catch(err => {
+	   	 		log.error(err);
+	   	 		res.status(501).end();
+	   	 	});
+
+	   	 	eos.getAccount({account_name: "eosio"})
+	   	 	.then(result => {
+	   	 		log.info(result);
+	   	 	})
+	   	 	.catch(err => {
+	   	 		log.error(err);
+	   	 		//res.status(501).end();
 	   	 	});
 	});
 
@@ -98,7 +139,6 @@ module.exports 	= function(router, config, request, log) {
 
 // ============== END of exports 
 };
-
 
 
 

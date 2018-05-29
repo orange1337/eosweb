@@ -4,7 +4,6 @@
   min-width: 300px;
 }
 .main-table{
-	margin-top: 50px;
 	position: relative;
 	min-height: 300px;
 	box-shadow: none;
@@ -23,10 +22,11 @@
 	overflow: inherit !important;
 }
 .main-table .mat-row{
-	min-height: 85px !important;
-	border-bottom: 0px solid #f4f4f4;
-	margin-bottom: 5px;
-	box-shadow: 2px 4px 2px #f4f4f4;
+    min-height: 60px !important;
+    border-bottom: 0px solid #f4f4f4;
+    margin-bottom: 5px;
+    -webkit-box-shadow: 2px 4px 2px #f4f4f4;
+    box-shadow: 1px 1px 1px #f4f4f4;
 }
 .marketcap-container{
 	color: #9f9fa1;
@@ -116,5 +116,12 @@
 }
 .high_low_text{
 	font-size: 14px;
+}
+.tx-hash{
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100px;
+    display: block;
 }
 

@@ -21,7 +21,15 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { MainPageModule } from './pages/main_page/main_page.module';
 import { MainTcustomizeModule } from './components/main_customize_charts/main_tcustomize.module';
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 
+const socketConfig: SocketIoConfig = { url: '/', options: {
+    autoConnect: true,
+    reconnection: true,
+    reconnectionDelay: 1000,
+    reconnectionDelayMax : 5000,
+    reconnectionAttempts: 5
+}};
 
 @NgModule({
   declarations: [
@@ -41,6 +49,7 @@ import { MainTcustomizeModule } from './components/main_customize_charts/main_tc
     MatSelectModule,
     MainTcustomizeModule,
     SimpleNotificationsModule.forRoot(),
+    SocketIoModule.forRoot(socketConfig),
     MainPageModule
   ],
   providers: [appRoutingProviders],

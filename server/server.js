@@ -10,6 +10,9 @@ const async			    = require('async');
 //const mongoose      = require("mongoose");
 const config      = require('../config');
 
+const EOS     = require('eosjs');
+const eos     = EOS.Localnet();
+
 const log4js = require('log4js');
 log4js.configure(config.logger);
 const log         = log4js.getLogger('server');
@@ -55,10 +58,10 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 //========= socket io connection
-/*const io  = require('socket.io').listen(server);
-const jwt = require('jwt-simple');
+const io  = require('socket.io').listen(server);
+//const jwt = require('jwt-simple');
 
-io.use(function(socket, next){
+/*io.use(function(socket, next){
   let payload;
     if (socket.handshake.query.token != 'null'){
       let error = false;
@@ -71,20 +74,20 @@ io.use(function(socket, next){
     } else {
       next(new Error('Not authorized!'));
     }
-});
+});*/
 
 
-//require('./sockets/main.socket')(io);
+require('./api/eos.api.v1.socket')(io, eos);
 
 app.use(function(req,res,next){
   req.io = io;
   next();
-});*/
+});
 //========= end of socket io connection
 
 app.use(express.static(path.join(__dirname, '../dist')));
 require('./router/main.router')(app, config, request, log);
-require(`./api/eos.api.${config.apiV}`)(app, config, request, log);
+require(`./api/eos.api.${config.apiV}`)(app, config, request, log, eos);
 
 // ========== cron tasks
 //require('./crons/main.cron')();
