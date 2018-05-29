@@ -1,0 +1,33 @@
+<div class="container">
+	<h1 class="market-header">Block {{ mainData?.block_num }}</h1>
+
+	<div class="block-info">
+			
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">Hash:</strong>
+				</div>
+				<div class="col-sm-9">
+					<small>{{ mainData?.id}}</small>
+				</div>
+			</div>
+			
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">Confirmed:</strong>
+				</div>
+				<div class="col-sm-9">
+					<small>{{ mainData?.confirmed  }}</small>
+				</div>
+			</div>	
+
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">Action Mroot:</strong>
+				</div>
+				<div class="col-sm-9">
+					<small>{{ mainData?.action_mroot  }}</small>
+				</div>
+			</div>
+	</div>
+</div>

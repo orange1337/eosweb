@@ -1,0 +1,12 @@
+small{
+	color: #9f9fa1;
+}
+.block-info-line{
+	border-top: 1px solid #fafafa;
+	padding-top: 10px;
+	margin-top: 5px;
+}
+.block-info-header{
+	font-size: 13px;
+	-webkit-font-smoothing: auto;
+}

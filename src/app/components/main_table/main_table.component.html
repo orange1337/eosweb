@@ -18,7 +18,7 @@
     <ng-container matColumnDef="Hash">
       <mat-header-cell *matHeaderCellDef> Hash </mat-header-cell>
       <mat-cell *matCellDef="let element" class="marketcap-container">
-          <a href="" class="color-green tx-hash">{{ element?.id }}</a>
+          <a [routerLink]="['/block', element?.id ]" class="color-green tx-hash">{{ element?.id }}</a>
        </mat-cell>
     </ng-container>
     

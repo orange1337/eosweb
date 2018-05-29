@@ -123,5 +123,6 @@
     text-overflow: ellipsis;
     width: 100px;
     display: block;
+    cursor: pointer;
 }
 

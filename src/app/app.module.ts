@@ -20,6 +20,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 //import { AuthService } from './services/auth.service';
 
 import { MainPageModule } from './pages/main_page/main_page.module';
+import { BlockPageModule } from './pages/block/block.module';
 import { MainTcustomizeModule } from './components/main_customize_charts/main_tcustomize.module';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 
@@ -50,7 +51,8 @@ const socketConfig: SocketIoConfig = { url: '/', options: {
     MainTcustomizeModule,
     SimpleNotificationsModule.forRoot(),
     SocketIoModule.forRoot(socketConfig),
-    MainPageModule
+    MainPageModule,
+    BlockPageModule
   ],
   providers: [appRoutingProviders],
   bootstrap: [AppComponent]
