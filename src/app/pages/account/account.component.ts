@@ -4,12 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'block-page',
-  templateUrl: './block.component.html',
-  styleUrls: ['./block.component.css']
+  selector: 'account-page',
+  templateUrl: './account.component.html',
+  styleUrls: ['./account.component.css']
 })
-export class BlockPageComponent implements OnInit, OnDestroy{
-  blockId;
+export class AccountPageComponent implements OnInit, OnDestroy{
+  accountId;
   block;
   mainData;
   moment = moment;
@@ -17,12 +17,12 @@ export class BlockPageComponent implements OnInit, OnDestroy{
 
   constructor(private route: ActivatedRoute, protected http: HttpClient){}
 
-  getBlockData(blockId){
-  		this.http.get(`/api/v1/get_block/${blockId}`)
+  getBlockData(accountId){
+  		this.http.get(`/api/v1/get_account/${accountId}`)
   				 .subscribe(
                       (res: any) => {
                           this.mainData = res;
-                          this.time = this.moment(this.mainData.timestamp).format('MMMM Do YYYY, h:mm:ss a');
+                          this.time = this.moment(this.mainData.created).format('MMMM Do YYYY, h:mm:ss a');
                       },
                       (error) => {
                           console.error(error);
@@ -31,8 +31,8 @@ export class BlockPageComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
     this.block = this.route.params.subscribe(params => {
-       this.blockId = params['id'];
-       this.getBlockData(this.blockId);
+       this.accountId = params['id'];
+       this.getBlockData(this.accountId);
     });
   }
 

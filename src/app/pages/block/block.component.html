@@ -1,14 +1,32 @@
 <div class="container">
-	<h1 class="market-header">Block {{ mainData?.block_num }}</h1>
+	<h1 class="market-header">Block  No. {{ mainData?.block_num }}</h1>
 
 	<div class="block-info">
-			
+
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">Producer:</strong>
+				</div>
+				<div class="col-sm-9">
+					<small><a [routerLink]="['/account', mainData?.producer ]" class="color-green">{{ mainData?.producer }}</a></small>
+				</div>
+			</div>
+
 			<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
 					<strong class="block-info-header">Hash:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small>{{ mainData?.id}}</small>
+					<small class="color-grey">{{ mainData?.id}}</small>
+				</div>
+			</div>
+
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">Previous:</strong>
+				</div>
+				<div class="col-sm-9">
+					<small>{{ mainData?.previous  }}</small>
 				</div>
 			</div>
 			
@@ -17,7 +35,7 @@
 					<strong class="block-info-header">Confirmed:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small>{{ mainData?.confirmed  }}</small>
+					<small class="color-grey">{{ mainData?.confirmed  }}</small>
 				</div>
 			</div>	
 
@@ -27,6 +45,33 @@
 				</div>
 				<div class="col-sm-9">
 					<small>{{ mainData?.action_mroot  }}</small>
+				</div>
+			</div>
+
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">Transaction Mroot:</strong>
+				</div>
+				<div class="col-sm-9">
+					<small>{{ mainData?.transaction_mroot  }}</small>
+				</div>
+			</div>
+
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">Time:</strong>
+				</div>
+				<div class="col-sm-9">
+					<small class="color-grey">{{ time }}</small>
+				</div>
+			</div>
+			
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">Transactions:</strong>
+				</div>
+				<div class="col-sm-9">
+					<small class="color-grey">{{ mainData?.transactions.length }}</small>
 				</div>
 			</div>
 	</div>

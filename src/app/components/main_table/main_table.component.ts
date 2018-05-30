@@ -40,6 +40,7 @@ export class MainTableComponent implements OnInit{
   displayedColumns = ['Number', 'Hash', 'Transactions', 'Producer', 'Time'];
   displayedColumnsTx = ['Hash', 'Number', 'Transactions', 'Producer', 'Time'];
   dataSource;
+  dataSourceTrx;
   moment = moment;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

@@ -124,7 +124,7 @@ module.exports 	= function(router, config, request, log, eos) {
 	router.get('/api/v1/get_currency_stats/:code/:symbol', (req, res) => {
 	   	 eos.getCurrencyStats({
 	   	 		//code: `${req.params.code}`,
-	   	 		symbol: `${req.params.symbol}`
+	   	 		symbol: req.params.symbol
 	   	 	})
 	   	 	.then(result => {
 	   	 		res.json(result);
@@ -134,10 +134,48 @@ module.exports 	= function(router, config, request, log, eos) {
 	   	 		res.status(501).end();
 	   	 	});
 	});
-
 	//============ END of CHAIN API
 
-// ============== END of exports 
+	//============ Account API
+	/*
+	* router - get_account
+	* params - name
+	*/
+	router.get('/api/v1/get_account/:name', (req, res) => {
+	   	 eos.getAccount({
+	   	 		account_name: req.params.name
+	   	 	})
+	   	 	.then(result => {
+	   	 		res.json(result);
+	   	 	})
+	   	 	.catch(err => {
+	   	 		log.error(err);
+	   	 		res.status(501).end();
+	   	 	});
+	});
+	//============ END of Account API
+
+	//============ Prod API
+	/*
+	* router - get_account
+	* params - name
+	*/
+	router.get('/api/v1/get_currency_stats/:code/:symbol', (req, res) => {
+	   	 eos.getAccount({
+	   	 		code: req.params.code,
+	   	 		//symbol: req.params.symbol
+	   	 	})
+	   	 	.then(result => {
+	   	 		res.json(result);
+	   	 	})
+	   	 	.catch(err => {
+	   	 		log.error(err);
+	   	 		res.status(501).end();
+	   	 	});
+	});
+	//============ END of Account API
+
+// ============== end of exports 
 };
 
 

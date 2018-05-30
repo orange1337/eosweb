@@ -1,0 +1,70 @@
+<div class="container">
+	<h1 class="market-header">Account {{ mainData?.account_name }}</h1>
+
+	<div class="block-info">
+
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">Key:</strong>
+				</div>
+				<div class="col-sm-9">
+					<small class="color-grey">{{ mainData?.permissions[0]?.required_auth?.keys[0]?.key  }}</small>
+				</div>
+			</div>
+
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">Privileged:</strong>
+				</div>
+				<div class="col-sm-9">
+					<small>{{ mainData?.privileged }}</small>
+				</div>
+			</div>
+
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">Ram Usage:</strong>
+				</div>
+				<div class="col-sm-9">
+					<small>{{ mainData?.ram_usage }}</small>
+				</div>
+			</div>
+			
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">Total Resources:</strong>
+				</div>
+				<div class="col-sm-9">
+					<small>{{ mainData?.total_resources  || 'No information' }}</small>
+				</div>
+			</div>	
+
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">Delegated Bandwidth:</strong>
+				</div>
+				<div class="col-sm-9">
+					<small>{{ mainData?.delegated_bandwidth || 'No information'  }}</small>
+				</div>
+			</div>
+
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">Voter Info:</strong>
+				</div>
+				<div class="col-sm-9">
+					<small>{{ mainData?.voter_info || 'No information' }}</small>
+				</div>
+			</div>
+
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">Created:</strong>
+				</div>
+				<div class="col-sm-9">
+					<small class="color-grey">{{ time }}</small>
+				</div>
+			</div>
+			
+	</div>
+</div>

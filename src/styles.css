@@ -32,6 +32,9 @@ body{
 	padding-bottom: 200px;
 	-webkit-font-smoothing: antialiased;
 }
+a{
+	cursor: pointer;
+}
 .text-center{
 	text-align: center !important;
 }
@@ -43,6 +46,10 @@ body{
 }
 .color-green{
 	color: #71d479 !important;
+	text-decoration: none;
+}
+.color-grey{
+	color: #333 !important;
 	text-decoration: none;
 }
 .color-red{
@@ -223,7 +230,19 @@ body{
 }
  End Customize notify messages */
 
-
+small{
+	color: #9f9fa1;
+}
+.block-info-line{
+	border-top: 1px solid #fafafa;
+	padding-top: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.block-info-header{
+	font-size: 13px;
+	-webkit-font-smoothing: auto;
+}
 
 
 
