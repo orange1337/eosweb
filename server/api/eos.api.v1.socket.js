@@ -37,7 +37,7 @@ module.exports = function(io, eos){
     }, updateTime.blocks);
 
     socket.on('disconnect', () => {
-       log.info('disconnect');
+       //log.info('disconnect');
     });
   
   //====== connection end   

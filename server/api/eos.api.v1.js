@@ -66,7 +66,7 @@ module.exports 	= function(router, config, request, log, eos) {
 	* params - transaction_id_type
 	*/
 	router.get('/api/v1/get_transaction/:transaction_id_type', (req, res) => {
-	   	 eos.getTransaction({ transaction_id_type: req.params.transaction_id_type })
+	   	 eos.getTransaction({ id: req.params.transaction_id_type })
 	   	 	.then(result => {
 	   	 		res.json(result);
 	   	 	})

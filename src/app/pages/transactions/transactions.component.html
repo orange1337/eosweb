@@ -1,5 +1,5 @@
 <div class="container">
-	<h1 class="market-header">Block  No. {{ mainData?.block_num }}</h1>
+	<h1 class="market-header">Transaction  No. {{ mainData?.block_num }}</h1>
 
 	<div class="block-info">
 
@@ -23,10 +23,10 @@
 
 			<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
-					<strong class="block-info-header">Previous:</strong>
+					<strong class="block-info-header">Last irreversible block:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small>{{ mainData?.previous  }}</small>
+					<small>{{ mainData?.last_irreversible_block  }}</small>
 				</div>
 			</div>
 			
@@ -41,25 +41,7 @@
 
 			<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
-					<strong class="block-info-header">Action Mroot:</strong>
-				</div>
-				<div class="col-sm-9">
-					<small>{{ mainData?.action_mroot  }}</small>
-				</div>
-			</div>
-
-			<div class="col-sm-12 block-info-line">
-				<div class="col-sm-3">
-					<strong class="block-info-header">Transaction Mroot:</strong>
-				</div>
-				<div class="col-sm-9">
-					<small>{{ mainData?.transaction_mroot  }}</small>
-				</div>
-			</div>
-
-			<div class="col-sm-12 block-info-line">
-				<div class="col-sm-3">
-					<strong class="block-info-header">Time:</strong>
+					<strong class="block-info-header">Block Time:</strong>
 				</div>
 				<div class="col-sm-9">
 					<small class="color-grey">{{ time }}</small>
@@ -68,10 +50,10 @@
 			
 			<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
-					<strong class="block-info-header">Transactions:</strong>
+					<strong class="block-info-header">Trx:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small class="color-grey">{{ mainData?.transactions.length }}</small>
+					<small class="color-grey">{{ mainData?.trx }}</small>
 				</div>
 			</div>
 
@@ -150,7 +132,7 @@
 											<strong>{{ action?.data?.creator }}</strong>
 										</a>
 									</div>
-									<div class="col-sm-9 actions-list">
+									<div class="col-sm-8 actions-list">
 										Name: <a [routerLink]="['/account', action?.data?.to ]" class="color-green">
 											<strong>{{ action?.data?.name }}</strong>
 										</a>

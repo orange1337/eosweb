@@ -98,10 +98,17 @@ app.use(function(req,res,next){
 });
 //========= end of socket io connection
 
+
+
+
 app.use(express.static(path.join(__dirname, '../dist')));
+
 require('./router/main.router')(app, config, request, log);
 require(`./api/eos.api.${config.apiV}`)(app, config, request, log, eos);
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
 // ========== cron tasks
 //require('./crons/main.cron')();
 

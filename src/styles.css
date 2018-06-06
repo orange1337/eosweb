@@ -244,9 +244,152 @@ small{
 	-webkit-font-smoothing: auto;
 }
 
+/* Table style */
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+.main-table{
+	position: relative;
+	min-height: 300px;
+	box-shadow: none;
+	font-family: 'ClanProNews';
+	font-weight: 400;
+}
+.main-table .mat-header-row{
+	background-color: #f1f1f2;
+	border: none;
+}
+.main-table .mat-header-cell{
+	color: #89898f;
+	font-family: 'ClanProNews';
+}
+.main-table .mat-cell, .main-table .mat-header-cell{
+	overflow: inherit !important;
+}
+.main-table .mat-row{
+    min-height: 60px !important;
+    border-bottom: 0px solid #f4f4f4;
+    margin-bottom: 5px;
+    -webkit-box-shadow: 2px 4px 2px #f4f4f4;
+    box-shadow: 1px 1px 1px #f4f4f4;
+}
+.marketcap-container{
+	color: #9f9fa1;
+	font-size: 15px;
+}
+.color-light-grey{
+	color: #9f9fa1;
+}
+.volume-coins-container{
+	margin-top: 5px;
+}
 
+.material-icons{
+	font-size: 15px;
+    padding-top: 1px;
+    padding-right: 2px;
+    float: left;
+    display: table;
+}
+.fa-percent{
+    font-size: 11px;
+}
+.change-container div{
+	display: table;
+	font-size: 14px;
+}
 
+.main-table-volume{
+	width: 80%;
+	text-align: right;
+}
+.main-spinner{
+	width: 100%;
+	background-color: rgba(255, 255, 255, 0.8);
+	height: 100% !important;
+	position: absolute;
+	top: 0%;
+	height: 0%;
+	z-index: 1000;
+}
+.main-spinner .mat-spinner{
+	margin: 100px auto;
+}
+.example-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+.crypto-img{
+	margin-right: 5px;
+}
+.currency-index{
+	margin-right: 5px;
+	width: 23px;
+	display: table;
+	float: left;
+}
+.change_green{
+	color: #1f9575;
+}
+.change_red{
+	color: #e95f47;
+}
+.highcharts-credits{
+	display: none !important;
+}
+.loading-charts{
+	background-color: #fafafa;
+	height: 50px;
+	width: 100%;
+}
+.custom-coin-link{
+	color: #313335;
+    text-decoration: none;
+    font-family: ClanProNews;
+    font-size: 17px;
+    font-weight: bold;
+}
+.custom-coin-link:hover{
+	text-decoration: underline;
+}
+.high-trend{
+	margin-bottom: 5px;
+}
+.high_low_text{
+	font-size: 14px;
+}
+.tx-hash{
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100px;
+    display: block;
+    cursor: pointer;
+}
 
+.block-trx-table{
+	margin-top: 20px;
+}
+.block-trx-table .mat-header-row{
+	min-height: 40px;
+}
+.actions-list{
+    display: block;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    min-height: 40px;
+    border-bottom: 1px solid #f1f1f2;
+}
+.actions-list-container{
+	width: 533px;
+	flex: 4 !important;
+}
 
 
 

@@ -5,12 +5,12 @@ import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'block-page',
-  templateUrl: './block.component.html',
-  styleUrls: ['./block.component.css']
+  selector: 'transactions-page',
+  templateUrl: './transactions.component.html',
+  styleUrls: ['./transactions.component.css']
 })
-export class BlockPageComponent implements OnInit, OnDestroy{
-  blockId;
+export class TransactionPageComponent implements OnInit, OnDestroy{
+  transactionId;
   block;
   mainData;
   moment = moment;
@@ -23,12 +23,12 @@ export class BlockPageComponent implements OnInit, OnDestroy{
 
   constructor(private route: ActivatedRoute, protected http: HttpClient){}
 
-  getBlockData(blockId){
-  		this.http.get(`/api/v1/get_block/${blockId}`)
+  getBlockData(transactionId){
+  		this.http.get(`/api/v1/get_transaction/${transactionId}`)
   				 .subscribe(
                       (res: any) => {
                           this.mainData = res;
-                          this.time = this.moment(this.mainData.timestamp).format('MMMM Do YYYY, h:mm:ss a');
+                          this.time = this.moment(this.mainData.block_time).format('MMMM Do YYYY, h:mm:ss a');
                           if (this.mainData.transactions && this.mainData.transactions.length){
                               this.trxArr = this.createTransactionsArray(this.mainData.transactions);
                               
@@ -37,7 +37,7 @@ export class BlockPageComponent implements OnInit, OnDestroy{
                               this.dataSource.paginator = this.paginator;
                               this.dataSource.sort = this.sort;
 
-                              //console.log(this.trxArr);
+                              console.log(this.trxArr);
                           }
                       },
                       (error) => {
@@ -62,8 +62,8 @@ export class BlockPageComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
     this.block = this.route.params.subscribe(params => {
-       this.blockId = params['id'];
-       this.getBlockData(this.blockId);
+       this.transactionId = params['id'];
+       this.getBlockData(this.transactionId);
     });
   }
 
