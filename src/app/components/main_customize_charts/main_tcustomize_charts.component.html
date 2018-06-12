@@ -46,21 +46,21 @@
     <div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline">
        <div class="color-grey-text">Transactions</div>
        <div class="chart-child-container-dollar">
-          <div class="pull-left color-green"> 1 880 147</div>
+          <div class="pull-left color-green"> {{ aggragationData?.transactions.toLocaleString() }}</div>
        </div> 
     </div>  
 
-    <div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline">
+    <!--<div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline">
        <div class="color-grey-text">Accounts</div> 
        <div class="chart-child-container-dollar">
-          <div class="pull-left color-green"> 5 157 016</div>
+          <div class="pull-left color-green"> {{ aggragationData?.accounts.toLocaleString() }}</div>
        </div> 
-    </div> 
+    </div>-->
 
     <div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline">
-       <div class="color-grey-text">Messages</div> 
+       <div class="color-grey-text">Actions</div> 
        <div class="chart-child-container-dollar">
-          <div class="pull-left color-green"> 1 885 865</div>
+          <div class="pull-left color-green"> {{ aggragationData?.actions.toLocaleString() }} </div>
        </div> 
     </div> 
 

@@ -5,7 +5,9 @@
 const async = require('async');
 const customFunctions = require('./eos.api.v1.custom');
 
-module.exports 	= function(router, config, request, log, eos) {
+module.exports 	= function(router, config, request, log, eos, mongoMain) {
+
+	const STATS_AGGR = require('../models/api.stats.model')(mongoMain);
 
     //============ HISTORY API
 	/*
@@ -39,6 +41,19 @@ module.exports 	= function(router, config, request, log, eos) {
 					return res.status(501).end();
 				}
 				res.json(result);
+		});
+	});
+
+    /*
+	* router - get_aggregation_stat
+	*/
+	router.get('/api/v1/get_aggregation_stat', (req, res) => {
+		STATS_AGGR.findOne({}, (err, result) => {
+			if (err){
+				log.error(err);
+				return res.status(501).end();
+			}
+			res.json(result);
 		});
 	});
 

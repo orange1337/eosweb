@@ -5,7 +5,7 @@
 
 <div class="example-container mat-elevation-z8 main-table">
 
-  <mat-table #table [dataSource]="dataSource" matSort>
+  <mat-table #table [dataSource]="dataSource">
 
     <ng-container matColumnDef="Number">
       <mat-header-cell *matHeaderCellDef> Number </mat-header-cell>
@@ -61,27 +61,29 @@
 <h1 class="market-header">Transactions</h1>
 <div class="example-container mat-elevation-z8 main-table">
 
-  <mat-table #table [dataSource]="dataSourceTrx" matSort>
+  <mat-table #table [dataSource]="dataSourceTrx">
     
     <!-- Name Column -->
-    <ng-container matColumnDef="Hash">
-      <mat-header-cell *matHeaderCellDef> Tx Hash </mat-header-cell>
-      <mat-cell *matCellDef="let element" class="marketcap-container">
-          <a href="" class="color-green tx-hash">{{ element?.id }}</a>
-       </mat-cell>
-    </ng-container>
-
     <ng-container matColumnDef="Number">
       <mat-header-cell *matHeaderCellDef> Block Number </mat-header-cell>
       <mat-cell *matCellDef="let element; let i = index">
-          <a href="" class="color-green"><strong>{{ element?.block_num.toLocaleString() }}</strong></a>
+          <a [routerLink]="['/block', element?.block_num ]" class="color-green tx-hash"><strong>{{ element?.block_num.toLocaleString() }}</strong></a>
       </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Hash">
+      <mat-header-cell *matHeaderCellDef> Tx Hash </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="marketcap-container">
+          <a [routerLink]="['/block', element?.transaction_mroot ]" class="color-green tx-hash">
+            {{ element?.transaction_mroot }}
+          </a>
+       </mat-cell>
     </ng-container>
     
     <ng-container matColumnDef="Transactions">
-      <mat-header-cell *matHeaderCellDef> Amount</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> TRX </mat-header-cell>
       <mat-cell *matCellDef="let element" class="text-center"> 
-             <strong>{{element?.transactions.length}} EOS</strong>
+             <strong>{{element?.transactions.length}}</strong>
       </mat-cell>
     </ng-container>
 
@@ -89,7 +91,7 @@
     <ng-container matColumnDef="Producer">
       <mat-header-cell *matHeaderCellDef> Producer </mat-header-cell>
       <mat-cell *matCellDef="let element" class="color-light-grey"> 
-          {{element?.producer.toUpperCase()}}
+          {{ element?.producer }}
       </mat-cell>
     </ng-container>
 

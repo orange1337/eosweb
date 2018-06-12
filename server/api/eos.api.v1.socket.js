@@ -7,19 +7,19 @@ log4js.configure(config.logger);
 const log    = log4js.getLogger('socket_io');
 
 const updateTime = {
-    blocks: 5000
+    blocks: config.blockUpdateTime
 };
 
-module.exports = function(io, eos){
+module.exports = function(io, eos, mongoMain){
+
+  const STATS_AGGR = require('../models/api.stats.model')(mongoMain);
+
   io.sockets.on('connection',  (socket) => {
 
-    let elements = [];
-    let offset = 20;
-    for(let i = 0; i <= offset; i++){
-        elements.push(i);
-    }
+    let offset = config.offsetElementsOnMainpage;
+    let elements = Array.from({ length: offset }, (v, k) => k++);
 
-    setInterval( () => {
+    setInterval(() => {
         eos.getInfo({})
             .then(result => {
               socket.emit('get_info', result);
@@ -27,14 +27,25 @@ module.exports = function(io, eos){
             .catch(err => {
               log.error(err);
             });
+
         customFunctions.getLastBlocks(eos, elements, (err, result) => {
             if (err){
-              log.error(err);
-              return res.status(501).end();
+              return log.error(err);
             }
             socket.emit('get_last_blocks', result);
         });
+
+        STATS_AGGR.findOne({}, (err, result) => {
+            if (err){
+              return log.error(err);
+            }
+            socket.emit('get_aggregation', result);
+        });
     }, updateTime.blocks);
+
+    // ======== aggragation stat
+    customFunctions.getStatAggregation(eos, STATS_AGGR);
+    // ======== end of aggragation stat
 
     socket.on('disconnect', () => {
        //log.info('disconnect');

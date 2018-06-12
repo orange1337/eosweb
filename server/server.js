@@ -7,7 +7,7 @@ const helmet        = require('helmet');
 const compression   = require('compression');
 const request       = require('request');
 const async			    = require('async');
-//const mongoose      = require("mongoose");
+const mongoose      = require("mongoose");
 const config      = require('../config');
 
 const EOS     = require('eosjs');
@@ -35,16 +35,16 @@ process.on('uncaughtException', (err) => {
     log.error('======= UncaughtException Main Server : ', err);
 });
 
-//mongoose.Promise = global.Promise;
+mongoose.Promise = global.Promise;
 
-/*const mongoMain = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTIONS,
- function(err){
+const mongoMain = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTIONS,
+ (err) => {
     if (err){
       log.error(err);
       process.exit(1);
     }
     log.info('[Connected to Mongo EOS] : 27017');
-  });*/
+});
 
 const app = express();
 
@@ -90,7 +90,7 @@ const io  = require('socket.io').listen(server);
 });*/
 
 
-require('./api/eos.api.v1.socket')(io, eos);
+require('./api/eos.api.v1.socket')(io, eos, mongoMain);
 
 app.use(function(req,res,next){
   req.io = io;
@@ -104,7 +104,7 @@ app.use(function(req,res,next){
 app.use(express.static(path.join(__dirname, '../dist')));
 
 require('./router/main.router')(app, config, request, log);
-require(`./api/eos.api.${config.apiV}`)(app, config, request, log, eos);
+require(`./api/eos.api.${config.apiV}`)(app, config, request, log, eos, mongoMain);
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../dist/index.html'));

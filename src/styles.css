@@ -229,6 +229,14 @@ a{
 	background-color: #71d479 !important;
 }
  End Customize notify messages */
+.telegram-button{
+	font-size: 18px !important;
+	padding: 6px 40px 6px 15px !important;
+}
+.telegram-button:hover{
+	background: rgba(0,0,0,0) !important;
+	color: #6de29a !important;
+}
 
 small{
 	color: #9f9fa1;
@@ -387,8 +395,8 @@ small{
     border-bottom: 1px solid #f1f1f2;
 }
 .actions-list-container{
-	width: 533px;
-	flex: 4 !important;
+	width: 600px;
+	flex: 5 !important;
 }
 
 

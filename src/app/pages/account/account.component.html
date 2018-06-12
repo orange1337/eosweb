@@ -1,16 +1,7 @@
 <div class="container">
-	<h1 class="market-header">Account {{ mainData?.account_name }}</h1>
+	<h1 class="market-header">Account ({{ mainData?.account_name }})</h1>
 
 	<div class="block-info">
-
-			<div class="col-sm-12 block-info-line">
-				<div class="col-sm-3">
-					<strong class="block-info-header">Key:</strong>
-				</div>
-				<div class="col-sm-9">
-					<small class="color-grey">{{ mainData?.permissions[0]?.required_auth?.keys[0]?.key  }}</small>
-				</div>
-			</div>
 
 			<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
@@ -23,19 +14,53 @@
 
 			<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
-					<strong class="block-info-header">Ram Usage:</strong>
+					<strong class="block-info-header">Key:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small>{{ mainData?.ram_usage }}</small>
+					<small class="color-grey">{{ mainData?.permissions[0]?.required_auth?.keys[0]?.key  }}</small>
 				</div>
 			</div>
-			
+
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">RAM:</strong>
+				</div>
+				<div class="col-sm-9">
+					<span class="account-info"> Usage: <small>{{ mainData?.ram_usage }}</small></span>
+					<span class="account-info"> Quota: <small>{{ mainData?.ram_quota }}</small></span>
+				</div>
+			</div>
+
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">CPU:</strong>
+				</div>
+				<div class="col-sm-9">
+					<span class="account-info"> Available: <small>{{ mainData?.cpu_limit?.available }}</small></span>
+					<span class="account-info"> Max: <small>{{ mainData?.cpu_limit?.max }}</small></span>
+					<span class="account-info"> Used: <small>{{ mainData?.cpu_limit?.used }}</small></span>
+				</div>
+			</div>
+
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">NET:</strong>
+				</div>
+				<div class="col-sm-9">
+					<span class="account-info"> Available: <small>{{ mainData?.net_limit?.available }}</small></span>
+					<span class="account-info"> Max: <small>{{ mainData?.net_limit?.max }}</small></span>
+					<span class="account-info"> Used: <small>{{ mainData?.net_limit?.used }}</small></span>
+				</div>
+			</div>
+
 			<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
 					<strong class="block-info-header">Total Resources:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small>{{ mainData?.total_resources  || 'No information' }}</small>
+					<span class="account-info"> CPU weight: <small>{{ mainData?.total_resources?.cpu_weight }}</small></span>
+					<span class="account-info"> NET weight: <small>{{ mainData?.total_resources?.net_weight }}</small></span>
+					<span class="account-info"> Owner: <small>{{ mainData?.total_resources?.owner }}</small></span>
 				</div>
 			</div>	
 
@@ -44,7 +69,10 @@
 					<strong class="block-info-header">Delegated Bandwidth:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small>{{ mainData?.delegated_bandwidth || 'No information'  }}</small>
+					<span class="account-info"> CPU weight: <small>{{ mainData?.delegated_bandwidth?.cpu_weight }}</small></span>
+					<span class="account-info"> from: <small>{{ mainData?.delegated_bandwidth?.from }}</small></span>
+					<span class="account-info"> NET weight: <small>{{ mainData?.delegated_bandwidth?.net_weight }}</small></span>
+					<span class="account-info"> to: <small>{{ mainData?.delegated_bandwidth?.to }}</small></span>
 				</div>
 			</div>
 
@@ -53,7 +81,10 @@
 					<strong class="block-info-header">Voter Info:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small>{{ mainData?.voter_info || 'No information' }}</small>
+					<span class="account-info"> Last vote weight: <small>{{ mainData?.voter_info?.last_vote_weight }}</small></span>
+					<span class="account-info"> Owner: <small>{{ mainData?.voter_info?.owner }}</small></span>
+					<span class="account-info"> Staked: <small>{{ mainData?.voter_info?.staked }}</small></span>
+					<span class="account-info"> Unstaking: <small>{{ mainData?.voter_info?.unstaking }}</small></span>
 				</div>
 			</div>
 

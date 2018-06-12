@@ -15,7 +15,7 @@ export class MainCustomizeChartsComponent implements OnInit{
       colorScheme : {
           domain: ['#44a264']
       },
-      view : [135, 70],
+      view : [160, 70],
       showXAxis : false,
       showYAxis : false,
       gradient : true,
@@ -28,6 +28,7 @@ export class MainCustomizeChartsComponent implements OnInit{
   }; 
   curve = shape.curveBasis;
   blockchainData;
+  aggragationData;
 
   constructor(private http: HttpClient, private socket: Socket){}
 
@@ -64,6 +65,17 @@ export class MainCustomizeChartsComponent implements OnInit{
                       });
   }
 
+  getAggregationData(){
+        this.http.get('/api/v1/get_aggregation_stat')
+                  .subscribe(
+                      (res: any) => {
+                           this.aggragationData = res;
+                      },
+                      (error) => {
+                          console.error(error);
+                      });
+  }
+
   createChartArr(data){
     let result = [];
       data.forEach(elem => {
@@ -76,9 +88,14 @@ export class MainCustomizeChartsComponent implements OnInit{
       this.getData();
       this.getChart();
       this.getBlockchainData();
+      this.getAggregationData();
 
       this.socket.on('get_info', res => {
           this.blockchainData = res;
+      });
+
+      this.socket.on('get_aggregation', res => {
+          this.aggragationData = res;
       });
   }
 }

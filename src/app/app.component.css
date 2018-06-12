@@ -194,7 +194,6 @@
 footer{
 	position: absolute;
 	bottom: 0;
-	padding: 10px;
 	width: 100%;
 	display: table;
 	background-color: #141419;
@@ -202,8 +201,11 @@ footer{
 footer div{
 	color: #fff;
 	font-weight: 300;
-	margin-top: 20px;
+	margin-top: 15px;
 	font-size: 13px;
+}
+footer ul {
+	margin-top: 2px;
 }
 footer ul li{
 	color: #fff;

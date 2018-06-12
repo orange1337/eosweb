@@ -42,8 +42,11 @@ export class MainTableComponent implements OnInit{
   dataSource;
   dataSourceTrx;
   moment = moment;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  transactions = [];
+  trxObj = {};
+
+  /*@ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;*/
 
   constructor(protected http: HttpClient,
               @Inject(PLATFORM_ID) private platformId: Object, private socket : Socket) {
@@ -54,30 +57,50 @@ export class MainTableComponent implements OnInit{
                   .subscribe(
                       (res: any) => {
                           this.mainData = res;
+                          console.log(this.createTransactionsArray(this.mainData));
 
                           let ELEMENT_DATA: Element[] = this.mainData;
                           this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
-                          this.dataSource.paginator = this.paginator;
-                          this.dataSource.sort = this.sort;
+
+                          this.createTransactionsArray(this.mainData);
+                          let ELEMENT_DATA_TX: Element[] = this.transactions;
+                          this.dataSourceTrx = new MatTableDataSource<Element>(ELEMENT_DATA_TX);
                       },
                       (error) => {
                           console.error(error);
                       });
   }
   
+  createTransactionsArray(data) {
+      if (!data){
+          return;
+      }
+      this.transactions = [];
+
+      data.forEach(elem => {
+          if (elem.transactions && elem.transactions.length > 0){
+              this.trxObj[elem.block_num] = elem;
+          }
+      });
+
+      Object.keys(this.trxObj).forEach(key => {
+            this.transactions.push(this.trxObj[key]);
+      });
+      this.transactions.reverse();
+      this.transactions = (this.transactions.length > 20) ? this.transactions.slice(1, 20) : this.transactions;
+  }
 
   ngOnInit() {
       this.getData();
-      /*setInterval( () => {
-        this.socket.emit('get_last_blocks', { offset: 20 });
-      }, 5000)*/
-
-      //this.socket.emit('get_last_blocks', { offset: 20 });
-
       this.socket.on('get_last_blocks', (data) => {
           this.mainData = data;
           let ELEMENT_DATA: Element[] = this.mainData;
           this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+
+          this.createTransactionsArray(this.mainData);
+          let ELEMENT_DATA_TX: Element[] = this.transactions;
+          this.dataSourceTrx = new MatTableDataSource<Element>(ELEMENT_DATA_TX);
+
       });
   }
 }
