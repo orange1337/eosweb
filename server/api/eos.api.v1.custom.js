@@ -106,13 +106,7 @@ customFunctions.getStatAggregation = (eos, STATS_AGGR) => {
 			   						});
 			   					}
 			   					stat.cursor_block = block.block_num;
-			   					stat.save((err) => {
-			   						if (err){
-			   							console.log(err);
-			   							return ret();
-			   						}
-			   						ret();
-			   					});
+			   					ret();
 			   				})
 			   				.catch(err => {
 			   					console.error('getStatAggregation getBlock error - ', err);
@@ -122,7 +116,12 @@ customFunctions.getStatAggregation = (eos, STATS_AGGR) => {
 			   				if (error){
 			   					return cb(error)
 			   				}
-			   				cb(null, stat);
+			   				stat.save((err) => {
+			   						if (err){
+			   							return cb(err);
+			   						}
+			   						cb(null, stat);
+			   				});
 			   			});
 			   	})
 			   	.catch(err => {
