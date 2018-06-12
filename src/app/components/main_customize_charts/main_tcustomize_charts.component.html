@@ -17,7 +17,7 @@
       </div>
       <div class="col-sm-4 no-padding widget-chart-container">
           <div class="currency-page-main-chart"> 
-            <ngx-charts-line-chart *ngIf="mainCurrencyChartDataRes; else loading"
+            <ngx-charts-line-chart *ngIf="mainCurrencyChartDataRes"
               [view]="ngxChartOptions.view"
               [scheme]="ngxChartOptions.colorScheme"
               [results]="[{ name: 'EOS_USD', series: mainCurrencyChartDataRes || [{name: '0', value: 1}] }]"
