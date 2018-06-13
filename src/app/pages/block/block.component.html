@@ -124,89 +124,103 @@
 					          	<!--{{element?.actions}}-->
 								<div *ngFor="let action of element?.actions" class="actions-list-container">
 								  
-								  <div *ngIf="action?.data?.quantity">
-									<div class="col-sm-2 actions-list">
+								  <div class="actions-main-container" *ngIf="action?.data?.quantity">
+									<div class="actions-list">
 										<a [routerLink]="['/account', action?.data?.from ]" class="color-green">
 											<strong>{{ action?.data?.from }}</strong>
 										</a>
-										<i class="fas fa-long-arrow-right pull-right"></i>
+										<i class="fas fa-long-arrow-right"></i>
 									</div>
-									<div class="col-sm-3 actions-list">
+									<div class="actions-list">
 										<a [routerLink]="['/account', action?.data?.to ]" class="color-green">
 											<strong>{{ action?.data?.to }}</strong>
 										</a>
 									</div>
-									<div class="col-sm-4 actions-list">
+									<div class="actions-list">
 										<strong>{{ action?.data?.memo }}</strong>
 									</div>
-									<div class="col-sm-3 actions-list">
+									<div class="actions-list">
 										<strong>{{ action?.data?.quantity }}</strong>
 									</div>
 								  </div>
 
-								  <div *ngIf="action?.data?.creator">
-									<div class="col-sm-5 actions-list">
+								  <div class="actions-main-container" *ngIf="action?.data?.creator">
+									<div class="actions-list">
 										Creator: <a [routerLink]="['/account', action?.data?.creator ]" class="color-green">
 											<strong>{{ action?.data?.creator }}</strong>
 										</a>
 									</div>
-									<div class="col-sm-7 actions-list">
+									<div class="actions-list">
 										Name: <a [routerLink]="['/account', action?.data?.name ]" class="color-green">
 											<strong>{{ action?.data?.name }}</strong>
 										</a>
 									</div>
 								  </div>
 
-								  <div *ngIf="action?.data?.stake_cpu_quantity">
-									<div class="col-sm-3 actions-list">
+								  <div class="actions-main-container" *ngIf="action?.data?.stake_cpu_quantity">
+									<div class="actions-list">
 										<a [routerLink]="['/account', action?.data?.from ]" class="color-green">
 											<strong>{{ action?.data?.from }}</strong>
 										</a>
-										<i class="fas fa-long-arrow-right pull-right"></i>
+										<i class="fas fa-long-arrow-right"></i>
 									</div>
-									<div class="col-sm-3 actions-list">
+									<div class="actions-list">
 										<a [routerLink]="['/account', action?.data?.receiver ]" class="color-green">
 											<strong>{{ action?.data?.receiver }}</strong>
 										</a>
 									</div>
-									<div class="col-sm-3 actions-list">
-										cpu: {{ action?.data?.stake_cpu_quantity }}
+									<div class="actions-list">
+										cpu: <strong>{{ action?.data?.stake_cpu_quantity }}</strong>
 									</div>
-									<div class="col-sm-3 actions-list">
-										net: {{ action?.data?.stake_net_quantity }}
+									<div class="actions-list">
+										net: <strong>{{ action?.data?.stake_net_quantity }}</strong>
 									</div>
 									<!--<div class="col-sm-1 actions-list">
 										{{ action?.data?.transfer }}
 									</div>-->
 								  </div>
 
-								  <div *ngIf="action?.data?.payer">
-									<div class="col-sm-4 actions-list">
+								  <div class="actions-main-container" *ngIf="action?.data?.payer">
+									<div class="actions-list">
 										Payer: <a [routerLink]="['/account', action?.data?.payer ]" class="color-green">
 											<strong>{{ action?.data?.payer }}</strong>
 										</a>
 									</div>
-									<div class="col-sm-3 actions-list">
+									<div class="actions-list">
 										Bytes: <strong>{{ action?.data?.bytes }}</strong>
 									</div>
-									<div class="col-sm-5 actions-list">
+									<div class="actions-list">
 										Receiver: <a [routerLink]="['/account', action?.data?.receiver ]" class="color-green">
 											<strong>{{ action?.data?.receiver }}</strong>
 										</a>
 									</div>
 								  </div>
 
-								  <div *ngIf="action?.data?.newname">
-									<div class="col-sm-3 actions-list">
+								  <div class="actions-main-container" *ngIf="action?.data?.newname">
+									<div class="actions-list">
 										Bid: <strong>{{ action?.data?.bid }}</strong>
 									</div>
-									<div class="col-sm-5 actions-list">
+									<div class="actions-list">
 										Bidder: <a [routerLink]="['/account', action?.data?.bidder ]" class="color-green">
 											<strong>{{ action?.data?.bidder }}</strong>
 										</a>
 									</div>
-									<div class="col-sm-4 actions-list">
+									<div class="actions-list">
 										New name: <strong>{{ action?.data?.newname }}</strong>
+									</div>
+								  </div>
+
+								  <div class="actions-main-container" *ngIf="action?.data?.voter">
+									<div class="actions-list">
+										<strong>Voter</strong>: <a [routerLink]="['/account', action?.data?.voter ]" class="color-green">
+											<strong>{{ action?.data?.voter }}</strong>
+										</a>
+									</div>
+									<div class="actions-list">
+										<strong>Producers: </strong>
+										<a [routerLink]="['/account', producer ]" class="color-green" *ngFor="let producer of action?.data?.producers;">
+											<strong>{{ producer }}</strong>
+										</a>
 									</div>
 								  </div>
 

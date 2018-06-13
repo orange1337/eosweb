@@ -57,12 +57,10 @@ export class MainTableComponent implements OnInit{
                   .subscribe(
                       (res: any) => {
                           this.mainData = res;
-                          console.log(this.createTransactionsArray(this.mainData));
-
                           let ELEMENT_DATA: Element[] = this.mainData;
                           this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
 
-                          this.createTransactionsArray(this.mainData);
+                          this.transactions = this.createTransactionsArray(this.mainData);
                           let ELEMENT_DATA_TX: Element[] = this.transactions;
                           this.dataSourceTrx = new MatTableDataSource<Element>(ELEMENT_DATA_TX);
                       },
@@ -84,10 +82,16 @@ export class MainTableComponent implements OnInit{
       });
 
       Object.keys(this.trxObj).forEach(key => {
-            this.transactions.push(this.trxObj[key]);
+            this.trxObj[key].actions = 0;
+            this.trxObj[key].transactions.forEach(elem => {
+              if (elem.trx && elem.trx.transaction && elem.trx.transaction.actions){
+                  this.trxObj[key].actions += elem.trx.transaction.actions.length;
+              }
+            }); 
+            this.transactions.push(this.trxObj[key]); 
       });
       this.transactions.reverse();
-      this.transactions = (this.transactions.length > 20) ? this.transactions.slice(1, 20) : this.transactions;
+      return (this.transactions.length >= 20) ? this.transactions.slice(1, 20) : this.transactions;
   }
 
   ngOnInit() {
@@ -97,7 +101,7 @@ export class MainTableComponent implements OnInit{
           let ELEMENT_DATA: Element[] = this.mainData;
           this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
 
-          this.createTransactionsArray(this.mainData);
+          this.transactions = this.createTransactionsArray(this.mainData);
           let ELEMENT_DATA_TX: Element[] = this.transactions;
           this.dataSourceTrx = new MatTableDataSource<Element>(ELEMENT_DATA_TX);
 

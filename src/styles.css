@@ -237,6 +237,10 @@ a{
 	background: rgba(0,0,0,0) !important;
 	color: #6de29a !important;
 }
+.twitter-button{
+	padding: 6px 15px 6px 15px !important;
+}
+
 
 small{
 	color: #9f9fa1;
@@ -388,15 +392,23 @@ small{
 	min-height: 40px;
 }
 .actions-list{
-    display: block;
-    padding-bottom: 10px;
-    padding-top: 10px;
+    display: table;
+    padding-bottom: 15px;
+    padding-top: 15px;
     min-height: 40px;
-    border-bottom: 1px solid #f1f1f2;
+    flex: 1;
+    width: auto;
+}
+.actions-main-container{
+	display: flex;
+	border-bottom: 1px solid #f7f7f7;
 }
 .actions-list-container{
 	width: 600px;
 	flex: 5 !important;
+}
+.fa-long-arrow-right{
+	margin-left: 10px;
 }
 
 

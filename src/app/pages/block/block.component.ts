@@ -17,7 +17,7 @@ export class BlockPageComponent implements OnInit, OnDestroy{
   time;
   trxArr = [];
   dataSource;
-  displayedColumns = ['cpu', 'net', 'id', 'status', 'expiration', 'actions'];
+  displayedColumns = ['expiration', 'cpu', 'net', 'id', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
