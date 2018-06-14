@@ -1,0 +1,66 @@
+<div class="container">
+
+<div class="spinner-container" *ngIf="spinner">
+    <mat-spinner class="spinner-color"></mat-spinner>
+</div>
+
+<div class="col-md-12">
+<h1 class="market-header">Producers rate</h1>
+
+<div class="example-container mat-elevation-z8 main-table">
+
+  <mat-table #table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="#">
+      <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i = index">
+          <strong>{{ i + 1 }}</strong>
+      </mat-cell>
+    </ng-container>
+    
+    <!-- Name Column -->
+    <ng-container matColumnDef="Name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="marketcap-container">
+          <a [routerLink]="['/account', element?.owner ]" class="color-green">
+          	<strong>{{ element?.owner }}</strong>
+          </a>
+       </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="Key">
+      <mat-header-cell *matHeaderCellDef> Key</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="text-center"> 
+             <span class="tx-hash">{{element?.producer_key}}</span>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="Url">
+      <mat-header-cell *matHeaderCellDef> Url </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="color-light-grey"> 
+          <a href="{{element?.url}}" target="_blank" class="color-green">{{element?.url}}</a>
+      </mat-cell>
+    </ng-container>
+
+    
+    <!-- Name Column -->
+    <ng-container matColumnDef="Votes">
+      <mat-header-cell *matHeaderCellDef> Votes</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="text-center change-container"> 
+           <strong> {{ element?.total_votes }}</strong>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <!--<mat-paginator #paginator
+                 [pageSize]="100"
+                 [pageSizeOptions]="[50, 100]">
+  </mat-paginator>-->
+</div>
+</div>
+
+</div>

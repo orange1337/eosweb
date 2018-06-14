@@ -21,6 +21,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { MainPageModule } from './pages/main_page/main_page.module';
 import { BlockPageModule } from './pages/block/block.module';
+import { ProducersPageModule } from './pages/producers/producers.module';
 import { TransactionPageModule } from './pages/transactions/transactions.module';
 import { AccountPageModule } from './pages/account/account.module';
 import { MainTcustomizeModule } from './components/main_customize_charts/main_tcustomize.module';
@@ -56,7 +57,8 @@ const socketConfig: SocketIoConfig = { url: '/', options: {
     MainPageModule,
     BlockPageModule,
     AccountPageModule,
-    TransactionPageModule
+    TransactionPageModule,
+    ProducersPageModule
   ],
   providers: [appRoutingProviders],
   bootstrap: [AppComponent]

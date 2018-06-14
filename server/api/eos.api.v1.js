@@ -57,6 +57,47 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 		});
 	});
 
+    /*
+	* router - get blocks producers
+	*/
+	router.get('/api/v1/get_producers/:offset', (req, res) => {
+	   	 eos.getProducers({
+      			json: true,
+      			lower_bound: "string",
+      			limit: req.params.offset
+			})
+	   	 	.then(result => {
+	   	 		res.json(result);
+	   	 	})
+	   	 	.catch(err => {
+	   	 		log.error(err);
+	   	 		res.status(501).end();
+	   	 	});
+	});
+
+    /*
+	* router - get_table_rows producers
+	*/
+	router.get('/api/v1/get_table_rows/:code/:scope/:table/:limit', (req, res) => {
+	   	 eos.getTableRows({
+			      json: true,
+			      code: req.params.code,
+			      scope: req.params.scope,
+			      table: req.params.table,
+			      table_key: "string",
+			      lower_bound: "0",
+			      upper_bound: "-1",
+			      limit: req.params.limit
+			})
+	   	 	.then(result => {
+	   	 		res.json(result);
+	   	 	})
+	   	 	.catch(err => {
+	   	 		log.error(err);
+	   	 		res.status(501).end();
+	   	 	});
+	});
+
 	/*
 	* router - get_actions
 	* params - account_name, position, offset

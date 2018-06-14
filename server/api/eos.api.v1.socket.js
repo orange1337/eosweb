@@ -44,7 +44,9 @@ module.exports = function(io, eos, mongoMain){
     }, updateTime.blocks);
 
     // ======== aggragation stat
-    customFunctions.getStatAggregation(eos, STATS_AGGR);
+    if (config.PROD){
+        customFunctions.getStatAggregation(eos, STATS_AGGR);
+    }
     // ======== end of aggragation stat
 
     socket.on('disconnect', () => {
