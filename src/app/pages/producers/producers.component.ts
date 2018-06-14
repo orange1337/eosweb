@@ -14,7 +14,7 @@ export class ProducersPageComponent implements OnInit{
   spinner = false;
   displayedColumns = ['#', 'Name', 'Key', 'Url', 'Votes'];
   dataSource;
-  eosToInt = Math.pow(10, 12);
+  eosToInt = Math.pow(10, 13);
 
   constructor(private route: ActivatedRoute, protected http: HttpClient){}
 
