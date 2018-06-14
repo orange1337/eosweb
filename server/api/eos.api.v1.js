@@ -76,6 +76,23 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 	});
 
     /*
+	* router - get currency balance
+	*/
+	router.get('/api/v1/get_currency_balance/:code/:account', (req, res) => {
+	   	 eos.getCurrencyBalance({
+      			code: req.params.code,
+      			account: req.params.account,
+			})
+	   	 	.then(result => {
+	   	 		res.json(result);
+	   	 	})
+	   	 	.catch(err => {
+	   	 		log.error(err);
+	   	 		res.status(501).end();
+	   	 	});
+	});
+
+    /*
 	* router - get_table_rows producers
 	*/
 	router.get('/api/v1/get_table_rows/:code/:scope/:table/:limit', (req, res) => {

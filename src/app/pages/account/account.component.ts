@@ -15,6 +15,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   moment = moment;
   time;
   spinner = false;
+  balance = [];
 
   constructor(private route: ActivatedRoute, protected http: HttpClient){}
 
@@ -33,10 +34,22 @@ export class AccountPageComponent implements OnInit, OnDestroy{
                       });
   };
 
+  getBalance(accountId){
+      this.http.get(`/api/v1/get_currency_balance/eosio.token/${accountId}`)
+           .subscribe(
+                      (res: any) => {
+                          this.balance = res;
+                      },
+                      (error) => {
+                          console.error(error);
+                      });
+  }
+
   ngOnInit() {
     this.block = this.route.params.subscribe(params => {
        this.accountId = params['id'];
        this.getBlockData(this.accountId);
+       this.getBalance(this.accountId);
     });
   }
 
