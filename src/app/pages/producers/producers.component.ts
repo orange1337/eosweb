@@ -14,6 +14,7 @@ export class ProducersPageComponent implements OnInit{
   spinner = false;
   displayedColumns = ['#', 'Name', 'Key', 'Url', 'Votes'];
   dataSource;
+  eosToInt = Math.pow(10, 12);
 
   constructor(private route: ActivatedRoute, protected http: HttpClient){}
 
@@ -41,7 +42,7 @@ export class ProducersPageComponent implements OnInit{
       let result = data.sort((a, b) => {
           return Number(b.total_votes) - Number(a.total_votes);
       }).map(elem => {
-          elem.total_votes = Number(elem.total_votes).toLocaleString();
+          elem.total_votes = (Number(elem.total_votes) /  this.eosToInt).toLocaleString();
           return elem;
       });
       console.log(result);
