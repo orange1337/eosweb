@@ -25,6 +25,8 @@
     "@angular/router": "^5.2.0",
     "@swimlane/ngx-charts": "^8.0.2",
     "angular2-notifications": "^1.0.2",
+    "appmetrics-dash": "^3.4.0",
+    "appmetrics-prometheus": "^1.0.1",
     "body-parser": "^1.18.3",
     "compression": "^1.7.2",
     "cookie-parser": "^1.4.3",

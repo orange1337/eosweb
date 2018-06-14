@@ -1,3 +1,4 @@
+require('appmetrics-dash').monitor();
 const express       = require('express');
 const path          = require('path');
 const cookieParser  = require('cookie-parser');
@@ -46,7 +47,7 @@ const mongoMain = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTIO
     log.info('[Connected to Mongo EOS] : 27017');
 });
 
-const app = express();
+const app  = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -69,6 +70,7 @@ const server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
 
 //========= socket io connection
 const io  = require('socket.io').listen(server);

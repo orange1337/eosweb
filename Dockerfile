@@ -18,3 +18,4 @@ RUN cd /home/eosweb && mkdir server/logs
 CMD [ "node", "/home/eosweb/server/server.js" ]
 
 EXPOSE 3039
+EXPOSE 3001
