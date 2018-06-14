@@ -28,13 +28,6 @@ export class MainTableComponent implements OnInit{
   currMap: any;
   currencyName = 'USD'; //(isPlatformBrowser(this.platformId)) ? this.getCookie('currencyName'): ;
   selected = this.currencyName;
-  currencies = ['USD', 'EUR', 'GBP', 'RUB'];
-  symbolsMap = {
-    'USD': '<i class="fas fa-dollar-sign"></i>',
-    'EUR': '€',
-    'GBP': '£',
-    'RUB': '₽',    
-  };
 
   mainData;
   displayedColumns = ['Number', 'Hash', 'Transactions', 'Producer', 'Time'];
@@ -91,7 +84,7 @@ export class MainTableComponent implements OnInit{
             this.transactions.push(this.trxObj[key]); 
       });
       this.transactions.reverse();
-      return (this.transactions.length >= 20) ? this.transactions.slice(1, 20) : this.transactions;
+      return (this.transactions.length >= 20) ? this.transactions.slice(0, 20) : this.transactions;
   }
 
   ngOnInit() {
