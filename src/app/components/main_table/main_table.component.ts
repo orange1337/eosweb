@@ -37,6 +37,7 @@ export class MainTableComponent implements OnInit{
   moment = moment;
   transactions = [];
   trxObj = {};
+  spinner = false;
 
   /*@ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;*/
@@ -46,6 +47,7 @@ export class MainTableComponent implements OnInit{
   }
 
   getData() {
+      this.spinner = true;
         this.http.get('/api/v1/get_last_blocks/20')
                   .subscribe(
                       (res: any) => {
@@ -56,9 +58,12 @@ export class MainTableComponent implements OnInit{
                           this.transactions = this.createTransactionsArray(this.mainData);
                           let ELEMENT_DATA_TX: Element[] = this.transactions;
                           this.dataSourceTrx = new MatTableDataSource<Element>(ELEMENT_DATA_TX);
+
+                          this.spinner = false;
                       },
                       (error) => {
                           console.error(error);
+                          this.spinner = false;
                       });
   }
   

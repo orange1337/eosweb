@@ -18,12 +18,12 @@ export class TransactionPageComponent implements OnInit, OnDestroy{
   trxArr = [];
   dataSource;
   displayedColumns = ['cpu', 'net', 'hash', 'status', 'expiration', 'actions'];
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  spinner = false;
 
   constructor(private route: ActivatedRoute, protected http: HttpClient){}
 
   getBlockData(transactionId){
+      this.spinner = true;
   		this.http.get(`/api/v1/get_transaction/${transactionId}`)
   				 .subscribe(
                       (res: any) => {
@@ -34,14 +34,12 @@ export class TransactionPageComponent implements OnInit, OnDestroy{
                               
                               let ELEMENT_DATA: Element[] = this.trxArr;
                               this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
-                              this.dataSource.paginator = this.paginator;
-                              this.dataSource.sort = this.sort;
-
-                              console.log(this.trxArr);
                           }
+                          this.spinner = false;
                       },
                       (error) => {
                           console.error(error);
+                          this.spinner = false;
                       });
   };
 

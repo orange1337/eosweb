@@ -35,6 +35,9 @@ body{
 a{
 	cursor: pointer;
 }
+.row, .container{
+	position: relative;
+}
 .text-center{
 	text-align: center !important;
 }
@@ -66,11 +69,16 @@ a{
     height: 100%;
     display: block;
     position: absolute;
-    background: rgba(255,255,255,0.7);
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 1000;
 }
 .spinner-container .mat-spinner{
-	margin: -50px auto;
-	top: 50%;
+	margin-left: -50px;
+	left: 50%;
+	top: 20%;
+}
+.spinner-color circle, .mat-spinner circle {
+	stroke: #71d479;
 }
 .simple-notification-wrapper{
 	z-index: 100000 !important;

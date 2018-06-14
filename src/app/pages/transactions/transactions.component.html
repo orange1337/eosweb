@@ -1,4 +1,9 @@
 <div class="container">
+
+<div class="spinner-container" *ngIf="spinner">
+    <mat-spinner class="spinner-color"></mat-spinner>
+</div>
+
 	<h1 class="market-header">Transaction  No. {{ mainData?.block_num }}</h1>
 
 	<div class="block-info">

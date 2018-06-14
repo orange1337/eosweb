@@ -18,12 +18,15 @@ export class BlockPageComponent implements OnInit, OnDestroy{
   trxArr = [];
   dataSource;
   displayedColumns = ['expiration', 'cpu', 'net', 'id', 'status', 'actions'];
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  spinner = false;
+
+  /*@ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;*/
 
   constructor(private route: ActivatedRoute, protected http: HttpClient){}
 
   getBlockData(blockId){
+      this.spinner = true;
   		this.http.get(`/api/v1/get_block/${blockId}`)
   				 .subscribe(
                       (res: any) => {
@@ -34,14 +37,14 @@ export class BlockPageComponent implements OnInit, OnDestroy{
                               
                               let ELEMENT_DATA: Element[] = this.trxArr;
                               this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
-                              this.dataSource.paginator = this.paginator;
-                              this.dataSource.sort = this.sort;
 
-                              //console.log(this.trxArr);
+                              //console.log(this.trxArr);                              
                           }
+                          this.spinner = false;
                       },
                       (error) => {
                           console.error(error);
+                          this.spinner = false;
                       });
   };
 
