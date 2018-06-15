@@ -1,11 +1,11 @@
 {
 	"/api/*" : {
-		"target": "http://95.216.153.235:3039/", 
+		"target": "http://localhost:3039/", 
 		"secure": true,
 		"logLevel": "debug"
 	},
 	"/socket.io/*" : {
-		"target": "http://95.216.153.235:3039/", 
+		"target": "http://localhost:3039/", 
 		"secure": true,
 		"logLevel": "debug"
 	}

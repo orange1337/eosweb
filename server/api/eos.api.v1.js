@@ -76,6 +76,24 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 	});
 
     /*
+	* router - get code
+	* params - account name
+	*/
+	router.get('/api/v1/get_code/:account', (req, res) => {
+	   	 eos.getCode({
+      			json: true,
+      			account_name: req.params.account,
+			})
+	   	 	.then(result => {
+	   	 		res.json(result);
+	   	 	})
+	   	 	.catch(err => {
+	   	 		log.error(err);
+	   	 		res.status(501).end();
+	   	 	});
+	});
+
+    /*
 	* router - get currency balance
 	*/
 	router.get('/api/v1/get_currency_balance/:code/:account', (req, res) => {

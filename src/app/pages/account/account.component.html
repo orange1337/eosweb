@@ -116,13 +116,38 @@
 				  <mat-expansion-panel>
 				    <mat-expansion-panel-header>
 				      <mat-panel-title>
-				        Raw data:
+				        Code Raw Data:
+				      </mat-panel-title>
+				    </mat-expansion-panel-header>
+				    <ngx-json-viewer [json]="code"></ngx-json-viewer>
+				  </mat-expansion-panel>
+				</mat-accordion>
+			</div>
+
+			<div class="col-sm-12 block-info-line" *ngIf="tables.length">
+				<mat-accordion>
+				  <mat-expansion-panel *ngFor="let elem of tables">
+				    <mat-expansion-panel-header>
+				      <mat-panel-title>
+				        Table - {{elem.name}}
+				      </mat-panel-title>
+				    </mat-expansion-panel-header>
+				    <ngx-json-viewer [json]="elem.data"></ngx-json-viewer>
+				  </mat-expansion-panel>
+				</mat-accordion>
+			</div>
+
+			<div class="col-sm-12 block-info-line">
+				<mat-accordion>
+				  <mat-expansion-panel>
+				    <mat-expansion-panel-header>
+				      <mat-panel-title>
+				        Blockchain Raw Data:
 				      </mat-panel-title>
 				    </mat-expansion-panel-header>
 				    <ngx-json-viewer [json]="mainData"></ngx-json-viewer>
 				  </mat-expansion-panel>
 				</mat-accordion>
 			</div>
-			
 	</div>
 </div>
