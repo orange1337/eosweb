@@ -16,6 +16,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   time;
   spinner = false;
   balance = [];
+  actions = [];
 
   constructor(private route: ActivatedRoute, protected http: HttpClient){}
 
@@ -26,6 +27,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
                       (res: any) => {
                           this.mainData = res;
                           this.time = this.moment(this.mainData.created).format('MMMM Do YYYY, h:mm:ss a');
+                          this.getActions(this.mainData.account_name);
                           this.spinner = false;
                       },
                       (error) => {
@@ -39,6 +41,17 @@ export class AccountPageComponent implements OnInit, OnDestroy{
            .subscribe(
                       (res: any) => {
                           this.balance = res;
+                      },
+                      (error) => {
+                          console.error(error);
+                      });
+  }
+
+  getActions(accountName){
+      this.http.get(`/api/v1/get_actions/${accountName}/1/100`)
+           .subscribe(
+                      (res: any) => {
+                          this.actions = res.actions;
                       },
                       (error) => {
                           console.error(error);

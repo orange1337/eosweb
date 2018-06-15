@@ -37,7 +37,7 @@
 			
 			<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
-					<strong class="block-info-header">Confirmed:</strong>
+					<strong class="block-info-header">Confirmations:</strong>
 				</div>
 				<div class="col-sm-9">
 					<small class="color-grey">{{ mainData?.confirmed  }}</small>
@@ -226,6 +226,54 @@
 										<a [routerLink]="['/account', producer ]" class="color-green" *ngFor="let producer of action?.data?.producers;">
 											<strong>{{ producer }}</strong>
 										</a>
+									</div>
+								  </div>
+
+								  <div class="actions-main-container" *ngIf="action?.data?.permission">
+									<div class="actions-list">
+										<strong>Name</strong>:
+											<strong>{{ action?.name }}</strong>
+									</div>
+									<div class="actions-list">
+										<strong>Parent</strong>:
+											<strong>{{ action?.data?.parent }}</strong>
+									</div>
+									
+									<div class="actions-list">
+										<strong>Permission: </strong>
+											<strong>{{ action?.data?.permission }}</strong>
+									</div>
+								  </div>
+
+								  <div class="actions-main-container" *ngIf="action?.data?.url">
+								  	<div class="actions-list">
+										<strong>Producer</strong>:
+										<a [routerLink]="['/account', action?.data?.producer ]" class="color-green">
+											<strong>{{ action?.data?.producer }}</strong>
+										</a>
+									</div>
+									<div class="actions-list">
+											<strong class="tx-hash">{{ action?.data?.producer_key }}</strong>
+									</div>
+									<div class="actions-list">
+										<a href="{{action?.data?.url}}" class="color-green tx-hash">
+											{{ action?.data?.url }}
+										</a>
+									</div>
+								  </div>
+
+								  <div class="actions-main-container" *ngIf="action?.data?.memo">
+								  	<div class="actions-list">
+										<strong>Account</strong>:
+										<a [routerLink]="['/account', action?.account ]" class="color-green">
+											<strong>{{ action?.account }}</strong>
+										</a>
+									</div>
+									<div class="actions-list">
+											Memo: <strong>{{ action?.data?.memo }}</strong>
+									</div>
+									<div class="actions-list">
+											Amount: <strong>{{ action?.data?.amount }}</strong>
 									</div>
 								  </div>
 
