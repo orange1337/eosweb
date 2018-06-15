@@ -79,7 +79,6 @@ export class AccountPageComponent implements OnInit, OnDestroy{
           this.http.get(`/api/v1/get_table_rows/${accountName}/${accountName}/${elem.name}/20`)
               .subscribe((res: any) => {
                               this.tables.push({ name: elem.name, data: res });
-                              console.log(this.tables);
                           },
                           (error) => {
                               console.error(error);
