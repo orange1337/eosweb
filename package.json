@@ -44,6 +44,7 @@
     "ng-socket-io": "^0.2.4",
     "ngx-charts": "^3.0.2",
     "ngx-echarts": "^3.0.0",
+    "ngx-json-viewer": "^2.3.0",
     "node-cron": "^1.2.1",
     "path": "^0.12.7",
     "reflect-metadata": "^0.1.12",

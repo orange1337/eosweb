@@ -110,6 +110,19 @@
 					<small class="color-grey">{{ time }}</small>
 				</div>
 			</div>
+
+			<div class="col-sm-12 block-info-line">
+				<mat-accordion>
+				  <mat-expansion-panel>
+				    <mat-expansion-panel-header>
+				      <mat-panel-title>
+				        Raw data:
+				      </mat-panel-title>
+				    </mat-expansion-panel-header>
+				    <ngx-json-viewer [json]="mainData"></ngx-json-viewer>
+				  </mat-expansion-panel>
+				</mat-accordion>
+			</div>
 			
 	</div>
 </div>

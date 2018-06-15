@@ -15,6 +15,7 @@ export class ProducersPageComponent implements OnInit{
   displayedColumns = ['#', 'Name', 'Key', 'Url', 'Votes', 'Rate'];
   dataSource;
   eosToInt = Math.pow(10, 13);
+  allvotes;
 
   constructor(private route: ActivatedRoute, protected http: HttpClient){}
 
@@ -24,14 +25,25 @@ export class ProducersPageComponent implements OnInit{
   				 .subscribe(
                       (res: any) => {
                           this.mainData = res.rows;
-                          let ELEMENT_DATA: Element[] = this.sortArray(this.countRate(this.mainData));
-                          this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
-
+                          this.getGlobalData();
                           this.spinner = false;
                       },
                       (error) => {
                           console.error(error);
                           this.spinner = false;
+                      });
+  };
+
+  getGlobalData(){
+      this.http.get(`/api/v1/get_table_rows/eosio/eosio/global/1`)
+           .subscribe(
+                      (res: any) => {
+                          this.allvotes = res.rows[0].total_producer_vote_weight;
+                          let ELEMENT_DATA: Element[] = this.sortArray(this.countRate(this.mainData));
+                          this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+                      },
+                      (error) => {
+                          console.error(error);
                       });
   };
 
@@ -52,12 +64,8 @@ export class ProducersPageComponent implements OnInit{
       if(!data){
         return;
       }
-      let allvotes = 0;
-      data.forEach((elem) => {
-           allvotes += Number(elem.total_votes);
-      });
       data.forEach(elem => {
-          elem.rate = (elem.total_votes / allvotes * 100).toLocaleString();
+          elem.rate = (elem.total_votes / this.allvotes * 100).toLocaleString();
       });
       console.log(data);
       return data;
