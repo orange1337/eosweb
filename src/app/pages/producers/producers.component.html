@@ -46,12 +46,19 @@
     
     <!-- Name Column -->
     <ng-container matColumnDef="Votes">
-      <mat-header-cell *matHeaderCellDef> Voters</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> score</mat-header-cell>
       <mat-cell *matCellDef="let element" class="text-center change-container"> 
            <strong> {{ element?.total_votes }}</strong>
       </mat-cell>
     </ng-container>
     
+        <!-- Name Column -->
+    <ng-container matColumnDef="Rate">
+      <mat-header-cell *matHeaderCellDef> Rate</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="text-center change-container"> 
+           <strong> {{ element?.rate }} %</strong>
+      </mat-cell>
+    </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

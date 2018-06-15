@@ -83,7 +83,6 @@ export class MainTableComponent implements OnInit{
       });
       transactions.reverse();
 
-      console.log(transactions);
       if (transactions.length >= 20){
           let blocks = Object.keys(this.trxObj);
           blocks.forEach((key, index) => {

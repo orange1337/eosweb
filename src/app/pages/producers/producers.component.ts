@@ -12,7 +12,7 @@ import * as moment from 'moment';
 export class ProducersPageComponent implements OnInit{
   mainData;
   spinner = false;
-  displayedColumns = ['#', 'Name', 'Key', 'Url', 'Votes'];
+  displayedColumns = ['#', 'Name', 'Key', 'Url', 'Votes', 'Rate'];
   dataSource;
   eosToInt = Math.pow(10, 13);
 
@@ -20,11 +20,11 @@ export class ProducersPageComponent implements OnInit{
 
   getBlockData(){
       this.spinner = true;
-  		this.http.get(`/api/v1/get_table_rows/eosio/eosio/producers/200`)
+  		this.http.get(`/api/v1/get_table_rows/eosio/eosio/producers/300`)
   				 .subscribe(
                       (res: any) => {
                           this.mainData = res.rows;
-                          let ELEMENT_DATA: Element[] = this.sortArray(this.mainData);
+                          let ELEMENT_DATA: Element[] = this.sortArray(this.countRate(this.mainData));
                           this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
 
                           this.spinner = false;
@@ -40,16 +40,37 @@ export class ProducersPageComponent implements OnInit{
         return;
       }
       let result = data.sort((a, b) => {
-          return Number(b.total_votes) - Number(a.total_votes);
+          return b.total_votes - a.total_votes;
       }).map(elem => {
-          elem.total_votes = (Number(elem.total_votes) /  this.eosToInt).toLocaleString();
+          elem.total_votes = Number(elem.total_votes).toLocaleString();
           return elem;
       });
-      console.log(result);
       return result;
+  }
+
+  countRate(data){
+      if(!data){
+        return;
+      }
+      let allvotes = 0;
+      data.forEach((elem) => {
+           allvotes += Number(elem.total_votes);
+      });
+      data.forEach(elem => {
+          elem.rate = (elem.total_votes / allvotes * 100).toLocaleString();
+      });
+      console.log(data);
+      return data;
   }
 
   ngOnInit() {
      this.getBlockData();
   }
 }
+
+
+
+
+
+
+
