@@ -15,7 +15,8 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   moment = moment;
   time;
   spinner = false;
-  balance = [];
+  balance = 0;
+  unstaked;
   actions = [];
   code;
   tables = [];
@@ -27,6 +28,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   		this.http.get(`/api/v1/get_account/${accountId}`)
   				 .subscribe((res: any) => {
                           this.mainData = res;
+                          this.getBalance(accountId);
                           this.time = this.moment(this.mainData.created).format('MMMM Do YYYY, h:mm:ss a');
                           this.getActions(this.mainData.account_name);
                           this.getCode(this.mainData.account_name);
@@ -39,9 +41,10 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   };
 
   getBalance(accountId){
-      this.http.get(`/api/v1/get_currency_balance/eosio.token/${accountId}`)
+      this.http.get(`/api/v1/get_currency_balance/eosio.token/${accountId}/EOS`)
            .subscribe((res: any) => {
-                          this.balance = res;
+                          this.unstaked = res[0];
+                          this.balance = Number(this.unstaked.split(' ')[0]) + this.mainData.voter_info.staked / 10000;
                       },
                       (error) => {
                           console.error(error);
@@ -72,7 +75,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   }
 
   createTables(data, accountName){
-      if (!data.abi && data.abi.tables.length === 0){
+      if (!data.abi && data.abi.tables){
           return;
       }
       data.abi.tables.forEach(elem => {
@@ -91,7 +94,6 @@ export class AccountPageComponent implements OnInit, OnDestroy{
     this.block = this.route.params.subscribe(params => {
        this.accountId = params['id'];
        this.getBlockData(this.accountId);
-       this.getBalance(this.accountId);
     });
   }
 

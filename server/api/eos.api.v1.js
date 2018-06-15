@@ -96,10 +96,11 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
     /*
 	* router - get currency balance
 	*/
-	router.get('/api/v1/get_currency_balance/:code/:account', (req, res) => {
+	router.get('/api/v1/get_currency_balance/:code/:account/:symbol', (req, res) => {
 	   	 eos.getCurrencyBalance({
       			code: req.params.code,
       			account: req.params.account,
+      			symbol: req.params.symbol
 			})
 	   	 	.then(result => {
 	   	 		res.json(result);

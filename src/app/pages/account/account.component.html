@@ -19,10 +19,28 @@
 			
 			<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
-					<strong class="block-info-header">Balance:</strong>
+					<strong class="block-info-header">Total Balance:</strong>
 				</div>
 				<div class="col-sm-9">
-					<strong *ngFor="let bal of balance">{{ bal }}</strong>
+					<strong>{{ balance }} EOS</strong>
+				</div>
+			</div>
+			
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">Unstaked:</strong>
+				</div>
+				<div class="col-sm-9">
+					<small><strong>{{ unstaked }} </strong></small>
+				</div>
+			</div>
+
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">Staked:</strong>
+				</div>
+				<div class="col-sm-9">
+					<small><strong>{{ mainData?.voter_info?.staked / 10000 }} EOS</strong></small>
 				</div>
 			</div>
 
