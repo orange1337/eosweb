@@ -388,7 +388,7 @@ small{
 	overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    width: 100px;
+    width: 120px;
     display: block;
     cursor: pointer;
 }

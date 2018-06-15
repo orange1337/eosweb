@@ -31,11 +31,10 @@ export class MainTableComponent implements OnInit{
 
   mainData;
   displayedColumns = ['Number', 'Hash', 'Transactions', 'Producer', 'Time'];
-  displayedColumnsTx = ['Hash', 'Number', 'Transactions', 'Producer', 'Time'];
+  displayedColumnsTx = ['Number', 'Transactions', 'Producer', 'NET'];
   dataSource;
   dataSourceTrx;
   moment = moment;
-  transactions = [];
   trxObj = {};
   spinner = false;
 
@@ -55,8 +54,7 @@ export class MainTableComponent implements OnInit{
                           let ELEMENT_DATA: Element[] = this.mainData;
                           this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
 
-                          this.transactions = this.createTransactionsArray(this.mainData);
-                          let ELEMENT_DATA_TX: Element[] = this.transactions;
+                          let ELEMENT_DATA_TX: Element[] = this.createTransactionsArray(this.mainData);
                           this.dataSourceTrx = new MatTableDataSource<Element>(ELEMENT_DATA_TX);
 
                           this.spinner = false;
@@ -71,25 +69,31 @@ export class MainTableComponent implements OnInit{
       if (!data){
           return;
       }
-      this.transactions = [];
+      let transactions = [];
+      let displayBlocks = [];
 
       data.forEach(elem => {
           if (elem.transactions && elem.transactions.length > 0){
-              this.trxObj[elem.block_num] = elem;
+              this.trxObj[elem.block_num] = elem.transactions;
           }
       });
 
       Object.keys(this.trxObj).forEach(key => {
-            this.trxObj[key].actions = 0;
-            this.trxObj[key].transactions.forEach(elem => {
-              if (elem.trx && elem.trx.transaction && elem.trx.transaction.actions){
-                  this.trxObj[key].actions += elem.trx.transaction.actions.length;
-              }
-            }); 
-            this.transactions.push(this.trxObj[key]); 
+            Array.prototype.push.apply(transactions, this.trxObj[key]);
       });
-      this.transactions.reverse();
-      return (this.transactions.length >= 20) ? this.transactions.slice(0, 20) : this.transactions;
+      transactions.reverse();
+
+      console.log(transactions);
+      if (transactions.length >= 20){
+          let blocks = Object.keys(this.trxObj);
+          blocks.forEach((key, index) => {
+              if (index < blocks.length - 20){
+                  delete this.trxObj[key];
+              }
+          });
+          return transactions.slice(0, 20);
+      }
+      return transactions;
   }
 
   ngOnInit() {
@@ -99,8 +103,7 @@ export class MainTableComponent implements OnInit{
           let ELEMENT_DATA: Element[] = this.mainData;
           this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
 
-          this.transactions = this.createTransactionsArray(this.mainData);
-          let ELEMENT_DATA_TX: Element[] = this.transactions;
+          let ELEMENT_DATA_TX: Element[] = this.createTransactionsArray(this.mainData);
           this.dataSourceTrx = new MatTableDataSource<Element>(ELEMENT_DATA_TX);
 
       });
