@@ -75,7 +75,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   }
 
   createTables(data, accountName){
-      if (!data.abi || data.abi.tables){
+      if (!data.abi || !data.abi.tables){
           return;
       }
       data.abi.tables.forEach(elem => {
