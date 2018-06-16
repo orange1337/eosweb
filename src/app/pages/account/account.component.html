@@ -55,22 +55,15 @@
 
 			<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
-					<strong class="block-info-header">RAM:</strong>
-				</div>
-				<div class="col-sm-9">
-					<span class="account-info"> Usage: <small>{{ mainData?.ram_usage }}</small></span>
-					<span class="account-info"> Quota: <small>{{ mainData?.ram_quota }}</small></span>
-				</div>
-			</div>
-
-			<div class="col-sm-12 block-info-line">
-				<div class="col-sm-3">
 					<strong class="block-info-header">CPU:</strong>
 				</div>
 				<div class="col-sm-9">
-					<span class="account-info"> Available: <small>{{ mainData?.cpu_limit?.available }}</small></span>
-					<span class="account-info"> Max: <small>{{ mainData?.cpu_limit?.max }}</small></span>
-					<span class="account-info"> Used: <small>{{ mainData?.cpu_limit?.used }}</small></span>
+					<div class="col-md-4 no-padding">
+						<mat-progress-bar mode="determinate" value="{{mainData?.cpu_limit?.used / mainData?.cpu_limit?.max * 100}}" class="progress-bar-usage account-cpu"></mat-progress-bar>
+					</div>
+					<div class="col-md-8">
+						<small>{{ (mainData?.cpu_limit?.used / 1024).toFixed(2) }} kb</small> / <small>{{ (mainData?.cpu_limit?.max / 1024).toFixed(2) }} kb</small>
+					</div>
 				</div>
 			</div>
 
@@ -79,9 +72,26 @@
 					<strong class="block-info-header">NET:</strong>
 				</div>
 				<div class="col-sm-9">
-					<span class="account-info"> Available: <small>{{ mainData?.net_limit?.available }}</small></span>
-					<span class="account-info"> Max: <small>{{ mainData?.net_limit?.max }}</small></span>
-					<span class="account-info"> Used: <small>{{ mainData?.net_limit?.used }}</small></span>
+					<div class="col-md-4 no-padding">
+						<mat-progress-bar mode="determinate" value="{{mainData?.net_limit?.used / mainData?.net_limit?.max * 100}}" class="progress-bar-usage account-net"></mat-progress-bar>
+					</div>
+					<div class="col-md-8">
+						<small>{{ (mainData?.net_limit?.used / 1024).toFixed(2) }} kb</small> / <small>{{ (mainData?.net_limit?.max / 1024).toFixed(2) }} kb</small>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">RAM:</strong>
+				</div>
+				<div class="col-sm-9">
+					<div class="col-md-4 no-padding">
+						<mat-progress-bar mode="determinate" value="{{mainData?.ram_usage / mainData?.ram_quota * 100}}" class="progress-bar-usage account-ram"></mat-progress-bar>
+					</div>
+					<div class="col-md-8">
+						<small>{{ (mainData?.ram_usage / 1024).toFixed(2) }} kb</small> / <small>{{ (mainData?.ram_quota / 1024).toFixed(2) }} kb</small>
+					</div>
 				</div>
 			</div>
 
