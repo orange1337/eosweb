@@ -17,7 +17,7 @@ export class TransactionPageComponent implements OnInit, OnDestroy{
   time;
   trxArr = [];
   dataSource;
-  displayedColumns = ['cpu', 'net', 'hash', 'status', 'expiration', 'actions'];
+  displayedColumns = ['actions'];
   spinner = false;
 
   constructor(private route: ActivatedRoute, protected http: HttpClient){}
@@ -29,12 +29,8 @@ export class TransactionPageComponent implements OnInit, OnDestroy{
                       (res: any) => {
                           this.mainData = res;
                           this.time = this.moment(this.mainData.block_time).format('MMMM Do YYYY, h:mm:ss a');
-                          if (this.mainData.transactions && this.mainData.transactions.length){
-                              this.trxArr = this.createTransactionsArray(this.mainData.transactions);
-                              
-                              let ELEMENT_DATA: Element[] = this.trxArr;
-                              this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
-                          }
+                          let ELEMENT_DATA: Element[] = [this.mainData.trx.trx];
+                          this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
                           this.spinner = false;
                       },
                       (error) => {
@@ -42,21 +38,6 @@ export class TransactionPageComponent implements OnInit, OnDestroy{
                           this.spinner = false;
                       });
   };
-
-  createTransactionsArray(data){
-      let result = [];
-        data.forEach( elem => {
-              result.push({
-                  cpu: elem.cpu_usage_us,
-                  net: elem.net_usage_words,
-                  status: elem.status,
-                  hash: elem.trx.id,
-                  actions: elem.trx.transaction.actions,
-                  expiration: elem.trx.transaction.expiration
-              });
-        });
-        return result;
-  }
 
   ngOnInit() {
     this.block = this.route.params.subscribe(params => {

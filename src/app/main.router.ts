@@ -4,6 +4,7 @@ import { BlockPageComponent } from './pages/block/block.component';
 import { TransactionPageComponent } from './pages/transactions/transactions.component';
 import { AccountPageComponent } from './pages/account/account.component';
 import { ProducersPageComponent } from './pages/producers/producers.component';
+import { SoonComponent } from './pages/soon/soon.component';
 //import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
@@ -27,6 +28,10 @@ export const routes: Routes = [
   { 
     path: 'transaction/:id', 
     component: TransactionPageComponent 
+  },
+  { 
+    path: 'soon', 
+    component: SoonComponent 
   },
   { path: '**', redirectTo: '' },
 ]

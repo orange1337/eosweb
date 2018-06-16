@@ -10,37 +10,10 @@
 
 			<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
-					<strong class="block-info-header">Producer:</strong>
-				</div>
-				<div class="col-sm-9">
-					<small><a [routerLink]="['/account', mainData?.producer ]" class="color-green">{{ mainData?.producer }}</a></small>
-				</div>
-			</div>
-
-			<div class="col-sm-12 block-info-line">
-				<div class="col-sm-3">
 					<strong class="block-info-header">Hash:</strong>
 				</div>
 				<div class="col-sm-9">
 					<small class="color-grey">{{ mainData?.id}}</small>
-				</div>
-			</div>
-
-			<div class="col-sm-12 block-info-line">
-				<div class="col-sm-3">
-					<strong class="block-info-header">Last irreversible block:</strong>
-				</div>
-				<div class="col-sm-9">
-					<small>{{ mainData?.last_irreversible_block  }}</small>
-				</div>
-			</div>
-			
-			<div class="col-sm-12 block-info-line">
-				<div class="col-sm-3">
-					<strong class="block-info-header">Confirmed:</strong>
-				</div>
-				<div class="col-sm-9">
-					<small class="color-grey">{{ mainData?.confirmed  }}</small>
 				</div>
 			</div>	
 
@@ -55,131 +28,183 @@
 			
 			<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
-					<strong class="block-info-header">Trx:</strong>
+					<strong class="block-info-header">Actions:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small class="color-grey">{{ mainData?.trx }}</small>
+					<small class="color-grey">{{ mainData?.trx?.trx?.actions.length }}</small>
 				</div>
 			</div>
 
-			<div class="col-sm-12">
-					<div class="example-container mat-elevation-z8 main-table block-trx-table" *ngIf="trxArr.length">
-					
-					  <mat-table #table [dataSource]="dataSource" matSort>
-					
-					    <ng-container matColumnDef="cpu">
-					      <mat-header-cell *matHeaderCellDef> CPU </mat-header-cell>
-					      <mat-cell *matCellDef="let element; let i = index">
-					          <strong>{{ element?.cpu }}</strong>
-					      </mat-cell>
-					    </ng-container>
-					    
-					     <ng-container matColumnDef="net">
-					      <mat-header-cell *matHeaderCellDef> NET </mat-header-cell>
-					      <mat-cell *matCellDef="let element; let i = index">
-					          <strong>{{ element?.net }}</strong>
-					      </mat-cell>
-					    </ng-container>
+			<div class="col-sm-12 block-info-line">
+				<mat-accordion>
+				  <mat-expansion-panel>
+				    <mat-expansion-panel-header>
+				      <mat-panel-title>
+				        Blockchain Raw Data:
+				      </mat-panel-title>
+				    </mat-expansion-panel-header>
+				    <ngx-json-viewer [json]="mainData"></ngx-json-viewer>
+				  </mat-expansion-panel>
+				</mat-accordion>
+			</div>
 
-					    <!-- Name Column -->
-					    <ng-container matColumnDef="hash">
-					      <mat-header-cell *matHeaderCellDef> Hash </mat-header-cell>
-					      <mat-cell *matCellDef="let element" class="marketcap-container">
-					          <a [routerLink]="['/transaction', element?.hash ]" class="color-green tx-hash">{{ element?.hash }}</a>
-					       </mat-cell>
-					    </ng-container>
-					    
-					    <ng-container matColumnDef="status">
-					      <mat-header-cell *matHeaderCellDef> Status</mat-header-cell>
-					      <mat-cell *matCellDef="let element"> 
-					             <strong>{{element?.status}}</strong>
-					      </mat-cell>
-					    </ng-container>
-					    
-					    <!-- Name Column -->
-					    <ng-container matColumnDef="expiration">
-					      <mat-header-cell *matHeaderCellDef> Expiration</mat-header-cell>
-					      <mat-cell *matCellDef="let element" class="change-container"> 
-					            {{ moment(element?.expiration).format('MMMM Do YYYY, h:mm:ss a') }}
-					      </mat-cell>
-					    </ng-container>		
+			<div class="col-sm-12">
+					<div class="example-container mat-elevation-z8 main-table block-trx-table" *ngIf="mainData?.trx?.trx?.actions">
+					
+					  <mat-table #table [dataSource]="dataSource" matSort>	
 
 					    <!-- Weight Column -->
 					    <ng-container matColumnDef="actions">
-					      <mat-header-cell *matHeaderCellDef class="actions-list-container"> Actions </mat-header-cell>
+					      <mat-header-cell *matHeaderCellDef class="actions-list-container"> Actions Info</mat-header-cell>
 					      <mat-cell *matCellDef="let element"> 
 					          	<!--{{element?.actions}}-->
 								<div *ngFor="let action of element?.actions" class="actions-list-container">
 								  
-								  <div *ngIf="action?.data?.quantity">
-									<div class="col-sm-2 actions-list">
+								  <div class="actions-main-container" *ngIf="action?.data?.quantity">
+									<div class="actions-list">
 										<a [routerLink]="['/account', action?.data?.from ]" class="color-green">
 											<strong>{{ action?.data?.from }}</strong>
 										</a>
-										<i class="fas fa-long-arrow-right pull-right"></i>
+										<i class="fas fa-long-arrow-right"></i>
 									</div>
-									<div class="col-sm-3 actions-list">
+									<div class="actions-list">
 										<a [routerLink]="['/account', action?.data?.to ]" class="color-green">
 											<strong>{{ action?.data?.to }}</strong>
 										</a>
 									</div>
-									<div class="col-sm-4 actions-list">
-										{{ action?.data?.memo }}
+									<div class="actions-list">
+										<strong>{{ action?.data?.memo }}</strong>
 									</div>
-									<div class="col-sm-3 actions-list">
-										{{ action?.data?.quantity }}
+									<div class="actions-list">
+										<strong>{{ action?.data?.quantity }}</strong>
 									</div>
 								  </div>
 
-								  <div *ngIf="action?.data?.creator">
-									<div class="col-sm-3 actions-list">
-										Creator: <a [routerLink]="['/account', action?.data?.from ]" class="color-green">
+								  <div class="actions-main-container" *ngIf="action?.data?.creator">
+									<div class="actions-list">
+										Creator: <a [routerLink]="['/account', action?.data?.creator ]" class="color-green">
 											<strong>{{ action?.data?.creator }}</strong>
 										</a>
 									</div>
-									<div class="col-sm-8 actions-list">
-										Name: <a [routerLink]="['/account', action?.data?.to ]" class="color-green">
+									<div class="actions-list">
+										Name: <a [routerLink]="['/account', action?.data?.name ]" class="color-green">
 											<strong>{{ action?.data?.name }}</strong>
 										</a>
 									</div>
 								  </div>
 
-								  <div *ngIf="action?.data?.stake_cpu_quantity">
-									<div class="col-sm-2 actions-list">
+								  <div class="actions-main-container" *ngIf="action?.data?.stake_cpu_quantity">
+									<div class="actions-list">
 										<a [routerLink]="['/account', action?.data?.from ]" class="color-green">
 											<strong>{{ action?.data?.from }}</strong>
 										</a>
-										<i class="fas fa-long-arrow-right pull-right"></i>
+										<i class="fas fa-long-arrow-right"></i>
 									</div>
-									<div class="col-sm-3 actions-list">
-										<a [routerLink]="['/account', action?.data?.to ]" class="color-green">
+									<div class="actions-list">
+										<a [routerLink]="['/account', action?.data?.receiver ]" class="color-green">
 											<strong>{{ action?.data?.receiver }}</strong>
 										</a>
 									</div>
-									<div class="col-sm-3 actions-list">
-										{{ action?.data?.stake_cpu_quantity }}
+									<div class="actions-list">
+										cpu: <strong>{{ action?.data?.stake_cpu_quantity }}</strong>
 									</div>
-									<div class="col-sm-3 actions-list">
-										{{ action?.data?.stake_net_quantity }}
+									<div class="actions-list">
+										net: <strong>{{ action?.data?.stake_net_quantity }}</strong>
 									</div>
-									<div class="col-sm-1 actions-list">
+									<!--<div class="col-sm-1 actions-list">
 										{{ action?.data?.transfer }}
-									</div>
+									</div>-->
 								  </div>
 
-								  <div *ngIf="action?.data?.payer">
-									<div class="col-sm-3 actions-list">
-										Payer: <a [routerLink]="['/account', action?.data?.from ]" class="color-green">
+								  <div class="actions-main-container" *ngIf="action?.data?.payer">
+									<div class="actions-list">
+										Payer: <a [routerLink]="['/account', action?.data?.payer ]" class="color-green">
 											<strong>{{ action?.data?.payer }}</strong>
 										</a>
 									</div>
-									<div class="col-sm-3 actions-list">
-										Bytes: {{ action?.data?.bytes }}
+									<div class="actions-list">
+										Bytes: <strong>{{ action?.data?.bytes }}</strong>
 									</div>
-									<div class="col-sm-6 actions-list">
-										Receiver: <a [routerLink]="['/account', action?.data?.to ]" class="color-green">
+									<div class="actions-list">
+										Receiver: <a [routerLink]="['/account', action?.data?.receiver ]" class="color-green">
 											<strong>{{ action?.data?.receiver }}</strong>
 										</a>
+									</div>
+								  </div>
+
+								  <div class="actions-main-container" *ngIf="action?.data?.newname">
+									<div class="actions-list">
+										Bid: <strong>{{ action?.data?.bid }}</strong>
+									</div>
+									<div class="actions-list">
+										Bidder: <a [routerLink]="['/account', action?.data?.bidder ]" class="color-green">
+											<strong>{{ action?.data?.bidder }}</strong>
+										</a>
+									</div>
+									<div class="actions-list">
+										New name: <strong>{{ action?.data?.newname }}</strong>
+									</div>
+								  </div>
+
+								  <div class="actions-main-container" *ngIf="action?.data?.voter">
+									<div class="actions-list">
+										<strong>Voter</strong>: <a [routerLink]="['/account', action?.data?.voter ]" class="color-green">
+											<strong>{{ action?.data?.voter }}</strong>
+										</a>
+									</div>
+									<div class="actions-list">
+										<strong>Producers: </strong>
+										<a [routerLink]="['/account', producer ]" class="color-green" *ngFor="let producer of action?.data?.producers;">
+											<strong>{{ producer }}</strong>
+										</a>
+									</div>
+								  </div>
+
+								  <div class="actions-main-container" *ngIf="action?.data?.permission">
+									<div class="actions-list">
+										<strong>Name</strong>:
+											<strong>{{ action?.name }}</strong>
+									</div>
+									<div class="actions-list">
+										<strong>Parent</strong>:
+											<strong>{{ action?.data?.parent }}</strong>
+									</div>
+									
+									<div class="actions-list">
+										<strong>Permission: </strong>
+											<strong>{{ action?.data?.permission }}</strong>
+									</div>
+								  </div>
+
+								  <div class="actions-main-container" *ngIf="action?.data?.url">
+								  	<div class="actions-list">
+										<strong>Producer</strong>:
+										<a [routerLink]="['/account', action?.data?.producer ]" class="color-green">
+											<strong>{{ action?.data?.producer }}</strong>
+										</a>
+									</div>
+									<div class="actions-list">
+											<strong class="tx-hash">{{ action?.data?.producer_key }}</strong>
+									</div>
+									<div class="actions-list">
+										<a href="{{action?.data?.url}}" class="color-green tx-hash">
+											{{ action?.data?.url }}
+										</a>
+									</div>
+								  </div>
+
+								  <div class="actions-main-container" *ngIf="action?.data?.memo">
+								  	<div class="actions-list">
+										<strong>Account</strong>:
+										<a [routerLink]="['/account', action?.account ]" class="color-green">
+											<strong>{{ action?.account }}</strong>
+										</a>
+									</div>
+									<div class="actions-list">
+											Memo: <strong>{{ action?.data?.memo }}</strong>
+									</div>
+									<div class="actions-list">
+											Amount: <strong>{{ action?.data?.amount }}</strong>
 									</div>
 								  </div>
 

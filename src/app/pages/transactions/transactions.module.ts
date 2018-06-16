@@ -5,12 +5,15 @@ import { MatAutocompleteModule,
          MatInputModule,
          MatPaginatorModule,
          MatProgressSpinnerModule,
+         MatProgressBarModule,
          MatSelectModule,
          MatSortModule,
          MatTableModule,
-         MatFormFieldModule } from '@angular/material';
+         MatFormFieldModule,
+         MatExpansionModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { appRoutes } from '../../main.router';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
 
 
 let imports = [
@@ -20,11 +23,14 @@ let imports = [
     MatInputModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
     MatSelectModule,
     MatSortModule,
     MatTableModule,
     CommonModule,
-    appRoutes ];
+    appRoutes,
+    MatExpansionModule,
+    NgxJsonViewerModule ];
 
 @NgModule({
   declarations: [

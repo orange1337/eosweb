@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
@@ -18,6 +19,8 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   balance = 0;
   unstaked;
   actions = [];
+  dataSource;
+  displayedColumns = ['actions'];
   code;
   tables = [];
 
@@ -54,7 +57,9 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   getActions(accountName){
       this.http.get(`/api/v1/get_actions/${accountName}/1/100`)
            .subscribe((res: any) => {
-                          this.actions = res.actions;
+                          this.actions = res;
+                          let ELEMENT_DATA: Element[] = [res];
+                          this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
                       },
                       (error) => {
                           console.error(error);
