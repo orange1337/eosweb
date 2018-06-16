@@ -18,7 +18,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   spinner = false;
   balance = 0;
   unstaked;
-  actions = [];
+  actions;
   dataSource;
   displayedColumns = ['actions'];
   code;
