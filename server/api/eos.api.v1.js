@@ -10,6 +10,56 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 	const STATS_AGGR = require('../models/api.stats.model')(mongoMain);
 
     //============ HISTORY API
+    /*
+	* router - search global aggregation
+	*/
+	router.post('/api/v1/search', (req, res) => {
+		let text = req.body.text;
+		if (!text){
+			return res.status(501).send('Wrong search input!');
+		}
+
+		async.parallel({
+			block: (cb) =>{
+        		eos.getBlock({ block_num_or_id: text })
+	   			 	.then(result => {
+	   			 		cb(null, result);
+	   			 	})
+	   			 	.catch(err => {
+	   			 		log.error(err);
+	   			 		cb(null, null);
+	   			 	});
+			},
+			transaction: (cb) =>{
+				eos.getTransaction({ id: text })
+	   			 	.then(result => {
+	   			 		cb(null, result);
+	   			 	})
+	   			 	.catch(err => {
+	   			 		cb(null, null);
+	   			 	});
+			},
+			account: (cb) =>{
+				eos.getAccount({ account_name: text })
+	   			 	.then(result => {
+	   			 		cb(null, result);
+	   			 	})
+	   			 	.catch(err => {
+	   			 		cb(null, null);
+	   			 	});
+			},
+			/*contract: () =>{
+				
+			}*/
+		}, (err, result) => {
+			if (!text){
+				log.error(err);
+				return res.status(501).end();
+			}
+			res.json(result);
+		});
+	});
+
 	/*
 	* router - get_block
 	* params - block_num_or_id

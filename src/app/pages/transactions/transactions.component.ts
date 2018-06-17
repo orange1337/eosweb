@@ -29,7 +29,7 @@ export class TransactionPageComponent implements OnInit, OnDestroy{
                       (res: any) => {
                           this.mainData = res;
                           this.time = this.moment(this.mainData.block_time).format('MMMM Do YYYY, h:mm:ss a');
-                          let ELEMENT_DATA: Element[] = [this.mainData.trx.trx];
+                          let ELEMENT_DATA: Element[] = [this.mainData.trx];
                           this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
                           this.spinner = false;
                       },

@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-root',
@@ -16,4 +19,33 @@ export class AppComponent {
       clickIconToClose: true,
       animate: "scale"
   };
+  search;
+
+  constructor(private http: HttpClient, private router: Router){}
+
+  searchGlobal(text){
+    if (!text) {
+        return console.log('Input is empty!');
+    }
+      this.http.post('/api/v1/search', { text: text })
+               .subscribe((res :any) =>{
+                   if (res.block && !isNaN(+this.search)){
+                      this.router.navigate(['/block', res.block.block_num]);
+                   } else if (res.transaction){
+                      this.router.navigate(['/transaction', res.transaction.id]);
+                   } else if (res.account){
+                      this.router.navigate(['/account', res.account.account_name]);
+                   }
+                   this.search = '';
+               },
+               (err) =>{
+                   console.error(err);
+               });
+  }
+
+  onKey(event: any){
+     if (event.keyCode === 13) {
+         this.searchGlobal(event.target.value);
+     }
+  }
 }

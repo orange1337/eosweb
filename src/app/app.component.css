@@ -91,7 +91,6 @@
 	color: #fff;
 }
 .main-search{
-	width: 300px;
     float: left;
     display: table;
     background-color: rgba(255, 255, 255, 0.1);
@@ -105,13 +104,16 @@
 .main-search input{
 	background: rgba(1,1,1,0);
     padding: 3px 10px;
-    width: 90%;
+    width: 270px;
     margin-left: 10px;
     outline: none;
     border: 0;
     font-size: 12px;
     border-left: 1px solid #4c4b4d;
     color: #bebdbe;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    transition: all .5s;
 }
 .main-search::placeholder{
 	color: #fafafa;
@@ -119,9 +121,8 @@
 .main-search:focus::placeholder{
 	color: #333;
 }
-.main-search:focus{
-	background-color: rgba(255, 255, 255, 0.9);
-	color: #333;
+.main-search input:focus{
+	width: 400px;
 }
 .main-navigation .mat-button{
 	text-transform: uppercase;
