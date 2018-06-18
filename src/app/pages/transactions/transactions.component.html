@@ -13,7 +13,9 @@
 					<strong class="block-info-header">Block Number:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small class="color-grey">{{ mainData?.block_num }}</small>
+					<a [routerLink]="['/block', mainData?.block_num ]" class="color-green tx-hash">
+         				 <strong>{{ mainData?.block_num.toLocaleString() }}</strong>
+        			</a>
 				</div>
 			</div>
 

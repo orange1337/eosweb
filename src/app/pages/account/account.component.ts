@@ -50,7 +50,11 @@ export class AccountPageComponent implements OnInit, OnDestroy{
       this.http.get(`/api/v1/get_currency_balance/eosio.token/${accountId}/EOS`)
            .subscribe((res: any) => {
                           this.unstaked = res[0];
-                          this.balance = Number(this.unstaked.split(' ')[0]) + this.mainData.voter_info.staked / 10000;
+                          let staked = 0;
+                          if (this.mainData.voter_info && this.mainData.voter_info.staked){
+                              staked = this.mainData.voter_info.staked;
+                          }
+                          this.balance = Number(this.unstaked.split(' ')[0]) + staked / 10000;
                           this.eosRate = this.MainService.getEosPrice();
                       },
                       (error) => {
