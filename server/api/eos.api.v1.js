@@ -9,6 +9,12 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 
 	const STATS_AGGR = require('../models/api.stats.model')(mongoMain);
 
+	// ======== aggragation stat
+    if (config.PROD){
+        customFunctions.getStatAggregation(eos, STATS_AGGR);
+    }
+    // ======== end of aggragation stat
+
     //============ HISTORY API
     /*
 	* router - search global aggregation
