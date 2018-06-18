@@ -14,6 +14,7 @@ import { MatAutocompleteModule,
 import { CommonModule } from '@angular/common';
 import { appRoutes } from '../../main.router';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { MainService } from '../../services/mainapp.service';
 
 let imports = [
     MatAutocompleteModule,
@@ -36,7 +37,7 @@ let imports = [
     AccountPageComponent
   ],
   imports:  imports,
-  providers: [],
+  providers: [MainService],
   bootstrap: [ AccountPageComponent ]
 })
 export class AccountPageModule {}

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Socket } from 'ng-socket-io';
 import * as shape from 'd3-shape';
+import { MainService } from '../../services/mainapp.service';
 
 @Component({
   selector: 'main-tcustomize-charts',
@@ -30,13 +31,14 @@ export class MainCustomizeChartsComponent implements OnInit{
   blockchainData;
   aggragationData;
 
-  constructor(private http: HttpClient, private socket: Socket){}
+  constructor(private http: HttpClient, private socket: Socket, private MainService: MainService){}
 
   getData() {
         this.http.get('https://min-api.cryptocompare.com/data/pricemultifull?fsyms=EOS&tsyms=USD')
                   .subscribe(
                       (res: any) => {
                            this.currencyObj = res;
+                           this.MainService.setEosPrice(this.currencyObj);
                       },
                       (error) => {
                           console.error(error);

@@ -22,7 +22,8 @@
 					<strong class="block-info-header">Total Balance:</strong>
 				</div>
 				<div class="col-sm-9">
-					<strong>{{ balance }} EOS</strong>
+					<strong>{{ balance.toLocaleString() }} EOS</strong> / 
+					<small>{{ (balance * eosRate?.RAW?.EOS?.USD?.PRICE).toLocaleString() }} USD</small>
 				</div>
 			</div>
 			

@@ -3,6 +3,7 @@ import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
+import { MainService } from '../../services/mainapp.service';
 
 @Component({
   selector: 'account-page',
@@ -23,8 +24,10 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   displayedColumns = ['actions'];
   code;
   tables = [];
+  eosRate;
+  subscription;
 
-  constructor(private route: ActivatedRoute, protected http: HttpClient){}
+  constructor(private route: ActivatedRoute, protected http: HttpClient, private MainService: MainService){}
 
   getBlockData(accountId){
       this.spinner = true;
@@ -48,6 +51,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
            .subscribe((res: any) => {
                           this.unstaked = res[0];
                           this.balance = Number(this.unstaked.split(' ')[0]) + this.mainData.voter_info.staked / 10000;
+                          this.eosRate = this.MainService.getEosPrice();
                       },
                       (error) => {
                           console.error(error);
@@ -100,9 +104,11 @@ export class AccountPageComponent implements OnInit, OnDestroy{
        this.accountId = params['id'];
        this.getBlockData(this.accountId);
     });
+    //this.subscription = this.MainService.getEosPrice().subscribe(item => { this.eosRate = item; console.log(item); });
   }
 
   ngOnDestroy() {
     this.block.unsubscribe(); 
+    //this.subscription.unsubscribe();
   }	
 }
