@@ -80,6 +80,19 @@
 				</div>
 			</div>
 
+			<div class="col-sm-12 block-info-line">
+				<mat-accordion>
+				  <mat-expansion-panel>
+				    <mat-expansion-panel-header>
+				      <mat-panel-title>
+				        Blockchain Raw Data:
+				      </mat-panel-title>
+				    </mat-expansion-panel-header>
+				    <ngx-json-viewer [json]="mainData"></ngx-json-viewer>
+				  </mat-expansion-panel>
+				</mat-accordion>
+			</div>
+
 			<div class="col-sm-12">
 					<div class="example-container mat-elevation-z8 main-table block-trx-table" *ngIf="trxArr.length">
 					
