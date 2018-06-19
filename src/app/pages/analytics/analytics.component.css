@@ -1,0 +1,10 @@
+.account-info{
+	font-size: 13px;
+	margin-left: 10px;
+}
+.account-info:first-child{
+	margin-left: 0px;
+}
+small {
+    font-size: 13px;
+}

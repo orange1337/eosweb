@@ -14,7 +14,7 @@
 				</div>
 				<div class="col-sm-9">
 					<a [routerLink]="['/block', mainData?.block_num ]" class="color-green tx-hash">
-         				 <strong>{{ mainData?.block_num.toLocaleString() }}</strong>
+         				 <strong>{{ mainData?.block_num }}</strong>
         			</a>
 				</div>
 			</div>
@@ -59,8 +59,57 @@
 				</mat-accordion>
 			</div>
 
-			<div class="col-sm-12">
-					<div class="example-container mat-elevation-z8 main-table block-trx-table" *ngIf="mainData?.trx?.trx?.actions">
+			<div class="col-sm-12 block-info-line">
+				<mat-tab-group>
+				  <mat-tab label="Token transfer">
+				  		<div class="actions-main-container token-tranfer-table">
+				  				<div class="actions-list text-center">
+				  					Direction
+				  				</div>
+				  				<div class="actions-list">
+				  					From
+				  				</div>
+				  				<div class="actions-list">
+				  					To
+				  				</div>
+				  				<div class="actions-list">
+				  					Memo
+				  				</div>
+				  				<div class="actions-list">
+				  					Quantity
+				  				</div>
+				  		</div>
+				        <div *ngFor="let action of mainData?.trx?.trx?.actions">
+								  <div class="actions-main-container" *ngIf="action?.account === 'eosio.token'">
+									<div class="actions-list text-center">
+										<div *ngIf="action?.data?.to === mainData?.account_name" class="color-green">
+											<strong>In</strong>
+										</div>
+										<div *ngIf="action?.data?.to !== mainData?.account_name" class="color-red">
+											<strong>Out</strong>
+										</div>
+									</div>
+									<div class="actions-list">
+										<a [routerLink]="['/account', action?.data?.from ]" class="color-green">
+											<strong>{{ action?.data?.from }}</strong>
+										</a>
+									</div>
+									<div class="actions-list">
+										<a [routerLink]="['/account', action?.data?.to ]" class="color-green">
+											<strong>{{ action?.data?.to }}</strong>
+										</a>
+									</div>
+									<div class="actions-list">
+										{{ action?.action_trace?.act?.data?.memo }}
+									</div>
+									<div class="actions-list">
+										<strong>{{ action?.action_trace?.act?.data?.quantity }}</strong>
+									</div>
+								  </div>		 
+						</div>
+				  </mat-tab>
+				  <mat-tab label="Actions info">
+				  	<div class="example-container mat-elevation-z8 main-table block-trx-table" *ngIf="mainData?.trx?.trx?.actions">
 					
 					  <mat-table #table [dataSource]="dataSource" matSort>	
 
@@ -232,6 +281,11 @@
 					                 [pageSizeOptions]="[50, 100]">
 					  </mat-paginator>-->
 					</div>
+				  </mat-tab>
+				  <mat-tab label="Actions (Raw Data)">
+				  		<ngx-json-viewer [json]="mainData?.trx?.trx?.actions"></ngx-json-viewer>
+				  </mat-tab>
+				</mat-tab-group>
 			</div>
 	</div>
 </div>

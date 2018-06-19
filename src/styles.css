@@ -73,9 +73,15 @@ a{
 	color: #71d479 !important;
 	text-decoration: none;
 }
+.color-red{
+	color: red !important;
+}
 .color-grey{
 	color: #333 !important;
 	text-decoration: none;
+}
+.padding-left{
+	padding-left: 20px;
 }
 .color-red{
 	color: #e36956 !important;
@@ -432,6 +438,8 @@ small{
 .actions-main-container{
 	display: flex;
 	border-bottom: 1px solid #f7f7f7;
+	padding-left: 20px;
+	font-size: 14px;
 }
 .actions-list-container{
 	width: 600px;
@@ -441,5 +449,15 @@ small{
 	margin-left: 10px;
 }
 
-
-
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+	background-color: #71d479 !important;
+}
+.mat-tab-body-content{
+	padding: 15px;
+}
+.token-tranfer-table{
+	font-size: 13px;
+	color: #89898f;
+	background-color: #f1f1f2;
+    border: none;
+}

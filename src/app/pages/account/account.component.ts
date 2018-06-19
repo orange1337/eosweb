@@ -63,7 +63,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   }
 
   getActions(accountName){
-      this.http.get(`/api/v1/get_actions/${accountName}/1/100`)
+      this.http.get(`/api/v1/get_actions/${accountName}/1/200`)
            .subscribe((res: any) => {
                           this.actions = res;
                           let ELEMENT_DATA: Element[] = [res];
@@ -101,6 +101,11 @@ export class AccountPageComponent implements OnInit, OnDestroy{
                           });
       });
   }
+
+
+  /*getAccountsByKey(key){
+
+  }*/
 
 
   ngOnInit() {

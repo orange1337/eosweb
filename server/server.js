@@ -9,25 +9,12 @@ const compression   = require('compression');
 const request       = require('request');
 const async			    = require('async');
 const mongoose      = require("mongoose");
-const config      = require('../config');
+const config        = require('../config');
 
-const EOS     = require('eosjs');
-let eosConfig = {
-  chainId: null,
-  //keyProvider: ['PrivateKeys...'], // WIF string or array of keys..
-  httpEndpoint: config.EOS_API,
-  /*mockTransactions: () => 'pass', // or 'fail'
-  transactionHeaders: (expireInSeconds, callback) => {
-    callback(null, headers)
-  },*/
-  expireInSeconds: 60,
-  broadcast: true,
-  debug: false, // API and transactions
-  sign: true
-}
-const eos     = EOS(eosConfig);
+const EOS         = require('eosjs');
+const eos         = EOS(config.eosConfig);
 
-const log4js = require('log4js');
+const log4js      = require('log4js');
 log4js.configure(config.logger);
 const log         = log4js.getLogger('server');
 process.setMaxListeners(0);
@@ -93,6 +80,8 @@ const io  = require('socket.io').listen(server);
 
 
 require('./api/eos.api.v1.socket')(io, eos, mongoMain);
+
+//require('./cron/main.cron')();
 
 app.use(function(req,res,next){
   req.io = io;

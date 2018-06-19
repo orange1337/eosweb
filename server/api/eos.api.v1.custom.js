@@ -35,35 +35,6 @@ customFunctions.getLastBlocks = (eos, elements, callback) => {
 	   	});
 };
 
-/*customFunctions.getLastTransactions = (eos, callback) => {
-	let resultArr = [];
-	let counter = 0;
-	eos.getInfo({})
-	   	.then(result => { 
-	   		if (!result.head_block_num){
-	   			return callback('Cant get info from blockchain!');
-	   		}
-	   		if (resultArr.length === config.offsetElementsOnMainpage){
-	   			return callback(null, resultArr);
-	   		}
-	   		eos.getBlock({ block_num_or_id: result.head_block_num })
-	   		   .then(block => {
-	   		   	    if (block.transactions && block.transactions.length > 0 && block.transactions.length < config.offsetElementsOnMainpage){
-						resultArr.push(block.transactions);
-	   		   	    } else if (block.transactions.length > config.offsetElementsOnMainpage){
-	   		   	    	block.transactions.slice(0, config.offsetElementsOnMainpage);
-	   		   	    }
-	   		   		
-	   		   })
-	   		   .catch(err => {
-	   		   		console.error('customFunctions getBlock error - ', err);
-	   		   });
-	   	})
-	   	.catch(err => {
-	   		callback(err);
-	   	});
-}*/
-
 function getBlockOffset(){
 	  eos.getBlock({ block_num_or_id: result.head_block_num })
 	     .then(block => {
@@ -105,42 +76,41 @@ customFunctions.getStatAggregation = (eos, STATS_AGGR) => {
 			   			return cb('Cant get info from blockchain getStatAggregation!');
 			   		}
 			   		let elements = Array.from({length: result.head_block_num - stat.cursor_block}, (v, k) => stat.cursor_block++);
-
-			   		//console.log('====== elements length', elements.length, ' start ', elements[0]);
-			   		async.eachLimit(elements, config.limitAsync, (elem, ret) => {
-			   			eos.getBlock({ block_num_or_id: elem })
-			   				.then(block => {
-			   					//console.log('==== block number ', block.block_num);
-			   					
-			   					if (block.transactions && block.transactions.length > 0){
-			   						stat.transactions += block.transactions.length;
-			   						block.transactions.forEach( elem => {
-			   							 if (elem.trx && elem.trx.transaction && elem.trx.transaction.actions){
-												stat.actions += elem.trx.transaction.actions.length;
-			   							 }
-			   						});
-			   					}
-			   					stat.cursor_block = block.block_num;
-			   					ret();
-			   				})
-			   				.catch(err => {
-			   					console.error('getStatAggregation getBlock error - ', err);
-			   					ret();
-			   				});
-			   			}, (error) => {
-			   				if (error){
-			   					return cb(error)
-			   				}
-			   				stat.save((err) => {
-			   						if (err){
-			   							return cb(err);
-			   						}
-			   						cb(null, stat);
-			   				});
-			   			});
+			   		cb(null, stat, result, elements);
 			   	})
 			   	.catch(err => {
 			   		cb(err);
+			   	});
+		},
+		(stat, result, elements, cb) => {
+			async.eachLimit(elements, config.limitAsync, (elem, ret) => {
+			   	eos.getBlock({ block_num_or_id: elem })
+			   		.then(block => {			   			
+			   			if (block.transactions && block.transactions.length > 0){
+			   				stat.transactions += block.transactions.length;
+			   				block.transactions.forEach( elem => {
+			   					 if (elem.trx && elem.trx.transaction && elem.trx.transaction.actions){
+										stat.actions += elem.trx.transaction.actions.length;
+			   					 }
+			   				});
+			   			}
+			   			stat.cursor_block = block.block_num;
+			   			ret();
+			   		})
+			   		.catch(err => {
+			   			console.error('getStatAggregation getBlock error - ', err);
+			   			ret();
+			   		});
+			   	}, (error) => {
+			   		if (error){
+			   			return cb(error)
+			   		}
+			   		stat.save((err) => {
+			   				if (err){
+			   					return cb(err);
+			   				}
+			   				cb(null, stat);
+			   		});
 			   	});
 		}
 	], (err, stat) => {

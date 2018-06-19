@@ -54,9 +54,24 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 	   			 		cb(null, null);
 	   			 	});
 			},
-			/*contract: () =>{
-				
-			}*/
+			key: (cb) => {
+				eos.getKeyAccounts({ public_key: text })
+	   	 			.then(result => {
+	   	 				cb(null, result);
+	   	 			})
+	   	 			.catch(err => {
+	   	 				cb(null, null);
+	   	 			});
+			},
+			contract: (cb) =>{
+				eos.getCode({ json: true,account_name: text })
+	   	 			.then(result => {
+	   	 				cb(null, result)
+	   	 			})
+	   	 			.catch(err => {
+	   	 				cb(null, null);
+	   	 			});
+			}
 		}, (err, result) => {
 			if (!text){
 				log.error(err);
@@ -301,6 +316,24 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 	   	 		res.status(501).end();
 	   	 	});
 	});
+
+	/*
+	* router - get_account
+	* params - name
+	*/
+	router.get('/api/v1/get_key_accounts/:key', (req, res) => {
+	   	 eos.getKeyAccounts({
+	   	 		public_key: req.params.key
+	   	 	})
+	   	 	.then(result => {
+	   	 		res.json(result);
+	   	 	})
+	   	 	.catch(err => {
+	   	 		log.error(err);
+	   	 		res.status(501).end();
+	   	 	});
+	});
+
 	//============ END of Account API
 
 	//============ Prod API

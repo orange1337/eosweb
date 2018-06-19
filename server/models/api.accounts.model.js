@@ -1,33 +1,33 @@
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-var MODEL_NAME = 'Stats';
-var TABLE_NAME = 'Stats';
+var MODEL_NAME = 'Accounts';
+var TABLE_NAME = 'Accounts';
 var MODEL;
 
 var API = new mongoose.Schema({
-  transactions: { 
-    type: Number,
-    default: 0 
+  account_name: { 
+    type: String,
+    index: true
   },
-  actions: { 
-    type: Number,
-    default: 0 
+  balance: { 
+    type: Array
   },
-  accounts: { 
+  staked: {
     type: Number,
-    default: 0 
+    index: true
   },
-  cursor_block: { 
+  unstaked: {
     type: Number,
-    default: 0 
+    index: true
   },
-  cursor_accounts: {
-    type: Number,
-    default: 0 
+  key: { 
+    type: String,
+    index: true 
   },
-  last_update: { 
-    type: Date
+  created: { 
+    type: Date,
+    default: Date.now
   }
 });
 

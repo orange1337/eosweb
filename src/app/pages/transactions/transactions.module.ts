@@ -10,7 +10,8 @@ import { MatAutocompleteModule,
          MatSortModule,
          MatTableModule,
          MatFormFieldModule,
-         MatExpansionModule } from '@angular/material';
+         MatExpansionModule,
+         MatTabsModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { appRoutes } from '../../main.router';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
@@ -30,7 +31,8 @@ let imports = [
     CommonModule,
     appRoutes,
     MatExpansionModule,
-    NgxJsonViewerModule ];
+    NgxJsonViewerModule,
+    MatTabsModule ];
 
 @NgModule({
   declarations: [
