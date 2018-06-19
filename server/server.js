@@ -17,10 +17,11 @@ const eos         = EOS(config.eosConfig);
 const log4js      = require('log4js');
 log4js.configure(config.logger);
 const log         = log4js.getLogger('server');
+const logSlack    = log4js.getLogger('slack_notify');
 process.setMaxListeners(0);
 
 process.on('uncaughtException', (err) => {
-    log.error('======= UncaughtException Main Server : ', err);
+    logSlack.info('======= UncaughtException Main Server : ', err)
 });
 
 mongoose.Promise = global.Promise;

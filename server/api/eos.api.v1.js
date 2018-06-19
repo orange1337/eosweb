@@ -64,7 +64,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 	   	 			});
 			},
 			contract: (cb) =>{
-				eos.getCode({ json: true,account_name: text })
+				eos.getCode({ json: true, account_name: text })
 	   	 			.then(result => {
 	   	 				cb(null, result)
 	   	 			})
