@@ -62,9 +62,9 @@ function getAccountAggregation (){
 			   	eos.getBlock({ block_num_or_id: elem })
 			   		.then(block => {
 			   			if (block.transactions && block.transactions.length > 0){
-			   				transactionsAggregate(block.transactions, stat, (accounts) => {
+			   				transactionsAggregate(block.transactions, stat, () => {
 			   					stat.cursor_accounts = block.block_num;
-			   					console.log(`======== SAVED - ${accounts} accoounts, block ${block.block_num}`);
+			   					console.log(`======== SAVED accoounts, block ${block.block_num}`);
 			   					ret();
 			   				});
 			   			} else {
@@ -100,14 +100,13 @@ function getAccountAggregation (){
 
 
 function transactionsAggregate (trx, stat, callback){
-	let accounts = 0;
 	async.each(trx, (elem, cbTx) => {
 		if (!elem.trx || !elem.trx.transaction || !elem.trx.transaction.actions){
 			console.error('elem.trx.transaction.actions - error', elem);
 			return cbTx();
 		}
 	   	async.each(elem.trx.transaction.actions, (action, cbAction) => {
-	   		STATS_ACCOUNT.find({ account_name: action.account }, (err, result) => {
+	   		STATS_ACCOUNT.find({ account_name: action.data.name }, (err, result) => {
 	   			if (err){
 	   				console.error(err);
 	   				return cbAction();
@@ -115,9 +114,8 @@ function transactionsAggregate (trx, stat, callback){
 	   			if (result && result.length){
 	   				return cbAction();
 	   			}
-	   			accounts++;
 	   			let stat_acc = new STATS_ACCOUNT({
-	   					account_name: action.account
+	   					account_name: action.data.name
 	   			});
 	   			stat_acc.save((err) => {
 	   				if (err){
@@ -136,11 +134,11 @@ function transactionsAggregate (trx, stat, callback){
 		if (error){
 			console.error(error);
 		}
-		callback(accounts);
+		callback();
 	});
 }
 
-
+getAccountAggregation();
 
 
 

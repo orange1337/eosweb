@@ -82,7 +82,7 @@ const io  = require('socket.io').listen(server);
 
 require('./api/eos.api.v1.socket')(io, eos, mongoMain);
 
-//require('./cron/main.cron')();
+require('./crons/main.cron')();
 
 app.use(function(req,res,next){
   req.io = io;
