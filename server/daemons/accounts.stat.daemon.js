@@ -143,12 +143,5 @@ function transactionsAggregate (trx, stat, callback){
 
 
 
-// start main aggragate function
-getAccountAggregation();
-
-
-
-
-
 
 

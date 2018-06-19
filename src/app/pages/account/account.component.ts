@@ -63,8 +63,9 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   }
 
   getActions(accountName){
-      this.http.get(`/api/v1/get_actions/${accountName}/1/200`)
+      this.http.get(`/api/v1/get_actions/${accountName}/-1/-20`)
            .subscribe((res: any) => {
+                          res.actions.reverse();
                           this.actions = res;
                           let ELEMENT_DATA: Element[] = [res];
                           this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
