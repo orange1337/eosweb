@@ -21,9 +21,9 @@ var API = new mongoose.Schema({
     type: Number,
     index: true
   },
-  key: { 
-    type: String,
-    index: true 
+  balance_eos: {
+    type: Number,
+    index: true
   },
   created: { 
     type: Date,

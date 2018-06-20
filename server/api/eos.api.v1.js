@@ -8,6 +8,8 @@ const customFunctions = require('./eos.api.v1.custom');
 module.exports 	= function(router, config, request, log, eos, mongoMain) {
 
 	const STATS_AGGR = require('../models/api.stats.model')(mongoMain);
+	const STATS_ACCOUNT = require('../models/api.accounts.model')(mongoMain);
+	
 
 	// ======== aggragation stat
     if (config.PROD){
@@ -80,6 +82,24 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 			res.json(result);
 		});
 	});
+
+	/*
+	* router - get_accounts_analytics
+	* params - offset
+	*/
+	router.get('/api/v1/get_accounts_analytics/:offset', (req, res) => {
+	   	 STATS_ACCOUNT.find()
+	   	 		.sort({ balance_eos: -1 })
+	   	 		.limit(Number(req.params.offset))
+	   	 		.exec((err, result) => {
+	   	 		if (err){
+	   	 			log.error(err);
+	   	 			return res.status(500).end();
+	   	 		}
+	   	 		res.json(result);
+	   	 })
+	});
+
 
 	/*
 	* router - get_block

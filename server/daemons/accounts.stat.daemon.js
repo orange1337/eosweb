@@ -6,11 +6,16 @@ const config      	= require('../../config');
 const EOS     		= require('eosjs');
 const eos     		= EOS(config.eosConfig);
 
+const log4js      = require('log4js');
+log4js.configure(config.logger);
+const log         = log4js.getLogger('accounts_daemon');
+const logSlack    = log4js.getLogger('slack_notify');
+
 mongoose.Promise = global.Promise;
 const mongoMain  = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTIONS,
  (err) => {
     if (err){
-      console.error(err);
+      log.error(err);
       process.exit(1);
     }
     console.info('[Connected to Mongo EOS in accounts daemon] : 27017');
@@ -19,10 +24,7 @@ const mongoMain  = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTI
 const STATS_ACCOUNT = require('../models/api.accounts.model')(mongoMain);
 const SETTINGS 		= require('../models/api.stats.model')(mongoMain);
 
-const log4js      = require('log4js');
-log4js.configure(config.logger);
-const log         = log4js.getLogger('accounts_daemon');
-const logSlack    = log4js.getLogger('slack_notify');
+
 
 process.on('uncaughtException', (err) => {
 	// rewrite to slack notify
@@ -69,7 +71,7 @@ function getAccountAggregation (){
 			   			if (block.transactions && block.transactions.length > 0){
 			   				transactionsAggregate(block.transactions, stat, () => {
 			   					stat.cursor_accounts = block.block_num;
-			   					console.log(`======== SAVED accoounts, block ${block.block_num}`);
+			   					log.info(`======== SAVED accoounts, block ${block.block_num}`);
 			   					ret();
 			   				});
 			   			} else {
@@ -78,7 +80,7 @@ function getAccountAggregation (){
 			   			}
 			   		})
 			   		.catch(err => {
-			   			console.error('getStatAggregation getBlock elem error - ', err);
+			   			log.error('getStatAggregation getBlock elem error - ', err);
 			   			ret();
 			   		});
 			   	}, (error) => {
@@ -109,10 +111,10 @@ function getAccountAggregation (){
 		}
 	], (err, stat) => {
 		if (err){
-			console.error(err);
+			log.error(err);
 			process.exit(1);
 		}
-		console.log('===== end ', stat);
+		log.info('===== end accounts aggr stat ', stat);
 		process.exit(0);
 	});
 };
@@ -121,13 +123,13 @@ function getAccountAggregation (){
 function transactionsAggregate (trx, stat, callback){
 	async.each(trx, (elem, cbTx) => {
 		if (!elem.trx || !elem.trx.transaction || !elem.trx.transaction.actions){
-			console.error('elem.trx.transaction.actions - error', elem);
+			log.error('elem.trx.transaction.actions - error', elem);
 			return cbTx();
 		}
 	   	async.each(elem.trx.transaction.actions, (action, cbAction) => {
 	   		STATS_ACCOUNT.find({ account_name: action.data.name }, (err, result) => {
 	   			if (err){
-	   				console.error(err);
+	   				log.error(err);
 	   				return cbAction();
 	   			}
 	   			if (result && result.length){
@@ -138,20 +140,20 @@ function transactionsAggregate (trx, stat, callback){
 	   			});
 	   			stat_acc.save((err) => {
 	   				if (err){
-	   					console.error(err);
+	   					log.error(err);
 	   				}
 	   				cbAction();
 	   			})
 	   		});
 	   	}, (err) => {
 	   		if (err){
-	   			console.error(err);	
+	   			log.error(err);	
 	   		}
 	   		cbTx();
 	   	});
 	}, (error) => {
 		if (error){
-			console.error(error);
+			log.error(error);
 		}
 		callback();
 	});

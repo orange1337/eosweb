@@ -12,67 +12,33 @@ import * as moment from 'moment';
 export class AnalyticsPageComponent implements OnInit{
   mainData;
   spinner = false;
-  displayedColumns = ['#', 'Name', 'Key', 'Url', 'Votes', 'Rate'];
+  displayedColumns = ['#', 'Name', 'Balance', 'Staked', 'Unstaked', 'Currencies Array'];
   dataSource;
   eosToInt = Math.pow(10, 13);
   allvotes;
 
   constructor(private route: ActivatedRoute, protected http: HttpClient){}
 
-  getBlockData(){
+  getAccounts(){
       this.spinner = true;
-  		this.http.get(`/api/v1/get_table_rows/eosio/eosio/producers/300`)
+  		this.http.get(`/api/v1/get_accounts_analytics/100`)
   				 .subscribe(
                       (res: any) => {
-                          this.mainData = res.rows;
-                          this.getGlobalData();
-                          this.spinner = false;
-                      },
-                      (error) => {
-                          console.error(error);
-                          this.spinner = false;
-                      });
-  };
-
-  getGlobalData(){
-      this.http.get(`/api/v1/get_table_rows/eosio/eosio/global/1`)
-           .subscribe(
-                      (res: any) => {
-                          this.allvotes = res.rows[0].total_producer_vote_weight;
-                          let ELEMENT_DATA: Element[] = this.sortArray(this.countRate(this.mainData));
+                          this.mainData = res;
+                          
+                          let ELEMENT_DATA: Element[] = this.mainData;
                           this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+
+                          this.spinner = false;
                       },
                       (error) => {
                           console.error(error);
+                          this.spinner = false;
                       });
   };
-
-  sortArray(data) {
-      if(!data){
-        return;
-      }
-      let result = data.sort((a, b) => {
-          return b.total_votes - a.total_votes;
-      }).map(elem => {
-          elem.total_votes = Number(elem.total_votes).toLocaleString();
-          return elem;
-      });
-      return result;
-  }
-
-  countRate(data){
-      if(!data){
-        return;
-      }
-      data.forEach(elem => {
-          elem.rate = (elem.total_votes / this.allvotes * 100).toLocaleString();
-      });
-      console.log(data);
-      return data;
-  }
 
   ngOnInit() {
-     this.getBlockData();
+     this.getAccounts();
   }
 }
 

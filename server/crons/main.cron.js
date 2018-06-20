@@ -1,16 +1,22 @@
 /* Cron tasks for daemons , crate by Rost */
 
-var cron        = require('node-cron');
-var exec        = require('child_process').exec;
-var path        = require('path');
+const cron        = require('node-cron');
+const exec        = require('child_process').exec;
+const path        = require('path');
+
+const config      = require('../../config');
 
 module.exports = function(){
-    cron.schedule('*/10 * * * *', function(){
-      console.log('running accounts analytics daemon cron');
-      startAccountsDaemon();
-    });
+    if (config.PROD){
+        
+        cron.schedule('*/10 * * * *', function(){
+          console.log('running accounts analytics daemon cron');
+          startAccountsDaemon();
+        });
 
-    startAccountsDaemon();
+        startAccountsDaemon();
+        startAccountsAnalytics();
+    }  
 }
 
 
@@ -28,4 +34,17 @@ function startAccountsDaemon(){
         });
 }
 
+function startAccountsAnalytics(){
+        console.log('====== running account analytics daemon');
+        exec('node ' + path.join(__dirname, '../daemons/accounts.analytics.daemon.js'), function (error, sdtout, stderror){
+              if (error) {
+                return console.error(error);
+              }
+              if (stderror) {
+                console.error('stderror', stderror);
+              }
+        
+              console.log('sdtout', sdtout);
+        });
+}
 

@@ -5,15 +5,15 @@
 </div>
 
 <div class="col-md-12">
-<h1 class="market-header">Blockchain Analytics</h1>
+<h1 class="market-header">Top 100 Accounts</h1>
 
 <div class="example-container mat-elevation-z8 main-table">
 
   <mat-table #table [dataSource]="dataSource">
 
     <ng-container matColumnDef="#">
-      <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
-      <mat-cell *matCellDef="let element; let i = index">
+      <mat-header-cell *matHeaderCellDef class="top-number-analytics"> # </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i = index" class="top-number-analytics">
           <strong>{{ i + 1 }}</strong>
       </mat-cell>
     </ng-container>
@@ -22,41 +22,41 @@
     <ng-container matColumnDef="Name">
       <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
       <mat-cell *matCellDef="let element" class="marketcap-container">
-          <a [routerLink]="['/account', element?.owner ]" class="color-green">
-          	<strong>{{ element?.owner }}</strong>
+          <a [routerLink]="['/account', element?.account_name ]" class="color-green">
+          	<strong>{{ element?.account_name }}</strong>
           </a>
        </mat-cell>
     </ng-container>
     
-    <ng-container matColumnDef="Key">
-      <mat-header-cell *matHeaderCellDef> Key</mat-header-cell>
-      <mat-cell *matCellDef="let element" class="text-center"> 
-             <span class="tx-hash">{{element?.producer_key}}</span>
+    <ng-container matColumnDef="Balance">
+      <mat-header-cell *matHeaderCellDef> Balance</mat-header-cell>
+      <mat-cell *matCellDef="let element"> 
+             <strong>{{element?.balance_eos.toLocaleString() }} EOS</strong>
       </mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
-    <ng-container matColumnDef="Url">
-      <mat-header-cell *matHeaderCellDef> Url </mat-header-cell>
+    <ng-container matColumnDef="Staked">
+      <mat-header-cell *matHeaderCellDef> Staked </mat-header-cell>
       <mat-cell *matCellDef="let element" class="color-light-grey"> 
-          <a href="{{element?.url}}" target="_blank" class="color-green">{{element?.url}}</a>
+          <strong>{{element?.staked.toLocaleString() }} EOS</strong>
       </mat-cell>
     </ng-container>
 
     
     <!-- Name Column -->
-    <ng-container matColumnDef="Votes">
-      <mat-header-cell *matHeaderCellDef> score</mat-header-cell>
-      <mat-cell *matCellDef="let element" class="text-center change-container"> 
-           <strong> {{ element?.total_votes }}</strong>
+    <ng-container matColumnDef="Unstaked">
+      <mat-header-cell *matHeaderCellDef> Unstaked</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="change-container"> 
+           <strong> {{ element?.unstaked.toLocaleString() }} EOS</strong>
       </mat-cell>
     </ng-container>
     
         <!-- Name Column -->
-    <ng-container matColumnDef="Rate">
-      <mat-header-cell *matHeaderCellDef> Rate</mat-header-cell>
-      <mat-cell *matCellDef="let element" class="text-center change-container"> 
-           <strong> {{ element?.rate }} %</strong>
+    <ng-container matColumnDef="Currencies Array">
+      <mat-header-cell *matHeaderCellDef> Tokens Array</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="change-container"> 
+           <strong *ngFor="let bal of element?.balance"> {{ bal }} </strong>
       </mat-cell>
     </ng-container>
 

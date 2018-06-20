@@ -461,3 +461,6 @@ small{
 	background-color: #f1f1f2;
     border: none;
 }
+.top-number-analytics{
+	flex: 0.3 !important;
+}
