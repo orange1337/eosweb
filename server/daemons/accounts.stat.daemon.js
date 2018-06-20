@@ -19,9 +19,14 @@ const mongoMain  = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTI
 const STATS_ACCOUNT = require('../models/api.accounts.model')(mongoMain);
 const SETTINGS 		= require('../models/api.stats.model')(mongoMain);
 
+const log4js      = require('log4js');
+log4js.configure(config.logger);
+const log         = log4js.getLogger('accounts_daemon');
+const logSlack    = log4js.getLogger('slack_notify');
+
 process.on('uncaughtException', (err) => {
 	// rewrite to slack notify
-    console.error('======= UncaughtException Accounts daemon server : ', err);
+    logSlack.error('======= UncaughtException Accounts daemon server : ', er);
     process.exit(1);
 });
 

@@ -5,10 +5,10 @@ var exec        = require('child_process').exec;
 var path        = require('path');
 
 module.exports = function(){
-    //cron.schedule('*/59 * * * *', function(){
-    /*  console.log('running accounts analytics daemon cron');
+    cron.schedule('*/59 * * * *', function(){
+      console.log('running accounts analytics daemon cron');
       startAccountsDaemon();
-    });*/
+    });
 
     startAccountsDaemon();
 }
