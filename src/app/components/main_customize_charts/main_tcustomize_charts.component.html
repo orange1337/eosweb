@@ -35,6 +35,13 @@
           </div>        
       </div> 
     </div>
+    
+    <div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline">
+       <div class="color-grey-text">Accounts</div> 
+       <div class="chart-child-container-dollar">
+          <div class="pull-left color-green"> {{ aggragationData?.accounts.toLocaleString() }}</div>
+       </div> 
+    </div>
 
     <div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline">
        <div class="color-grey-text">Blocks</div>
@@ -49,27 +56,20 @@
           <div class="pull-left color-green"> {{ aggragationData?.transactions.toLocaleString() }}</div>
        </div> 
     </div>  
-
-    <!--<div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline">
-       <div class="color-grey-text">Accounts</div> 
-       <div class="chart-child-container-dollar">
-          <div class="pull-left color-green"> {{ aggragationData?.accounts.toLocaleString() }}</div>
-       </div> 
-    </div>-->
-
+    
     <div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline">
        <div class="color-grey-text">Actions</div> 
        <div class="chart-child-container-dollar">
           <div class="pull-left color-green"> {{ aggragationData?.actions.toLocaleString() }} </div>
        </div> 
-    </div> 
+    </div>
 
     <!--<div class="col-sm-2 chart-child-container customize-container grid-cs-5-inline">
       <a class="customize-button text-center"> 
         <div class="custom-widget-title"><span class="customize">Customize</span> widgets <i class="far fa-question-circle"></i></div>
         <div class="learn-more">Learn more <i class="fas fa-chevron-right"></i></div>
       </a>
-    </div> -->  
+    </div> -->
 </div>
 </div>
 </div>

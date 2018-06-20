@@ -92,6 +92,20 @@ function getAccountAggregation (){
 			   				cb(null, stat);
 			   		});
 			   	});
+		},
+		(stat, cb) => {
+			STATS_ACCOUNT.distinct("account_name").count( (err, result) => {
+					if (err){
+						return cb(err);
+					}
+					stat.accounts = result;
+					stat.save((err) => {
+			   				if (err){
+			   					return cb(err);
+			   				}
+			   				cb(null, stat);
+			   		});
+			});
 		}
 	], (err, stat) => {
 		if (err){

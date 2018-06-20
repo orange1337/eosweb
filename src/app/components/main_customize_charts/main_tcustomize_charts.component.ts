@@ -16,7 +16,7 @@ export class MainCustomizeChartsComponent implements OnInit{
       colorScheme : {
           domain: ['#44a264']
       },
-      view : [160, 70],
+      view : [135, 70],
       showXAxis : false,
       showYAxis : false,
       gradient : true,

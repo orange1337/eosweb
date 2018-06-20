@@ -5,7 +5,7 @@ var exec        = require('child_process').exec;
 var path        = require('path');
 
 module.exports = function(){
-    cron.schedule('*/59 * * * *', function(){
+    cron.schedule('*/10 * * * *', function(){
       console.log('running accounts analytics daemon cron');
       startAccountsDaemon();
     });
