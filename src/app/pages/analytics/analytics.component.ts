@@ -21,7 +21,7 @@ export class AnalyticsPageComponent implements OnInit{
 
   getAccounts(){
       this.spinner = true;
-  		this.http.get(`/api/v1/get_accounts_analytics/100`)
+  		this.http.get(`/api/v1/get_accounts_analytics/200`)
   				 .subscribe(
                       (res: any) => {
                           this.mainData = res;
