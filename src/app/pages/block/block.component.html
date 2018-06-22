@@ -31,7 +31,10 @@
 					<strong class="block-info-header">Previous:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small>{{ mainData?.previous  }}</small>
+					<small>
+						<a [routerLink]="['/block', mainData?.previous ]" class="color-green">{{ mainData?.previous }}
+						</a>
+					</small>
 				</div>
 			</div>
 			
