@@ -42,6 +42,9 @@ a{
 	margin-top: 6px;
 	height: 8px !important;
 }
+.nav-active{
+	color: #71d479 !important;
+}
 .account-cpu .mat-progress-bar-fill::after {
   	background-color: #71d479;
 }	

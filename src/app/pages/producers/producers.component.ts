@@ -67,7 +67,6 @@ export class ProducersPageComponent implements OnInit{
       data.forEach(elem => {
           elem.rate = (elem.total_votes / this.allvotes * 100).toLocaleString();
       });
-      console.log(data);
       return data;
   }
 

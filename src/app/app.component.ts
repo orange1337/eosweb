@@ -43,6 +43,10 @@ export class AppComponent {
                });
   }
 
+  activeMenu(){
+    return this.router.url;
+  }
+
   onKey(event: any){
      if (event.keyCode === 13) {
          this.searchGlobal(event.target.value);
