@@ -2,6 +2,8 @@
 const async			= require('async');
 const mongoose      = require("mongoose");
 const config      	= require('../../config');
+const fs 			= require('fs');
+const csvWriter 	= require('csv-write-stream');
 
 const EOS     		= require('eosjs');
 const eos     		= EOS(config.eosConfig);
@@ -23,7 +25,7 @@ const mongoMain  = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTI
     console.info('[Connected to Mongo EOS in accounts daemon] : 27017');
 });
 
-const STATS_ACCOUNT = require('../models/api.accounts.model')(mongoMain);
+const STATS_ACCOUNTS = require('../models/api.accounts.model')(mongoMain);
 
 
 
@@ -36,7 +38,7 @@ process.on('uncaughtException', (err) => {
 function getAccountsAnalytics (){
 	async.waterfall([
 		(cb) => {
-			STATS_ACCOUNT.distinct("account_name").exec((err, result) => {
+			STATS_ACCOUNTS.distinct("account_name").exec((err, result) => {
 				if (err){
 					return cb(err);
 				}
@@ -67,6 +69,30 @@ function getAccountsAnalytics (){
 			   		cb(null);
 			   	});
 		},
+		/*(cb) => {
+			STATS_ACCOUNTS.find({}, (err, result) => {
+				if (err){
+					return cb(err);
+				}
+				if (!result){
+					return cb(result);
+				}
+				let writer = csvWriter();
+
+				writer.pipe(fs.createWriteStream('./eosAnalytics.csv'));
+
+				result.forEach((elem) => {
+					console.log(elem);
+					writer.write(elem);
+				});
+				//writer.write(['world', 'bar']);
+
+				writer.end(() => {
+					console.log('Write end!');
+					cb(null);
+				});
+			});
+		},*/
 	], (err) => {
 		if (err){
 			log.error(err);
@@ -103,10 +129,11 @@ function findBalanceAndUpdate(account, callback) {
 	   	 			}
 	   	 		});
 	   	 		accInfo.balance_eos = accInfo.unstaked + accInfo.staked;
-	   	 		STATS_ACCOUNT.findOneAndUpdate({ account_name: account.account_name }, {  staked: accInfo.staked,
+	   	 		STATS_ACCOUNTS.findOneAndUpdate({ account_name: account.account_name }, { staked: accInfo.staked,
 	   	 																				  unstaked: accInfo.unstaked,
 	   	 																				  balance_eos: accInfo.balance_eos,
-	   	 																				  balance: accInfo.balance }, {multi: true})
+	   	 																				  balance: accInfo.balance,
+	   	 																				  created: new Date(account.created) }, {multi: true})
 	   	 				     .exec((err) => {
 	   	 				     	if (err){
 	   	 				     		log.error(err);
