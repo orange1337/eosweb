@@ -204,7 +204,7 @@
 				  				</div>
 				  		</div>
 				        <div *ngFor="let action of actions?.actions">
-								  <div class="actions-main-container" *ngIf="action?.action_trace?.act?.account === 'eosio.token'">
+								  <div class="actions-main-container" *ngIf="action?.action_trace?.act?.name === 'transfer'">
 								  	<div class="actions-list">
 										 <strong>{{ moment(action?.block_time).format('MMMM Do YYYY, h:mm:ss a')  }}</strong>
 									</div>

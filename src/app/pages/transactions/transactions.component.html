@@ -80,7 +80,7 @@
 				  				</div>
 				  		</div>
 				        <div *ngFor="let action of mainData?.trx?.trx?.actions">
-								  <div class="actions-main-container" *ngIf="action?.account === 'eosio.token'">
+								  <div class="actions-main-container" *ngIf="action?.name === 'transfer'">
 									<div class="actions-list text-center">
 										<div *ngIf="action?.data?.to === mainData?.account_name" class="color-green">
 											<strong>In</strong>
