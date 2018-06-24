@@ -22,7 +22,7 @@
 					<strong class="block-info-header">Id:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small class="color-grey">{{ mainData?.id}}</small>
+					<small class="color-grey tx-mobile-hash">{{ mainData?.id}}</small>
 				</div>
 			</div>
 
@@ -32,7 +32,7 @@
 				</div>
 				<div class="col-sm-9">
 					<small>
-						<a [routerLink]="['/block', mainData?.previous ]" class="color-green">{{ mainData?.previous }}
+						<a [routerLink]="['/block', mainData?.previous ]" class="color-green tx-mobile-hash">{{ mainData?.previous }}
 						</a>
 					</small>
 				</div>
@@ -52,7 +52,7 @@
 					<strong class="block-info-header">Action Mroot:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small>{{ mainData?.action_mroot  }}</small>
+					<small class="tx-mobile-hash">{{ mainData?.action_mroot  }}</small>
 				</div>
 			</div>
 
@@ -61,7 +61,7 @@
 					<strong class="block-info-header">Transaction Mroot:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small>{{ mainData?.transaction_mroot  }}</small>
+					<small class="tx-mobile-hash">{{ mainData?.transaction_mroot  }}</small>
 				</div>
 			</div>
 

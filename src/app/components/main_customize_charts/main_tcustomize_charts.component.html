@@ -3,7 +3,7 @@
 <div class="row main-custom-chart-container">
     
     <div class="col-sm-4 chart-child-container customize-containers-not-active customize-containers-active grid-cs-5-inline">
-      <div class="col-sm-8 no-padding first-container-widget">
+      <div class="col-xs-8 no-padding first-container-widget">
        <div class="color-grey-text">eos - usd</div> 
        <div class="chart-child-container-dollar">
           <div class="pull-left"><i class="fas fa-dollar-sign"></i> {{ currencyObj?.RAW?.EOS?.USD?.PRICE }}</div>
@@ -15,7 +15,7 @@
           </div>
        </div>        
       </div>
-      <div class="col-sm-4 no-padding widget-chart-container">
+      <div class="col-xs-4 no-padding widget-chart-container">
           <div class="currency-page-main-chart"> 
             <ngx-charts-line-chart *ngIf="mainCurrencyChartDataRes"
               [view]="ngxChartOptions.view"
