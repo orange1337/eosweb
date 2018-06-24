@@ -225,6 +225,19 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 	   	 	});
 	});
 
+    /*
+	* router - get_table_rows producers
+	*/
+	router.get('/api/custom/get_table_rows/:code/:scope/:table/:limit', (req, res) => {
+		let formData = { json: true,
+			      code: req.params.code,
+			      scope: req.params.scope,
+			      table: req.params.table,
+			      limit: req.params.limit
+		};
+	   	request.post({url:`${config.customChain}/v1/chain/get_table_rows`, json: formData}).pipe(res);
+	});
+
 	/*
 	* router - get_actions
 	* params - account_name, position, offset

@@ -21,7 +21,7 @@ export class ProducersPageComponent implements OnInit{
 
   getBlockData(){
       this.spinner = true;
-  		this.http.get(`/api/v1/get_table_rows/eosio/eosio/producers/300`)
+  		this.http.get(`/api/custom/get_table_rows/eosio/eosio/producers/500`)
   				 .subscribe(
                       (res: any) => {
                           this.mainData = res.rows;

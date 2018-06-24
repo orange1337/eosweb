@@ -14,13 +14,13 @@ module.exports = function(){
           startAccountsDaemon();
         });
         
-        cron.schedule('*/10 * * * *', () => {
-          console.log('running account analytics daemon 2');
+        //cron.schedule('*/59 * * * *', () => {
+         /* console.log('running account analytics daemon 2');
           startAccountsAnalytics();
-        });
+        });*/
 
         startAccountsDaemon();
-        startAccountsAnalytics();
+        //startAccountsAnalytics();
     }  
 }
 
