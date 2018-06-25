@@ -436,7 +436,6 @@ small{
     padding-top: 15px;
     min-height: 40px;
     flex: 1;
-    min-width: 20%;
     width: auto;
 }
 .actions-main-container{
