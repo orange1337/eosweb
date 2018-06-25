@@ -35,6 +35,8 @@ export class AppComponent {
                       this.router.navigate(['/transaction', res.transaction.id]);
                    } else if (res.account){
                       this.router.navigate(['/account', res.account.account_name]);
+                   } else if (res.key){
+                      this.router.navigate(['/account', res.key.account_names[0]]);
                    }
                    this.search = '';
                },
