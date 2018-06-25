@@ -299,7 +299,7 @@ small{
 .example-container {
   display: flex;
   flex-direction: column;
-  min-width: 300px;
+  min-width: 100%;
 }
 .main-table{
 	position: relative;
@@ -436,6 +436,7 @@ small{
     padding-top: 15px;
     min-height: 40px;
     flex: 1;
+    min-width: 20%;
     width: auto;
 }
 .actions-main-container{
@@ -469,7 +470,25 @@ small{
 }
 
 
-
+@media only screen and (max-width: 1280px) {
+	.container{
+    	width: 100%;
+    }
+    .customize-containers-active{
+    	margin-left: 2px;
+    }
+}
+@media only screen and (max-width: 1107px) {
+	.container{
+    	width: 100%;
+    }
+    .grid-cs-5-inline{
+    	width: 18.5% !important;
+    }
+    .customize-containers-active{
+    	margin-left: 4px;
+    }
+}
 
 @media only screen and (max-width: 600px) {
     .container{
@@ -482,7 +501,7 @@ small{
     	padding: 9px 20px !important;
     }
     .main-search input{
-		width: 170px !important;
+		width: 150px !important;
 		border: none !important;
     }
     .grid-cs-5-inline{
