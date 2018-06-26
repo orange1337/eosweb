@@ -25,6 +25,7 @@ import { ProducersPageModule } from './pages/producers/producers.module';
 import { AnalyticsPageModule } from './pages/analytics/analytics.module';
 import { TransactionPageModule } from './pages/transactions/transactions.module';
 import { AccountPageModule } from './pages/account/account.module';
+import { AddressPageModule } from './pages/address/address.module';
 import { SoonModule } from './pages/soon/soon.module';
 import { MainTcustomizeModule } from './components/main_customize_charts/main_tcustomize.module';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
@@ -59,6 +60,7 @@ const socketConfig: SocketIoConfig = { url: '/', options: {
     MainPageModule,
     BlockPageModule,
     AccountPageModule,
+    AddressPageModule,
     TransactionPageModule,
     ProducersPageModule,
     AnalyticsPageModule,

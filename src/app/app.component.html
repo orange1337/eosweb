@@ -6,7 +6,7 @@
   </a>
   <div class="main-search">
     <i class="fal fa-search" (click)="searchGlobal(search)"></i>
-    <input type="search" placeholder="block/transaction/account/address/contract" [(ngModel)]="search" (keyup)="onKey($event)">
+    <input type="search" placeholder="Search by block, tx, account, address" [(ngModel)]="search" (keyup)="onKey($event)">
   </div>
   <ul class="pull-right main-nav-middle">
     <li><button mat-button color="basic" routerLink="analytics" [ngClass]="{'nav-active': activeMenu() === '/analytics'}">Analytics</button></li>

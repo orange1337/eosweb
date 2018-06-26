@@ -4,7 +4,7 @@
     <mat-spinner class="spinner-color"></mat-spinner>
 </div>
 	
-	<h1 class="market-header">Account ({{ mainData?.account_name }})</h1>
+	<h1 class="market-header">Account: {{ mainData?.account_name }}</h1>
 
 	<div class="block-info">
 
@@ -423,8 +423,51 @@
 					  </mat-paginator>-->
 					</div>
 				  </mat-tab>
+
 				  <mat-tab label="Actions (Raw Data)">
 				  		<ngx-json-viewer [json]="actions"></ngx-json-viewer>
+				  </mat-tab>
+
+				  <mat-tab label="Permission Group ({{ mainData?.permissions.length }})">
+				  	<div class="example-container mat-elevation-z8 main-table block-trx-table">
+					
+					  <mat-table #table [dataSource]="dataSourcePermission" class="big-table" matSort>	
+
+					    <!-- Weight Column -->
+					    <ng-container matColumnDef="Permission">
+					      <mat-header-cell *matHeaderCellDef> Permission</mat-header-cell>
+					      <mat-cell *matCellDef="let element"> 
+					          	<strong>{{ element?.perm_name }}</strong>
+					      </mat-cell>
+					    </ng-container>
+
+					    <ng-container matColumnDef="Address">
+					      <mat-header-cell *matHeaderCellDef class="account-address"> Account/Address</mat-header-cell>
+					      <mat-cell *matCellDef="let element" class="account-address"> 
+					          	<a [routerLink]="['/address', element?.required_auth?.keys[0]?.key ]" class="color-green">
+					          		{{ element?.required_auth?.keys[0]?.key }}
+					          	</a>
+					      </mat-cell>
+					    </ng-container>
+						
+						<ng-container matColumnDef="Threshold">
+					      <mat-header-cell *matHeaderCellDef> Threshold</mat-header-cell>
+					      <mat-cell *matCellDef="let element"> 
+					          	{{ element?.required_auth?.threshold }}
+					      </mat-cell>
+					    </ng-container>
+
+						<ng-container matColumnDef="Weight">
+					      <mat-header-cell *matHeaderCellDef> Weight</mat-header-cell>
+					      <mat-cell *matCellDef="let element"> 
+					          	{{ element?.required_auth?.keys[0]?.weight }}
+					      </mat-cell>
+					    </ng-container>
+
+					    <mat-header-row *matHeaderRowDef="displayedColumnsPermissiopn"></mat-header-row>
+					    <mat-row *matRowDef="let row; columns: displayedColumnsPermissiopn;"></mat-row>
+					  </mat-table>
+					</div>
 				  </mat-tab>
 				</mat-tab-group>
 			</div>

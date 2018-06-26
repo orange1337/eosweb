@@ -27,6 +27,7 @@ export class AppComponent {
     if (!text) {
         return console.log('Input is empty!');
     }
+    text = text.replace(/ /g, '')
       this.http.post('/api/v1/search', { text: text })
                .subscribe((res :any) =>{
                    if (res.block && !isNaN(+this.search)){
@@ -36,7 +37,7 @@ export class AppComponent {
                    } else if (res.account){
                       this.router.navigate(['/account', res.account.account_name]);
                    } else if (res.key){
-                      this.router.navigate(['/account', res.key.account_names[0]]);
+                      this.router.navigate(['/address', text ]);
                    }
                    this.search = '';
                },

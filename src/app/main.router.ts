@@ -3,6 +3,7 @@ import { MainPageComponent } from './pages/main_page/main_page.component';
 import { BlockPageComponent } from './pages/block/block.component';
 import { TransactionPageComponent } from './pages/transactions/transactions.component';
 import { AccountPageComponent } from './pages/account/account.component';
+import { AddressPageComponent } from './pages/address/address.component';
 import { ProducersPageComponent } from './pages/producers/producers.component';
 import { AnalyticsPageComponent } from './pages/analytics/analytics.component';
 import { SoonComponent } from './pages/soon/soon.component';
@@ -21,6 +22,10 @@ export const routes: Routes = [
   { 
     path: 'account/:id', 
     component: AccountPageComponent 
+  },
+  { 
+    path: 'address/:id', 
+    component: AddressPageComponent 
   },
   { 
     path: 'producers', 

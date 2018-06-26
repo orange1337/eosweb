@@ -26,6 +26,8 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   tables = [];
   eosRate;
   subscription;
+  displayedColumnsPermissiopn = ['Permission', 'Address', 'Threshold', 'Weight'];
+  dataSourcePermission;
 
   constructor(private route: ActivatedRoute, protected http: HttpClient, private MainService: MainService){}
 
@@ -38,6 +40,10 @@ export class AccountPageComponent implements OnInit, OnDestroy{
                           this.time = this.moment(this.mainData.created).format('MMMM Do YYYY, h:mm:ss a');
                           this.getActions(this.mainData.account_name);
                           this.getCode(this.mainData.account_name);
+
+                          let ELEMENT_DATA: Element[] = res.permissions;
+                          this.dataSourcePermission = new MatTableDataSource<Element>(ELEMENT_DATA);
+
                           this.spinner = false;
                       },
                       (error) => {

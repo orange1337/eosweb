@@ -7,7 +7,14 @@
 }
 small {
     font-size: 13px;
+    color: #333;
 }
 .account-address{
 	flex: 5 !important;
+}
+.accounts-container{
+	margin-top: 10px;	
+}
+.accounts-container a{
+	font-size: 14px;
 }
