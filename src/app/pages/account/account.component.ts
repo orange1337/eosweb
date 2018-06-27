@@ -55,7 +55,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   getBalance(accountId){
       this.http.get(`/api/v1/get_currency_balance/eosio.token/${accountId}/EOS`)
            .subscribe((res: any) => {
-                          this.unstaked = (!res[0]) ? 0 : Number(this.unstaked.split(' ')[0]); 
+                          this.unstaked = (!res[0]) ? 0 : Number(res[0].split(' ')[0]); 
                           let staked = 0;
                           if (this.mainData.voter_info && this.mainData.voter_info.staked){
                               staked = this.mainData.voter_info.staked;
