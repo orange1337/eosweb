@@ -49,8 +49,12 @@ export class BlockPageComponent implements OnInit, OnDestroy{
   };
 
   createTransactionsArray(data){
-      let result = [];
+        let result = [];
+      
         data.forEach( elem => {
+            if (typeof elem.trx === 'string'){
+                return;
+            }
               result.push({
                   cpu: elem.cpu_usage_us,
                   net: elem.net_usage_words,

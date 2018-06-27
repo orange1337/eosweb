@@ -75,8 +75,8 @@ customFunctions.getStatAggregation = (eos, STATS_AGGR) => {
 			   		if (!result.head_block_num){
 			   			return cb('Cant get info from blockchain getStatAggregation!');
 			   		}
-			   		let start = stat.cursor_block + 1;
-			   		let elements = Array.from({length: result.head_block_num - start}, (v, k) => start++);
+			   		let start = stat.cursor_block;
+			   		let elements = Array.from({length: result.head_block_num - start}, (v, k) => start = start + 1);
 			   		cb(null, stat, result, elements);
 			   	})
 			   	.catch(err => {
