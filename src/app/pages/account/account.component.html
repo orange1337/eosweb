@@ -72,7 +72,7 @@
 						<mat-progress-bar mode="determinate" value="{{mainData?.cpu_limit?.used / mainData?.cpu_limit?.max * 100}}" class="progress-bar-usage account-cpu"></mat-progress-bar>
 					</div>
 					<div class="col-md-8">
-						<small>{{ (mainData?.cpu_limit?.used / 1024).toFixed(2) }} kb</small> / <small>{{ (mainData?.cpu_limit?.max / 1024).toFixed(2) }} kb</small>
+						<small>{{ (mainData?.cpu_limit?.used / 1000000).toFixed(2) }} sec</small> / <small>{{ (mainData?.cpu_limit?.max / 1000000).toFixed(2) }} sec</small>
 					</div>
 				</div>
 			</div>
