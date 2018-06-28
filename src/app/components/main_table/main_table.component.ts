@@ -93,7 +93,6 @@ export class MainTableComponent implements OnInit{
           return transactions.slice(0, 20);
       }
 
-      console.log(transactions);
       return transactions;
   }
 

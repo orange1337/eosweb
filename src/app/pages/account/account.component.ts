@@ -73,9 +73,10 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   }
 
   getActions(accountName){
-      this.http.get(`/api/v1/get_actions/${accountName}/-1/-20`)
+      this.http.get(`/api/v1/get_actions/${accountName}/-1/-100`)
            .subscribe((res: any) => {
                           res.actions.reverse();
+                          res.actions = this.sortArrayFunctions(res.actions); 
                           this.actions = res;
                           let ELEMENT_DATA: Element[] = [res];
                           this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
@@ -111,6 +112,22 @@ export class AccountPageComponent implements OnInit, OnDestroy{
                               console.error(error);
                           });
       });
+  }
+
+  sortArrayFunctions(data){
+       if (!data){
+           return [];
+       }
+       let block_nums = [];
+       let result = [];
+       data.forEach(elem => {
+           if (block_nums.indexOf(elem.block_num) === -1){
+               result.push(elem);
+               block_nums.push(elem.block_num);
+           }
+       });
+       block_nums = [];
+       return result;
   }
 
 
