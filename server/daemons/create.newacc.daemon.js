@@ -3,7 +3,7 @@ const async			= require('async');
 const mongoose      = require("mongoose");
 const config      	= require('../../config');
 
-const pubkey = 'EOS7oVwdkDYzobXwoUkVM9guC6tB3xmuQRjwh3cCcoMNKKzSUFFgN';
+const pubkey = 'EOS7G6HAB9HngEhJhDB4xKUWGhLUjv4PUjTwVaKPTAxUwqDpNSMVH';
 
 const EOS     		= require('eosjs');
 const eos     		= EOS(config.eosConfig);
@@ -45,13 +45,40 @@ const decimalEOS = '0.0001 EOS';
   });
 });*/
 
-eos.transaction(tr => {
+/*eos.transaction(tr => {
   tr.delegatebw({
-    from: 'crypticseos1',
-    receiver: 'crypticseos1',
+    from: 'ha2timrqguge',
+    receiver: 'eoswebnetbp1',
     stake_net_quantity: '0.25 EOS',
     stake_cpu_quantity: '0.25 EOS',
     transfer: 0
+  });
+});*/
+
+/*eos.transaction(tr => {
+  tr.regproducer({
+    producer: 'eoswebnetbp1',
+    producer_key: 'EOS5sT6mdCkTBLZM8vZnwqmBpA6gjtbdSTEeGL2k26JQFnjaCg6j2',
+    url: 'https://eosweb.net/',
+    location: 0
+  });
+});*/
+
+/*eos.transaction(tr => {
+  tr.undelegatebw({
+    from: 'eoswebnetest',
+    receiver: 'eoswebnetbp1',
+    unstake_net_quantity: "0.25 EOS",
+    unstake_cpu_quantity: "0.25 EOS",
+    transfer: 0
+  });
+});*/
+
+eos.transaction(tr => {
+  tr.voteproducer({
+    voter: 'ha2timrqguge',
+    proxy: '',
+    producers: ['eoswebnetbp1']
   });
 });
 
@@ -70,7 +97,8 @@ eos.transfer('crypticseos1', 'crypticseos2', decimalEOS, JSON.stringify(daily), 
     console.log(result);
 });*/
 
-
+//cleos system regproducer eoswebnetbp1 EOS5sT6mdCkTBLZM8vZnwqmBpA6gjtbdSTEeGL2k26JQFnjaCg6j2 https://eosweb.net/
+//cleos system regproducer eoswebnetbp1 EOS5sT6mdCkTBLZM8vZnwqmBpA6gjtbdSTEeGL2k26JQFnjaCg6j2 https://eosweb.net/
 
 
 
