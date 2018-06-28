@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BlockPageComponent } from './block.component';
+import { BlockPageComponent, DialogDataMemo } from './block.component';
 import { MatAutocompleteModule,
          MatButtonModule,
          MatInputModule,
@@ -9,11 +9,12 @@ import { MatAutocompleteModule,
          MatSortModule,
          MatTableModule,
          MatFormFieldModule,
-         MatExpansionModule } from '@angular/material';
+         MatExpansionModule,
+         MatDialogModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { appRoutes } from '../../main.router';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
-
+import { MainService } from '../../services/mainapp.service';
 
 let imports = [
     MatAutocompleteModule,
@@ -28,14 +29,17 @@ let imports = [
     CommonModule,
     appRoutes,
     NgxJsonViewerModule,
-    MatExpansionModule ];
+    MatExpansionModule,
+    MatDialogModule ];
 
 @NgModule({
   declarations: [
-    BlockPageComponent
+    BlockPageComponent,
+    DialogDataMemo
   ],
+  entryComponents: [BlockPageComponent, DialogDataMemo],
   imports:  imports,
-  providers: [],
+  providers: [MainService],
   bootstrap: [ BlockPageComponent ]
 })
 export class BlockPageModule {}

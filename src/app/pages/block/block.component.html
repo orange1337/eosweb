@@ -158,7 +158,8 @@
 										</a>
 									</div>
 									<div class="actions-list">
-										<strong>{{ action?.data?.memo }}</strong>
+										<div class="memo-data">{{ action?.data?.memo }}</div>
+										<i class="far fa-search icon-memo-open" *ngIf="action?.data?.memo.length > 15" (click)="openDialogMemo($event, action?.data?.memo)"></i>
 									</div>
 									<div class="actions-list">
 										<strong>{{ action?.data?.quantity }}</strong>
@@ -286,7 +287,8 @@
 										</a>
 									</div>
 									<div class="actions-list">
-											Memo: <strong>{{ action?.data?.memo }}</strong>
+											<div class="memo-data">{{ action?.data?.memo }}</div>
+											<i class="far fa-search icon-memo-open" *ngIf="action?.data?.memo.length > 15" (click)="openDialogMemo($event, action?.data?.memo)"></i>
 									</div>
 									<div class="actions-list">
 											Amount: <strong>{{ action?.data?.amount }}</strong>

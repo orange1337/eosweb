@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
 import { MainService } from '../../services/mainapp.service';
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'account-page',
@@ -29,7 +30,10 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   displayedColumnsPermissiopn = ['Permission', 'Address', 'Threshold', 'Weight'];
   dataSourcePermission;
 
-  constructor(private route: ActivatedRoute, protected http: HttpClient, private MainService: MainService){}
+  constructor(private route: ActivatedRoute, 
+              protected http: HttpClient, 
+              private MainService: MainService,
+              public dialog: MatDialog){}
 
   getBlockData(accountId){
       this.spinner = true;
@@ -114,6 +118,21 @@ export class AccountPageComponent implements OnInit, OnDestroy{
 
   }*/
 
+  openDialogMemo(event, data){
+    let result = data;
+    let json = false;
+    if (data.indexOf('{') >= 0 && data.indexOf('}') >= 0){
+        result = JSON.parse(data);
+        json = true;
+    }
+    this.dialog.open(DialogDataMemo, {
+      data: {
+         result: result,
+         json: json
+      }
+    });
+  }
+
 
   ngOnInit() {
     this.block = this.route.params.subscribe(params => {
@@ -128,3 +147,32 @@ export class AccountPageComponent implements OnInit, OnDestroy{
     //this.subscription.unsubscribe();
   }	
 }
+
+
+@Component({
+  selector: 'dialog-data-memo',
+  template: `
+  <h1 mat-dialog-title>Memo</h1>
+  <div mat-dialog-content>
+      <ngx-json-viewer [json]="data.result" *ngIf="data.json"></ngx-json-viewer>
+      <div *ngIf="!data.json">{{ data.result }}</div>
+  </div>
+`,
+})
+export class DialogDataMemo {
+  constructor(@Inject(MAT_DIALOG_DATA) public data) {}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { AccountPageComponent } from './account.component';
+import { AccountPageComponent, DialogDataMemo } from './account.component';
 import { MatAutocompleteModule,
          MatButtonModule,
          MatInputModule,
@@ -11,7 +11,10 @@ import { MatAutocompleteModule,
          MatTableModule,
          MatFormFieldModule,
          MatExpansionModule,
-         MatTabsModule } from '@angular/material';
+         MatTabsModule,
+         MatToolbarModule,
+         MatTooltipModule,
+         MatDialogModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { appRoutes } from '../../main.router';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
@@ -32,12 +35,17 @@ let imports = [
     appRoutes,
     NgxJsonViewerModule,
     MatExpansionModule,
-    MatTabsModule ];
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatDialogModule ];
 
 @NgModule({
   declarations: [
-    AccountPageComponent
+    AccountPageComponent,
+    DialogDataMemo
   ],
+  entryComponents: [AccountPageComponent, DialogDataMemo],
   imports:  imports,
   providers: [MainService],
   bootstrap: [ AccountPageComponent ]

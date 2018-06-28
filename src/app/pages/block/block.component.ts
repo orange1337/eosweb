@@ -1,8 +1,10 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Inject } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
+import { MainService } from '../../services/mainapp.service';
 
 @Component({
   selector: 'block-page',
@@ -23,7 +25,9 @@ export class BlockPageComponent implements OnInit, OnDestroy{
   /*@ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;*/
 
-  constructor(private route: ActivatedRoute, protected http: HttpClient){}
+  constructor(private route: ActivatedRoute, 
+              protected http: HttpClient,
+              public dialog: MatDialog){}
 
   getBlockData(blockId){
       this.spinner = true;
@@ -67,6 +71,21 @@ export class BlockPageComponent implements OnInit, OnDestroy{
         return result;
   }
 
+  openDialogMemo(event, data){
+    let result = data;
+    let json = false;
+    if (data.indexOf('{') >= 0 && data.indexOf('}') >= 0){
+        result = JSON.parse(data);
+        json = true;
+    }
+    this.dialog.open(DialogDataMemo, {
+      data: {
+         result: result,
+         json: json
+      }
+    });
+  }
+
   ngOnInit() {
     this.block = this.route.params.subscribe(params => {
        this.blockId = params['id'];
@@ -78,3 +97,18 @@ export class BlockPageComponent implements OnInit, OnDestroy{
     this.block.unsubscribe(); 
   }	
 }
+
+@Component({
+  selector: 'dialog-data-memo',
+  template: `
+  <h1 mat-dialog-title>Memo</h1>
+  <div mat-dialog-content>
+      <ngx-json-viewer [json]="data.result" *ngIf="data.json"></ngx-json-viewer>
+      <div *ngIf="!data.json">{{ data.result }}</div>
+  </div>
+`,
+})
+export class DialogDataMemo {
+  constructor(@Inject(MAT_DIALOG_DATA) public data) {}
+}
+

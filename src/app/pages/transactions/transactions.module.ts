@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { TransactionPageComponent } from './transactions.component';
+import { TransactionPageComponent, DialogDataMemo } from './transactions.component';
 import { MatAutocompleteModule,
          MatButtonModule,
          MatInputModule,
@@ -11,10 +11,12 @@ import { MatAutocompleteModule,
          MatTableModule,
          MatFormFieldModule,
          MatExpansionModule,
-         MatTabsModule } from '@angular/material';
+         MatTabsModule,
+         MatDialogModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { appRoutes } from '../../main.router';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { MainService } from '../../services/mainapp.service';
 
 
 let imports = [
@@ -32,14 +34,17 @@ let imports = [
     appRoutes,
     MatExpansionModule,
     NgxJsonViewerModule,
-    MatTabsModule ];
+    MatTabsModule,
+    MatDialogModule ];
 
 @NgModule({
   declarations: [
-    TransactionPageComponent
+    TransactionPageComponent,
+    DialogDataMemo
   ],
+  entryComponents: [TransactionPageComponent, DialogDataMemo],
   imports:  imports,
-  providers: [],
+  providers: [MainService],
   bootstrap: [ TransactionPageComponent ]
 })
 export class TransactionPageModule {}

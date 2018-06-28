@@ -236,7 +236,8 @@
 										</a>
 									</div>
 									<div class="actions-list">
-										{{ action?.action_trace?.act?.data?.memo }}
+										<div class="memo-data">{{ action?.action_trace?.act?.data?.memo }}</div>
+										<i class="far fa-search icon-memo-open" *ngIf="action?.action_trace?.act?.data?.memo.length > 15" (click)="openDialogMemo($event, action?.action_trace?.act?.data?.memo)"></i>
 									</div>
 									<div class="actions-list">
 										<strong>{{ action?.action_trace?.act?.data?.quantity }}</strong>
@@ -274,7 +275,8 @@
 										</a>
 									</div>
 									<div class="actions-list">
-										<strong>{{ action?.action_trace?.act?.data?.memo }}</strong>
+										<div class="memo-data">{{ action?.action_trace?.act?.data?.memo }}</div>
+										<i class="far fa-search icon-memo-open" *ngIf="action?.action_trace?.act?.data?.memo.length > 15" (click)="openDialogMemo($event, action?.action_trace?.act?.data?.memo)"></i>
 									</div>
 									<div class="actions-list">
 										<strong>{{ action?.action_trace?.act?.data?.quantity }}</strong>
@@ -402,7 +404,8 @@
 										</a>
 									</div>
 									<div class="actions-list">
-											Memo: <strong>{{ action?.action_trace?.act?.data?.memo }}</strong>
+											<div class="memo-data">{{ action?.action_trace?.act?.data?.memo }}</div>
+											<i class="far fa-search icon-memo-open" *ngIf="action?.action_trace?.act?.data?.memo.length > 15" (click)="openDialogMemo($event, action?.action_trace?.act?.data?.memo)"></i>
 									</div>
 									<div class="actions-list">
 											Amount: <strong>{{ action?.action_trace?.act?.data?.amount }}</strong>

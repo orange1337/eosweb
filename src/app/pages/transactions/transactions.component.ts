@@ -1,8 +1,11 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Inject } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
+import { MainService } from '../../services/mainapp.service';
+
 
 @Component({
   selector: 'transactions-page',
@@ -20,7 +23,9 @@ export class TransactionPageComponent implements OnInit, OnDestroy{
   displayedColumns = ['actions'];
   spinner = false;
 
-  constructor(private route: ActivatedRoute, protected http: HttpClient){}
+  constructor(private route: ActivatedRoute, 
+              protected http: HttpClient,
+              public dialog: MatDialog){}
 
   getBlockData(transactionId){
       this.spinner = true;
@@ -39,6 +44,21 @@ export class TransactionPageComponent implements OnInit, OnDestroy{
                       });
   };
 
+  openDialogMemo(event, data){
+    let result = data;
+    let json = false;
+    if (data.indexOf('{') >= 0 && data.indexOf('}') >= 0){
+        result = JSON.parse(data);
+        json = true;
+    }
+    this.dialog.open(DialogDataMemo, {
+      data: {
+         result: result,
+         json: json
+      }
+    });
+  }
+
   ngOnInit() {
     this.block = this.route.params.subscribe(params => {
        this.transactionId = params['id'];
@@ -49,4 +69,18 @@ export class TransactionPageComponent implements OnInit, OnDestroy{
   ngOnDestroy() {
     this.block.unsubscribe(); 
   }	
+}
+
+@Component({
+  selector: 'dialog-data-memo',
+  template: `
+  <h1 mat-dialog-title>Memo</h1>
+  <div mat-dialog-content>
+      <ngx-json-viewer [json]="data.result" *ngIf="data.json"></ngx-json-viewer>
+      <div *ngIf="!data.json">{{ data.result }}</div>
+  </div>
+`,
+})
+export class DialogDataMemo {
+  constructor(@Inject(MAT_DIALOG_DATA) public data) {}
 }

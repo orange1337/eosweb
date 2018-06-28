@@ -419,9 +419,24 @@ small{
 	overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    width: 120px;
-    display: block;
+    width: 120px !important;
+    display: block !important;
     cursor: pointer;
+}
+
+.memo-data{
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 120px !important;
+    display: block !important;
+    cursor: pointer;
+    float: left
+}
+.icon-memo-open{
+	cursor: pointer;
+	font-weight: bold;
+	display: block;
 }
 
 .block-trx-table{

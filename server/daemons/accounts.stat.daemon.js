@@ -28,7 +28,7 @@ const SETTINGS 		= require('../models/api.stats.model')(mongoMain);
 
 process.on('uncaughtException', (err) => {
 	// rewrite to slack notify
-    logSlack.error('======= UncaughtException Accounts daemon server : ', er);
+    logSlack.error('======= UncaughtException Accounts daemon server : ', err);
     process.exit(1);
 });
 
