@@ -238,6 +238,10 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 	   	request.post({url:`${config.customChain}/v1/chain/get_table_rows`, json: formData}).pipe(res);
 	});
 
+	router.post('/api/producer', (req, res) => {
+	   	request.get(`${req.body.url}`).pipe(res);
+	});
+
 	/*
 	* router - get_actions
 	* params - account_name, position, offset

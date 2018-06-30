@@ -83,7 +83,7 @@ export class ProducerComponent implements OnInit, OnDestroy{
     if (!elem.url){
       return console.log(elem);
     }
-      this.http.get(`${elem.url}/bp.json`)
+      this.http.post(`/api/producer`, { url: `${elem.url}/bp.json` })
                .subscribe(
                 (res: any) => {
                    this.bpData = res;
