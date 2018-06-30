@@ -3,6 +3,7 @@
 */
 
 const async = require('async');
+const path = require('path');
 const customFunctions = require('./eos.api.v1.custom');
 
 module.exports 	= function(router, config, request, log, eos, mongoMain) {
@@ -239,6 +240,9 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 	});
 
 	router.post('/api/producer', (req, res) => {
+		if (req.body.url && req.body.url.indexOf('eosweb.net') >= 0 ){
+			return res.sendFile(path.join(__dirname, '../../bp.json'));
+		}
 	   	request.get(`${req.body.url}`).pipe(res);
 	});
 
