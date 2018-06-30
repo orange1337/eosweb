@@ -21,7 +21,7 @@ export class ProducerComponent implements OnInit, OnDestroy{
   producerId;
   mainElement;
   bpData;
-  vouteData;
+  vouteData = 0;
 
   options = {
     layers: [
