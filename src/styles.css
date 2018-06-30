@@ -2,6 +2,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "assets/css/grid12.css";
 @import "assets/css/cryptofont.min.css";
+@import "~leaflet/dist/leaflet.css";
 /*@import "https://use.fontawesome.com/releases/v5.0.6/css/all.css"*/
 
 @font-face {

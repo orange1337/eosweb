@@ -22,6 +22,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { MainPageModule } from './pages/main_page/main_page.module';
 import { BlockPageModule } from './pages/block/block.module';
 import { ProducersPageModule } from './pages/producers/producers.module';
+import { ProducerModule } from './pages/producer_page/producer_page.module';
 import { AnalyticsPageModule } from './pages/analytics/analytics.module';
 import { TransactionPageModule } from './pages/transactions/transactions.module';
 import { AccountPageModule } from './pages/account/account.module';
@@ -29,6 +30,7 @@ import { AddressPageModule } from './pages/address/address.module';
 import { SoonModule } from './pages/soon/soon.module';
 import { MainTcustomizeModule } from './components/main_customize_charts/main_tcustomize.module';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 const socketConfig: SocketIoConfig = { url: '/', options: {
     autoConnect: true,
@@ -57,12 +59,14 @@ const socketConfig: SocketIoConfig = { url: '/', options: {
     MainTcustomizeModule,
     SimpleNotificationsModule.forRoot(),
     SocketIoModule.forRoot(socketConfig),
+    LeafletModule.forRoot(),
     MainPageModule,
     BlockPageModule,
     AccountPageModule,
     AddressPageModule,
     TransactionPageModule,
     ProducersPageModule,
+    ProducerModule,
     AnalyticsPageModule,
     SoonModule
   ],

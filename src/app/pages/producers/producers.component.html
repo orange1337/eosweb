@@ -26,7 +26,7 @@
     <ng-container matColumnDef="Name">
       <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
       <mat-cell *matCellDef="let element" class="marketcap-container">
-          <a [routerLink]="['/account', element?.owner ]" class="color-green" id="{{element?.owner}}">
+          <a [routerLink]="['/producer', element?.owner ]" class="color-green" id="{{element?.owner}}">
           	<strong>{{ element?.owner }}</strong>
           </a>
        </mat-cell>

@@ -5,6 +5,7 @@ import { TransactionPageComponent } from './pages/transactions/transactions.comp
 import { AccountPageComponent } from './pages/account/account.component';
 import { AddressPageComponent } from './pages/address/address.component';
 import { ProducersPageComponent } from './pages/producers/producers.component';
+import { ProducerComponent } from './pages/producer_page/producer_page.component';
 import { AnalyticsPageComponent } from './pages/analytics/analytics.component';
 import { SoonComponent } from './pages/soon/soon.component';
 //import { AuthGuard } from './auth.guard';
@@ -30,6 +31,10 @@ export const routes: Routes = [
   { 
     path: 'producers', 
     component: ProducersPageComponent 
+  },
+  { 
+    path: 'producer/:id', 
+    component: ProducerComponent 
   },
   { 
     path: 'analytics', 
