@@ -13,9 +13,10 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 	
 
 	// ======== aggragation stat
-    if (config.PROD){
+    /*if (config.PROD){
         customFunctions.getStatAggregation(eos, STATS_AGGR);
-    }
+    }*/
+
     // ======== end of aggragation stat
 
     //============ HISTORY API

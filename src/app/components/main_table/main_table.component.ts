@@ -98,7 +98,6 @@ export class MainTableComponent implements OnInit{
                   delete this.trxObj[key];
               }
           });
-          console.log(transactions);
           return transactions.slice(0, 20);
       }
 

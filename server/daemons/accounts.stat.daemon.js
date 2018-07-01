@@ -18,7 +18,7 @@ const mongoMain  = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTI
       log.error(err);
       process.exit(1);
     }
-    console.info('[Connected to Mongo EOS in accounts daemon] : 27017');
+    log.info('[Connected to Mongo EOS in accounts daemon] : 27017');
 });
 
 const STATS_ACCOUNT = require('../models/api.accounts.model')(mongoMain);

@@ -20,6 +20,7 @@ module.exports = function(){
         });*/
 
         startAccountsDaemon();
+        startGlobalStatAnalytics();
         //startAccountsAnalytics();
     }  
 }
@@ -51,3 +52,16 @@ function startAccountsAnalytics(){
         });
 }
 
+
+function startGlobalStatAnalytics(){
+        console.log('====== running global stat analytics daemon == 3');
+        exec('node ' + path.join(__dirname, '../daemons/global.analytics.daemon.js'), (error, sdtout, stderror) => {
+              if (error) {
+                return console.error(error);
+              }
+              if (stderror) {
+                console.error('stderror', stderror);
+              }
+              console.log('sdtout', sdtout);
+        });
+}
