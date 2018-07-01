@@ -434,6 +434,18 @@ small{
     cursor: pointer;
     float: left
 }
+.memo-data-action{
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 300px !important;
+    display: block !important;
+    cursor: pointer;
+    float: left
+}
+action-viewer{
+	display: flex;
+}
 .icon-memo-open{
 	cursor: pointer;
 	font-weight: bold;

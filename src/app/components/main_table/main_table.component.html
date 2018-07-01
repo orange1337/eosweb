@@ -5,7 +5,7 @@
     <mat-spinner class="spinner-color"></mat-spinner>
 </div>
 
-<div class="col-md-7">
+<div class="col-md-6">
 <h1 class="market-header">Blocks</h1>
 
 <div class="example-container mat-elevation-z8 main-table">
@@ -41,8 +41,10 @@
     <!-- Weight Column -->
     <ng-container matColumnDef="Producer">
       <mat-header-cell *matHeaderCellDef> Producer </mat-header-cell>
-      <mat-cell *matCellDef="let element" class="color-light-grey"> 
-          {{element?.producer.toUpperCase()}}
+      <mat-cell *matCellDef="let element"> 
+          <a [routerLink]="['/producer', element?.producer]" class="color-green">
+              <strong>{{ element?.producer }}</strong>
+          </a>
       </mat-cell>
     </ng-container>
 
@@ -66,49 +68,33 @@
 </div>
 </div>
 
-<div class="col-md-5">
-<h1 class="market-header">Transactions</h1>
+<div class="col-md-6">
+<h1 class="market-header">Latest Actions</h1>
 <div class="example-container mat-elevation-z8 main-table">
 
   <mat-table #table [dataSource]="dataSourceTrx">
     
-    <!-- Name Column -->
-    <ng-container matColumnDef="Number">
-      <mat-header-cell *matHeaderCellDef> Tx hash </mat-header-cell>
+      <ng-container matColumnDef="Number">
+      <mat-header-cell *matHeaderCellDef> Tx Hash </mat-header-cell>
       <mat-cell *matCellDef="let element; let i = index">
-          <a [routerLink]="['/transaction', element?.trx?.id ]" class="color-green tx-hash"><strong>{{ element?.trx?.id }}</strong></a>
+        <a [routerLink]="['/transaction', element?.block_num ]" class="color-green tx-hash">
+          <strong>{{ element?.block_num.toLocaleString() }}</strong>
+        </a>
       </mat-cell>
     </ng-container>
-
-    <!--<ng-container matColumnDef="Hash">
-      <mat-header-cell *matHeaderCellDef> Tx Hash </mat-header-cell>
-      <mat-cell *matCellDef="let element" class="marketcap-container">
-          <a [routerLink]="['/block', element?.transaction_mroot ]" class="color-green tx-hash">
-            {{ element?.transaction_mroot }}
-          </a>
-       </mat-cell>
-    </ng-container>-->
     
-    <ng-container matColumnDef="Transactions">
-      <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
-      <mat-cell *matCellDef="let element" class="text-center"> 
-             <strong>{{ element?.trx?.transaction?.actions.length }}</strong>
+    <ng-container matColumnDef="Name">
+      <mat-header-cell *matHeaderCellDef> Action Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> 
+             <strong>{{ element?.name }}</strong>
       </mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
-    <ng-container matColumnDef="Producer">
-      <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+    <ng-container matColumnDef="Data">
+      <mat-header-cell *matHeaderCellDef style="flex: 2.5"> Data </mat-header-cell>
       <mat-cell *matCellDef="let element" class="color-light-grey"> 
-          {{ element?.status }}
-      </mat-cell>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="NET">
-      <mat-header-cell *matHeaderCellDef> Expiration</mat-header-cell>
-      <mat-cell *matCellDef="let element" class="change-container"> 
-            {{ moment(element?.trx?.transaction?.expiration).format('MMMM Do YYYY, h:mm:ss a') }}
+          <action-viewer [data]="element?.data" [length]="50"></action-viewer>
       </mat-cell>
     </ng-container>
 

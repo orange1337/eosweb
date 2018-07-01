@@ -14,6 +14,8 @@ import { appRoutes } from '../../main.router';
 
 import { environment } from '../../../environments/environment';
 
+import { ActionsViewerModule } from '../actions_view/action_viewer.module';
+
 let imports = [
     MatAutocompleteModule,
     MatButtonModule,
@@ -25,7 +27,8 @@ let imports = [
     MatSortModule,
     MatTableModule,
     CommonModule,
-    appRoutes ];
+    appRoutes,
+    ActionsViewerModule ];
 
 @NgModule({
   declarations: [

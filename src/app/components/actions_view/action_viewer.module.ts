@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { BlockPageComponent, DialogDataMemo } from './block.component';
+import { NgModule, PLATFORM_ID,  Inject } from '@angular/core';
+import { ActionsViewerComponent, DialogDataMemo } from './action_viewer.component';
 import { MatAutocompleteModule,
          MatButtonModule,
          MatInputModule,
@@ -8,19 +8,17 @@ import { MatAutocompleteModule,
          MatSelectModule,
          MatSortModule,
          MatTableModule,
-         MatFormFieldModule,
-         MatExpansionModule,
+         MatFormFieldModule, 
          MatDialogModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { appRoutes } from '../../main.router';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
-import { MainService } from '../../services/mainapp.service';
-import { ActionsViewerModule } from '../../components/actions_view/action_viewer.module';
 
 let imports = [
     MatAutocompleteModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatDialogModule,
     MatInputModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
@@ -29,21 +27,18 @@ let imports = [
     MatTableModule,
     CommonModule,
     appRoutes,
-    NgxJsonViewerModule,
-    MatExpansionModule,
-    MatDialogModule,
-    ActionsViewerModule ];
+    NgxJsonViewerModule ];
 
 @NgModule({
   declarations: [
-    BlockPageComponent,
-    DialogDataMemo
+    ActionsViewerComponent, DialogDataMemo
   ],
-  entryComponents: [BlockPageComponent, DialogDataMemo],
+  entryComponents: [ ActionsViewerComponent, DialogDataMemo ],
   imports:  imports,
-  providers: [MainService],
-  bootstrap: [ BlockPageComponent ]
+  exports: [ ActionsViewerComponent, DialogDataMemo ],
+  providers: [ ],
+  bootstrap: [ ActionsViewerComponent, DialogDataMemo ]
 })
-export class BlockPageModule {}
+export class ActionsViewerModule {}
 
 

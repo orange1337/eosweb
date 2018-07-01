@@ -31,7 +31,7 @@ export class MainTableComponent implements OnInit{
 
   mainData;
   displayedColumns = ['Number', 'Hash', 'Transactions', 'Producer', 'Time'];
-  displayedColumnsTx = ['Number', 'Transactions', 'Producer', 'NET'];
+  displayedColumnsTx = ['Number', 'Name', 'Data'];
   dataSource;
   dataSourceTrx;
   moment = moment;
@@ -74,7 +74,15 @@ export class MainTableComponent implements OnInit{
 
       data.forEach(elem => {
           if (elem.transactions && elem.transactions.length > 0){
-              this.trxObj[elem.block_num] = elem.transactions;
+              elem.transactions.forEach(tr => {
+                  if (!this.trxObj[elem.block_num]){
+                      this.trxObj[elem.block_num] = [];
+                  }
+                  let actions = tr.trx.transaction.actions.map(act => { 
+                        act.block_num = tr.trx.id;
+                  });
+                  Array.prototype.push.apply(this.trxObj[elem.block_num], tr.trx.transaction.actions);
+              });
           }
       });
 
@@ -90,9 +98,11 @@ export class MainTableComponent implements OnInit{
                   delete this.trxObj[key];
               }
           });
+          console.log(transactions);
           return transactions.slice(0, 20);
       }
 
+      
       return transactions;
   }
 

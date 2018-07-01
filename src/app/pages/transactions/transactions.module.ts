@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
 import { appRoutes } from '../../main.router';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { MainService } from '../../services/mainapp.service';
+import { ActionsViewerModule } from '../../components/actions_view/action_viewer.module';
 
 
 let imports = [
@@ -35,7 +36,8 @@ let imports = [
     MatExpansionModule,
     NgxJsonViewerModule,
     MatTabsModule,
-    MatDialogModule ];
+    MatDialogModule,
+    ActionsViewerModule ];
 
 @NgModule({
   declarations: [
