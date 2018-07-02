@@ -17,7 +17,7 @@ module.exports = function(io, eos, mongoMain){
   io.sockets.on('connection',  (socket) => {
 
     let offset = config.offsetElementsOnMainpage;
-    let elements = Array.from({ length: offset }, (v, k) => k = k + 1);
+    let elements = Array.from({ length: offset }, (v, k) => k++);
 
     let interval = setInterval(() => {
         eos.getInfo({})

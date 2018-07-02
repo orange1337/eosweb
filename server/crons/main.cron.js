@@ -14,6 +14,11 @@ module.exports = function(){
           startAccountsDaemon();
         });
         
+        cron.schedule('*/1 * * * *', () => {
+          console.log('====== global stat daemon');
+          startGlobalStatAnalytics();
+        });
+
         //cron.schedule('*/59 * * * *', () => {
          /* console.log('running account analytics daemon 2');
           startAccountsAnalytics();

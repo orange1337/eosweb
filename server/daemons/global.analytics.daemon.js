@@ -98,11 +98,13 @@ function getStatAggregation (){
 	], (err, stat) => {
 		if (err){
 			log.error(err);
+			process.exit(1);
 		}
 		log.info('===== end stat aggregation ', stat);
-		setTimeout( () => {
+		process.exit(0);
+		/*setTimeout( () => {
 			getStatAggregation();
-		}, config.blockUpdateTime);
+		}, config.blockUpdateTime);*/
 		
 	});
 };
