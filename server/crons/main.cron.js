@@ -27,7 +27,7 @@ module.exports = function(){
 
 
 function startAccountsDaemon(){
-        console.log('====== running daemon analytics account == 1');
+        console.log('====== running daemon analytics account - search in blocks == 1');
         exec('node ' + path.join(__dirname, '../daemons/accounts.stat.daemon.js'), (error, sdtout, stderror) => {
               if (error) {
                 return console.error(error);
@@ -40,7 +40,7 @@ function startAccountsDaemon(){
 }
 
 function startAccountsAnalytics(){
-        console.log('====== running account analytics daemon == 2');
+        console.log('====== running account analytics daemon - balances and other info  == 2');
         exec('node ' + path.join(__dirname, '../daemons/accounts.analytics.daemon.js'), (error, sdtout, stderror) => {
               if (error) {
                 return console.error(error);
@@ -54,7 +54,7 @@ function startAccountsAnalytics(){
 
 
 function startGlobalStatAnalytics(){
-        console.log('====== running global stat analytics daemon == 3');
+        console.log('====== running global stat analytics daemon - count trx actions  == 3');
         exec('node ' + path.join(__dirname, '../daemons/global.analytics.daemon.js'), (error, sdtout, stderror) => {
               if (error) {
                 return console.error(error);

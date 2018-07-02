@@ -24,7 +24,7 @@
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
     "@asymmetrik/ngx-leaflet": "^3.0.2",
-    "@swimlane/ngx-charts": "^8.0.2",
+    "@swimlane/ngx-charts": "^7.3.0",
     "@types/leaflet": "^1.2.7",
     "angular2-notifications": "^1.0.2",
     "appmetrics-dash": "^3.4.0",
