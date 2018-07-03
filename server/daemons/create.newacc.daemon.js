@@ -20,7 +20,7 @@ process.on('uncaughtException', (err) => {
     process.exit(1);
 });
 
-const decimalEOS = '0.0001 EOS';
+const decimalEOS = '0.00001 EOS';
 
 /*eos.transaction(tr => {
   tr.newaccount({
@@ -96,10 +96,6 @@ eos.transfer('crypticseos1', 'crypticseos2', decimalEOS, JSON.stringify(daily), 
 		}
     console.log(result);
 });*/
-
-//cleos system regproducer eoswebnetbp1 EOS5sT6mdCkTBLZM8vZnwqmBpA6gjtbdSTEeGL2k26JQFnjaCg6j2 https://eosweb.net/
-//cleos system regproducer eoswebnetbp1 EOS5sT6mdCkTBLZM8vZnwqmBpA6gjtbdSTEeGL2k26JQFnjaCg6j2 https://eosweb.net/
-
 
 
 

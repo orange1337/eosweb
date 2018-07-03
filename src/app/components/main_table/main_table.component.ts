@@ -78,9 +78,13 @@ export class MainTableComponent implements OnInit{
                   if (!this.trxObj[elem.block_num]){
                       this.trxObj[elem.block_num] = [];
                   }
-                  let actions = tr.trx.transaction.actions.map(act => { 
-                        act.block_num = tr.trx.id;
-                  });
+                  let actions = [];
+                  if (tr.trx && tr.trx.transaction && tr.trx.transaction.actions){
+                      actions = tr.trx.transaction.actions.map(act => { 
+                          act.block_num = tr.trx.id;
+                      });
+                  }
+                  
                   Array.prototype.push.apply(this.trxObj[elem.block_num], tr.trx.transaction.actions);
               });
           }

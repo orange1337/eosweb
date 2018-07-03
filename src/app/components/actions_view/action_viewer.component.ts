@@ -16,9 +16,16 @@ export class ActionsViewerComponent implements OnInit {
 
 
     openDialogMemo(e, data){
+        let result = data;
+        let json = false;
+        if (data.indexOf('{') >= 0 && data.indexOf('}') >= 0){
+            result = JSON.parse(data);
+            json = true;
+        }
         this.dialog.open(DialogDataMemo, {
           data: {
-             result: JSON.parse(data)
+             result: result,
+             json: json
           }
         });
     }
@@ -33,7 +40,8 @@ export class ActionsViewerComponent implements OnInit {
   template: `
   <h1 mat-dialog-title>Data</h1>
   <div mat-dialog-content>
-      <ngx-json-viewer [json]="data.result"></ngx-json-viewer>
+      <ngx-json-viewer [json]="data.result" *ngIf="data.json"></ngx-json-viewer>
+      <small *ngIf="!data.json">{{data.result}}</small>
   </div>
 `,
 })

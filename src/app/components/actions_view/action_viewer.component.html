@@ -1,2 +1,26 @@
-<div class="memo-data-action">{{ dataString }}</div>
-<i class="far fa-search icon-memo-open" *ngIf="dataString.length > length" (click)="openDialogMemo($event, dataString)"></i>
+<div class="main-container-actions">
+	<div class="memo-data-action">{{ dataString }}</div>
+	<i class="far fa-search icon-memo-open" *ngIf="dataString.length > length" (click)="openDialogMemo($event, dataString)"></i>
+</div>
+
+<!--<div class="main-container-actions" *ngIf="data?.to">
+	<div>
+		<a [routerLink]="['/account', data?.from ]" class="color-green tx-hash">
+			{{ data?.from }}
+		</a>
+	</div>
+	<div>
+		<a [routerLink]="['/account', data?.to ]" class="color-green tx-hash">
+			{{ data?.to }}
+		</a>
+	</div>
+	<div *ngIf="data?.memo.length">
+		<div class="main-container-actions">
+			<div class="memo-data">{{ data?.memo }}</div>
+			<i class="far fa-search icon-memo-open" *ngIf="dataString.length > 15" (click)="openDialogMemo($event, data?.memo)"></i>
+		</div>
+	</div>
+	<div>
+		<strong>{{ data?.quantity }}</strong>
+	</div>
+</div>-->
