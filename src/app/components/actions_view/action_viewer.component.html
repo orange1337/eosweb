@@ -1,26 +1,64 @@
-<div class="main-container-actions">
+<div class="main-container-actions" *ngIf="data?.name !== 'transfer' && data?.name !== 'buyram' && data?.name !== 'sellram'">
 	<div class="memo-data-action">{{ dataString }}</div>
 	<i class="far fa-search icon-memo-open" *ngIf="dataString.length > length" (click)="openDialogMemo($event, dataString)"></i>
 </div>
 
-<!--<div class="main-container-actions" *ngIf="data?.to">
-	<div>
-		<a [routerLink]="['/account', data?.from ]" class="color-green tx-hash">
-			{{ data?.from }}
+<div class="main-container-actions" *ngIf="data?.name === 'transfer'">
+	<div class="actions-list-view">
+		<a [routerLink]="['/account', dataObj?.from ]" class="color-green pull-left">
+			{{ dataObj?.from }}
+		</a>
+		<i class="fas fa-long-arrow-right"></i>
+	</div>
+	<div class="actions-list-view">
+		<a [routerLink]="['/account', dataObj?.to ]" class="color-green">
+			{{ dataObj?.to }}
 		</a>
 	</div>
-	<div>
-		<a [routerLink]="['/account', data?.to ]" class="color-green tx-hash">
-			{{ data?.to }}
-		</a>
-	</div>
-	<div *ngIf="data?.memo.length">
+	<div *ngIf="dataObj?.memo.length" class="actions-list-view">
 		<div class="main-container-actions">
-			<div class="memo-data">{{ data?.memo }}</div>
-			<i class="far fa-search icon-memo-open" *ngIf="dataString.length > 15" (click)="openDialogMemo($event, data?.memo)"></i>
+			<div class="memo-data">{{ dataObj?.memo }}</div>
+			<i class="far fa-search icon-memo-open" *ngIf="dataObj?.memo.length > 25" (click)="openDialogMemo($event, dataObj?.memo)"></i>
 		</div>
 	</div>
-	<div>
-		<strong>{{ data?.quantity }}</strong>
+	<div class="actions-list-view">
+		<strong>{{ dataObj?.quantity }}</strong>
 	</div>
-</div>-->
+</div>
+
+
+<div class="main-container-actions" *ngIf="data?.name === 'buyram'">
+	<div class="actions-list-view">
+		<a [routerLink]="['/account', dataObj?.payer ]" class="color-green pull-left">
+			{{ dataObj?.payer }}
+		</a>
+		<i class="fas fa-long-arrow-right"></i>
+	</div>
+	<div class="actions-list-view">
+		<a [routerLink]="['/account', dataObj?.receiver ]" class="color-green">
+			{{ dataObj?.receiver }}
+		</a>
+	</div>
+	<div class="actions-list-view">
+		<strong>{{ dataObj?.quant }}</strong>
+	</div>
+</div>
+
+<div class="main-container-actions" *ngIf="data?.name === 'sellram'">
+	<div class="actions-list-view">
+		<a [routerLink]="['/account', dataObj?.account ]" class="color-green pull-left">
+			{{ dataObj?.account }}
+		</a>
+	</div>
+	<div class="actions-list-view">
+		ram: 
+		<strong> {{ (dataObj?.bytes / 1024).toLocaleString() }} kb </strong>
+	</div>
+</div>
+
+
+
+
+
+
+

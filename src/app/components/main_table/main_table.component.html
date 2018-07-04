@@ -5,7 +5,7 @@
     <mat-spinner class="spinner-color"></mat-spinner>
 </div>
 
-<div class="col-md-6">
+<div class="col-md-5">
 <h1 class="market-header">Blocks</h1>
 
 <div class="example-container mat-elevation-z8 main-table">
@@ -20,20 +20,11 @@
         </a>
       </mat-cell>
     </ng-container>
-    
-    <!-- Name Column -->
-    <ng-container matColumnDef="Hash">
-      <mat-header-cell *matHeaderCellDef> Hash </mat-header-cell>
-      <mat-cell *matCellDef="let element" class="marketcap-container">
-          <span class="tx-hash">
-            <strong>{{ element?.id }}</strong>
-          </span>
-       </mat-cell>
-    </ng-container>
+  
     
     <ng-container matColumnDef="Transactions">
       <mat-header-cell *matHeaderCellDef> Transactions</mat-header-cell>
-      <mat-cell *matCellDef="let element" class="text-center"> 
+      <mat-cell *matCellDef="let element" class=""> 
           <strong>{{element?.transactions.length}}</strong>
       </mat-cell>
     </ng-container>
@@ -61,22 +52,18 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 
-  <!--<mat-paginator #paginator
-                 [pageSize]="100"
-                 [pageSizeOptions]="[50, 100]">
-  </mat-paginator>-->
 </div>
 </div>
 
-<div class="col-md-6">
+<div class="col-md-7">
 <h1 class="market-header">Latest Actions</h1>
 <div class="example-container mat-elevation-z8 main-table">
 
   <mat-table #table [dataSource]="dataSourceTrx">
     
       <ng-container matColumnDef="Number">
-      <mat-header-cell *matHeaderCellDef> Tx Hash </mat-header-cell>
-      <mat-cell *matCellDef="let element; let i = index">
+      <mat-header-cell *matHeaderCellDef style="flex: 0.9;"> Tx Hash </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i = index" style="flex: 0.9;">
         <a [routerLink]="['/transaction', element?.block_num ]" class="color-green tx-hash">
           <strong>{{ element?.block_num.toLocaleString() }}</strong>
         </a>
@@ -85,16 +72,16 @@
     
     <ng-container matColumnDef="Name">
       <mat-header-cell *matHeaderCellDef> Action Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> 
+      <mat-cell *matCellDef="let element" style="flex: 0.8"> 
              <strong>{{ element?.name }}</strong>
       </mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="Data">
-      <mat-header-cell *matHeaderCellDef style="flex: 2.5"> Data </mat-header-cell>
-      <mat-cell *matCellDef="let element" class="color-light-grey"> 
-          <action-viewer [data]="element?.data" [length]="50"></action-viewer>
+      <mat-header-cell *matHeaderCellDef style="flex: 2.8"> Data </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="color-light-grey" style="flex: 2.8"> 
+          <action-viewer [data]="element" [length]="50"></action-viewer>
       </mat-cell>
     </ng-container>
 
@@ -102,15 +89,7 @@
     <mat-row *matRowDef="let row; columns: displayedColumnsTx;"></mat-row>
   </mat-table>
 
-  <!--<mat-paginator #paginator
-                 [pageSize]="100"
-                 [pageSizeOptions]="[50, 100]">
-  </mat-paginator>-->
 </div>
 </div>
-
-<!--<div class="col-md-2">
-  <iframe src="https://cryptics.tech/cryptics_table_widget/index.html" style="border:1px solid #fafafa; box-shadow:0px 0px 6px 3px #fafafa; margin-top: 48px;" width="200" height="500" scrolling="yes"></iframe>
-</div>-->
 
 </div>

@@ -30,7 +30,7 @@ export class MainTableComponent implements OnInit{
   selected = this.currencyName;
 
   mainData;
-  displayedColumns = ['Number', 'Hash', 'Transactions', 'Producer', 'Time'];
+  displayedColumns = ['Number', /*'Hash',*/ 'Transactions', 'Producer', 'Time'];
   displayedColumnsTx = ['Number', 'Name', 'Data'];
   dataSource;
   dataSourceTrx;
@@ -83,9 +83,8 @@ export class MainTableComponent implements OnInit{
                       actions = tr.trx.transaction.actions.map(act => { 
                           act.block_num = tr.trx.id;
                       });
+                      Array.prototype.push.apply(this.trxObj[elem.block_num], tr.trx.transaction.actions);
                   }
-                  
-                  Array.prototype.push.apply(this.trxObj[elem.block_num], tr.trx.transaction.actions);
               });
           }
       });

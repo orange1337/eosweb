@@ -438,7 +438,7 @@ small{
 	overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    width: 300px !important;
+    width: 360px !important;
     display: block !important;
     cursor: pointer;
     float: left
@@ -476,8 +476,9 @@ action-viewer{
 	width: 600px;
 	flex: 5 !important;
 }
-.fa-long-arrow-right{
+.fa-long-arrow-right {
 	margin-left: 10px;
+	color: #333;
 }
 
 .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{

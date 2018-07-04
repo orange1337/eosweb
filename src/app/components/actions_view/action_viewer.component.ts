@@ -11,6 +11,7 @@ export class ActionsViewerComponent implements OnInit {
     @Input() length;
 
     dataString: string = '';
+    dataObj = {};
 
     constructor(public dialog: MatDialog){}
 
@@ -31,7 +32,8 @@ export class ActionsViewerComponent implements OnInit {
     }
 
     ngOnInit(){
-      this.dataString = JSON.stringify(this.data)
+      this.dataString = JSON.stringify(this.data.data);
+      this.dataObj = this.data.data;
     }
 }
 

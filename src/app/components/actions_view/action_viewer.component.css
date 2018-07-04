@@ -4,3 +4,10 @@
 strong{
 	color: #333;
 }
+.actions-list-view{
+	margin-left: 10px;
+	display: flex;
+}
+.actions-list-view::first-child{
+	margin-left: 0px;
+}
