@@ -245,6 +245,10 @@ a{
 .new-pass{
 	margin-bottom: 28px;
 }
+.producer-link{
+	margin-left: 5px;
+	display: table;
+}
 /* End Global style for forms signup login reset pass */
 
 /* Customize notify messages */

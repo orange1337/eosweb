@@ -80,7 +80,7 @@ export class ProducerComponent implements OnInit, OnDestroy{
   }
 
   getBP(elem){
-    if (!elem.url){
+    if (!elem || !elem.url){
       return console.log(elem);
     }
       this.http.post(`/api/producer`, { url: `${elem.url}/bp.json` })

@@ -1,24 +1,24 @@
-<div class="main-container-actions" *ngIf="data?.name !== 'transfer' && data?.name !== 'buyram' && data?.name !== 'sellram'">
+<div class="main-container-actions" *ngIf="data?.name !== 'transfer' && data?.name !== 'buyram' && data?.name !== 'sellram' && data?.name !== 'newaccount' && data?.name !== 'buyrambytes' && data?.name !== 'delegatebw' && data?.name !== 'undelegatebw' && data?.name !== 'voteproducer'">
 	<div class="memo-data-action">{{ dataString }}</div>
 	<i class="far fa-search icon-memo-open" *ngIf="dataString.length > length" (click)="openDialogMemo($event, dataString)"></i>
 </div>
 
 <div class="main-container-actions" *ngIf="data?.name === 'transfer'">
 	<div class="actions-list-view">
-		<a [routerLink]="['/account', dataObj?.from ]" class="color-green pull-left">
+		<strong><a [routerLink]="['/account', dataObj?.from ]" class="color-green pull-left">
 			{{ dataObj?.from }}
-		</a>
+		</a></strong>
 		<i class="fas fa-long-arrow-right"></i>
 	</div>
 	<div class="actions-list-view">
-		<a [routerLink]="['/account', dataObj?.to ]" class="color-green">
+		<strong><a [routerLink]="['/account', dataObj?.to ]" class="color-green">
 			{{ dataObj?.to }}
-		</a>
+		</a></strong>
 	</div>
 	<div *ngIf="dataObj?.memo.length" class="actions-list-view">
 		<div class="main-container-actions">
-			<div class="memo-data">{{ dataObj?.memo }}</div>
-			<i class="far fa-search icon-memo-open" *ngIf="dataObj?.memo.length > 25" (click)="openDialogMemo($event, dataObj?.memo)"></i>
+			<div class="memo-data" [ngClass]="{'memo-less-then-length': dataObj?.memo.length < 20 }">{{ dataObj?.memo }}</div>
+			<i class="far fa-search icon-memo-open" *ngIf="dataObj?.memo.length > 20" (click)="openDialogMemo($event, dataObj?.memo)"></i>
 		</div>
 	</div>
 	<div class="actions-list-view">
@@ -29,15 +29,15 @@
 
 <div class="main-container-actions" *ngIf="data?.name === 'buyram'">
 	<div class="actions-list-view">
-		<a [routerLink]="['/account', dataObj?.payer ]" class="color-green pull-left">
+		<strong><a [routerLink]="['/account', dataObj?.payer ]" class="color-green pull-left">
 			{{ dataObj?.payer }}
-		</a>
+		</a></strong>
 		<i class="fas fa-long-arrow-right"></i>
 	</div>
 	<div class="actions-list-view">
-		<a [routerLink]="['/account', dataObj?.receiver ]" class="color-green">
+		<strong><a [routerLink]="['/account', dataObj?.receiver ]" class="color-green">
 			{{ dataObj?.receiver }}
-		</a>
+		</a></strong>
 	</div>
 	<div class="actions-list-view">
 		<strong>{{ dataObj?.quant }}</strong>
@@ -46,19 +46,117 @@
 
 <div class="main-container-actions" *ngIf="data?.name === 'sellram'">
 	<div class="actions-list-view">
-		<a [routerLink]="['/account', dataObj?.account ]" class="color-green pull-left">
+		<strong><a [routerLink]="['/account', dataObj?.account ]" class="color-green pull-left">
 			{{ dataObj?.account }}
-		</a>
+		</a></strong>
 	</div>
 	<div class="actions-list-view">
-		ram: 
+		<strong> {{ (dataObj?.bytes / 1024).toLocaleString() }} kb </strong>
+	</div>
+</div>
+
+<div class="main-container-actions" *ngIf="data?.name === 'delegatebw'">
+	<div class="actions-list-view">
+		<strong><a [routerLink]="['/account', dataObj?.from ]" class="color-green pull-left">
+			{{ dataObj?.from }}
+		</a></strong>
+		<i class="fas fa-long-arrow-right"></i>
+	</div>
+	<div class="actions-list-view">
+		<strong><a [routerLink]="['/account', dataObj?.receiver ]" class="color-green">
+			{{ dataObj?.receiver }}
+		</a></strong>
+	</div>
+	<div class="actions-list-view">
+		<span class="resources">net: </span><strong> {{ dataObj?.stake_net_quantity }} </strong>
+	</div>
+	<div class="actions-list-view">
+		<span class="resources">cpu: </span> <strong> {{ dataObj?.stake_cpu_quantity }} </strong>
+	</div>
+</div>
+
+<div class="main-container-actions" *ngIf="data?.name === 'undelegatebw'">
+	<div class="actions-list-view">
+		<strong><a [routerLink]="['/account', dataObj?.from ]" class="color-green pull-left">
+			{{ dataObj?.from }}
+		</a></strong>
+		<i class="fas fa-long-arrow-right"></i>
+	</div>
+	<div class="actions-list-view">
+		<strong><a [routerLink]="['/account', dataObj?.receiver ]" class="color-green">
+			{{ dataObj?.receiver }}
+		</a></strong>
+	</div>
+	<div class="actions-list-view">
+		<span class="resources">net: </span><strong> {{ dataObj?.unstake_net_quantity }} </strong>
+	</div>
+	<div class="actions-list-view">
+		<span class="resources">cpu: </span> <strong> {{ dataObj?.unstake_cpu_quantity }} </strong>
+	</div>
+</div>
+
+<div class="main-container-actions" *ngIf="data?.name === 'newaccount'">
+	<div class="actions-list-view">
+		<strong><a [routerLink]="['/account', dataObj?.creator ]" class="color-green pull-left">
+			{{ dataObj?.creator }}
+		</a></strong>
+		<i class="fas fa-long-arrow-right"></i>
+	</div>
+	<div class="actions-list-view">
+		<strong><a [routerLink]="['/account', dataObj?.name ]" class="color-green">
+			{{ dataObj?.name }}
+		</a></strong>
+	</div>
+</div>
+
+<!--<div class="main-container-actions" *ngIf="data?.name === 'bidname'">
+	<div class="actions-list-view">
+		<strong><a [routerLink]="['/account', dataObj?.bidder ]" class="color-green pull-left">
+			{{ dataObj?.bidder }}
+		</a></strong>
+		<i class="fas fa-long-arrow-right"></i>
+	</div>
+	<div class="actions-list-view">
+		<strong><a [routerLink]="['/account', dataObj?.name ]" class="color-green">
+			{{ dataObj?.name }}
+		</a></strong>
+	</div>
+</div>-->
+
+<div class="main-container-actions" *ngIf="data?.name === 'buyrambytes'">
+	<div class="actions-list-view">
+		<strong><a [routerLink]="['/account', dataObj?.payer ]" class="color-green pull-left">
+			{{ dataObj?.payer }}
+		</a></strong>
+		<i class="fas fa-long-arrow-right"></i>
+	</div>
+	<div class="actions-list-view">
+		<strong><a [routerLink]="['/account', dataObj?.receiver ]" class="color-green">
+			{{ dataObj?.receiver }}
+		</a></strong>
+	</div>
+	<div class="actions-list-view">
 		<strong> {{ (dataObj?.bytes / 1024).toLocaleString() }} kb </strong>
 	</div>
 </div>
 
 
-
-
-
-
-
+<div class="main-container-actions" *ngIf="data?.name === 'voteproducer'">
+	<div class="actions-list-view">
+		<strong><a [routerLink]="['/account', dataObj?.voter ]" class="color-green pull-left">
+			{{ dataObj?.voter }}
+		</a></strong>
+		<i class="fas fa-long-arrow-right"></i>
+	</div>
+	<div class="actions-list-view">
+		<strong><a [routerLink]="['/account', dataObj?.proxy ]" class="color-green">
+			{{ dataObj?.proxy }}
+		</a></strong>
+	</div>
+	<div class="actions-list-view">
+		<strong> producers: </strong>
+		<strong><a [routerLink]="['/account', prod ]" *ngFor="let prod of dataObj?.producers" class="color-green pull-left producer-link">
+			{{ prod }}
+		</a></strong>
+	</div>
+</div>

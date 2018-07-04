@@ -11,3 +11,9 @@ strong{
 .actions-list-view::first-child{
 	margin-left: 0px;
 }
+.resources{
+	margin-right: 5px;
+}
+.memo-less-then-length{
+	width: auto !important;
+}
