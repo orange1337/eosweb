@@ -16,7 +16,7 @@ export class MainCustomizeChartsComponent implements OnInit{
       colorScheme : {
           domain: ['#44a264']
       },
-      view : [135, 70],
+      view : [130, 70],
       showXAxis : false,
       showYAxis : false,
       gradient : true,
@@ -30,6 +30,7 @@ export class MainCustomizeChartsComponent implements OnInit{
   curve = shape.curveBasis;
   blockchainData;
   aggragationData;
+  ramPrice;
 
   constructor(private http: HttpClient, private socket: Socket, private MainService: MainService){}
 
@@ -78,6 +79,22 @@ export class MainCustomizeChartsComponent implements OnInit{
                       });
   }
 
+  getRam(){
+      this.http.get(`/api/v1/get_table_rows/eosio/eosio/rammarket/10`)
+          .subscribe((res: any) => {
+                          if (!res || !res.rows || !res.rows[0] || !res.rows[0].quote || !res.rows[0].base){
+                              return console.error('data error', res);
+                          }
+                          let data = res.rows[0];
+                          let quoteBalance  = Number(data.quote.balance.split(' ')[0]);
+                          let baseBalance   = Number(data.base.balance.split(' ')[0]);
+                          this.ramPrice = (quoteBalance / baseBalance * 1024).toFixed(5);
+                      },
+                      (error) => {
+                          console.error(error);
+                      });
+  }
+
   createChartArr(data){
     let result = [];
       data.forEach(elem => {
@@ -91,6 +108,7 @@ export class MainCustomizeChartsComponent implements OnInit{
       this.getChart();
       this.getBlockchainData();
       this.getAggregationData();
+      this.getRam();
 
       this.socket.on('get_info', res => {
           this.blockchainData = res;

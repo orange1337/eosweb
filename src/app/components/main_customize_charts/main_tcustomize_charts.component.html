@@ -37,6 +37,14 @@
     </div>
     
     <div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline">
+       <div class="color-grey-text">Ram price </div> 
+       <div class="chart-child-container-dollar">
+          <div class="pull-left color-green"> {{ ramPrice }} </div>
+           <small style="margin-left: 5px"> EOS/kb </small>
+       </div> 
+    </div>
+
+    <div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline">
        <div class="color-grey-text">Accounts</div> 
        <div class="chart-child-container-dollar">
           <div class="pull-left color-green"> {{ aggragationData?.accounts.toLocaleString() }}</div>

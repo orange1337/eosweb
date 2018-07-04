@@ -1,6 +1,6 @@
 .grid-cs-5-inline{
     display: block;
-    width: 18.6%;
+    width: 15%;
     float: left;
 }
 .chart-child-container{
@@ -27,7 +27,8 @@
     padding-top: 0;
     padding-right: 1px; 
     padding-bottom: 0; 
-    width: 23.8%;
+    width: 22%;
+    margin-left: 5px;
 }
 .first-container-change{
     padding-right: 13px;

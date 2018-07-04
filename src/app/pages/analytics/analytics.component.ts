@@ -26,7 +26,7 @@ export class AnalyticsPageComponent implements OnInit{
           domain: ['#44a264']
       },
       view : [900, 400],
-      showXAxis : true,
+      showXAxis : false,
       showYAxis : true,
       gradient : true,
       showLegend : false,
@@ -35,6 +35,7 @@ export class AnalyticsPageComponent implements OnInit{
       showYAxisLabel : true,
       yAxisLabel : 'EOS',
       autoScale : true,
+      timeline: true
   }; 
   mainCurrencyChartDataRes;
 
@@ -105,7 +106,7 @@ export class AnalyticsPageComponent implements OnInit{
       data.forEach(elem => {
           let quoteBalance  = Number(elem.quote.split(' ')[0]);
           let baseBalance   = Number(elem.base.split(' ')[0]);
-          result.push({ name: moment(elem.date).format('lll'), value: (quoteBalance / baseBalance * 1024).toFixed(8) });
+          result.push({ name: new Date(elem.date), value: (quoteBalance / baseBalance * 1024).toFixed(8) });
       });
     return result;
   }
