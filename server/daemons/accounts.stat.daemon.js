@@ -23,8 +23,7 @@ const mongoMain  = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTI
 
 const STATS_ACCOUNT = require('../models/api.accounts.model')(mongoMain);
 const SETTINGS 		= require('../models/api.stats.model')(mongoMain);
-
-
+const RAM 			= require('../models/ram.price.model')(mongoMain);
 
 process.on('uncaughtException', (err) => {
 	// rewrite to slack notify
@@ -108,6 +107,38 @@ function getAccountAggregation (){
 			   				cb(null, stat);
 			   		});
 			});
+		},
+		(stat, cb) => {
+			eos.getTableRows({
+			     json: true,
+			     code: "eosio",
+			     scope: "eosio",
+			     table: "rammarket",
+			     limit: 10
+			})
+	   		.then(result => {
+	   			  if (!result || !result.rows || !result.rows[0] || !result.rows[0].quote || !result.rows[0].base){
+                              log.error('data error', result);
+                              return cb(null);
+                  }
+                  let data = result.rows[0];
+        	      let quoteBalance  = data.quote.balance;
+        	      let baseBalance   = data.base.balance;
+	   			  let ram = new RAM({
+	   			  		quote: quoteBalance,
+	   			  		base: baseBalance
+	   			  });
+	   			  ram.save(err => {
+	   			  	 if (err) {
+	   			  	 	return cb(err);	
+	   			  	 }
+	   			  	 log.info('ram market price data ========= ', ram);
+	   			  	 cb(null, stat);
+	   			  });
+	   		})
+	   		.catch(err => {
+	   			cb(err);
+	   		});
 		}
 	], (err, stat) => {
 		if (err){

@@ -8,8 +8,9 @@ const customFunctions = require('./eos.api.v1.custom');
 
 module.exports 	= function(router, config, request, log, eos, mongoMain) {
 
-	const STATS_AGGR = require('../models/api.stats.model')(mongoMain);
+	const STATS_AGGR 	= require('../models/api.stats.model')(mongoMain);
 	const STATS_ACCOUNT = require('../models/api.accounts.model')(mongoMain);
+	const RAM 			= require('../models/ram.price.model')(mongoMain);
 	
 
 	// ======== aggragation stat
@@ -90,7 +91,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 	* params - offset
 	*/
 	router.get('/api/v1/get_accounts_analytics/:offset', (req, res) => {
-	   	 STATS_ACCOUNT.find()
+		 STATS_ACCOUNT.find()
 	   	 		.sort({ balance_eos: -1 })
 	   	 		.limit(Number(req.params.offset))
 	   	 		.exec((err, result) => {
@@ -99,9 +100,23 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 	   	 			return res.status(500).end();
 	   	 		}
 	   	 		res.json(result);
-	   	 })
+	   	 });
 	});
 
+	/*
+	* router - get_chart_ram
+	* params - offset
+	*/
+	router.post('/api/v1/get_chart_ram', (req, res) => {
+	   	 RAM.find({ date : { $gte: new Date(req.body.from) } })
+	   	 		.exec((err, result) => {
+	   	 		if (err){
+	   	 			log.error(err);
+	   	 			return res.status(500).end();
+	   	 		}
+	   	 		res.json(result);
+	   	 });
+	});
 
 	/*
 	* router - get_block

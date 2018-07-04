@@ -5,12 +5,14 @@ import { MatAutocompleteModule,
          MatInputModule,
          MatPaginatorModule,
          MatProgressSpinnerModule,
+         MatProgressBarModule,
          MatSelectModule,
          MatSortModule,
          MatTableModule,
          MatFormFieldModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { appRoutes } from '../../main.router';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 let imports = [
@@ -20,11 +22,13 @@ let imports = [
     MatInputModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
     MatSelectModule,
     MatSortModule,
     MatTableModule,
     CommonModule,
-    appRoutes ];
+    appRoutes,
+    NgxChartsModule ];
 
 @NgModule({
   declarations: [

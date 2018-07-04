@@ -20,7 +20,7 @@ process.on('uncaughtException', (err) => {
     process.exit(1);
 });
 
-const decimalEOS = '0.00001 EOS';
+const decimalEOS = '0.001 EOS';
 
 /*eos.transaction(tr => {
   tr.newaccount({
@@ -74,13 +74,13 @@ const decimalEOS = '0.00001 EOS';
   });
 });*/
 
-eos.transaction(tr => {
+/*eos.transaction(tr => {
   tr.voteproducer({
     voter: 'ha2timrqguge',
     proxy: '',
     producers: ['eoswebnetbp1']
   });
-});
+});*/
 
 /*let daily = {
   dataSet: "JUST FOR TESTING !!!!!!!!",
@@ -89,13 +89,13 @@ eos.transaction(tr => {
 	realPrice: 6127,
 	prediction: 6400,
 	timeFcast: new Date(+new Date() - 60 * 60 * 1000)
-};
-eos.transfer('crypticseos1', 'crypticseos2', decimalEOS, JSON.stringify(daily), (error, result) => {
+};*/
+eos.transfer('crypticseos1', 'kunaexchange', '0.001 EOS', '668212227', (error, result) => {
 		if (error){
 			console.error(error);
 		}
     console.log(result);
-});*/
+});
 
 
 

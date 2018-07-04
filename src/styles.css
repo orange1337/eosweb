@@ -36,6 +36,9 @@ body{
 a{
 	cursor: pointer;
 }
+.text-right{
+	text-align: right;
+}
 .row, .container{
 	position: relative;
 }
