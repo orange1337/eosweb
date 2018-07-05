@@ -47,10 +47,10 @@ const decimalEOS = '0.001 EOS';
 
 /*eos.transaction(tr => {
   tr.delegatebw({
-    from: 'ha2timrqguge',
-    receiver: 'eoswebnetbp1',
-    stake_net_quantity: '0.25 EOS',
-    stake_cpu_quantity: '0.25 EOS',
+    from: 'crypticseos1',
+    receiver: 'crypticseos2',
+    stake_cpu_quantity: '0.1 EOS',
+    stake_net_quantity: "0 EOS",
     transfer: 0
   });
 });*/
@@ -67,9 +67,9 @@ const decimalEOS = '0.001 EOS';
 /*eos.transaction(tr => {
   tr.undelegatebw({
     from: 'eoswebnetest',
-    receiver: 'eoswebnetbp1',
-    unstake_net_quantity: "0.25 EOS",
-    unstake_cpu_quantity: "0.25 EOS",
+    receiver: 'ha2timrqguge',
+    unstake_net_quantity: "0.5 EOS",
+    unstake_cpu_quantity: "0.5 EOS",
     transfer: 0
   });
 });*/
@@ -82,6 +82,13 @@ const decimalEOS = '0.001 EOS';
   });
 });*/
 
+/*eos.transaction(tr => {
+  tr.sellram({
+    account: 'crypticseos2',
+    bytes: 3000,
+  });
+});*/
+
 /*let daily = {
   dataSet: "JUST FOR TESTING !!!!!!!!",
 	pair: "BTC/USD",
@@ -90,12 +97,13 @@ const decimalEOS = '0.001 EOS';
 	prediction: 6400,
 	timeFcast: new Date(+new Date() - 60 * 60 * 1000)
 };*/
-eos.transfer('crypticseos1', 'kunaexchange', '0.001 EOS', '668212227', (error, result) => {
+
+/*eos.transfer('crypticseos2', 'ha2timrqguge', '1 EOS', '', (error, result) => {
 		if (error){
 			console.error(error);
 		}
     console.log(result);
-});
+});*/
 
 
 

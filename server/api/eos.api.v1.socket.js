@@ -53,11 +53,28 @@ module.exports = function(io, eos, mongoMain){
               cb(null, result);
           });
         },
+        ram: cb => {
+              eos.getTableRows({
+                  json: true,
+                  code: "eosio",
+                  scope: "eosio",
+                  table: "rammarket",
+                  limit: 10
+              })
+               .then(result => {
+                    cb(null, result);
+               })
+               .catch(err => {
+                    log.error(err);
+                    cb('No result');
+               });
+        },
       }, (err, result) => {
           socketsArr.forEach(socket => {
               socket.emit('get_info', result.info);
               socket.emit('get_last_blocks', result.blocks);
               socket.emit('get_aggregation', result.stat);
+              socket.emit('get_ram', result.ram);
           });
       });
 

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import * as moment from 'moment';
 import * as shape from 'd3-shape';
+import { Socket } from 'ng-socket-io';
 
 @Component({
   selector: 'analytics-page',
@@ -40,7 +41,7 @@ export class AnalyticsPageComponent implements OnInit{
   mainCurrencyChartDataRes;
 
 
-  constructor(private route: ActivatedRoute, protected http: HttpClient){}
+  constructor(private route: ActivatedRoute, protected http: HttpClient, private socket: Socket){}
 
   getAccounts(){
       this.spinner = true;
@@ -59,22 +60,6 @@ export class AnalyticsPageComponent implements OnInit{
                           this.spinner = false;
                       });
   };
-
-  getRam(){
-      this.http.get(`/api/v1/get_table_rows/eosio/eosio/rammarket/10`)
-          .subscribe((res: any) => {
-                          if (!res || !res.rows || !res.rows[0] || !res.rows[0].quote || !res.rows[0].base){
-                              return console.error('data error', res);
-                          }
-                          let data = res.rows[0];
-                          let quoteBalance  = Number(data.quote.balance.split(' ')[0]);
-                          let baseBalance   = Number(data.base.balance.split(' ')[0]);
-                          this.ramPrice = (quoteBalance / baseBalance * 1024).toFixed(8);
-                      },
-                      (error) => {
-                          console.error(error);
-                      });
-  }
 
   getGlobal(){
       this.http.get(`/api/v1/get_table_rows/eosio/eosio/global/10`)
@@ -111,11 +96,36 @@ export class AnalyticsPageComponent implements OnInit{
     return result;
   }
 
+
+  getRam(){
+      this.http.get(`/api/v1/get_table_rows/eosio/eosio/rammarket/10`)
+          .subscribe((res: any) => {
+                          this.countRamPrice(res);
+                      },
+                      (error) => {
+                          console.error(error);
+                      });
+  }
+
+  countRamPrice(res){
+        if (!res || !res.rows || !res.rows[0] || !res.rows[0].quote || !res.rows[0].base){
+                return console.error('data error', res);
+        }
+        let data = res.rows[0];
+        let quoteBalance  = Number(data.quote.balance.split(' ')[0]);
+        let baseBalance   = Number(data.base.balance.split(' ')[0]);
+        this.ramPrice = (quoteBalance / baseBalance * 1024).toFixed(5);
+  }
+
   ngOnInit() {
      this.getAccounts();
      this.getRam();
      this.getGlobal();
      this.getChart();
+
+      this.socket.on('get_ram', res => {
+          this.countRamPrice(res);
+      });
   }
 }
 
