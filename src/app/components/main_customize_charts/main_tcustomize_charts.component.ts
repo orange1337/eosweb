@@ -27,7 +27,7 @@ export class MainCustomizeChartsComponent implements OnInit{
       yAxisLabel : 'Population',
       autoScale : true,
   }; 
-  curve = shape.curveBasis;
+  curve = shape.curveCardinal;
   blockchainData;
   aggragationData;
   ramPrice;

@@ -20,14 +20,14 @@ export class AnalyticsPageComponent implements OnInit{
   allvotes;
   ramPrice;
   globalStat;
-  curve = shape.curveBasis;
+  curve = shape.curveCardinal;
 
   ngxChartOptions = {
       colorScheme : {
           domain: ['#44a264']
       },
       view : [900, 400],
-      showXAxis : false,
+      showXAxis : true,
       showYAxis : true,
       gradient : true,
       showLegend : false,
@@ -36,7 +36,8 @@ export class AnalyticsPageComponent implements OnInit{
       showYAxisLabel : true,
       yAxisLabel : 'EOS',
       autoScale : true,
-      timeline: true
+      timeline: true,
+      fitContainer : true
   }; 
   mainCurrencyChartDataRes;
 
