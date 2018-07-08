@@ -1,0 +1,47 @@
+<div class="container">
+
+<div class="spinner-container" *ngIf="spinner">
+    <mat-spinner class="spinner-color"></mat-spinner>
+</div>
+
+<div class="col-sm-9 padding-left-no">
+  <h1 class="market-header">EOS RAM price <small>EOS/kb RAM</small></h1>
+   <ngx-charts-line-chart *ngIf="mainCurrencyChartDataRes"
+              [view]="ngxChartOptions.view"
+              [scheme]="ngxChartOptions.colorScheme"
+              [results]="[{ name: 'EOS/kb', series: mainCurrencyChartDataRes || [{name: '0', value: 1}] }]"
+              [gradient]="ngxChartOptions.gradient"
+              [xAxis]="ngxChartOptions.showXAxis"
+              [yAxis]="ngxChartOptions.showYAxis"
+              [legend]="ngxChartOptions.showLegend"
+              [showXAxisLabel]="ngxChartOptions.showXAxisLabel"
+              [showYAxisLabel]="ngxChartOptions.showYAxisLabel"
+              [xAxisLabel]="ngxChartOptions.xAxisLabel"
+              [yAxisLabel]="ngxChartOptions.yAxisLabel"
+              [autoScale]="ngxChartOptions.autoScale"
+              [timeline]="ngxChartOptions.timeline"
+              [curve]="curve">
+ </ngx-charts-line-chart> 
+</div>
+<div class="col-sm-3 padding-right-no text-right analytics-container-right">
+    <div class="col-sm-12">
+      <div class="analytics-header-right">EOS RAM price:</div>
+      <div class="analytics-text-right">{{ ramPrice }} EOS/kb</div>
+    </div>
+    <div class="col-sm-12">
+      <div class="analytics-header-right">Overall RAM:</div>
+      <div class="analytics-text-right">
+          <small class="pull-left text-ram">
+              {{ (globalStat?.total_ram_bytes_reserved / 1024 / 1024 / 1024).toLocaleString() }} GB / {{ (globalStat?.total_ram_bytes_reserved / globalStat?.max_ram_size * 100).toLocaleString() }} %
+          </small>
+          <small class="pull-right text-ram">
+              {{ (globalStat?.max_ram_size / 1024 / 1024 / 1024).toLocaleString() }} GB
+          </small>
+      </div>
+      <div class="analytics-text-right">
+        <mat-progress-bar mode="determinate" value="{{ globalStat?.total_ram_bytes_reserved / globalStat?.max_ram_size * 100 }}" class="progress-bar-usage account-net analytics-ram"></mat-progress-bar>
+      </div>
+    </div>
+</div>
+
+</div>

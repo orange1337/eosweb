@@ -9,9 +9,9 @@
     <input type="search" placeholder="Search by block, tx, account, address" [(ngModel)]="search" (keyup)="onKey($event)">
   </div>
   <ul class="pull-right main-nav-middle">
-    <li><button mat-button color="basic" routerLink="analytics" [ngClass]="{'nav-active': activeMenu() === '/analytics'}">Analytics</button></li>
+    <li><button mat-button color="basic" routerLink="accounts" [ngClass]="{'nav-active': activeMenu() === '/accounts'}">Accounts</button></li>
+    <li><button mat-button color="basic" routerLink="ram" [ngClass]="{'nav-active': activeMenu()  === '/ram'}">Ram</button></li>
     <li><button mat-button color="basic" routerLink="producers" [ngClass]="{'nav-active': activeMenu()  === '/producers'}">Producers</button></li>
-    <li class="mobile-no"><button mat-button color="basic" routerLink="soon">Widgets</button></li>
     <li class="mobile-no"><button mat-button color="basic" routerLink="soon">API</button></li>
     <li>
         <a _ngcontent-c0="" href="https://twitter.com/EoswebN" class="telegram-button" target="_blank">
@@ -31,7 +31,7 @@
   <div class="container">
   <div class="pull-left">Copyright © 2018. EOSweb. All rights reserved. Donation - <a [routerLink]="['/account/eoswebnetbp1']" class="color-green"><strong>eoswebnetbp1</strong></a></div>
   <ul class="pull-right">
-       <li><a routerLink="producers">API</a></li>
+       <li><a routerLink="soon">API</a></li>
        <li><a href="mailto:dev.eosweb.net@gmail.com">Support</a></li>
        <li><a href="https://www.facebook.com/EOSwebnet-199076424068961" target="_blank"><i class="fab fa-facebook"></i></a></li>
        <li><a href="https://www.reddit.com/user/eosweb" target="_blank"><i class="fab fa-reddit-alien"></i></a></li>

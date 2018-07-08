@@ -24,6 +24,7 @@ import { BlockPageModule } from './pages/block/block.module';
 import { ProducersPageModule } from './pages/producers/producers.module';
 import { ProducerModule } from './pages/producer_page/producer_page.module';
 import { AnalyticsPageModule } from './pages/analytics/analytics.module';
+import { RamPageModule } from './pages/ram/ram.module';
 import { TransactionPageModule } from './pages/transactions/transactions.module';
 import { AccountPageModule } from './pages/account/account.module';
 import { AddressPageModule } from './pages/address/address.module';
@@ -68,6 +69,7 @@ const socketConfig: SocketIoConfig = { url: '/', options: {
     ProducersPageModule,
     ProducerModule,
     AnalyticsPageModule,
+    RamPageModule,
     SoonModule
   ],
   providers: [appRoutingProviders],

@@ -7,6 +7,7 @@ import { AddressPageComponent } from './pages/address/address.component';
 import { ProducersPageComponent } from './pages/producers/producers.component';
 import { ProducerComponent } from './pages/producer_page/producer_page.component';
 import { AnalyticsPageComponent } from './pages/analytics/analytics.component';
+import { RamPageComponent } from './pages/ram/ram.component';
 import { SoonComponent } from './pages/soon/soon.component';
 //import { AuthGuard } from './auth.guard';
 
@@ -39,6 +40,14 @@ export const routes: Routes = [
   { 
     path: 'analytics', 
     component: AnalyticsPageComponent 
+  },
+  { 
+    path: 'accounts', 
+    component: AnalyticsPageComponent 
+  },
+  {
+    path: 'ram', 
+    component: RamPageComponent 
   },
   { 
     path: 'transaction/:id', 
