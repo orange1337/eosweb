@@ -9,10 +9,12 @@ import { MatAutocompleteModule,
          MatSelectModule,
          MatSortModule,
          MatTableModule,
+         MatTabsModule,
          MatFormFieldModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { appRoutes } from '../../main.router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { FormsModule } from '@angular/forms';
 
 
 let imports = [
@@ -26,9 +28,11 @@ let imports = [
     MatSelectModule,
     MatSortModule,
     MatTableModule,
+    MatTabsModule,
     CommonModule,
     appRoutes,
-    NgxChartsModule ];
+    NgxChartsModule,
+    FormsModule ];
 
 @NgModule({
   declarations: [

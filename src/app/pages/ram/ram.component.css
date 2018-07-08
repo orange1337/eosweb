@@ -14,7 +14,7 @@ small {
 }
 .analytics-header-right{
 	margin-bottom: 7px;
-	margin-top: 50px;
+	margin-top: 40px;
 	color: #9f9fa1;
 	font-size: 14px;
 }
@@ -29,4 +29,13 @@ small {
 	margin-bottom: 5px;
 	font-weight: normal;
 	font-size: 12px;
+}
+mat-tab-group{
+	margin-top: 20px;
+}
+.mat-tab-body-content{
+	padding: 10px 30px;
+}
+.top-ten{
+	margin-top: 10px;
 }

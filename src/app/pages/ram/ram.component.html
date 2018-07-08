@@ -28,6 +28,7 @@
       <div class="analytics-header-right">EOS RAM price:</div>
       <div class="analytics-text-right">{{ ramPrice }} EOS/kb</div>
     </div>
+
     <div class="col-sm-12">
       <div class="analytics-header-right">Overall RAM:</div>
       <div class="analytics-text-right">
@@ -39,9 +40,113 @@
           </small>
       </div>
       <div class="analytics-text-right">
-        <mat-progress-bar mode="determinate" value="{{ globalStat?.total_ram_bytes_reserved / globalStat?.max_ram_size * 100 }}" class="progress-bar-usage account-net analytics-ram"></mat-progress-bar>
+        <mat-progress-bar mode="determinate" value="{{ globalStat?.total_ram_bytes_reserved / globalStat?.max_ram_size * 100 }}" class="progress-bar-usage account-ram-usage analytics-ram"></mat-progress-bar>
       </div>
     </div>
+
+    <div class="col-sm-12" *ngIf="!identity">
+      <div class="analytics-header-right">
+        <button mat-stroked-button color="primary" (click)="loginScatter()">login with Scatter</button>
+      </div>
+    </div>
+    
+    <div class="col-sm-6" *ngIf="identity">
+      <div class="analytics-header-right">
+        Account:
+      </div>
+      <div class="analytics-text-right">
+        <a [routerLink]="['/account', identity?.accounts[0]?.name]" class="color-green">
+            {{ identity?.accounts[0]?.name }}
+        </a>
+      </div>
+    </div>
+
+    <div class="col-sm-6" *ngIf="identity">
+      <div class="analytics-header-right">
+        Total Balance:
+      </div>
+      <div class="analytics-text-right">
+        {{ balance }} EOS
+      </div>
+    </div>
+    
+    <div class="col-sm-12" *ngIf="identity">
+      <div class="analytics-header-right top-ten">
+        RAM:
+      </div>
+      <div class="analytics-text-right">
+        <mat-progress-bar mode="determinate" value="{{mainData?.ram_usage / mainData?.ram_quota * 100}}" class="progress-bar-usage account-ram"></mat-progress-bar>
+        <small>{{ (mainData?.ram_usage / 1024).toFixed(2) }} kb</small> / <small>{{ (mainData?.ram_quota / 1024).toFixed(2) }} kb</small>
+      </div>
+    </div>
+
+    <div class="col-sm-12" *ngIf="identity">
+      <div class="analytics-header-right top-ten">
+        CPU:
+      </div>
+      <div class="analytics-text-right">
+        <mat-progress-bar mode="determinate" value="{{mainData?.cpu_limit?.used / mainData?.cpu_limit?.max * 100}}" class="progress-bar-usage account-cpu"></mat-progress-bar>
+        <small>{{ (mainData?.cpu_limit?.used / 1000000).toFixed(2) }} sec</small> / <small>{{ (mainData?.cpu_limit?.max / 1000000).toFixed(2) }} sec</small>
+      </div>
+    </div>
+
+    <div class="col-sm-12" *ngIf="identity">
+      <div class="analytics-header-right top-ten">
+        NET:
+      </div>
+      <div class="analytics-text-right ">
+        <mat-progress-bar mode="determinate" value="{{mainData?.net_limit?.used / mainData?.net_limit?.max * 100}}" class="progress-bar-usage account-net"></mat-progress-bar>
+        <small>{{ (mainData?.net_limit?.used / 1024).toFixed(2) }} sec</small> / <small>{{ (mainData?.net_limit?.max / 1024).toFixed(2) }} kb</small>
+      </div>
+    </div>
+  
+</div>
+
+<div class="col-sm-12" *ngIf="identity">
+    <mat-tab-group>
+      <mat-tab label="Buy ram">
+        <div class="col-sm-2">
+            <mat-form-field>
+                <input matInput placeholder="EOS" [(ngModel)]="buyRAM.eos">
+            </mat-form-field>
+        </div>
+        <div class="col-sm-2">
+            <mat-form-field>
+               <input matInput placeholder="KB" [(ngModel)]="buyRAM.kb">
+            </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+               <button mat-raised-button color="primary" (click)="funcBuyRAM(buyRAM.kb)">Buy Ram</button>
+        </div>
+      </mat-tab>
+      <mat-tab label="Sell ram">
+        <div class="col-sm-2">
+            <mat-form-field>
+                <input matInput placeholder="EOS" [(ngModel)]="sellRAM.eos">
+            </mat-form-field>
+        </div>
+        <div class="col-sm-2">
+            <mat-form-field>
+               <input matInput placeholder="KB" [(ngModel)]="sellRAM.kb">
+            </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+               <button mat-raised-button color="warn" (click)="funcSellRAM()">Sell Ram</button>
+        </div>
+      </mat-tab>
+      <mat-tab label="Order history">
+      </mat-tab>
+      <mat-tab label="Donate">
+        <div class="col-sm-2">
+            <mat-form-field>
+                <input matInput placeholder="EOS" [(ngModel)]="donation">
+            </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+               <button mat-raised-button color="primary" (click)="funcDonation()">Donate</button>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
 </div>
 
 </div>
