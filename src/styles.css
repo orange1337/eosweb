@@ -555,6 +555,9 @@ action-viewer{
     	margin-top: 0px;
     	margin-bottom: 5px;
     }
+    .main-nav-middle .mat-button{
+    	padding: 0 2px !important;
+    }
     .mat-table{
     	width: 650px;
     }
