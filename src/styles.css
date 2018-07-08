@@ -466,7 +466,6 @@ action-viewer{
 	min-height: 40px;
 }
 .actions-list{
-    display: table;
     padding-bottom: 15px;
     padding-top: 15px;
     min-height: 40px;
