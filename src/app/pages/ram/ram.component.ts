@@ -5,6 +5,7 @@ import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import * as moment from 'moment';
 import * as shape from 'd3-shape';
 import { Socket } from 'ng-socket-io';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'ram-page',
@@ -14,12 +15,13 @@ import { Socket } from 'ng-socket-io';
 export class RamPageComponent implements OnInit{
   mainData;
   spinner = false;
-  displayedColumns = ['#', 'Name', 'Balance', 'Staked', 'Unstaked', 'Currencies Array'];
+  displayedColumns = ['Tx', 'Account', 'Type', 'Amount', 'Date'];
   dataSource;
   eosToInt = Math.pow(10, 13);
   ramPrice;
   globalStat;
   curve = shape.curveCardinal;
+  moment = moment;
 
   ngxChartOptions = {
       colorScheme : {
@@ -42,13 +44,13 @@ export class RamPageComponent implements OnInit{
   WINDOW: any = window;
   eosNetwork = {
             blockchain: 'eos',
-            host: '95.216.153.235',
-            port: 8888,
+            host: 'api.eosweb.net',
+            port: '',
             chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
   };
   eosOptions = {
-            broadcast: !0,
-            sign: !0,
+            broadcast: true,
+            sign: true,
             chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906"
   };
   identity;
@@ -63,10 +65,12 @@ export class RamPageComponent implements OnInit{
     kb : 0
   };
   donation;
+  orderHistory;
 
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient, 
-              private socket: Socket){}
+              private socket: Socket,
+              private notifications: NotificationsService,){}
 
   getGlobal(){
       this.http.get(`/api/v1/get_table_rows/eosio/eosio/global/10`)
@@ -126,23 +130,6 @@ export class RamPageComponent implements OnInit{
         this.ramPrice = (quoteBalance / baseBalance * 1024).toFixed(5);
   }
 
-  loginScatter(){
-    if (!this.WINDOW.scatter){
-        console.error('Please install scatter wallet !');
-    }
-    this.WINDOW.scatter.getIdentity({
-       accounts: [this.eosNetwork]
-    }).then(identity => {
-        this.identity = identity;
-        console.log(identity);
-        if (identity && identity.accounts[0] && identity.accounts[0].name){
-            this.getAccount(identity.accounts[0].name);
-        }
-    }).catch(err => {
-        console.error(err);
-    });
-  }
-
   getAccount(name){
       this.spinner = true;
       this.http.get(`/api/v1/get_account/${name}`)
@@ -172,7 +159,75 @@ export class RamPageComponent implements OnInit{
                       });
   }
 
+  buyChangeEOS(e) {
+      this.buyRAM.kb = this.buyRAM.eos / this.ramPrice;
+  }
+  buyChangeKB(e) {
+      this.buyRAM.eos = this.ramPrice * this.buyRAM.kb;
+  }
+  sellChangeEOS(e) {
+      this.sellRAM.kb = this.sellRAM.eos / this.ramPrice;
+  }
+  sellChangeKB(e) {
+      this.sellRAM.eos = this.ramPrice * this.sellRAM.kb;
+  }
+
+  loginScatter(){
+    if (!this.WINDOW.scatter){
+        console.error('Please install scatter wallet !');
+    }
+    this.WINDOW.scatter.getIdentity({
+       accounts: [this.eosNetwork]
+    }).then(identity => {
+        this.identity = identity;
+        if (identity && identity.accounts[0] && identity.accounts[0].name){
+            this.getAccount(identity.accounts[0].name);
+            this.getOrderHistory(identity.accounts[0].name);
+        }
+    }).catch(err => {
+        console.error(err);
+    });
+  }
+
   funcBuyRAM(quantity) {
+    if(!this.identity){
+        return console.error('Identity error!!!');
+    }
+    if ( isNaN(Number(quantity)) ){
+          return console.error('Amount must be a number!');
+    }
+        let amount = parseFloat(`${quantity}`).toFixed(4);
+        let requiredFields = {
+            accounts: [this.eosNetwork]
+        }
+        let eos = this.WINDOW.scatter.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, "https");
+        eos.contract('eosio', {
+            requiredFields
+        }).then(contract => {
+            contract.buyram({
+                payer: this.identity.accounts[0].name,
+                receiver: this.identity.accounts[0].name,
+                quant: `${amount} EOS`
+            }).then(trx => {
+                 console.log(trx);
+                 this.saveOrder({ amount: this.buyRAM.kb * 1024, account: this.identity.accounts[0].name, type: 'buy', tx_id: trx.transaction_id });
+                 this.getAccount(this.identity.accounts[0].name);
+                 this.buyRAM = {
+                     eos: 0,
+                     kb: 0
+                 };
+                 this.notifications.create('Transaction Success', '', 'success');
+            }).catch(err => {
+                 console.error(err);
+                 this.notifications.create('Transaction Fail', '', 'error');
+            });  
+        }).catch(err => {
+            console.error(err);
+            this.notifications.create('Transaction Fail', '', 'error');
+        });
+  }
+
+  funcSellRAM(quantity){
     if(!this.identity){
         return console.error('Identity error!!!');
     }
@@ -180,30 +235,74 @@ export class RamPageComponent implements OnInit{
         if (isNaN(amount)){
           return console.error('Amount must be a number!');
         }
+        amount = parseInt(`${amount * 1024}`); 
         let requiredFields = {
             accounts: [this.eosNetwork]
         }
         let eos = this.WINDOW.scatter.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, "https");
         eos.contract('eosio', {
             requiredFields
-        }).then(contract=>{
-            contract.buyram({
-                payer: this.identity.accounts[0].name,
-                receiver: this.identity.accounts[0].name,
-                quant: `${amount} EOS`,
+        }).then(contract => {
+            contract.sellram({
+                account: this.identity.accounts[0].name,
+                bytes: amount
             }).then(trx => {
                  console.log(trx);
+                 this.saveOrder({ amount: amount, account: this.identity.accounts[0].name, type: 'sell', tx_id: trx.transaction_id });
+                 this.getAccount(this.identity.accounts[0].name);
+                 this.sellRAM = {
+                     eos: 0,
+                     kb: 0
+                 };
+                 this.notifications.create('Transaction Success', '', 'success');
             }).catch(err => {
                  console.error(err);
+                 this.notifications.create('Transaction Fail', '', 'error');
             });  
         });
   }
 
-  funcSellRAM(){
-
+  funcDonation(quantity){
+    if(!this.identity){
+        return console.error('Identity error!!!');
+    }
+        let amount = Number(`${this.donation}`).toFixed(4);
+        let eos = this.WINDOW.scatter.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, "https");
+        eos.transfer(this.identity.accounts[0].name, 'eoswebnetbp1', `${amount} EOS`, 'Donation')
+           .then(result => {
+                console.log(result);
+                this.getAccount(this.identity.accounts[0].name);
+                this.notifications.create('Transaction Success', '', 'success');
+                this.donation = 0;
+           }).catch(err => {
+                console.error(err);
+                this.notifications.create('Transaction Fail', '', 'error');
+           });  
   }
-  funcDonation(){
 
+
+  saveOrder(data){
+        this.http.post('/api/v1/ram_order', data)
+            .subscribe((res: any) => {
+                  this.getAccount(this.identity.accounts[0].name);
+                  this.getOrderHistory(this.identity.accounts[0].name);
+            },
+            (err: any) => {
+                  console.error(err);
+            });
+  }  
+
+
+  getOrderHistory(account){
+      this.http.get('/api/v1/ram_orders/' + account)
+            .subscribe((res: any) => {
+                  this.orderHistory = res;
+                  let ELEMENT_DATA: Element[] = res;
+                  this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+            },
+            (err: any) => {
+                  console.error(err);
+            });
   }
 
   
@@ -211,6 +310,12 @@ export class RamPageComponent implements OnInit{
      this.getGlobal();
      this.getRam();
      this.getChart();
+
+     /*document.addEventListener('scatterLoaded', scatterExtension => { 
+           console.log('Scattter has been loaded!');
+           this.WINDOW.scatter.requireVersion(4.0);
+           this.WINDOW.scatter.suggestNetwork(this.eosNetwork);
+     });*/
 
       this.socket.on('get_ram', res => {
           this.countRamPrice(res);

@@ -11,6 +11,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 	const STATS_AGGR 	= require('../models/api.stats.model')(mongoMain);
 	const STATS_ACCOUNT = require('../models/api.accounts.model')(mongoMain);
 	const RAM 			= require('../models/ram.price.model')(mongoMain);
+	const RAM_ORDERS 	= require('../models/ram.orders.model')(mongoMain);
 	
 
 	// ======== aggragation stat
@@ -84,6 +85,48 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 			}
 			res.json(result);
 		});
+	});
+
+	/*
+	* router - ram_order
+	* params - offset
+	*/
+	router.post('/api/v1/ram_order', (req, res) => {
+		 let type 		= req.body.type;
+		 let tx_id 		= req.body.tx_id;
+		 let account 	= req.body.account;
+		 let amount 	= req.body.amount;
+
+		 let order = new RAM_ORDERS({
+		 		type: type,
+		 		tx_id: tx_id,
+		 		account: account,
+		 		amount: amount
+		 });
+
+		 order.save(err => {
+		 	if (err){
+		 		log.error(err);
+		 		return res.status(500).end();
+		 	}
+		 	res.json({ message: 'order successfully saved' });
+		 });
+	});
+
+	/*
+	* router - ram_orders
+	* params - offset
+	*/
+	router.get('/api/v1/ram_orders/:account', (req, res) => {
+		RAM_ORDERS.find({ account: req.params.account })
+		  .sort({ date: -1 })
+		  .exec((err, result) => {
+		 	if (err){
+		 		log.error(err);
+		 		return res.status(500).end();
+		 	}
+		 	res.json(result);
+		 });
 	});
 
 	/*

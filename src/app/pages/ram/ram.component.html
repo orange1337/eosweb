@@ -63,10 +63,10 @@
 
     <div class="col-sm-6" *ngIf="identity">
       <div class="analytics-header-right">
-        Total Balance:
+         Unstake:
       </div>
       <div class="analytics-text-right">
-        {{ balance }} EOS
+        {{ unstaked?.toLocaleString() }} EOS
       </div>
     </div>
     
@@ -96,57 +96,108 @@
       </div>
       <div class="analytics-text-right ">
         <mat-progress-bar mode="determinate" value="{{mainData?.net_limit?.used / mainData?.net_limit?.max * 100}}" class="progress-bar-usage account-net"></mat-progress-bar>
-        <small>{{ (mainData?.net_limit?.used / 1024).toFixed(2) }} sec</small> / <small>{{ (mainData?.net_limit?.max / 1024).toFixed(2) }} kb</small>
+        <small>{{ (mainData?.net_limit?.used / 1024).toFixed(2) }} kb</small> / <small>{{ (mainData?.net_limit?.max / 1024).toFixed(2) }} kb</small>
       </div>
     </div>
   
 </div>
 
-<div class="col-sm-12" *ngIf="identity">
+<div class="col-sm-5" *ngIf="identity">
     <mat-tab-group>
       <mat-tab label="Buy ram">
-        <div class="col-sm-2">
+        <div class="col-sm-4">
             <mat-form-field>
-                <input matInput placeholder="EOS" [(ngModel)]="buyRAM.eos">
+                <input matInput placeholder="EOS" [(ngModel)]="buyRAM.eos" (ngModelChange)="buyChangeEOS($event)">
             </mat-form-field>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-4">
             <mat-form-field>
-               <input matInput placeholder="KB" [(ngModel)]="buyRAM.kb">
+               <input matInput placeholder="KB" [(ngModel)]="buyRAM.kb" (ngModelChange)="buyChangeKB($event)">
             </mat-form-field>
         </div>
         <div class="col-sm-3">
-               <button mat-raised-button color="primary" (click)="funcBuyRAM(buyRAM.kb)">Buy Ram</button>
+               <button mat-raised-button color="primary" (click)="funcBuyRAM(buyRAM.eos)">Buy Ram</button>
         </div>
       </mat-tab>
       <mat-tab label="Sell ram">
-        <div class="col-sm-2">
+        <div class="col-sm-4">
             <mat-form-field>
-                <input matInput placeholder="EOS" [(ngModel)]="sellRAM.eos">
+                <input matInput placeholder="EOS" [(ngModel)]="sellRAM.eos" (ngModelChange)="sellChangeEOS($event)">
             </mat-form-field>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-4">
             <mat-form-field>
-               <input matInput placeholder="KB" [(ngModel)]="sellRAM.kb">
+               <input matInput placeholder="KB" [(ngModel)]="sellRAM.kb" (ngModelChange)="sellChangeKB($event)">
             </mat-form-field>
         </div>
         <div class="col-sm-3">
-               <button mat-raised-button color="warn" (click)="funcSellRAM()">Sell Ram</button>
+               <button mat-raised-button color="warn" (click)="funcSellRAM(sellRAM.kb)">Sell Ram</button>
         </div>
       </mat-tab>
-      <mat-tab label="Order history">
-      </mat-tab>
       <mat-tab label="Donate">
-        <div class="col-sm-2">
+        <div class="col-sm-4">
             <mat-form-field>
                 <input matInput placeholder="EOS" [(ngModel)]="donation">
             </mat-form-field>
         </div>
         <div class="col-sm-3">
-               <button mat-raised-button color="primary" (click)="funcDonation()">Donate</button>
+               <button mat-raised-button color="primary" (click)="funcDonation(donation)">Donate</button>
         </div>
       </mat-tab>
     </mat-tab-group>
+</div>
+
+<div class="col-sm-7 order-history-table" *ngIf="identity">
+      <div class="example-container mat-elevation-z8 main-table block-trx-table">
+          
+            <mat-table #table [dataSource]="dataSource" class="big-table" matSort>  
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="Tx">
+                <mat-header-cell *matHeaderCellDef> Tx id</mat-header-cell>
+                <mat-cell *matCellDef="let element"> 
+                      <strong>
+                        <a [routerLink]="['/transaction', element?.tx_id ]" class="color-green tx-hash">{{ element?.tx_id }}</a>
+                      </strong>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="Account">
+                <mat-header-cell *matHeaderCellDef class="account-account"> Account</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="account-account"> 
+                    <strong>
+                      <a [routerLink]="['/account', element?.account ]" class="color-green">
+                        {{ element?.account }}
+                      </a>
+                    </strong>
+                </mat-cell>
+              </ng-container>
+            
+            <ng-container matColumnDef="Type">
+                <mat-header-cell *matHeaderCellDef> Type</mat-header-cell>
+                <mat-cell *matCellDef="let element"> 
+                      <strong>{{ element?.type }}</strong>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="Amount">
+                <mat-header-cell *matHeaderCellDef> Amount</mat-header-cell>
+                <mat-cell *matCellDef="let element"> 
+                       <strong>{{ element?.amount / 1024 }} kb</strong>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="Date">
+                <mat-header-cell *matHeaderCellDef> Date</mat-header-cell>
+                <mat-cell *matCellDef="let element"> 
+                      {{ moment(element?.date).format('lll') }}
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+          </div>
 </div>
 
 </div>

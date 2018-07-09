@@ -48,9 +48,9 @@ const decimalEOS = '0.001 EOS';
 /*eos.transaction(tr => {
   tr.delegatebw({
     from: 'crypticseos1',
-    receiver: 'crypticseos2',
-    stake_cpu_quantity: '0.1 EOS',
-    stake_net_quantity: "0 EOS",
+    receiver: 'crypticseos1',
+    stake_cpu_quantity: '3 EOS',
+    stake_net_quantity: "1 EOS",
     transfer: 0
   });
 });*/

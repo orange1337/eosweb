@@ -31,7 +31,10 @@ small {
 	font-size: 12px;
 }
 mat-tab-group{
-	margin-top: 20px;
+	margin-top: 50px;
+}
+.order-history-table{
+	margin-top: 50px;
 }
 .mat-tab-body-content{
 	padding: 10px 30px;
