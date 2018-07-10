@@ -73,7 +73,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   }
 
   getActions(accountName){
-      this.http.get(`/api/v1/get_actions/${accountName}/-1/-500`)
+      this.http.get(`/api/v1/get_actions/${accountName}/-1/-250`)
            .subscribe((res: any) => {
                           res.actions.reverse();
                           res.actions = this.sortArrayFunctions(res.actions); 

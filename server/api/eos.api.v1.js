@@ -96,12 +96,14 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 		 let tx_id 		= req.body.tx_id;
 		 let account 	= req.body.account;
 		 let amount 	= req.body.amount;
+		 let price 		= req.body.price;
 
 		 let order = new RAM_ORDERS({
 		 		type: type,
 		 		tx_id: tx_id,
 		 		account: account,
-		 		amount: amount
+		 		amount: amount,
+		 		price: price
 		 });
 
 		 order.save(err => {

@@ -49,8 +49,8 @@ const decimalEOS = '0.001 EOS';
   tr.delegatebw({
     from: 'crypticseos1',
     receiver: 'crypticseos1',
-    stake_cpu_quantity: '3 EOS',
-    stake_net_quantity: "1 EOS",
+    stake_cpu_quantity: '0.5 EOS',
+    stake_net_quantity: "0.01 EOS",
     transfer: 0
   });
 });*/
@@ -66,10 +66,10 @@ const decimalEOS = '0.001 EOS';
 
 /*eos.transaction(tr => {
   tr.undelegatebw({
-    from: 'ha2timrqguge',
-    receiver: 'ha2timrqguge',
-    unstake_net_quantity: "8 EOS",
-    unstake_cpu_quantity: "8 EOS",
+    from: 'crypticseos1',
+    receiver: 'crypticseos1',
+    unstake_cpu_quantity: "2 EOS",
+    unstake_net_quantity: "0.1 EOS",
     transfer: 0
   });
 });*/

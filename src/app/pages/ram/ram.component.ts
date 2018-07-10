@@ -15,7 +15,7 @@ import { NotificationsService } from 'angular2-notifications';
 export class RamPageComponent implements OnInit{
   mainData;
   spinner = false;
-  displayedColumns = ['Tx', 'Account', 'Type', 'Amount', 'Date'];
+  displayedColumns = ['Tx', 'Type', 'Price', 'Amount', 'Date'];
   dataSource;
   eosToInt = Math.pow(10, 13);
   ramPrice;
@@ -210,7 +210,7 @@ export class RamPageComponent implements OnInit{
                 quant: `${amount} EOS`
             }).then(trx => {
                  console.log(trx);
-                 this.saveOrder({ amount: this.buyRAM.kb * 1024, account: this.identity.accounts[0].name, type: 'buy', tx_id: trx.transaction_id });
+                 this.saveOrder({ amount: this.buyRAM.kb * 1024, account: this.identity.accounts[0].name, type: 'buy', tx_id: trx.transaction_id, price: this.buyRAM.eos });
                  this.getAccount(this.identity.accounts[0].name);
                  this.buyRAM = {
                      eos: 0,
@@ -248,7 +248,7 @@ export class RamPageComponent implements OnInit{
                 bytes: amount
             }).then(trx => {
                  console.log(trx);
-                 this.saveOrder({ amount: amount, account: this.identity.accounts[0].name, type: 'sell', tx_id: trx.transaction_id });
+                 this.saveOrder({ amount: amount, account: this.identity.accounts[0].name, type: 'sell', tx_id: trx.transaction_id, price: this.sellRAM.eos });
                  this.getAccount(this.identity.accounts[0].name);
                  this.sellRAM = {
                      eos: 0,
@@ -303,6 +303,13 @@ export class RamPageComponent implements OnInit{
             (err: any) => {
                   console.error(err);
             });
+  }
+
+  parseNumber(number) {
+      if (!number){
+        return 0;
+      }
+      return parseFloat(number).toFixed(4);
   }
 
   

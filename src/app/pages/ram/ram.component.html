@@ -162,13 +162,11 @@
                 </mat-cell>
               </ng-container>
 
-              <ng-container matColumnDef="Account">
-                <mat-header-cell *matHeaderCellDef class="account-account"> Account</mat-header-cell>
-                <mat-cell *matCellDef="let element" class="account-account"> 
+              <ng-container matColumnDef="Price">
+                <mat-header-cell *matHeaderCellDef> Price</mat-header-cell>
+                <mat-cell *matCellDef="let element"> 
                     <strong>
-                      <a [routerLink]="['/account', element?.account ]" class="color-green">
-                        {{ element?.account }}
-                      </a>
+                        {{ parseNumber(element?.price) }} EOS
                     </strong>
                 </mat-cell>
               </ng-container>

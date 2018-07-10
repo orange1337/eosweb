@@ -45,6 +45,17 @@
 				</div>
 			</div>
 
+			<div class="col-sm-12 block-info-line" *ngIf="mainData?.refund_request">
+				<div class="col-sm-3">
+					<strong class="block-info-header">Refund:</strong>
+				</div>
+				<div class="col-sm-9">
+					<span class="account-info"> CPU: <small>{{ mainData?.refund_request?.cpu_amount }}</small></span>
+					<span class="account-info"> NET: <small>{{ mainData?.refund_request?.net_amount }}</small></span>
+					<span class="account-info"> Time: <small>{{ moment(mainData?.refund_request?.request_time).format('lll') }}</small></span>
+				</div>
+			</div>
+
 			<!--<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
 					<strong class="block-info-header">Token Balance:</strong>

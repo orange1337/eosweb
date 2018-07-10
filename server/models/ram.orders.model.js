@@ -20,6 +20,9 @@ var API = new mongoose.Schema({
   tx_id: {
     type: String
   },
+  price: {
+    type: String
+  },
   date: {
     index: true,
     type: Date,
