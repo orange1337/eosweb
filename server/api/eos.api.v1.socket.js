@@ -74,7 +74,7 @@ module.exports = function(io, eos, mongoMain){
                     if (!result || !result.rows || !result.rows[0] || !result.rows[0].quote || !result.rows[0].base){
                                       log.error('data error', result);
                                       return cb(null);
-                          }
+                    }
                     let data = result.rows[0];
                     let quoteBalance  = data.quote.balance;
                     let baseBalance   = data.base.balance;
