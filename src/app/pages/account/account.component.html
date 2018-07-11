@@ -342,6 +342,15 @@
 					  </mat-table>
 					</div>
 				  </mat-tab>
+
+				   <mat-tab label="Controlled Accounts ({{ controlledAccount?.controlled_accounts?.length }})">
+				  		  <div *ngFor="let acc of controlledAccount?.controlled_accounts;" class="controlled-acc">
+				  		  	<a [routerLink]="['/account', acc ]" class="color-green">
+					          		<strong>{{ acc }}</strong>
+					      	</a> 
+				  		  </div>
+				  </mat-tab>
+
 				</mat-tab-group>
 			</div>
 			

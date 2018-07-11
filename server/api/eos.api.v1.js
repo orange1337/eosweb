@@ -436,6 +436,22 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 	   	 	});
 	});
 
+	/*
+	* router - get_account_controlled
+	* params - name
+	*/
+	router.get('/api/v1/get_controlled_accounts/:acccount', (req, res) => {
+	   	 eos.getControlledAccounts({
+	   	 		controlling_account: req.params.acccount
+	   	 	})
+	   	 	.then(result => {
+	   	 		res.json(result);
+	   	 	})
+	   	 	.catch(err => {
+	   	 		log.error(err);
+	   	 		res.status(501).end();
+	   	 	});
+	});
 	//============ END of Account API
 
 	//============ Prod API

@@ -72,7 +72,7 @@ module.exports = function(io, eos, mongoMain){
                     }
                     timeToUpdate = +new Date() + config.RAM_UPDATE;
                     if (!result || !result.rows || !result.rows[0] || !result.rows[0].quote || !result.rows[0].base){
-                                      log.error('data error', result);
+                                      log.error('rammarket data error', result);
                                       return cb(null);
                     }
                     let data = result.rows[0];

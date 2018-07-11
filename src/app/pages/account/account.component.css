@@ -11,3 +11,6 @@ small {
 .account-address{
 	flex: 5 !important;
 }
+.controlled-acc{
+	margin-top: 15px;
+}

@@ -29,6 +29,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   subscription;
   displayedColumnsPermissiopn = ['Permission', 'Address', 'Threshold', 'Weight'];
   dataSourcePermission;
+  controlledAccount;
 
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient, 
@@ -131,6 +132,16 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   }
 
 
+  getControlledAccounts(account){
+        this.http.get(`/api/v1/get_controlled_accounts/${account}`)
+              .subscribe((res: any) => {
+                              this.controlledAccount = res;
+                          },
+                          (error) => {
+                              console.error(error);
+                          });
+  }
+
   /*getAccountsByKey(key){
 
   }*/
@@ -155,6 +166,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
     this.block = this.route.params.subscribe(params => {
        this.accountId = params['id'];
        this.getBlockData(this.accountId);
+       this.getControlledAccounts(this.accountId);
     });
     //this.subscription = this.MainService.getEosPrice().subscribe(item => { this.eosRate = item; console.log(item); });
   }
