@@ -20,7 +20,7 @@ export class RamPageComponent implements OnInit{
   eosToInt = Math.pow(10, 13);
   ramPrice;
   globalStat;
-  curve = shape.curveCardinal;
+  curve = shape.curveMonotoneX;
   moment = moment;
 
   ngxChartOptions = {

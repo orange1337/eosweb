@@ -38,7 +38,8 @@ function getAccountAggregation (){
 						return cb();
 					}
 					if (!result[0]){
-						return console.log(' no quaute');
+						console.log(' no quaute');
+						return cb();
 					}
 					let price = result[0].quote.split(' ')[0] / result[0].base.split(' ')[0] * 1024;
 					RAM_ORDERS.update({ _id: order._id }, { price: price }, (err) => {

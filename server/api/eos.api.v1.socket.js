@@ -10,9 +10,13 @@ const updateTime = {
     blocks: config.blockUpdateTime
 };
 
+let timeToUpdate = +new Date() + config.RAM_UPDATE;
+
 module.exports = function(io, eos, mongoMain){
 
   const STATS_AGGR = require('../models/api.stats.model')(mongoMain);
+  const RAM        = require('../models/ram.price.model')(mongoMain);
+
   io.usersPool = {};
 
   let offset = config.offsetElementsOnMainpage;
@@ -62,7 +66,29 @@ module.exports = function(io, eos, mongoMain){
                   limit: 10
               })
                .then(result => {
-                    cb(null, result);
+                    let dateNow = +new Date();
+                    if (dateNow < timeToUpdate){
+                        return cb(null, result);
+                    }
+                    timeToUpdate = +new Date() + config.RAM_UPDATE;
+                    if (!result || !result.rows || !result.rows[0] || !result.rows[0].quote || !result.rows[0].base){
+                                      log.error('data error', result);
+                                      return cb(null);
+                          }
+                    let data = result.rows[0];
+                    let quoteBalance  = data.quote.balance;
+                    let baseBalance   = data.base.balance;
+                    let ram = new RAM({
+                        quote: quoteBalance,
+                        base: baseBalance
+                    });
+                    ram.save(err => {
+                       if (err) {
+                        return cb(err); 
+                       }
+                       log.info('ram market price data ========= ', ram);
+                       cb(null, result);
+                    });
                })
                .catch(err => {
                     log.error(err);
