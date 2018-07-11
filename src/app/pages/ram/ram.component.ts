@@ -210,7 +210,7 @@ export class RamPageComponent implements OnInit{
                 quant: `${amount} EOS`
             }).then(trx => {
                  console.log(trx);
-                 this.saveOrder({ amount: this.buyRAM.kb * 1024, account: this.identity.accounts[0].name, type: 'buy', tx_id: trx.transaction_id, price: this.buyRAM.eos });
+                 this.saveOrder({ amount: this.buyRAM.kb * 1024, account: this.identity.accounts[0].name, type: 'buy', tx_id: trx.transaction_id, price: this.ramPrice });
                  this.getAccount(this.identity.accounts[0].name);
                  this.buyRAM = {
                      eos: 0,
@@ -248,7 +248,7 @@ export class RamPageComponent implements OnInit{
                 bytes: amount
             }).then(trx => {
                  console.log(trx);
-                 this.saveOrder({ amount: amount, account: this.identity.accounts[0].name, type: 'sell', tx_id: trx.transaction_id, price: this.sellRAM.eos });
+                 this.saveOrder({ amount: amount, account: this.identity.accounts[0].name, type: 'sell', tx_id: trx.transaction_id, price: this.ramPrice });
                  this.getAccount(this.identity.accounts[0].name);
                  this.sellRAM = {
                      eos: 0,
