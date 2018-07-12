@@ -9,6 +9,7 @@ import { ProducerComponent } from './pages/producer_page/producer_page.component
 import { AnalyticsPageComponent } from './pages/analytics/analytics.component';
 import { RamPageComponent } from './pages/ram/ram.component';
 import { SoonComponent } from './pages/soon/soon.component';
+import { WalletPageComponent } from './pages/wallet/wallet.component';
 //import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
@@ -52,6 +53,10 @@ export const routes: Routes = [
   { 
     path: 'transaction/:id', 
     component: TransactionPageComponent 
+  },
+  { 
+    path: 'wallet', 
+    component: WalletPageComponent 
   },
   { 
     path: 'soon', 

@@ -26,6 +26,7 @@ import { ProducerModule } from './pages/producer_page/producer_page.module';
 import { AnalyticsPageModule } from './pages/analytics/analytics.module';
 import { RamPageModule } from './pages/ram/ram.module';
 import { TransactionPageModule } from './pages/transactions/transactions.module';
+import { WalletPageModule } from './pages/wallet/wallet.module';
 import { AccountPageModule } from './pages/account/account.module';
 import { AddressPageModule } from './pages/address/address.module';
 import { SoonModule } from './pages/soon/soon.module';
@@ -66,6 +67,7 @@ const socketConfig: SocketIoConfig = { url: '/', options: {
     AccountPageModule,
     AddressPageModule,
     TransactionPageModule,
+    WalletPageModule,
     ProducersPageModule,
     ProducerModule,
     AnalyticsPageModule,

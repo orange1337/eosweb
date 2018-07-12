@@ -1,0 +1,18 @@
+.avatatar-img{
+	float: left;
+	margin-right: 15px;
+	padding: 10px 15px;
+    border-radius: 50%;
+	background: linear-gradient(to right,#3fa3eb,#3568e4);
+	background: -webkit-gradient(linear,left top,right top,from(#3fa3eb),to(#3568e4));
+}
+.acc-name{
+	margin-top: 15px;
+	display: table;
+}
+.acc-list{
+	margin-top: 20px;
+}
+.balance-acc{
+	margin-top: 10px;
+}

@@ -70,7 +70,7 @@ export class RamPageComponent implements OnInit{
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient, 
               private socket: Socket,
-              private notifications: NotificationsService,){}
+              private notifications: NotificationsService){}
 
   getGlobal(){
       this.http.get(`/api/v1/get_table_rows/eosio/eosio/global/10`)
