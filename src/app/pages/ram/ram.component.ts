@@ -217,6 +217,7 @@ export class RamPageComponent implements OnInit{
                      kb: 0
                  };
                  this.notifications.create('Transaction Success', '', 'success');
+                 this.notifications.create('Donation', 'Support our project, make a donation :)', 'success');
             }).catch(err => {
                  console.error(err);
                  this.notifications.create('Transaction Fail', '', 'error');
@@ -255,6 +256,7 @@ export class RamPageComponent implements OnInit{
                      kb: 0
                  };
                  this.notifications.create('Transaction Success', '', 'success');
+                 this.notifications.create('Donation', 'Support our project, make a donation :)', 'success');
             }).catch(err => {
                  console.error(err);
                  this.notifications.create('Transaction Fail', '', 'error');
@@ -273,6 +275,7 @@ export class RamPageComponent implements OnInit{
                 console.log(result);
                 this.getAccount(this.identity.accounts[0].name);
                 this.notifications.create('Transaction Success', '', 'success');
+                this.notifications.create('Donation', 'Thanks for donation :)', 'success');
                 this.donation = 0;
            }).catch(err => {
                 console.error(err);
