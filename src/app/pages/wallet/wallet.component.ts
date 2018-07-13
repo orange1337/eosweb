@@ -161,12 +161,24 @@ export class WalletPageComponent implements OnInit {
            types[elem.name] = elem.type; 
       });
       Object.keys(fields).forEach(key => {
-            if (types[key] && types[key].indexOf('uint') >= 0 || types[key].indexOf('bool') >= 0){
+            if (types[key] && types[key].indexOf('uint') >= 0 || types[key].indexOf('bool') >= 0 || types[key].indexOf('int') >= 0){
                 fields[key] = parseInt(fields[key]);
+            }
+            if (types[key] && types[key].indexOf('float') >= 0){
+                fields[key] = parseFloat(fields[key]);
             }
             if (types[key] && types[key].indexOf('asset') >= 0){
                 let elem = fields[key].split(' ');
                 fields[key] = `${Number(elem[0]).toFixed(4)} ${elem[1]}`;
+            }
+            if (types[key] && types[key].indexOf('[]') >= 0){
+                fields[key] = fields[key].split(',').map(elem => { return elem.replace(' ', '') });
+            }
+            if (types[key] && types[key].indexOf('bytes') >= 0){
+                fields[key] = this.convertToBytes(types[key]);
+            }
+            if (types[key] && types[key].indexOf('time_point_sec') >= 0){
+                fields[key] = Number(fields[key]);
             }
       });
       console.log(fields, method, this.contractFieldsRender);
@@ -196,6 +208,14 @@ export class WalletPageComponent implements OnInit {
             console.error(err);
             this.notifications.create('Transaction Fail', '', 'error');
         });
+  }
+
+  convertToBytes(string){
+      let bytes = [];
+      for (let i = 0; i < string.length; ++i) {
+          bytes.push(string[i].charCodeAt());
+      }
+      return bytes;
   }
 
   openDialogMemo(event, data){
