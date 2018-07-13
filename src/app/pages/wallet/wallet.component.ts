@@ -31,7 +31,7 @@ export class WalletPageComponent implements OnInit {
   WINDOW: any = window;
   eosNetwork = {
             blockchain: 'eos',
-            host: 'api.eosweb.net',
+            host: '',
             port: '',
             chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
   };
@@ -40,6 +40,7 @@ export class WalletPageComponent implements OnInit {
             sign: true,
             chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906"
   };
+  protocol = 'https';
 
   transfer = {
       to: '',
@@ -81,6 +82,18 @@ export class WalletPageComponent implements OnInit {
                               this.staked = this.mainData.voter_info.staked / 10000;
                           }
                           this.balance = this.unstaked + this.staked;
+                      },
+                      (error) => {
+                          console.error(error);
+                      });
+  }
+
+  getWalletAPI(){
+       this.http.get(`/api/v1/get_wallet_api`)
+          .subscribe((res: any) => {
+                          this.eosNetwork.host = res.host;
+                          this.eosNetwork.port = res.port;
+                          this.protocol = res.protocol;
                       },
                       (error) => {
                           console.error(error);
@@ -137,7 +150,7 @@ export class WalletPageComponent implements OnInit {
         return this.notifications.create('Error', 'Please type account To and Amount', 'error');
     }
         let amount = Number(`${this.transfer.amount}`).toFixed(4) + ` ${this.transfer.symbol}`;
-        let eos = this.WINDOW.scatter.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, "https");
+        let eos = this.WINDOW.scatter.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
         eos.transfer(this.identity.accounts[0].name, this.transfer.to, amount, this.transfer.memo)
            .then(result => {
                 this.getAccount(this.identity.accounts[0].name);
@@ -188,7 +201,7 @@ export class WalletPageComponent implements OnInit {
         let requiredFields = {
             accounts: [this.eosNetwork]
         }
-        let eos = this.WINDOW.scatter.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, "https");
+        let eos = this.WINDOW.scatter.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
         eos.contract(this.contractName, {
             requiredFields
         }).then(contract => {
@@ -234,7 +247,7 @@ export class WalletPageComponent implements OnInit {
   }
 
   ngOnInit() {
-
+      this.getWalletAPI();
   }
 }
 

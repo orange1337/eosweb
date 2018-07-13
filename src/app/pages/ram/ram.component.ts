@@ -44,7 +44,7 @@ export class RamPageComponent implements OnInit{
   WINDOW: any = window;
   eosNetwork = {
             blockchain: 'eos',
-            host: 'api.eosweb.net',
+            host: '',
             port: '',
             chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
   };
@@ -53,6 +53,7 @@ export class RamPageComponent implements OnInit{
             sign: true,
             chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906"
   };
+  protocol = 'https';
   identity;
   balance;
   unstaked;
@@ -79,6 +80,18 @@ export class RamPageComponent implements OnInit{
                               return console.error('data error', res);
                           }
                           this.globalStat = res.rows[0];
+                      },
+                      (error) => {
+                          console.error(error);
+                      });
+  }
+
+  getWalletAPI(){
+       this.http.get(`/api/v1/get_wallet_api`)
+          .subscribe((res: any) => {
+                          this.eosNetwork.host = res.host;
+                          this.eosNetwork.port = res.port;
+                          this.protocol = res.protocol;
                       },
                       (error) => {
                           console.error(error);
@@ -200,7 +213,7 @@ export class RamPageComponent implements OnInit{
         let requiredFields = {
             accounts: [this.eosNetwork]
         }
-        let eos = this.WINDOW.scatter.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, "https");
+        let eos = this.WINDOW.scatter.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
         eos.contract('eosio', {
             requiredFields
         }).then(contract => {
@@ -240,7 +253,7 @@ export class RamPageComponent implements OnInit{
         let requiredFields = {
             accounts: [this.eosNetwork]
         }
-        let eos = this.WINDOW.scatter.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, "https");
+        let eos = this.WINDOW.scatter.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
         eos.contract('eosio', {
             requiredFields
         }).then(contract => {
@@ -320,6 +333,7 @@ export class RamPageComponent implements OnInit{
      this.getGlobal();
      this.getRam();
      this.getChart();
+     this.getWalletAPI();
 
      /*document.addEventListener('scatterLoaded', scatterExtension => { 
            console.log('Scattter has been loaded!');

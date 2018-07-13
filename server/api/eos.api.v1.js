@@ -87,6 +87,11 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 		});
 	});
 
+	router.get('/api/v1/get_wallet_api', (req, res) => {
+		res.json({ host: config.walletAPI.host, port: config.walletAPI.port, protocol: config.walletAPI.protocol });
+	});
+	
+
 	/*
 	* router - ram_order
 	* params - offset
