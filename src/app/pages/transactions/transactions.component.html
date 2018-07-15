@@ -42,7 +42,7 @@
 					<strong class="block-info-header">Actions:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small class="color-grey">{{ mainData?.trx?.trx?.actions.length }}</small>
+					<small class="color-grey">{{ mainData?.trx?.trx?.actions?.length }}</small>
 				</div>
 			</div>
 
@@ -102,7 +102,7 @@
 									<div class="actions-list">
 										
 										<div class="memo-data">{{ action?.data?.memo }}</div>
-										<i class="far fa-search icon-memo-open" *ngIf="action?.data?.memo.length > 15" (click)="openDialogMemo($event, action?.data?.memo)"></i>
+										<i class="far fa-search icon-memo-open" *ngIf="action?.data?.memo?.length > 15" (click)="openDialogMemo($event, action?.data?.memo)"></i>
 									</div>
 									<div class="actions-list">
 										<strong>{{ action?.data?.quantity }}</strong>

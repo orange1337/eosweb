@@ -79,7 +79,7 @@
 					<strong class="block-info-header">Transactions:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small class="color-grey">{{ mainData?.transactions.length }}</small>
+					<small class="color-grey">{{ mainData?.transactions?.length }}</small>
 				</div>
 			</div>
 
@@ -97,7 +97,7 @@
 			</div>
 
 			<div class="col-sm-12">
-					<div class="example-container mat-elevation-z8 main-table block-trx-table" *ngIf="trxArr.length">
+					<div class="example-container mat-elevation-z8 main-table block-trx-table" *ngIf="trxArr?.length">
 					
 					  <mat-table #table [dataSource]="dataSource" matSort>
 					

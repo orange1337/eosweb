@@ -1,6 +1,6 @@
 <div class="main-container-actions" *ngIf="data?.name !== 'transfer' && data?.name !== 'buyram' && data?.name !== 'sellram' && data?.name !== 'newaccount' && data?.name !== 'buyrambytes' && data?.name !== 'delegatebw' && data?.name !== 'undelegatebw' && data?.name !== 'voteproducer'">
 	<div class="memo-data-action">{{ dataString }}</div>
-	<i class="far fa-search icon-memo-open" *ngIf="dataString.length > length" (click)="openDialogMemo($event, dataString)"></i>
+	<i class="far fa-search icon-memo-open" *ngIf="dataString?.length > length" (click)="openDialogMemo($event, dataString)"></i>
 </div>
 
 <div class="main-container-actions" *ngIf="data?.name === 'transfer'">
@@ -15,10 +15,10 @@
 			{{ dataObj?.to }}
 		</a></strong>
 	</div>
-	<div *ngIf="dataObj?.memo.length" class="actions-list-view">
+	<div *ngIf="dataObj?.memo?.length" class="actions-list-view">
 		<div class="main-container-actions">
-			<div class="memo-data" [ngClass]="{'memo-less-then-length': dataObj?.memo.length < 20 }">{{ dataObj?.memo }}</div>
-			<i class="far fa-search icon-memo-open" *ngIf="dataObj?.memo.length > 20" (click)="openDialogMemo($event, dataObj?.memo)"></i>
+			<div class="memo-data" [ngClass]="{'memo-less-then-length': dataObj?.memo?.length < 20 }">{{ dataObj?.memo }}</div>
+			<i class="far fa-search icon-memo-open" *ngIf="dataObj?.memo?.length > 20" (click)="openDialogMemo($event, dataObj?.memo)"></i>
 		</div>
 	</div>
 	<div class="actions-list-view">
