@@ -33,6 +33,7 @@
     "compression": "^1.7.2",
     "cookie-parser": "^1.4.3",
     "core-js": "^2.4.1",
+    "csv-parser": "^1.12.1",
     "csv-write-stream": "^2.0.0",
     "echarts": "^4.1.0",
     "eos-scatter": "^1.0.0",

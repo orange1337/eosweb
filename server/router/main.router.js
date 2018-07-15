@@ -13,6 +13,9 @@ module.exports = function(router, config, request, log) {
 	   	res.sendFile(path.join(__dirname, '../../bp.json'));
 	});
 
+	router.get('/sitemap.xml', (req, res) => {
+	   	res.sendFile(path.join(__dirname, '../../sitemap.xml'));
+	});
 // ============== END of exports 
 };
 
