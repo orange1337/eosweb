@@ -7,7 +7,6 @@ const path        = require('path');
 const config      = require('../../config');
 
 module.exports = function(){
-    if (config.PROD){
         
         cron.schedule('*/10 * * * *', () => {
             console.log('====== running daemon analytics account 1');
@@ -26,8 +25,7 @@ module.exports = function(){
 
         startAccountsDaemon();
         startGlobalStatAnalytics();
-        startAccountsAnalytics();
-    }  
+        //startAccountsAnalytics();
 }
 
 

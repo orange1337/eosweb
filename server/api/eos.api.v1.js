@@ -12,7 +12,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 	const STATS_ACCOUNT = require('../models/api.accounts.model')(mongoMain);
 	const RAM 			= require('../models/ram.price.model')(mongoMain);
 	const RAM_ORDERS 	= require('../models/ram.orders.model')(mongoMain);
-	
+	const TRX_ACTIONS = require('../models/trx.actions.history.model')(mongoMain);
 
 	// ======== aggragation stat
     /*if (config.PROD){
@@ -120,6 +120,19 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 		 });
 	});
 
+	/*
+	* router - get_analytics
+	* params - offset
+	*/
+	router.post('/api/v1/get_trx_actions', (req, res) => {
+		 TRX_ACTIONS.find({ date: { $gte : new Date(req.body.date) } }, (err, result) => {
+		 	if (err){
+		 		log.error(err);
+		 		return res.status(500).end();
+		 	}
+		 	res.json(result);
+		 });
+	});
 	/*
 	* router - ram_orders
 	* params - offset

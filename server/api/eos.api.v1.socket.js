@@ -10,12 +10,14 @@ const updateTime = {
     blocks: config.blockUpdateTime
 };
 
-let timeToUpdate = +new Date() + config.RAM_UPDATE;
+let timeToUpdate        = +new Date() + config.RAM_UPDATE;
+let timeToUpdateHistory = +new Date() + config.HISTORY_UPDATE;
 
 module.exports = function(io, eos, mongoMain){
 
-  const STATS_AGGR = require('../models/api.stats.model')(mongoMain);
-  const RAM        = require('../models/ram.price.model')(mongoMain);
+  const STATS_AGGR  = require('../models/api.stats.model')(mongoMain);
+  const RAM         = require('../models/ram.price.model')(mongoMain);
+  const TRX_ACTIONS = require('../models/trx.actions.history.model')(mongoMain);
 
   io.usersPool = {};
 
@@ -95,7 +97,38 @@ module.exports = function(io, eos, mongoMain){
                     cb('No result');
                });
         },
+        history: cb => {
+            let dateNow = +new Date();
+            if (dateNow < timeToUpdateHistory){
+                        return cb(null);
+            }
+            timeToUpdateHistory = +new Date() + config.HISTORY_UPDATE;
+            STATS_AGGR.findOne({}, (err, result) => {
+                  if (err){
+                     log.error(err);
+                     return cb(null);
+                  }
+                  if (!result || isNaN(Number(result.transactions)) || isNaN(Number(result.actions))){
+                      log.error('====== transactions actions history error');
+                      return cb(null);
+                  }
+                  let trxActions = new TRX_ACTIONS({
+                        transactions: result.transactions,
+                        actions: result.actions
+                  });
+                  trxActions.save(err => {
+                     if (err){
+                        log.error(err);
+                     }
+                     log.info(trxActions);
+                     cb(null);
+                  });
+            });
+        },
       }, (err, result) => {
+          if (err){
+             log.error(err);
+          }
           socketsArr.forEach(socket => {
               socket.emit('get_info', result.info);
               socket.emit('get_last_blocks', result.blocks);
