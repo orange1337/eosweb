@@ -4,6 +4,7 @@ const mongoose      = require("mongoose");
 const config      	= require('../../config');
 
 const EOS     		= require('eosjs');
+config.eosConfig.httpEndpoint =  (config.CRON) ? config.CRON_API : config.eosConfig.httpEndpoint;
 const eos     		= EOS(config.eosConfig);
 
 const log4js      = require('log4js');

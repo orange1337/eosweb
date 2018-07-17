@@ -82,7 +82,7 @@ const io  = require('socket.io').listen(server);
 
 require('./api/eos.api.v1.socket')(io, eos, mongoMain);
 
-if (config.PROD){
+if (config.CRON){
     require('./crons/main.cron')();
 }
 
