@@ -171,7 +171,8 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 	* params - offset
 	*/
 	router.post('/api/v1/get_chart_ram', (req, res) => {
-	   	 RAM.find({ date : { $gte: new Date(req.body.from) } })
+		let query = (req.body.from === 'All') ? {} : { date : { $gte: new Date(req.body.from) } };
+	   	 RAM.find(query)
 	   	 		.exec((err, result) => {
 	   	 		if (err){
 	   	 			log.error(err);

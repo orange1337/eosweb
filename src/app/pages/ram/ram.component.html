@@ -5,7 +5,14 @@
 </div>
 
 <div class="col-sm-9 padding-left-no">
-  <h1 class="market-header">EOS RAM price <small>EOS/kb RAM</small></h1>
+   <h1 class="market-header col-sm-6">EOS RAM price <small>EOS/kb RAM</small></h1>
+   <div class="col-sm-6 button-menu-container">
+     <button mat-raised-button color="primary" class="pull-right" [matMenuTriggerFor]="menu">{{ defaultTimeName }}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngFor="let elem of timeArray;" (click)="selectDay(elem)">{{ elem }}</button>
+      </mat-menu>
+   </div>
+   
    <ngx-charts-line-chart *ngIf="mainCurrencyChartDataRes"
               [view]="ngxChartOptions.view"
               [scheme]="ngxChartOptions.colorScheme"

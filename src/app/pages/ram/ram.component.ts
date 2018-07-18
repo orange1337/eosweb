@@ -67,6 +67,9 @@ export class RamPageComponent implements OnInit{
   };
   donation;
   orderHistory;
+  defaultTimeName = 'Day';
+  timeArray = ['Week', 'Month', 'All'];
+  dateFrom = new Date(+new Date() - 24 * 60 * 60 * 1000);
 
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient, 
@@ -98,10 +101,9 @@ export class RamPageComponent implements OnInit{
                       });
   }
 
-  getChart() {
+  getChart(dateFrom) {
     this.spinner = true;
-    let Datefrom = new Date(+new Date() - 24 * 60 * 60 * 1000);
-        this.http.post(`/api/v1/get_chart_ram`, { from: Datefrom } )
+        this.http.post(`/api/v1/get_chart_ram`, { from: dateFrom } )
                   .subscribe(
                       (res: any) => {
                            this.mainCurrencyChartDataRes = this.createChartArr(res);
@@ -122,6 +124,22 @@ export class RamPageComponent implements OnInit{
     return result;
   }
 
+  selectDay(name){
+      this.timeArray.push(this.defaultTimeName);
+      this.timeArray.splice(this.timeArray.indexOf(name), 1);
+      this.defaultTimeName = name;
+      let date;
+      if (name === 'Day'){
+          date = +new Date() - 24 * 3600000;
+      } else if (name === 'Week'){
+          date = +new Date() - 7 * 24 * 3600000;
+      } else if (name === 'Month'){
+          date = +new Date() - 30 * 7 * 24 * 3600000;
+      } else if (name === 'All'){
+          date = 'All';
+      }
+      this.getChart(date);
+  }
 
   getRam(){
       this.http.get(`/api/v1/get_table_rows/eosio/eosio/rammarket/10`)
@@ -332,7 +350,7 @@ export class RamPageComponent implements OnInit{
   ngOnInit() {
      this.getGlobal();
      this.getRam();
-     this.getChart();
+     this.getChart(this.dateFrom);
      this.getWalletAPI();
 
      /*document.addEventListener('scatterLoaded', scatterExtension => { 
