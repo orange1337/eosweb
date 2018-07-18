@@ -24,7 +24,7 @@ export class AnalyticsPageComponent implements OnInit{
   moment = moment;
 
   ngxChartOptions = {
-      view : [650, 370],
+      view : [600, 370],
       showXAxis : true,
       showYAxis : true,
       gradient : true,
