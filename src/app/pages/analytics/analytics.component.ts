@@ -15,7 +15,7 @@ import { NotificationsService } from 'angular2-notifications';
 export class AnalyticsPageComponent implements OnInit{
   mainData;
   spinner = false;
-  displayedColumns = ['#', 'Name', 'Balance', 'Staked', 'Unstaked', 'Currencies Array'];
+  displayedColumns = ['#', 'Name', 'Balance', 'Staked', 'Unstaked'];
   dataSource;
   eosToInt = Math.pow(10, 13);
   allvotes;

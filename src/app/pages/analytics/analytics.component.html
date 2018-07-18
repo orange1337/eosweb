@@ -69,7 +69,7 @@
     </ng-container>
     
     <ng-container matColumnDef="Balance">
-      <mat-header-cell *matHeaderCellDef> Balance</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Total Balance </mat-header-cell>
       <mat-cell *matCellDef="let element"> 
              <strong>{{element?.balance_eos.toLocaleString() }} EOS</strong>
       </mat-cell>
@@ -86,19 +86,19 @@
     
     <!-- Name Column -->
     <ng-container matColumnDef="Unstaked">
-      <mat-header-cell *matHeaderCellDef> Unstaked</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Unstaked </mat-header-cell>
       <mat-cell *matCellDef="let element" class="change-container"> 
            <strong> {{ element?.unstaked.toLocaleString() }} EOS</strong>
       </mat-cell>
     </ng-container>
     
-        <!-- Name Column -->
+        <!-- Name Column 
     <ng-container matColumnDef="Currencies Array">
       <mat-header-cell *matHeaderCellDef> Tokens Array</mat-header-cell>
       <mat-cell *matCellDef="let element" class="change-container"> 
            <strong *ngFor="let bal of element?.balance"> {{ bal }} </strong>
       </mat-cell>
-    </ng-container>
+    </ng-container>-->
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
