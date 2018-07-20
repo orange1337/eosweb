@@ -125,13 +125,25 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 	* params - offset
 	*/
 	router.post('/api/v1/get_trx_actions', (req, res) => {
-		 TRX_ACTIONS.find({ date: { $gte : new Date(req.body.date) } }, (err, result) => {
-		 	if (err){
-		 		log.error(err);
-		 		return res.status(500).end();
-		 	}
-		 	res.json(result);
-		 });
+		 TRX_ACTIONS.aggregate()
+		 			.match({ date: { $gte : new Date(req.body.date) } })
+		 			.sort({ date: 1 })
+		 			.group({
+		 				_id: {
+            					year: { $year: "$date" },
+            					dayOfMonth: { $dayOfMonth: "$date" },
+            					month: { $month: "$date" },
+        				},
+        				transactions: { "$push": "$transactions" },
+        				actions: { "$push": "$actions" }
+		 			})
+		 			.exec((err, result) => {
+		 				if (err){
+		 					log.error(err);
+		 					return res.status(500).end();
+		 				}
+		 				res.json(result);
+		 			});
 	});
 	/*
 	* router - ram_orders

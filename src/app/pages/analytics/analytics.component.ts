@@ -76,7 +76,7 @@ export class AnalyticsPageComponent implements OnInit{
   }
 
   getChart(){
-      this.http.post(`/api/v1/get_trx_actions`, { date: +new Date() - 24 * 60 * 60 * 1000 })
+      this.http.post(`/api/v1/get_trx_actions`, { date: +new Date() - 7 * 24 * 60 * 60 * 1000 })
           .subscribe((res: any) => {
                           this.createChart(res);
                       },
@@ -93,20 +93,12 @@ export class AnalyticsPageComponent implements OnInit{
      this.trx = [];
      this.actions = [];
      data.forEach(elem => {
-           this.trx.push({name: new Date(elem.date), value: elem.transactions });
-           this.actions.push({name: new Date(elem.date), value: elem.actions });
+           this.trx.push({name: new Date(`${elem._id.year}/${elem._id.month}/${elem._id.dayOfMonth}`), 
+                          value: elem.transactions[elem.transactions.length - 1] - elem.transactions[0]  });
+           this.actions.push({name: new Date(`${elem._id.year}/${elem._id.month}/${elem._id.dayOfMonth}`),
+                              value: elem.actions[elem.actions.length - 1] - elem.actions[0] });
      });
-     //console.log(this.trx, this.actions)
-  }
-
-  createChartArr(data){
-    let result = [];
-      data.forEach(elem => {
-          let quoteBalance  = Number(elem.quote.split(' ')[0]);
-          let baseBalance   = Number(elem.base.split(' ')[0]);
-          result.push({ name: new Date(elem.date), value: (quoteBalance / baseBalance * 1024).toFixed(8) });
-      });
-    return result;
+     console.log(this.trx, this.actions)
   }
 
 
