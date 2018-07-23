@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { MainCustomizeChartsComponent } from './main_tcustomize_charts.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MainService } from '../../services/mainapp.service';
+import { appRoutes } from '../../main.router';
 
 @NgModule({
   declarations: [
@@ -9,6 +10,7 @@ import { MainService } from '../../services/mainapp.service';
   ],
   imports:  [
   	NgxChartsModule,
+  	appRoutes
   ],
   exports: [MainCustomizeChartsComponent],
   providers: [MainService],

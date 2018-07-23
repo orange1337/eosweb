@@ -29,8 +29,7 @@
 		"wechat": ""
 	}
 },
-"nodes": [
-	{
+"nodes": [{
 		"location": {
 			"name": "EOSweb",
 			"country": "Finland",
@@ -38,9 +37,8 @@
 			"longitude": 24.9375
 		},
 		"is_producer": true,
-		"p2p_endpoint": "95.216.153.235:9876",
-		"api_endpoint": "http://95.216.153.235:8888",
-		"ssl_endpoint": ""
-	}
-]
+		"p2p_endpoint": "node.eosweb.net",
+		"api_endpoint": "http://api.eosweb.net",
+		"ssl_endpoint": "https://api.eosweb.net"
+	}]
 }

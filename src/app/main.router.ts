@@ -7,6 +7,7 @@ import { AddressPageComponent } from './pages/address/address.component';
 import { ProducersPageComponent } from './pages/producers/producers.component';
 import { ProducerComponent } from './pages/producer_page/producer_page.component';
 import { AnalyticsPageComponent } from './pages/analytics/analytics.component';
+import { TokensPageComponent } from './pages/tokens/tokens.component';
 import { RamPageComponent } from './pages/ram/ram.component';
 import { SoonComponent } from './pages/soon/soon.component';
 import { WalletPageComponent } from './pages/wallet/wallet.component';
@@ -57,6 +58,10 @@ export const routes: Routes = [
   { 
     path: 'wallet', 
     component: WalletPageComponent 
+  },
+  { 
+    path: 'tokens', 
+    component: TokensPageComponent 
   },
   { 
     path: 'soon', 

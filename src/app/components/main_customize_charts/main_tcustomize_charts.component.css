@@ -53,8 +53,8 @@
 }
 .main-chart-cust-container{
 	background-color: #111113;
-	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-top: 10px;
+	padding-bottom: 2px;
 }
 .currency-page-main-chart{
 	background-color: #23232c;
@@ -100,4 +100,7 @@
 .learn-more .fas{
     font-size: 10px;
     margin-left: 4px;
+}
+.producer-candidate{
+    font-size: 14px;
 }

@@ -21,6 +21,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { MainPageModule } from './pages/main_page/main_page.module';
 import { BlockPageModule } from './pages/block/block.module';
+import { TokensPageModule } from './pages/tokens/tokens.module';
 import { ProducersPageModule } from './pages/producers/producers.module';
 import { ProducerModule } from './pages/producer_page/producer_page.module';
 import { AnalyticsPageModule } from './pages/analytics/analytics.module';
@@ -64,6 +65,7 @@ const socketConfig: SocketIoConfig = { url: '/', options: {
     LeafletModule.forRoot(),
     MainPageModule,
     BlockPageModule,
+    TokensPageModule,
     AccountPageModule,
     AddressPageModule,
     TransactionPageModule,
