@@ -85,6 +85,9 @@ require('./api/eos.api.v1.socket')(io, eos, mongoMain);
 if (config.CRON){
     require('./crons/main.cron')();
 }
+if (config.telegram.ON){
+    require('./daemons/ram.bot.daemon')(eos, mongoMain);
+}
 
 app.use(function(req,res,next){
   req.io = io;

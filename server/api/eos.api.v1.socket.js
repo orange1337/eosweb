@@ -24,10 +24,12 @@ module.exports = function(io, eos, mongoMain){
   let offset = config.offsetElementsOnMainpage;
   let elements = Array.from({ length: offset }, (v, k) => k++);
 
-  let interval = setInterval(() => {
+  function getDataSocket(){
+    setTimeout(() => {
       let socketsArr = Object.keys(io.usersPool).map( key => { return io.usersPool[key] });
       if (!socketsArr || !socketsArr.length){
-        return log.info('No user online');
+          log.info('No user online');
+          return getDataSocket();
       }
       //console.log('=======', socketsArr.length);
       async.parallel({
@@ -135,9 +137,10 @@ module.exports = function(io, eos, mongoMain){
               socket.emit('get_aggregation', result.stat);
               socket.emit('get_ram', result.ram);
           });
+          getDataSocket();
       });
-
-  }, updateTime.blocks);
+    }, updateTime.blocks);
+  }
 
   io.sockets.on('connection',  (socket) => {
     io.usersPool[socket.id] = socket;
@@ -145,6 +148,8 @@ module.exports = function(io, eos, mongoMain){
        delete io.usersPool[socket.id];
     });
   //====== connection end   
-  });  
+  }); 
+
+  getDataSocket(); 
 
 }

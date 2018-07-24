@@ -45,3 +45,10 @@ mat-tab-group{
 .button-menu-container{
 	margin-top: 45px;
 }
+.alert-button{
+	margin-right: 25px;
+}
+.logout{
+	margin-top: 20px;
+    margin-bottom: 0px;
+}

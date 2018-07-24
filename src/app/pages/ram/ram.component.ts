@@ -205,7 +205,7 @@ export class RamPageComponent implements OnInit{
 
   loginScatter(){
     if (!this.WINDOW.scatter){
-        console.error('Please install scatter wallet !');
+        return this.notifications.create('Scatter error', 'Please install Scatter extension', 'error');
     }
     this.WINDOW.scatter.getIdentity({
        accounts: [this.eosNetwork]
@@ -215,6 +215,18 @@ export class RamPageComponent implements OnInit{
             this.getAccount(identity.accounts[0].name);
             this.getOrderHistory(identity.accounts[0].name);
         }
+    }).catch(err => {
+        console.error(err);
+    });
+  }
+
+  logoutScatter(){
+    if (!this.WINDOW.scatter){
+        return this.notifications.create('Scatter error', 'Please install Scatter extension', 'error');
+    }
+    this.WINDOW.scatter.forgetIdentity().then(() => {
+        location.reload();
+        this.notifications.create('Logout success', '', 'success');
     }).catch(err => {
         console.error(err);
     });

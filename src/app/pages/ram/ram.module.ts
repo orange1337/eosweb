@@ -11,7 +11,8 @@ import { MatAutocompleteModule,
          MatTableModule,
          MatTabsModule,
          MatFormFieldModule,
-         MatMenuModule} from '@angular/material';
+         MatMenuModule,
+         MatDialogModule} from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { appRoutes } from '../../main.router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -23,6 +24,7 @@ let imports = [
     MatButtonModule,
     MatFormFieldModule,
     MatMenuModule,
+    MatDialogModule,
     MatInputModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,

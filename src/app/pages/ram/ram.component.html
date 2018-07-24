@@ -11,6 +11,7 @@
       <mat-menu #menu="matMenu">
         <button mat-menu-item *ngFor="let elem of timeArray;" (click)="selectDay(elem)">{{ elem }}</button>
       </mat-menu>
+      <a mat-mini-fab color="primary" class="pull-right alert-button" href="https://t.me/EOSwebRamBot" target="_blank"><i class="fas fa-bell"></i></a>
    </div>
    
    <ngx-charts-line-chart *ngIf="mainCurrencyChartDataRes"
@@ -54,6 +55,11 @@
     <div class="col-sm-12" *ngIf="!identity">
       <div class="analytics-header-right">
         <button mat-raised-button color="primary" class="btn-generate" (click)="loginScatter()">login with Scatter</button>
+      </div>
+    </div>
+    <div class="col-sm-12" *ngIf="identity">
+      <div class="analytics-header-right logout">
+        <button mat-raised-button color="primary"  (click)="logoutScatter()">Logout</button>
       </div>
     </div>
     
