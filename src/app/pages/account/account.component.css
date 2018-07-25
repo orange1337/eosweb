@@ -14,3 +14,16 @@ small {
 .controlled-acc{
 	margin-top: 15px;
 }
+.small-tokens{
+    padding: 10px 15px;
+    background: #f1f1f2;
+    margin: 7px 5px;
+    display: table;
+    float: left;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #444;
+}
+.tokens-container{
+	margin-left: -5px;
+}

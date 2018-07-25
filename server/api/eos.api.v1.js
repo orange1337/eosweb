@@ -6,7 +6,7 @@ const async = require('async');
 const path = require('path');
 const customFunctions = require('./eos.api.v1.custom');
 
-module.exports 	= function(router, config, request, log, eos, mongoMain) {
+module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) {
 
 	const STATS_AGGR 	= require('../models/api.stats.model')(mongoMain);
 	const STATS_ACCOUNT = require('../models/api.accounts.model')(mongoMain);
@@ -504,6 +504,26 @@ module.exports 	= function(router, config, request, log, eos, mongoMain) {
 	   	 	});
 	});
 	//============ END of Account API
+
+	//============ SQL tokens API
+	router.post('/api/v1/get_account_tokens', (req, res) => {
+		 let account = req.body.account;
+	   	 MARIA.query(`select * from (
+        			      select * from EOSIO_CURRENCY_BALANCES where account_name = :account and currency<>'EOS'
+        			      order by global_action_seq desc
+        			  ) as table1 where global_action_seq IN (select max(global_action_seq) from (
+        			  	  select * from EOSIO_CURRENCY_BALANCES where account_name = :account and currency<>'EOS'
+       				      order by global_action_seq desc
+        			  ) as table2 group by currency)`,
+					  { account: account }, 
+					  (err, rows) => {
+	   	 					if (err){
+	   	 						return log.error(err);
+	   	 					}
+	   	 					res.json(rows);
+	   	 });
+	});
+	//============ end of SQL tokens API
 
 // ============== end of exports 
 };

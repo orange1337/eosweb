@@ -10,6 +10,7 @@ const request       = require('request');
 const async			    = require('async');
 const mongoose      = require("mongoose");
 const config        = require('../config');
+const mariaDB       = require('mariasql');
 
 const EOS         = require('eosjs');
 const eos         = EOS(config.eosConfig);
@@ -34,6 +35,7 @@ const mongoMain = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTIO
     }
     log.info('[Connected to Mongo EOS] : 27017');
 });
+const MARIA = new mariaDB(config.MARIA_DB);
 
 const app  = express();
 
@@ -80,7 +82,7 @@ const io  = require('socket.io').listen(server);
 });*/
 
 
-require('./api/eos.api.v1.socket')(io, eos, mongoMain);
+require(`./api/eos.api.${config.apiV}.socket`)(io, eos, mongoMain);
 
 if (config.CRON){
     require('./crons/main.cron')();
@@ -101,7 +103,7 @@ app.use(function(req,res,next){
 app.use(express.static(path.join(__dirname, '../dist')));
 
 require('./router/main.router')(app, config, request, log);
-require(`./api/eos.api.${config.apiV}`)(app, config, request, log, eos, mongoMain);
+require(`./api/eos.api.${config.apiV}`)(app, config, request, log, eos, mongoMain, MARIA);
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../dist/index.html'));

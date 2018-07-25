@@ -30,6 +30,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   displayedColumnsPermissiopn = ['Permission', 'Address', 'Threshold', 'Weight'];
   dataSourcePermission;
   controlledAccount;
+  tokensArray;
 
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient, 
@@ -142,9 +143,15 @@ export class AccountPageComponent implements OnInit, OnDestroy{
                           });
   }
 
-  /*getAccountsByKey(key){
-
-  }*/
+  getAllTokens(account){
+        this.http.post(`/api/v1/get_account_tokens`, { account: account })
+              .subscribe((res: any) => {
+                              this.tokensArray = res;
+                          },
+                          (error) => {
+                              console.error(error);
+                          });      
+  }
 
   openDialogMemo(event, data){
     let result = data;
@@ -167,6 +174,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
        this.accountId = params['id'];
        this.getBlockData(this.accountId);
        this.getControlledAccounts(this.accountId);
+       this.getAllTokens(this.accountId);
     });
     //this.subscription = this.MainService.getEosPrice().subscribe(item => { this.eosRate = item; console.log(item); });
   }
