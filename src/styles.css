@@ -524,7 +524,18 @@ action-viewer{
 .top-number-analytics{
 	flex: 0.3 !important;
 }
+.filter-header{
+	margin-top: 40px;
+}
+.mat-focused .mat-form-field-label {
+	color: #3568e4 !important;
+}
 
+.mat-form-field-ripple {
+    background: -webkit-gradient(linear,left top, right top,from(#3fa3eb),to(#3568e4));
+    background: linear-gradient(to right,#3fa3eb,#3568e4);
+    background: -webkit-gradient(linear,left top,right top,from(#3fa3eb),to(#3568e4));
+}
 
 @media only screen and (max-width: 1280px) {
 	.container{

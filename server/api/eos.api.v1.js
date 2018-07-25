@@ -523,6 +523,16 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	   	 					res.json(rows);
 	   	 });
 	});
+
+	router.get('/api/v1/get_tokens', (req, res) => {
+	   	 MARIA.query(`select distinct currency, issuer from EOSIO_CURRENCY_BALANCES`,
+					  (err, rows) => {
+	   	 					if (err){
+	   	 						return log.error(err);
+	   	 					}
+	   	 					res.json(rows);
+	   	 });
+	});
 	//============ end of SQL tokens API
 
 // ============== end of exports 

@@ -4,17 +4,37 @@
     <mat-spinner class="spinner-color"></mat-spinner>
 </div>
 
-<h1 class="market-header">Tokens</h1>
+<h1 class="market-header col-sm-8">Tokens</h1>
+
+<div class="col-sm-4 filter-header">
+	<mat-form-field>
+  		<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search by token name">
+	</mat-form-field>	
+</div>
 
 	<div class="block-info">
 		<div class="example-container mat-elevation-z8 main-table">
 					
 					  <mat-table #table [dataSource]="dataSource" matSort>
-					
+						
+						<ng-container matColumnDef="#">
+    					  <mat-header-cell *matHeaderCellDef class="top-number-analytics"> # </mat-header-cell>
+    					  <mat-cell *matCellDef="let element; let i = index" class="top-number-analytics">
+    					      <strong>{{ i + 1 }}</strong>
+    					  </mat-cell>
+    					</ng-container>
+
 					    <ng-container matColumnDef="name">
 					      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
 					      <mat-cell *matCellDef="let element; let i = index">
-					          <strong>{{ element?.cpu }}</strong>
+					          <strong>{{ element?.currency }}</strong>
+					      </mat-cell>
+					    </ng-container>
+
+					    <ng-container matColumnDef="issuer">
+					      <mat-header-cell *matHeaderCellDef> Issuer </mat-header-cell>
+					      <mat-cell *matCellDef="let element; let i = index">
+					          <strong><a [routerLink]="['/account', element?.issuer]" class="color-green">{{ element?.issuer }}</a></strong>
 					      </mat-cell>
 					    </ng-container>
 					    
@@ -51,7 +71,7 @@
 					    <ng-container matColumnDef="date">
 					      <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
 					      <mat-cell *matCellDef="let element" class="change-container"> 
-					            {{ moment(element?.expiration).format('MMMM Do YYYY, h:mm:ss a') }}
+					            <!--{{ moment(element?.expiration).format('MMMM Do YYYY, h:mm:ss a') }}-->
 					      </mat-cell>
 					    </ng-container>
 
@@ -59,10 +79,11 @@
 					    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 					  </mat-table>
 					
-					  <!--<mat-paginator #paginator
-					                 [pageSize]="100"
-					                 [pageSizeOptions]="[50, 100]">
-					  </mat-paginator>-->
+					  <mat-paginator #paginator
+					                 [pageSize]="200"
+					                 [pageSizeOptions]="[200, 400]"
+					                 showFirstLastButtons>
+					  </mat-paginator>
 		</div>
 	</div>
 </div>

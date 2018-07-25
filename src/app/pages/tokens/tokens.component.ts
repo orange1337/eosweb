@@ -18,16 +18,38 @@ export class TokensPageComponent implements OnInit{
   time;
   trxArr = [];
   dataSource;
-  displayedColumns = ['name', 'description', 'url', 'сreator', 'status', 'date'];
+  displayedColumns = [ '#', 'name', 'issuer',  'description', 'url', 'сreator', 'status', 'date'];
   spinner = false;
 
-  /*@ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;*/
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  /*@ViewChild(MatSort) sort: MatSort;*/
 
   constructor(protected http: HttpClient){}
 	
-  ngOnInit(){
+  getBlockData(){
+      this.spinner = true;
+      this.http.get(`/api/v1/get_tokens`)
+           .subscribe((res: any) => {
+                          this.mainData = res;
 
+                          let ELEMENT_DATA: Element[] = res;
+                          this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+                          this.dataSource.paginator = this.paginator;
+
+                          this.spinner = false;
+                      },
+                      (error) => {
+                          console.error(error);
+                          this.spinner = false;
+                      });
+  };
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  ngOnInit(){
+      this.getBlockData();
   }
 }
 

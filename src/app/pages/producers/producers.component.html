@@ -5,8 +5,13 @@
 </div>
 
 <div class="col-md-12">
-<h1 class="market-header pull-left">Producers rate</h1>
+<h1 class="market-header pull-left col-sm-8">Producers rate</h1>
 
+<div class="col-sm-4 filter-header">
+  <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search by producer name">
+  </mat-form-field> 
+</div>
 <!--<h3 class="producer-candidate pull-right"><small>our producer candidate: </small> 
   <strong><a routerLink="/producer/eoswebnetbp1" class="color-green">eoswebnetbp1</a></strong>
 </h3>-->

@@ -70,6 +70,10 @@ export class ProducersPageComponent implements OnInit{
       return data;
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   ngOnInit() {
      this.getBlockData();
   }
