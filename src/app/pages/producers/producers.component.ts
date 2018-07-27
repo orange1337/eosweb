@@ -53,8 +53,9 @@ export class ProducersPageComponent implements OnInit{
       }
       let result = data.sort((a, b) => {
           return b.total_votes - a.total_votes;
-      }).map(elem => {
+      }).map((elem, index) => {
           elem.total_votes = Number(elem.total_votes).toLocaleString();
+          elem.index = index + 1;
           return elem;
       });
       return result;

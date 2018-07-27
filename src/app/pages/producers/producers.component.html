@@ -23,7 +23,7 @@
     <ng-container matColumnDef="#">
       <mat-header-cell *matHeaderCellDef class="top-number-analytics"> # </mat-header-cell>
       <mat-cell *matCellDef="let element; let i = index" class="top-number-analytics">
-          <strong>{{ i + 1 }}</strong>
+          <strong>{{ element?.index }}</strong>
       </mat-cell>
     </ng-container>
     
