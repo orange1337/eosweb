@@ -22,7 +22,7 @@
 					<strong class="block-info-header">Total Balance:</strong>
 				</div>
 				<div class="col-sm-9">
-					<strong>{{ balance.toLocaleString() }} EOS</strong> / 
+					<strong>{{ balance?.toLocaleString() }} EOS</strong> / 
 					<small>{{ (balance * eosRate?.RAW?.EOS?.USD?.PRICE).toLocaleString() }} USD</small>
 				</div>
 			</div>
@@ -328,7 +328,7 @@
 					    <ng-container matColumnDef="Address">
 					      <mat-header-cell *matHeaderCellDef class="account-address"> Account/Address</mat-header-cell>
 					      <mat-cell *matCellDef="let element" class="account-address"> 
-					          	<a [routerLink]="['/address', element?.required_auth?.keys[0]?.key ]" class="color-green">
+					          	<a [routerLink]="['/address', element?.required_auth?.keys[0]?.key || '' ]" class="color-green">
 					          		{{ element?.required_auth?.keys[0]?.key }}
 					          	</a>
 					      </mat-cell>
