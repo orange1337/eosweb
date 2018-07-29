@@ -524,12 +524,24 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	   	 });
 	});
 
+	let CACHE_TOKENS = [];
+	let CACHE_TIME;
+
 	router.get('/api/v1/get_tokens', (req, res) => {
-	   	 MARIA.query(`select distinct currency, issuer from EOSIO_CURRENCY_BALANCES`,
+		 let dateNow = +new Date();
+		 if (CACHE_TIME && CACHE_TIME > dateNow){
+		 	return res.json(CACHE_TOKENS);
+		 }
+		 CACHE_TIME = dateNow + 3600000; // cahce for hour
+	   	 MARIA.query(`select * from (select currency, issuer, count(*) as rate from EOSIO_CURRENCY_BALANCES
+			   			where currency<>'EOS'
+			   			group by currency
+			   			order by rate desc) as table1 where table1.rate>100;`,
 					  (err, rows) => {
 	   	 					if (err){
 	   	 						return log.error(err);
 	   	 					}
+	   	 					CACHE_TOKENS = rows;
 	   	 					res.json(rows);
 	   	 });
 	});

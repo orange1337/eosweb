@@ -28,6 +28,7 @@ import { AnalyticsPageModule } from './pages/analytics/analytics.module';
 import { RamPageModule } from './pages/ram/ram.module';
 import { TransactionPageModule } from './pages/transactions/transactions.module';
 import { WalletPageModule } from './pages/wallet/wallet.module';
+import { VotePageModule } from './pages/vote/vote.module';
 import { AccountPageModule } from './pages/account/account.module';
 import { AddressPageModule } from './pages/address/address.module';
 import { SoonModule } from './pages/soon/soon.module';
@@ -70,6 +71,7 @@ const socketConfig: SocketIoConfig = { url: '/', options: {
     AddressPageModule,
     TransactionPageModule,
     WalletPageModule,
+    VotePageModule,
     ProducersPageModule,
     ProducerModule,
     AnalyticsPageModule,

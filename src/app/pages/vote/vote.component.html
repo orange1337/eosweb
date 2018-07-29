@@ -1,0 +1,108 @@
+<div class="container">
+
+<div class="spinner-container" *ngIf="spinner">
+    <mat-spinner class="spinner-color"></mat-spinner>
+</div>
+
+	<h1 class="market-header">Vote for Blocks Producers</h1>
+
+	<div class="col-sm-4 block-info-line" *ngIf="!identity">
+		  <button mat-raised-button class="btn-generate" color="primary" (click)="loginScatter()">login with Scatter</button>
+	</div>
+
+	<div class="block-info" *ngIf="identity">
+			<div class="col-sm-4">
+			 <div class="col-sm-12 no-padding">
+					<div class="avatatar-img">
+				 		<img src="/assets/images/user-astronaut-solid.svg" width="25" >
+				 	</div>
+				 	<a [routerLink]="['/account', identity?.accounts[0]?.name]" class="color-green acc-name">
+				  		{{ identity?.accounts[0]?.name }}
+				 	</a>
+			 </div>
+				
+			<div class="col-sm-12 acc-list no-padding">
+				  <div class="balance-acc">
+    			     Total Balance: <strong>{{ balance?.toLocaleString() }} EOS</strong>
+    			  </div>
+    			  <div class="balance-acc">
+    			     Unstaked: <small><strong>{{ unstaked?.toLocaleString() }} EOS</strong></small>
+    			  </div>
+    			  <div class="balance-acc">
+    			     Staked: <small><strong>{{ staked?.toLocaleString() }} EOS</strong></small>
+    			  </div>
+    		</div>
+    
+
+    		<div class="col-sm-12 acc-list no-padding">
+      				<div class="analytics-header-right top-ten">
+      			  CPU:
+      			</div>
+      			<div class="analytics-text-right">
+        			<mat-progress-bar mode="determinate" value="{{mainData?.cpu_limit?.used / mainData?.cpu_limit?.max * 100}}" class="progress-bar-usage account-cpu"></mat-progress-bar>
+        			<small>{{ (mainData?.cpu_limit?.used / 1000000).toFixed(2) }} sec</small> / <small>{{ (mainData?.cpu_limit?.max / 1000000).toFixed(2) }} sec</small>
+      		    </div>
+    		</div>
+
+    		 <div class="col-sm-12 acc-list no-padding">
+    		  <div class="analytics-header-right top-ten">
+    		    NET:
+    		  </div>
+    		  <div class="analytics-text-right ">
+        			<mat-progress-bar mode="determinate" value="{{mainData?.net_limit?.used / mainData?.net_limit?.max * 100}}" class="progress-bar-usage account-net"></mat-progress-bar>
+        			<small>{{ (mainData?.net_limit?.used / 1024).toFixed(2) }} kb</small> / <small>{{ (mainData?.net_limit?.max / 1024).toFixed(2) }} kb</small>
+      		 	</div>
+    		 </div>
+    		 
+    		 <div class="col-sm-12 acc-list no-padding">
+    			  <div class="analytics-header-right top-ten">
+    			    RAM:
+    			  </div>
+    			  <div class="analytics-text-right">
+    			    <mat-progress-bar mode="determinate" value="{{mainData?.ram_usage / mainData?.ram_quota * 100}}" class="progress-bar-usage account-ram"></mat-progress-bar>
+        			<small>{{ (mainData?.ram_usage / 1024).toFixed(2) }} kb</small> / <small>{{ (mainData?.ram_quota / 1024).toFixed(2) }} kb</small>
+      			  </div>
+   			</div>
+
+        <div class="col-sm-12 acc-list no-padding" *ngIf="identity">
+            <button mat-raised-button class="btn-generate" color="primary" (click)="logoutScatter()">Logout</button>
+        </div>
+        
+
+			</div>
+
+			<div class="col-sm-8">
+				<mat-tab-group>
+				  <mat-tab label="Vote">
+				  		<div class="col-sm-1"></div>
+				  		<div class="col-sm-9">
+  							<mat-form-field>
+  							      <input matInput placeholder="Voter" required="true" [(ngModel)]="vote.voter">
+  							</mat-form-field>
+							
+								<!--<mat-form-field>
+  							  		<input matInput placeholder="Proxy" required="true" [(ngModel)]="vote.proxy">
+  							</mat-form-field>-->
+							
+								<mat-form-field>
+  							  		<mat-chip-list #chipList>
+                        <mat-chip *ngFor="let bp of vote.producers" [selectable]="selectable"
+                                   [removable]="removable" (removed)="remove(bp)">
+                            {{bp}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                          </mat-chip>
+                          <input placeholder="Add bp ... ↵ or ,"
+                                 [matChipInputFor]="chipList"
+                                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                 [matChipInputAddOnBlur]="addOnBlur"
+                                 (matChipInputTokenEnd)="add($event)">
+                      </mat-chip-list>
+  							</mat-form-field>
+
+  							<button mat-raised-button color="primary" class="btn-generate" (click)="generateTransaction()">Generate Transaction</button>
+				  		</div>
+				  </mat-tab>
+				</mat-tab-group>
+			</div>
+	</div>
+</div>
