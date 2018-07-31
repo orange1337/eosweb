@@ -1,0 +1,3 @@
+# robots.txt for http://www.example.com/
+
+User-agent: *
