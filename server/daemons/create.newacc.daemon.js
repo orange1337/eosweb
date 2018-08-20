@@ -66,10 +66,10 @@ const decimalEOS = '0.001 EOS';
 
 /*eos.transaction(tr => {
   tr.undelegatebw({
-    from: 'crypticseos1',
-    receiver: 'crypticseos1',
-    unstake_cpu_quantity: "2 EOS",
-    unstake_net_quantity: "0.1 EOS",
+    from: 'eoswebnetbp1',
+    receiver: 'eoswebnetbp1',
+    unstake_cpu_quantity: "50.000 EOS",
+    unstake_net_quantity: "50.000 EOS",
     transfer: 0
   });
 });*/

@@ -4,32 +4,12 @@
     <mat-spinner class="spinner-color"></mat-spinner>
 </div>
 
-<div class="col-sm-6 padding-left-no">
+<!--<div class="col-sm-6 padding-left-no">
   <h1 class="market-header">History <small>Transactions</small></h1>
    <ngx-charts-line-chart
               [view]="ngxChartOptions.view"
               [scheme]="{ domain: ['#44a264'] }"
               [results]="[{ name: 'trx', series: trx || [{name: '0', value: 1}] }]"
-              [gradient]="ngxChartOptions.gradient"
-              [xAxis]="ngxChartOptions.showXAxis"
-              [yAxis]="ngxChartOptions.showYAxis"
-              [legend]="ngxChartOptions.showLegend"
-              [showXAxisLabel]="ngxChartOptions.showXAxisLabel"
-              [showYAxisLabel]="ngxChartOptions.showYAxisLabel"
-              [xAxisLabel]="ngxChartOptions.xAxisLabel"
-              [yAxisLabel]="ngxChartOptions.yAxisLabel"
-              [autoScale]="ngxChartOptions.autoScale"
-              [timeline]="ngxChartOptions.timeline"
-              [curve]="curve">
- </ngx-charts-line-chart> 
-</div>
-
-<!--<div class="col-sm-6 padding-left-no">
-   <h1 class="market-header"><small>Actions</small></h1>
-   <ngx-charts-line-chart
-              [view]="ngxChartOptions.view"
-              [scheme]="{ domain: ['#FF9149'] }"
-              [results]="[{ name: 'actions', series: actions || [{name: '0', value: 1}] }]"
               [gradient]="ngxChartOptions.gradient"
               [xAxis]="ngxChartOptions.showXAxis"
               [yAxis]="ngxChartOptions.showYAxis"
