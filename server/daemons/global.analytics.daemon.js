@@ -10,7 +10,9 @@ const eos     		= EOS(config.eosConfig);
 const log4js      = require('log4js');
 log4js.configure(config.logger);
 const log         = log4js.getLogger('global_stat');
-const logSlack    = log4js.getLogger('slack_notify');
+
+const customSlack = require('../modules/slack.module');
+const logSlack    = customSlack.configure(config.loggerSlack.alerts);
 
 mongoose.Promise = global.Promise;
 const mongoMain  = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTIONS,
@@ -27,7 +29,7 @@ const SETTINGS 		= require('../models/api.stats.model')(mongoMain);
 
 process.on('uncaughtException', (err) => {
 	// rewrite to slack notify
-    logSlack.error('======= UncaughtException Global stat daemon server : ', err);
+    logSlack(`======= UncaughtException Accounts daemon server : ${err}`);
     process.exit(1);
 });
 

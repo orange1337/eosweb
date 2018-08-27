@@ -11,12 +11,14 @@ const eos     		= EOS(config.eosConfig);
 const log4js      = require('log4js');
 log4js.configure(config.logger);
 //const log         = log4js.getLogger('accounts_daemon');
-const logSlack    = log4js.getLogger('slack_notify');
+
+const customSlack = require('../modules/slack.module');
+const logSlack    = customSlack.configure(config.loggerSlack.alerts);
 
 
 process.on('uncaughtException', (err) => {
 	// rewrite to slack notify
-    logSlack.error('======= UncaughtException Accounts daemon server : ', err);
+    logSlack(`======= UncaughtException Accounts daemon server : ${err}`);
     process.exit(1);
 });
 
