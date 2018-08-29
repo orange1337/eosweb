@@ -419,7 +419,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	*/
 	router.get('/api/v1/get_currency_stats/:code/:symbol', (req, res) => {
 	   	 eos.getCurrencyStats({
-	   	 		//code: `${req.params.code}`,
+	   	 		code: req.params.code,
 	   	 		symbol: req.params.symbol
 	   	 	})
 	   	 	.then(result => {

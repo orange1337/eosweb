@@ -11,3 +11,24 @@ small {
 .producer-candidate{
 	margin-top: 47px;
 }
+.branding-logo{
+	width: 60px;
+	border-radius: 50%;
+}
+.account-name{
+	margin-top: 22px;
+	display: table;
+}
+.social-links{
+	text-decoration: none;
+	cursor: pointer;
+	margin-left: 10px;
+	color: #9f9fa1;
+	font-size: 18px;
+}
+.social-links:first-child{
+	margin-left: 0;
+}
+.social-links:hover{
+	color: #333;
+}

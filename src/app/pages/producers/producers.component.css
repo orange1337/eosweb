@@ -11,3 +11,11 @@ small {
 .producer-candidate{
 	margin-top: 47px;
 }
+.status{
+	padding: 0;
+    height: 30px;
+    line-height: 20px;
+}
+.url-flex{
+	flex: 2;
+}

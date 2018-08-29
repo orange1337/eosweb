@@ -8,22 +8,13 @@
 <h1 class="market-header pull-left">Producer: {{producerId}}</h1>
 
     <div class="block-info">
-      
-      <div class="col-sm-12 block-info-line">
-        <div class="col-sm-3">
-          <strong class="block-info-header">Account:</strong>
-        </div>
-        <div class="col-sm-9">
-          <small> <a [routerLink]="['/account', producerId]" class="color-green">{{producerId}}</a> </small>
-        </div>
-      </div>
 
       <div class="col-sm-12 block-info-line">
         <div class="col-sm-3">
-          <strong class="block-info-header">Public Key:</strong>
+          <img src="{{bpData?.org?.branding?.logo_256}}" alt="" class="branding-logo">
         </div>
         <div class="col-sm-9">
-          <small class="tx-mobile-hash"> {{ mainElement?.producer_key }} </small>
+          <strong class="account-name"><a [routerLink]="['/account', producerId]" class="color-green">{{producerId}}</a></strong>
         </div>
       </div>
 
@@ -38,19 +29,55 @@
 
       <div class="col-sm-12 block-info-line">
         <div class="col-sm-3">
-          <strong class="block-info-header">Url:</strong>
+          <strong class="block-info-header">Position:</strong>
         </div>
         <div class="col-sm-9">
-          <small><a href="{{ mainElement?.url }}" target="_blank" class="color-green">{{ mainElement?.url }}</a></small>
+          <small> # {{ mainElement?.index  }} </small>
+        </div>
+      </div>
+
+
+      <div class="col-sm-12 block-info-line">
+        <div class="col-sm-3">
+          <strong class="block-info-header">Public Key:</strong>
+        </div>
+        <div class="col-sm-9">
+          <small class="tx-mobile-hash"> <a [routerLink]="['/address', mainElement?.producer_key]" class="color-green"> {{ mainElement?.producer_key }} </a> </small>
         </div>
       </div>
 
       <div class="col-sm-12 block-info-line">
         <div class="col-sm-3">
-          <strong class="block-info-header">Position:</strong>
+          <strong class="block-info-header">Location:</strong>
         </div>
         <div class="col-sm-9">
-          <small> # {{ mainElement?.index  }} </small>
+          <small> {{ bpData?.org?.location?.country }}, {{ bpData?.org?.location?.name }} </small>
+        </div>
+      </div>
+
+      <!--<div class="col-sm-12 block-info-line">
+        <div class="col-sm-3">
+          <strong class="block-info-header">Url:</strong>
+        </div>
+        <div class="col-sm-9">
+          <small><a href="{{ mainElement?.url }}" target="_blank" class="color-green">{{ mainElement?.url }}</a></small>
+        </div>
+      </div>-->
+
+      <div class="col-sm-12 block-info-line">
+        <div class="col-sm-3">
+          <strong class="block-info-header">Links:</strong>
+        </div>
+        <div class="col-sm-9">
+            <a href="{{ mainElement?.url }}" *ngIf="mainElement?.url" target="_blank" class="social-links"><i class="far fa-desktop-alt"></i></a>
+            <a href="{{ bpData?.org?.social?.facebook }}" *ngIf="bpData?.org?.social?.facebook" target="_blank" class="social-links"><i class="fab fa-facebook"></i></a>
+            <a href="{{ bpData?.org?.social?.reddit }}" *ngIf="bpData?.org?.social?.reddit" target="_blank" class="social-links"><i class="fab fa-reddit"></i></a>
+            <a href="{{ bpData?.org?.social?.youtube }}" *ngIf="bpData?.org?.social?.youtube" target="_blank" class="social-links"><i class="fab fa-youtube"></i></a>
+            <a href="{{ bpData?.org?.social?.telegram }}" *ngIf="bpData?.org?.social?.telegram" target="_blank" class="social-links"><i class="fab fa-telegram"></i></a>
+            <a href="{{ bpData?.org?.social?.twitter }}" *ngIf="bpData?.org?.social?.twitter" target="_blank" class="social-links"><i class="fab fa-twitter"></i></a>
+            <a href="{{ bpData?.org?.social?.github }}" *ngIf="bpData?.org?.social?.github" target="_blank" class="social-links"><i class="fab fa-github"></i></a>
+            <a href="{{ bpData?.org?.social?.steemit }}" *ngIf="bpData?.org?.social?.steemit" target="_blank" class="social-links"><i class="fab fa-steemit"></i></a>
+            <a href="{{ bpData?.org?.social?.keybase }}" *ngIf="bpData?.org?.social?.keybase" target="_blank" class="social-links"><i class="fab fa-keybase"></i></a>
         </div>
       </div>
 
@@ -67,60 +94,6 @@
       </div>
 
     </div>  
-<!--<div class="example-container mat-elevation-z8 main-table">
-
-  <mat-table #table [dataSource]="dataSource" class="big-table">
-
-    <ng-container matColumnDef="#">
-      <mat-header-cell *matHeaderCellDef class="top-number-analytics"> # </mat-header-cell>
-      <mat-cell *matCellDef="let element; let i = index" class="top-number-analytics">
-          <strong>{{ i + 1 }}</strong>
-      </mat-cell>
-    </ng-container>
-    
-    <ng-container matColumnDef="Name">
-      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *matCellDef="let element" class="marketcap-container">
-          <a [routerLink]="['/account', element?.owner ]" class="color-green" id="{{element?.owner}}">
-          	<strong>{{ element?.owner }}</strong>
-          </a>
-       </mat-cell>
-    </ng-container>
-    
-    <ng-container matColumnDef="Key">
-      <mat-header-cell *matHeaderCellDef> Key</mat-header-cell>
-      <mat-cell *matCellDef="let element" class="text-center"> 
-             <span class="tx-hash">{{element?.producer_key}}</span>
-      </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Url">
-      <mat-header-cell *matHeaderCellDef> Url </mat-header-cell>
-      <mat-cell *matCellDef="let element" class="color-light-grey"> 
-          <a href="{{element?.url}}" target="_blank" class="color-green">{{element?.url}}</a>
-      </mat-cell>
-    </ng-container>
-
-    
-    <ng-container matColumnDef="Votes">
-      <mat-header-cell *matHeaderCellDef> score</mat-header-cell>
-      <mat-cell *matCellDef="let element" class="text-center change-container"> 
-           <strong> {{ element?.total_votes }}</strong>
-      </mat-cell>
-    </ng-container>
-    
-    <ng-container matColumnDef="Rate">
-      <mat-header-cell *matHeaderCellDef> Rate</mat-header-cell>
-      <mat-cell *matCellDef="let element" class="text-center change-container"> 
-           <strong> {{ element?.rate }} %</strong>
-      </mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-</div>-->
-
 
 </div>
 
