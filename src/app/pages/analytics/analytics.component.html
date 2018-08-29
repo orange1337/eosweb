@@ -9,7 +9,7 @@
    <ngx-charts-line-chart
               [view]="ngxChartOptions.view"
               [scheme]="{ domain: ['#44a264'] }"
-              [results]="[{ name: 'trx', series: trx || [{name: '0', value: 1}] }]"
+              [results]="[{ name: '', series: trx || [{name: '0', value: 1}] }]"
               [gradient]="ngxChartOptions.gradient"
               [xAxis]="ngxChartOptions.showXAxis"
               [yAxis]="ngxChartOptions.showYAxis"
@@ -24,8 +24,19 @@
  </ngx-charts-line-chart> 
 </div>-->
 
+<div class="col-sm-6 padding-left-no pie-chart">
+  <h1 class="market-header">Top 200 accounts</h1>
+   <ngx-charts-pie-chart
+              [view]="[1200, 500]"
+              scheme="cool"
+              [results]="pieChart || [{name: '0', value: 1}]"
+              [gradient]="ngxChartOptions.gradient"
+              [legend]="true"
+              [labels]="true">
+ </ngx-charts-pie-chart> 
+</div>
+
 <div class="col-md-12">
-<h1 class="market-header">Top 200 Accounts</h1>
 
 <div class="example-container mat-elevation-z8 main-table">
 

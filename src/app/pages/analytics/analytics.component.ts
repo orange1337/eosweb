@@ -40,6 +40,7 @@ export class AnalyticsPageComponent implements OnInit{
 
   trx;
   actions;
+  pieChart;
 
 
   constructor(private route: ActivatedRoute, protected http: HttpClient){}
@@ -50,6 +51,7 @@ export class AnalyticsPageComponent implements OnInit{
   				 .subscribe(
                       (res: any) => {
                           this.mainData = res;
+                          this.pieChart = this.createPieChart(this.mainData);
                           
                           let ELEMENT_DATA: Element[] = this.mainData;
                           this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
@@ -101,6 +103,17 @@ export class AnalyticsPageComponent implements OnInit{
      console.log(this.trx, this.actions)
   }
 
+
+  createPieChart(data){
+        if (!data){
+            return;
+        }
+        let result = data.map(elem => {
+             return { name: elem.account_name, value: Math.floor(elem.balance_eos) }; 
+        });
+        result.shift();
+        return result;
+  }
 
   ngOnInit() {
      this.getAccounts();
