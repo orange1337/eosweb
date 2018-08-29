@@ -205,7 +205,7 @@ export class RamPageComponent implements OnInit{
 
   loginScatter(){
     if (!this.WINDOW.scatter){
-        return this.notifications.create('Scatter error', 'Please install Scatter extension', 'error');
+        return this.notifications.error('Scatter error', 'Please install Scatter extension');
     }
     this.WINDOW.scatter.getIdentity({
        accounts: [this.eosNetwork]
@@ -222,11 +222,11 @@ export class RamPageComponent implements OnInit{
 
   logoutScatter(){
     if (!this.WINDOW.scatter){
-        return this.notifications.create('Scatter error', 'Please install Scatter extension', 'error');
+        return this.notifications.error('Scatter error', 'Please install Scatter extension');
     }
     this.WINDOW.scatter.forgetIdentity().then(() => {
         location.reload();
-        this.notifications.create('Logout success', '', 'success');
+        this.notifications.success('Logout success', '');
     }).catch(err => {
         console.error(err);
     });
@@ -259,15 +259,15 @@ export class RamPageComponent implements OnInit{
                      eos: 0,
                      kb: 0
                  };
-                 this.notifications.create('Transaction Success', '', 'success');
-                 this.notifications.create('Donation', 'Support our project, make a donation :)', 'success');
+                 this.notifications.success('Transaction Success', '');
+                 this.notifications.success('Donation', 'Support our project, make a donation :)');
             }).catch(err => {
                  console.error(err);
-                 this.notifications.create('Transaction Fail', '', 'error');
+                 this.notifications.error('Transaction Fail', '');
             });  
         }).catch(err => {
             console.error(err);
-            this.notifications.create('Transaction Fail', '', 'error');
+            this.notifications.error('Transaction Fail', '');
         });
   }
 
@@ -298,11 +298,11 @@ export class RamPageComponent implements OnInit{
                      eos: 0,
                      kb: 0
                  };
-                 this.notifications.create('Transaction Success', '', 'success');
-                 this.notifications.create('Donation', 'Support our project, make a donation :)', 'success');
+                 this.notifications.success('Transaction Success', '');
+                 this.notifications.success('Donation', 'Support our project, make a donation :)');
             }).catch(err => {
                  console.error(err);
-                 this.notifications.create('Transaction Fail', '', 'error');
+                 this.notifications.error('Transaction Fail', '');
             });  
         });
   }
@@ -317,12 +317,12 @@ export class RamPageComponent implements OnInit{
            .then(result => {
                 console.log(result);
                 this.getAccount(this.identity.accounts[0].name);
-                this.notifications.create('Transaction Success', '', 'success');
-                this.notifications.create('Donation', 'Thanks for donation :)', 'success');
+                this.notifications.success('Transaction Success', '');
+                this.notifications.success('Donation', 'Thanks for donation :)');
                 this.donation = 0;
            }).catch(err => {
                 console.error(err);
-                this.notifications.create('Transaction Fail', '', 'error');
+                this.notifications.error('Transaction Fail', '');
            });  
   }
 

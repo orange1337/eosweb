@@ -147,14 +147,14 @@ export class WalletPageComponent implements OnInit {
         return this.notifications.create('Identity error!!!', '', 'error');
     }
     if (! this.transfer.to.length || !this.transfer.amount.length){
-        return this.notifications.create('Error', 'Please type account To and Amount', 'error');
+        return this.notifications.error('Error', 'Please type account To and Amount');
     }
         let amount = Number(`${this.transfer.amount}`).toFixed(4) + ` ${this.transfer.symbol}`;
         let eos = this.WINDOW.scatter.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
         eos.transfer(this.identity.accounts[0].name, this.transfer.to, amount, this.transfer.memo)
            .then(result => {
                 this.getAccount(this.identity.accounts[0].name);
-                this.notifications.create('Transaction Success', 'Please check your account page', 'success');
+                this.notifications.success('Transaction Success', 'Please check your account page');
                 this.transfer = {
                     to: '',
                     amount: '',
@@ -163,7 +163,7 @@ export class WalletPageComponent implements OnInit {
                 };
            }).catch(err => {
                 console.error(err);
-                this.notifications.create('Transaction Fail', '', 'error');
+                this.notifications.error('Transaction Fail', '');
            });  
   }
 
@@ -206,20 +206,20 @@ export class WalletPageComponent implements OnInit {
             requiredFields
         }).then(contract => {
             if (!contract[method]){
-                return this.notifications.create('Transaction Fail', 'Incorrect Contract Method', 'error');
+                return this.notifications.error('Transaction Fail', 'Incorrect Contract Method');
             }
             contract[method](fields).then(trx => {
                  console.log(trx);
                  this.getAccount(this.identity.accounts[0].name);
                  this.contractField = {};
-                 this.notifications.create('Transaction Success', 'Please check your account page', 'success');
+                 this.notifications.success('Transaction Success', 'Please check your account page');
             }).catch(err => {
                  console.error(err);
-                 this.notifications.create('Transaction Fail', '', 'error');
+                 this.notifications.error('Transaction Fail', '');
             });  
         }).catch(err => {
             console.error(err);
-            this.notifications.create('Transaction Fail', '', 'error');
+            this.notifications.error('Transaction Fail', '');
         });
   }
 

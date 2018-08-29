@@ -170,11 +170,11 @@ export class VotePageComponent implements OnInit {
 
   logoutScatter(){
     if (!this.WINDOW.scatter){
-        return this.notifications.create('Scatter error', 'Please install Scatter extension', 'error');
+        return this.notifications.error('Scatter error', 'Please install Scatter extension');
     }
     this.WINDOW.scatter.forgetIdentity().then(() => {
         location.reload();
-        this.notifications.create('Logout success', '', 'success');
+        this.notifications.success('Logout success', '');
     }).catch(err => {
         console.error(err);
     });
@@ -182,10 +182,10 @@ export class VotePageComponent implements OnInit {
 
   generateTransaction(){
     if(!this.identity){
-        return this.notifications.create('Identity error!!!', '', 'error');
+        return this.notifications.error('Identity error!!!', '');
     }
     if (! this.vote.voter.length){
-        return this.notifications.create('Error', 'Please type Voter', 'error');
+        return this.notifications.error('Error', 'Please type Voter');
     }
         let eos = this.WINDOW.scatter.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
         eos.contract('eosio', {
@@ -198,7 +198,7 @@ export class VotePageComponent implements OnInit {
             }).then(trx => {
                   console.log(trx);
                   this.getAccount(this.identity.accounts[0].name);
-                  this.notifications.create('Transaction Success', '', 'success');
+                  this.notifications.success('Transaction Success', '');
                   this.vote = {
                     voter: '',
                     proxy: '',
@@ -206,11 +206,11 @@ export class VotePageComponent implements OnInit {
                   };
             }).catch(err => {
                  console.error(err);
-                 this.notifications.create('Transaction Fail', '', 'error');
+                 this.notifications.error('Transaction Fail', '');
             });
            }).catch(err => {
                 console.error(err);
-                this.notifications.create('Transaction Fail', '', 'error');
+                this.notifications.error('Transaction Fail', '');
            });  
   }
 
