@@ -144,7 +144,7 @@ export class WalletPageComponent implements OnInit {
 
   generateTransaction(){
     if(!this.identity){
-        return this.notifications.create('Identity error!!!', '', 'error');
+        return this.notifications.error('Identity error!!!', '');
     }
     if (! this.transfer.to.length || !this.transfer.amount.length){
         return this.notifications.error('Error', 'Please type account To and Amount');
