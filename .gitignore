@@ -44,3 +44,4 @@ Thumbs.db
 node_modules
 server/logs
 config.js
+package-lock.json
