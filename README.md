@@ -1,27 +1,30 @@
-# Eosweb
+# EOSweb.net
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
+[Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
+
+## Stack for manual installation 
+	- node.js v.8^ https://nodejs.org/
+	- angular-cli 1.7.4 - npm install -g angular-cli@1.7.4
+	- mongodb 3.6^ https://www.mongodb.com/
+
+## docker-compose example
+   `docker-compose.example.yml`
+
+## config.js 
+For creating config.js file you need to see config.example.js (default config)
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+2. Also in another terminal window you have to start your backend part - `node server/server.js` (`http://localhost:3039/`)
+
+## Build and start
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build. Starting project `node server/server.js`
 
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+If you have any question, please welcome to our group https://t.me/joinchat/GaeLD04sprvXIzSBW2cmWg
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
