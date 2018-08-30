@@ -1,5 +1,5 @@
 /*
-* Created by Rost
+   Created by eoswebnetbp1
 */
 
 const async = require('async');
@@ -13,13 +13,6 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	const RAM 			= require('../models/ram.price.model')(mongoMain);
 	const RAM_ORDERS 	= require('../models/ram.orders.model')(mongoMain);
 	const TRX_ACTIONS = require('../models/trx.actions.history.model')(mongoMain);
-
-	// ======== aggragation stat
-    /*if (config.PROD){
-        customFunctions.getStatAggregation(eos, STATS_AGGR);
-    }*/
-
-    // ======== end of aggragation stat
 
     //============ HISTORY API
     /*
@@ -296,7 +289,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	});
 
     /*
-	* router - get_table_rows producers
+	* router - get_table_rows
 	*/
 	router.get('/api/v1/get_table_rows/:code/:scope/:table/:limit', (req, res) => {
 	   	 eos.getTableRows({
@@ -504,48 +497,6 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	   	 	});
 	});
 	//============ END of Account API
-
-	//============ SQL tokens API
-	router.post('/api/v1/get_account_tokens', (req, res) => {
-		 let account = req.body.account;
-	   	 MARIA.query(`select * from (
-        			      select * from EOSIO_CURRENCY_BALANCES where account_name = :account and currency<>'EOS'
-        			      order by global_action_seq desc
-        			  ) as table1 where global_action_seq IN (select max(global_action_seq) from (
-        			  	  select * from EOSIO_CURRENCY_BALANCES where account_name = :account and currency<>'EOS'
-       				      order by global_action_seq desc
-        			  ) as table2 group by currency)`,
-					  { account: account }, 
-					  (err, rows) => {
-	   	 					if (err){
-	   	 						return log.error(err);
-	   	 					}
-	   	 					res.json(rows);
-	   	 });
-	});
-
-	let CACHE_TOKENS = [];
-	let CACHE_TIME;
-
-	router.get('/api/v1/get_tokens', (req, res) => {
-		 let dateNow = +new Date();
-		 if (CACHE_TIME && CACHE_TIME > dateNow){
-		 	return res.json(CACHE_TOKENS);
-		 }
-		 CACHE_TIME = dateNow + 3600000; // cahce for hour
-	   	 MARIA.query(`select * from (select currency, issuer, count(*) as rate from EOSIO_CURRENCY_BALANCES
-			   			where currency<>'EOS'
-			   			group by currency
-			   			order by rate desc) as table1 where table1.rate>100;`,
-					  (err, rows) => {
-	   	 					if (err){
-	   	 						return log.error(err);
-	   	 					}
-	   	 					CACHE_TOKENS = rows;
-	   	 					res.json(rows);
-	   	 });
-	});
-	//============ end of SQL tokens API
 
 // ============== end of exports 
 };

@@ -1,3 +1,7 @@
+/*
+   Created by eoswebnetbp1
+*/
+
 const config          = require('../../config.js');
 const async           = require('async');
 const customFunctions = require('./eos.api.v1.custom');
@@ -6,9 +10,7 @@ const log4js = require('log4js');
 log4js.configure(config.logger);
 const log    = log4js.getLogger('socket_io');
 
-const updateTime = {
-    blocks: config.blockUpdateTime
-};
+const updateTimeBlocks = config.blockUpdateTime;
 
 let timeToUpdate        = +new Date() + config.RAM_UPDATE;
 let timeToUpdateHistory = +new Date() + config.HISTORY_UPDATE;
@@ -139,7 +141,7 @@ module.exports = function(io, eos, mongoMain){
           });
           getDataSocket();
       });
-    }, updateTime.blocks);
+    }, updateTimeBlocks);
   }
 
   io.sockets.on('connection',  (socket) => {

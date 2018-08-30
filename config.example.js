@@ -1,0 +1,145 @@
+/*
+  App configuration example created by eoswebnetbp1 (31.08.18)
+*/
+const path = require('path');
+let config = {};
+
+// production mod
+config.PROD = false;
+
+// mongo uri and options
+config.MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/EOSweb';
+config.MONGO_OPTIONS = {
+    socketTimeoutMS: 30000,
+    keepAlive: true,
+    reconnectTries: 30000
+};
+
+// connection to Mariadb (Tokens list for account)
+config.MARIA_DB_ENABLE = false;
+config.MARIA_DB = {
+    host: '',
+    user: '',
+    password: '',
+    db: '' 
+};
+
+// cron processes (aggregation of main stat - actions, transactions, accounts, analytics)
+config.CRON = false;
+config.CRON_API = 'http://bp.cryptolions.io';
+
+// telegram alert bot
+config.telegram = {
+  ON: false,
+  TOKEN: '',
+  TIME_UPDATE: 5000
+};
+
+// eosjs
+config.eosConfig = {
+  chainId: "038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca",
+  keyProvider: "",
+  httpEndpoint: "http://bp.cryptolions.io",
+  expireInSeconds: 60,
+  broadcast: true,
+  debug: false,
+  sign: true,
+  logger: {
+    log: console.log,
+    error: console.error
+  }
+};
+
+// scatter wallet
+config.walletAPI = {
+        host: 'nodes.get-scatter.com',
+        port: '',
+        protocol: 'https'
+};
+
+// api url for producers list
+config.customChain = 'https://nodes.get-scatter.com';
+
+config.apiV = 'v1'; // api version
+config.RAM_UPDATE = 5 * 60 * 1000; // time for ram update - /api/api.*.socket
+config.HISTORY_UPDATE = 5 * 60 * 1000; // time for stats update - /api/api.*.socket 
+config.MAX_BUFFER = 500000; // max buffer size for child processes (kb) - /crons
+config.blockUpdateTime = 5000; // mainpage upades frequency  - /api/api.*.socket in ml sec
+config.offsetElementsOnMainpage = 20; // blocks on mainpage
+config.limitAsync = 30; // max threads for async.js module  
+
+// log4js
+config.logger = {
+    appenders: {
+      out:  {
+            type: 'stdout'
+      },
+      server: {
+        type: 'file',
+        filename: path.join(__dirname, './server/logs/server.log'),
+      },
+      socket_io: {
+        type: 'file',
+        filename: path.join(__dirname, './server/logs/socket_io.log'),
+      },      
+      accounts_daemon: {
+        type: 'file',
+        filename: path.join(__dirname, './server/logs/accounts_daemon.log'),
+      },
+      accounts_analytics: {
+        type: 'file',
+        filename: path.join(__dirname, './server/logs/accounts_analytics.log'),
+      },
+      global_stat: {
+        type: 'file',
+        filename: path.join(__dirname, './server/logs/global_stat.log'),
+      },
+      ram_bot: {
+        type: 'file',
+        filename: path.join(__dirname, './server/logs/ram_bot.log'),
+      }
+    },
+    categories: {
+        default:       {
+          appenders: ['out'],
+          level:     'trace'
+        },
+        server:  {
+          appenders: ['out', 'server'],
+          level:     'trace'
+        },
+        socket_io:  {
+          appenders: ['out', 'socket_io'],
+          level:     'trace'
+        },
+        accounts_daemon:  {
+          appenders: ['out', 'accounts_daemon'],
+          level:     'trace'
+        },
+        accounts_analytics:  {
+          appenders: ['out', 'accounts_analytics'],
+          level:     'trace'
+        },
+        global_stat:  {
+          appenders: ['out', 'global_stat'],
+          level:     'trace'
+        },
+        ram_bot:  {
+          appenders: ['out', 'ram_bot'],
+          level:     'trace'
+        }
+    }
+};
+
+// slack notifications
+config.loggerSlack = {
+      alerts: {
+        type: 'slack',
+        token: 'xoxp-383300076864-385041998119-384243063570-5121a15e945780f6c452d98b838466d9',
+        channel_id: 'dev_notify',
+        username: 'System bot',
+      }
+};
+
+module.exports = config;
+

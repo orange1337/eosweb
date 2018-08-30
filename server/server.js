@@ -1,3 +1,6 @@
+/*
+  Created by eoswebnetbp1 
+*/
 require('appmetrics-dash').monitor();
 const express       = require('express');
 const path          = require('path');
@@ -12,17 +15,15 @@ const mongoose      = require("mongoose");
 const config        = require('../config');
 const mariaDB       = require('mariasql');
 
-const EOS         = require('eosjs');
-const eos         = EOS(config.eosConfig);
+const EOS           = require('eosjs');
+const eos           = EOS(config.eosConfig);
 
-const log4js      = require('log4js');
+const log4js        = require('log4js');
 log4js.configure(config.logger);
-const log         = log4js.getLogger('server');
+const log           = log4js.getLogger('server');
 
-const customSlack = require('./modules/slack.module');
-const logSlack    = customSlack.configure(config.loggerSlack.alerts);
-
-process.setMaxListeners(0);
+const customSlack   = require('./modules/slack.module');
+const logSlack      = customSlack.configure(config.loggerSlack.alerts);
 
 process.on('uncaughtException', (err) => {
     logSlack(`======= UncaughtException Main Server :  ${err}`);
@@ -38,7 +39,6 @@ const mongoMain = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTIO
     }
     log.info('[Connected to Mongo EOS] : 27017');
 });
-const MARIA = new mariaDB(config.MARIA_DB);
 
 const app  = express();
 
@@ -50,8 +50,6 @@ app.use(compression());
 
 app.set('view engine', 'html');
 app.set('views', 'dist');
-
-
 
 // ################### create http node express server
 const debug = require('debug')('asd:server');
@@ -67,24 +65,6 @@ server.on('listening', onListening);
 
 //========= socket io connection
 const io  = require('socket.io').listen(server);
-//const jwt = require('jwt-simple');
-
-/*io.use(function(socket, next){
-  let payload;
-    if (socket.handshake.query.token != 'null'){
-      let error = false;
-      try {
-        payload = jwt.decode(socket.handshake.query.token, config.TOKEN_SECRET);
-      } catch (err){
-        error = true;
-      }
-      next();
-    } else {
-      next(new Error('Not authorized!'));
-    }
-});*/
-
-
 require(`./api/eos.api.${config.apiV}.socket`)(io, eos, mongoMain);
 
 if (config.CRON){
@@ -92,6 +72,10 @@ if (config.CRON){
 }
 if (config.telegram.ON){
     require('./daemons/ram.bot.daemon')(eos, mongoMain);
+}
+if (config.MARIA_DB_ENABLE){
+    const MARIA = new mariaDB(config.MARIA_DB);
+    require(`./api/eos.api.${config.apiV}.tokens`)(app, log, MARIA);
 }
 
 app.use(function(req,res,next){
@@ -101,12 +85,10 @@ app.use(function(req,res,next){
 //========= end of socket io connection
 
 
-
-
 app.use(express.static(path.join(__dirname, '../dist')));
 
 require('./router/main.router')(app, config, request, log);
-require(`./api/eos.api.${config.apiV}`)(app, config, request, log, eos, mongoMain, MARIA);
+require(`./api/eos.api.${config.apiV}`)(app, config, request, log, eos, mongoMain);
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../dist/index.html'));
