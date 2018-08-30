@@ -2,7 +2,7 @@
 
 [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
 
-## Stack for manual installation 
+## manual installation 
 	- node.js v.8^ https://nodejs.org/
 	- angular-cli 1.7.4 - npm install -g angular-cli@1.7.4
 	- mongodb 3.6^ https://www.mongodb.com/
@@ -11,7 +11,7 @@
    `docker-compose.example.yml`
 
 ## config.js 
-For creating config.js file you need to see config.example.js (default config)
+For creating `config.js` file you need to see `config.example.js` (default config)
 
 ## Development server
 
@@ -26,5 +26,4 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-If you have any question, please welcome to our group https://t.me/joinchat/GaeLD04sprvXIzSBW2cmWg
-
+If you have any question, please welcome to our group [EOSweb Dev Chat](https://t.me/joinchat/GaeLD04sprvXIzSBW2cmWg)
