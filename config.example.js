@@ -134,10 +134,10 @@ config.logger = {
 // slack notifications
 config.loggerSlack = {
       alerts: {
-        type: 'slack',
-        token: 'xoxp-383300076864-385041998119-384243063570-5121a15e945780f6c452d98b838466d9',
-        channel_id: 'dev_notify',
-        username: 'System bot',
+        type: '',
+        token: '',
+        channel_id: '',
+        username: '',
       }
 };
 
