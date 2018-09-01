@@ -10,6 +10,9 @@ const log4js = require('log4js');
 log4js.configure(config.logger);
 const log    = log4js.getLogger('socket_io');
 
+const customSlack   = require('../modules/slack.module');
+const logSlack      = customSlack.configure(config.loggerSlack.alerts);
+
 const updateTimeBlocks = config.blockUpdateTime;
 
 let timeToUpdate        = +new Date() + config.RAM_UPDATE;
@@ -132,6 +135,7 @@ module.exports = function(io, eos, mongoMain){
       }, (err, result) => {
           if (err){
              log.error(err);
+             return logSlack(`socket error - ${err}`);
           }
           socketsArr.forEach(socket => {
               socket.emit('get_info', result.info);

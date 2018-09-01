@@ -29,6 +29,8 @@ process.on('uncaughtException', (err) => {
     logSlack(`======= UncaughtException Main Server :  ${err}`);
 });
 
+process.setMaxListeners(0);
+
 mongoose.Promise = global.Promise;
 
 const mongoMain = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTIONS,
