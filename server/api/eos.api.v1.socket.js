@@ -135,14 +135,15 @@ module.exports = function(io, eos, mongoMain){
       }, (err, result) => {
           if (err){
              log.error(err);
-             return logSlack(`socket error - ${err}`);
-          }
-          socketsArr.forEach(socket => {
+             logSlack(`socket error - ${err}`);
+          } else {
+            socketsArr.forEach(socket => {
               socket.emit('get_info', result.info);
               socket.emit('get_last_blocks', result.blocks);
               socket.emit('get_aggregation', result.stat);
               socket.emit('get_ram', result.ram);
-          });
+            });
+          }
           getDataSocket();
       });
     }, updateTimeBlocks);
