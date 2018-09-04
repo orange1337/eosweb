@@ -1,4 +1,4 @@
-FROM node:7.1
+FROM node:9.5
 
 ENV PORT 3039
 
