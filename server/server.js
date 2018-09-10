@@ -11,9 +11,12 @@ const helmet        = require('helmet');
 const compression   = require('compression');
 const request       = require('request');
 const async			    = require('async');
-const mongoose      = require("mongoose");
+
 const config        = require('../config');
 const mariaDB       = require('mariasql');
+
+const mongoose      = require("mongoose");
+mongoose.set('useCreateIndex', true);
 
 const EOS           = require('eosjs');
 const eos           = EOS(config.eosConfig);

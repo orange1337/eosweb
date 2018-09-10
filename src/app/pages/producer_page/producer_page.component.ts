@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import * as moment from 'moment';
 import { tileLayer, latLng, marker, circle, polygon } from 'leaflet';
+import { MainService } from '../../services/mainapp.service';
+import { forkJoin } from "rxjs/observable/forkJoin";
 
 @Component({
   selector: 'producer',
@@ -11,17 +13,16 @@ import { tileLayer, latLng, marker, circle, polygon } from 'leaflet';
   styleUrls: ['./producer_page.component.css']
 })
 export class ProducerComponent implements OnInit, OnDestroy{
-  mainData;
   spinner = false;
   displayedColumns = ['#', 'Name', 'Key', 'Url', 'Votes', 'Rate'];
   dataSource;
   eosToInt = Math.pow(10, 13);
-  allvotes;
+  totalProducerVoteWeight;
   producer;
   producerId;
   mainElement;
   bpData;
-  vouteData = 0;
+  rateProducersArr;
 
   options = {
     layers: [
@@ -33,16 +34,20 @@ export class ProducerComponent implements OnInit, OnDestroy{
   
   layers = [];
 
-  constructor(private route: ActivatedRoute, protected http: HttpClient){}
+  constructor(private route: ActivatedRoute, protected http: HttpClient, private MainService: MainService){}
 
-  getBlockData(){
+  getData(){
       this.spinner = true;
-  		this.http.get(`/api/custom/get_table_rows/eosio/eosio/producers/500`)
+  		let producers = this.http.get(`/api/custom/get_table_rows/eosio/eosio/producers/500`)
+      let global     = this.http.get(`/api/v1/get_table_rows/eosio/eosio/global/1`);
+
+      forkJoin([producers, global])
   				 .subscribe(
                       (res: any) => {
-                          this.mainData = this.sortArray(res.rows);
+                          this.totalProducerVoteWeight = res[1].rows[0].total_producer_vote_weight;
+                          this.mainElement = this.findProducer(this.MainService.countRate(this.MainService.sortArray(res[0].rows), this.totalProducerVoteWeight));
+                          console.log(this.mainElement)
                           this.getBP(this.mainElement);
-                          this.getGlobalData();
                           this.spinner = false;
                       },
                       (error) => {
@@ -51,30 +56,15 @@ export class ProducerComponent implements OnInit, OnDestroy{
                       });
   };
 
-  getGlobalData(){
-      this.http.get(`/api/v1/get_table_rows/eosio/eosio/global/1`)
-           .subscribe(
-                      (res: any) => {
-                          this.allvotes = res.rows[0].total_producer_vote_weight;
-                          this.vouteData = this.mainElement.total_votes / this.allvotes * 100;
-                      },
-                      (error) => {
-                          console.error(error);
-                      });
-  };
-
-  sortArray(data) {
+  findProducer(data) {
       if(!data){
         return;
       }
-      let result = data.sort((a, b) => {
-          return b.total_votes - a.total_votes;
-      }).map((elem, index) => {
+      let result = {};
+      data.forEach((elem, index) => {
           if (elem.owner === this.producerId){
-              elem.index = index + 1;
-              this.mainElement = elem;
+              result = elem;
           }
-          return elem;
       });
       return result;
   }
@@ -103,7 +93,7 @@ export class ProducerComponent implements OnInit, OnDestroy{
   ngOnInit() {
      this.producer = this.route.params.subscribe(params => {
        this.producerId = params['id'];
-       this.getBlockData();
+       this.getData();
     });
   }
 

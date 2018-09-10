@@ -23,7 +23,16 @@
           <strong class="block-info-header">Votes:</strong>
         </div>
         <div class="col-sm-9">
-          <strong>{{ vouteData.toLocaleString() }} %</strong>
+          <strong>{{ mainElement?.rate?.toLocaleString() }} % <small>/ {{ mainElement?.total_votes?.toLocaleString() }}</small></strong>
+        </div>
+      </div>
+
+      <div class="col-sm-12 block-info-line">
+        <div class="col-sm-3">
+          <strong class="block-info-header">Rewards:</strong>
+        </div>
+        <div class="col-sm-9">
+          <strong><small>{{ mainElement?.rewards?.toLocaleString() }} EOS</small></strong>
         </div>
       </div>
 
@@ -32,7 +41,7 @@
           <strong class="block-info-header">Position:</strong>
         </div>
         <div class="col-sm-9">
-          <small> # {{ mainElement?.index  }} </small>
+          <strong><small> # {{ mainElement?.index  }} </small></strong>
         </div>
       </div>
 
@@ -70,14 +79,14 @@
         </div>
         <div class="col-sm-9">
             <a href="{{ mainElement?.url }}" *ngIf="mainElement?.url" target="_blank" class="social-links"><i class="far fa-desktop-alt"></i></a>
-            <a href="{{ bpData?.org?.social?.facebook }}" *ngIf="bpData?.org?.social?.facebook" target="_blank" class="social-links"><i class="fab fa-facebook"></i></a>
-            <a href="{{ bpData?.org?.social?.reddit }}" *ngIf="bpData?.org?.social?.reddit" target="_blank" class="social-links"><i class="fab fa-reddit"></i></a>
+            <a href="https://www.facebook.com/{{ bpData?.org?.social?.facebook }}" *ngIf="bpData?.org?.social?.facebook" target="_blank" class="social-links"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.reddit.com/user/{{ bpData?.org?.social?.reddit }}" *ngIf="bpData?.org?.social?.reddit" target="_blank" class="social-links"><i class="fab fa-reddit"></i></a>
             <a href="{{ bpData?.org?.social?.youtube }}" *ngIf="bpData?.org?.social?.youtube" target="_blank" class="social-links"><i class="fab fa-youtube"></i></a>
-            <a href="{{ bpData?.org?.social?.telegram }}" *ngIf="bpData?.org?.social?.telegram" target="_blank" class="social-links"><i class="fab fa-telegram"></i></a>
-            <a href="{{ bpData?.org?.social?.twitter }}" *ngIf="bpData?.org?.social?.twitter" target="_blank" class="social-links"><i class="fab fa-twitter"></i></a>
-            <a href="{{ bpData?.org?.social?.github }}" *ngIf="bpData?.org?.social?.github" target="_blank" class="social-links"><i class="fab fa-github"></i></a>
-            <a href="{{ bpData?.org?.social?.steemit }}" *ngIf="bpData?.org?.social?.steemit" target="_blank" class="social-links"><i class="fab fa-steemit"></i></a>
-            <a href="{{ bpData?.org?.social?.keybase }}" *ngIf="bpData?.org?.social?.keybase" target="_blank" class="social-links"><i class="fab fa-keybase"></i></a>
+            <a href="https://t.me/{{ bpData?.org?.social?.telegram }}" *ngIf="bpData?.org?.social?.telegram" target="_blank" class="social-links"><i class="fab fa-telegram"></i></a>
+            <a href="https://twitter.com/{{ bpData?.org?.social?.twitter }}" *ngIf="bpData?.org?.social?.twitter" target="_blank" class="social-links"><i class="fab fa-twitter"></i></a>
+            <a href="https://github.com/{{ bpData?.org?.social?.github }}" *ngIf="bpData?.org?.social?.github" target="_blank" class="social-links"><i class="fab fa-github"></i></a>
+            <a href="https://steemit.com/{{ bpData?.org?.social?.steemit }}" *ngIf="bpData?.org?.social?.steemit" target="_blank" class="social-links"><i class="fab fa-steemit"></i></a>
+            <a href="https://keybase.io/{{ bpData?.org?.social?.keybase }}" *ngIf="bpData?.org?.social?.keybase" target="_blank" class="social-links"><i class="fab fa-keybase"></i></a>
         </div>
       </div>
 

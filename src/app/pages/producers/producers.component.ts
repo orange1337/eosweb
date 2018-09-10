@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import * as moment from 'moment';
 import { forkJoin } from "rxjs/observable/forkJoin";
+import { MainService } from '../../services/mainapp.service';
 
 @Component({
   selector: 'producers-page',
@@ -16,11 +17,11 @@ export class ProducersPageComponent implements OnInit{
   displayedColumns = ['#', 'Name', 'Status', 'Url', 'Total Votes', 'Rate', 'Rewards'];
   dataSource;
   eosToInt = Math.pow(10, 13);
-  allvotes;
+  totalProducerVoteWeight;
   sortedArray;
   votesToRemove;
 
-  constructor(private route: ActivatedRoute, protected http: HttpClient){}
+  constructor(private route: ActivatedRoute, protected http: HttpClient, private MainService: MainService){}
 
   getBlockData(){
       this.spinner   = true;
@@ -31,8 +32,8 @@ export class ProducersPageComponent implements OnInit{
   				 .subscribe(
                       (results: any) => {
                           this.mainData = results[0].rows;
-                          this.allvotes = results[1].rows[0].total_producer_vote_weight;
-                          let ELEMENT_DATA: Element[] = this.countRate(this.sortArray(this.mainData));
+                          this.totalProducerVoteWeight = results[1].rows[0].total_producer_vote_weight;
+                          let ELEMENT_DATA: Element[] = this.MainService.countRate(this.MainService.sortArray(this.mainData), this.totalProducerVoteWeight);
                           this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
                           this.spinner = false;
                       },
@@ -42,61 +43,6 @@ export class ProducersPageComponent implements OnInit{
                       });
   };
 
-  sortArray(data) {
-      if(!data){
-        return;
-      }
-      let result = data.sort((a, b) => {
-          return b.total_votes - a.total_votes;
-      }).map((elem, index) => {
-          let eos_votes = Math.floor(this.calculateEosFromVotes(elem.total_votes));
-          elem.all_votes = elem.total_votes;
-          elem.total_votes = Number(eos_votes).toLocaleString();
-          elem.index = index + 1;
-          return elem;
-      });
-      return result;
-  }
-
-  countRate(data){
-      if(!data){
-        return;
-      }
-      this.votesToRemove = data.reduce((acc, cur) => {
-            const percentageVotes = cur.all_votes / this.allvotes * 100;
-            if (percentageVotes * 200 < 100) {
-              acc += parseFloat(cur.all_votes);
-            }
-            return acc;
-      }, 0);
-      data.forEach((elem) => {
-        elem.rate    = (elem.all_votes / this.allvotes * 100).toLocaleString();
-        elem.rewards = this.countRewards(elem.all_votes, elem.index);
-      });
-      
-      return data;
-  }
-
-  calculateEosFromVotes(votes){
-      let date = +new Date() / 1000 - 946684800;
-      let weight = parseInt(`${ date / (86400 * 7) }`, 10) / 52; // 86400 = seconds per day 24*3600
-      return votes / (2 ** weight) / 10000;
-  };
-
-  countRewards(total_votes, index){
-    let position = index;
-    let reward = 0;
-    let percentageVotesRewarded = total_votes / (this.allvotes - this.votesToRemove) * 100;
-     
-     if (position < 22) {
-       reward += 318;
-     }
-     reward += percentageVotesRewarded * 200;
-     if (reward < 100) {
-       reward = 0;
-     }
-     return Math.floor(reward).toLocaleString();
-  }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();

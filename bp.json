@@ -19,13 +19,13 @@
 },
 	"social": {
 		"steemit": "@eosweb.net",
-		"twitter": "https://twitter.com/EoswebN",
+		"twitter": "EoswebN",
 		"youtube": "",
-		"facebook": "https://www.facebook.com/EOSwebnet-199076424068961",
-		"github": "",
-		"reddit": "https://www.reddit.com/user/eosweb",
+		"facebook": "EOSwebnet-199076424068961",
+		"github": "orange1337",
+		"reddit": "eosweb",
 		"keybase": "",
-		"telegram": "https://t.me/eosweb",
+		"telegram": "eosweb",
 		"wechat": ""
 	}
 },
@@ -38,7 +38,7 @@
 		},
 		"is_producer": true,
 		"p2p_endpoint": "node.eosweb.net",
-		"api_endpoint": "http://api.eosweb.net",
-		"ssl_endpoint": "https://api.eosweb.net"
+		"api_endpoint": "http://apinode.eosweb.net",
+		"ssl_endpoint": "https://apinode.eosweb.net"
 	}]
 }

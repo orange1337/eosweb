@@ -12,7 +12,8 @@ config.MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/EOSweb';
 config.MONGO_OPTIONS = {
     socketTimeoutMS: 30000,
     keepAlive: true,
-    reconnectTries: 30000
+    reconnectTries: 30000,
+    useNewUrlParser: true
 };
 
 // connection to Mariadb (Tokens list for account)
