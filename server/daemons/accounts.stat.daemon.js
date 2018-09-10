@@ -125,7 +125,7 @@ function getAccountAggregation (){
 function transactionsAggregate (trx, stat, callback){
 	async.each(trx, (elem, cbTx) => {
 		if (!elem.trx || !elem.trx.transaction || !elem.trx.transaction.actions){
-			log.error('elem.trx.transaction.actions - error', elem);
+			//log.error('elem.trx.transaction.actions - error', elem); actions array - empty
 			return cbTx();
 		}
 	   	async.each(elem.trx.transaction.actions, (action, cbAction) => {
