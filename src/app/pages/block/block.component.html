@@ -83,7 +83,7 @@
 				</div>
 			</div>
 
-			<div class="col-sm-12 block-info-line">
+			<div class="col-sm-12 block-info-line" *ngIf="mainData?.transactions?.length < 1000">
 				<mat-accordion>
 				  <mat-expansion-panel>
 				    <mat-expansion-panel-header>

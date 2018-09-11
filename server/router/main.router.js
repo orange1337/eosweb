@@ -6,6 +6,7 @@ const path = require('path');
 module.exports = function(router, config, request, log) {
 
 	router.get('/', (req, res) => {
+		res.cookie('netsConf', JSON.stringify(config.eosInfoConfigs), { path: '/' });
 	   	res.sendFile('index.html');
 	});
 
@@ -22,15 +23,6 @@ module.exports = function(router, config, request, log) {
 	});
 // ============== END of exports 
 };
-
-
-
-
-
-
-
-
-
 
 
 

@@ -40,12 +40,26 @@ module.exports = function(io, eos, mongoMain){
       async.parallel({
         info: cb => {
           eos.getInfo({})
-             .then(result => {
-               cb(null, result);
+             .then(stat => {
+                if (!stat.head_block_num){
+                    return cb('Cant get info from blockchain!');
+                }
+                let start = stat.head_block_num - 1;
+                let end = stat.head_block_num;
+                let TPSliveTx = 0;
+                getBlocksInfo(start, end).then(block => {
+                    if (block.start && block.end && block.start.transactions && block.end.transactions){
+                        TPSliveTx = block.start.transactions.length + block.end.transactions.length;
+                    }
+                    cb(null, { stat: stat, tps: TPSliveTx });
+                }).catch(err => {
+                    console.error(err);
+                    cb(null, { stat: stat, tps: 0 });
+                });
              })
              .catch(err => {
                log.error(err);
-               cb('No result');
+               cb('No stat');
              });
         },
         blocks: cb => {
@@ -138,7 +152,8 @@ module.exports = function(io, eos, mongoMain){
              logSlack(`socket error - ${err}`);
           } else {
             socketsArr.forEach(socket => {
-              socket.emit('get_info', result.info);
+              socket.emit('get_info', result.info.stat);
+              socket.emit('get_tps', result.info.tps);
               socket.emit('get_last_blocks', result.blocks);
               socket.emit('get_aggregation', result.stat);
               socket.emit('get_ram', result.ram);
@@ -147,6 +162,17 @@ module.exports = function(io, eos, mongoMain){
           getDataSocket();
       });
     }, updateTimeBlocks);
+  }
+
+  async function getBlocksInfo(block_start, block_end){
+      let startPromise = eos.getBlock({ block_num_or_id: block_start });
+      let endPromise   = eos.getBlock({ block_num_or_id: block_end });
+      let start = await startPromise;
+      let end   = await endPromise;
+      return {
+         start: start,
+         end: end
+      }
   }
 
   io.sockets.on('connection',  (socket) => {

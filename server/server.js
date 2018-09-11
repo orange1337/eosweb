@@ -98,8 +98,6 @@ require(`./api/eos.api.${config.apiV}`)(app, config, request, log, eos, mongoMai
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
-// ========== cron tasks
-//require('./crons/main.cron')();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

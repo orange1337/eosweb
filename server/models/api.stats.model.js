@@ -29,6 +29,18 @@ var API = new mongoose.Schema({
     type: Number,
     default: 0 
   },
+  max_tps: {
+    type: Number,
+    default: 3996
+  },
+  cursor_max_tps: {
+    type: Number,
+    default: 15825436
+  },
+  max_tps_block: {
+    type: Number,
+    default: 14487862
+  },
   last_update: { 
     type: Date
   }

@@ -35,7 +35,18 @@ module.exports = () => {
 
         startAccountsDaemon();
         startGlobalStatAnalytics();
+        if (config.TPS_ENABLE){
+            startTPSdaemon();
+        }
         //startAccountsAnalytics();
+}
+
+function startTPSdaemon(){
+        let forkProcess = fork(path.join(__dirname, '../daemons/max.tps.daemon.js'));
+        forkProcess.on('close', () => {
+              console.log('\x1b[33m%s\x1b[0m', '====== Process TPS close Error');
+              startTPSdaemon();
+        });
 }
 
 
