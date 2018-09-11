@@ -29,6 +29,18 @@ config.MARIA_DB = {
 config.CRON = false;
 config.CRON_API = 'http://bp.cryptolions.io';
 
+config.TPS_ENABLE = true;
+config.MAX_TPS_TIME_UPDATE = 5000;
+
+config.eosInfoConfigs = {
+      mainNet: {
+        chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
+        httpEndpoint: "http://bp.cryptolions.io",
+        name: "Main Net",
+        key: "mainNet"
+      },
+};
+
 // telegram alert bot
 config.telegram = {
   ON: false,
