@@ -37,6 +37,7 @@ export class MainTableComponent implements OnInit{
   moment = moment;
   trxObj = {};
   spinner = false;
+  offsetPageElems = 10;
 
   /*@ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;*/
@@ -47,7 +48,7 @@ export class MainTableComponent implements OnInit{
 
   getData() {
       this.spinner = true;
-        this.http.get('/api/v1/get_last_blocks/20')
+        this.http.get('/api/v1/get_last_blocks/10')
                   .subscribe(
                       (res: any) => {
                           this.mainData = res;
@@ -94,14 +95,14 @@ export class MainTableComponent implements OnInit{
       });
       transactions.reverse();
 
-      if (transactions.length >= 20){
+      if (transactions.length >= this.offsetPageElems){
           let blocks = Object.keys(this.trxObj);
           blocks.forEach((key, index) => {
-              if (index < blocks.length - 20){
+              if (index < blocks.length - this.offsetPageElems){
                   delete this.trxObj[key];
               }
           });
-          return transactions.slice(0, 20);
+          return transactions.slice(0, this.offsetPageElems);
       }
 
       
