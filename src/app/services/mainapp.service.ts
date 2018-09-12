@@ -108,5 +108,19 @@ export class MainService {
       return matches ? decodeURIComponent(matches[1]) : undefined;
   }
 
+  sortBlocks(data){
+       if (!data){
+           return null;
+       }
+       data.sort((a, b) => {
+           if (a.block_num < b.block_num){
+               return 1;
+           } else {
+               return -1;
+           }
+       });
+       return data;
+  }
+
 // end service export
 }

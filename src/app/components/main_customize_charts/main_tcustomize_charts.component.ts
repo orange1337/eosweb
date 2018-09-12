@@ -33,7 +33,6 @@ export class MainCustomizeChartsComponent implements OnInit{
   aggragationData;
   ramPrice;
   //eos = this.MainService.getGlobalNetConfig();
-  //TPSliveTimeUpdate = 1000;
   TPSliveTx = 0;
 
   constructor(private http: HttpClient, private socket: Socket, private MainService: MainService){}
@@ -111,41 +110,16 @@ export class MainCustomizeChartsComponent implements OnInit{
         this.ramPrice = (quoteBalance / baseBalance * 1024).toFixed(5);
   }
 
-/*  getTPSlive(){
-      this.eos.getInfo({})
-           .then((stat: any) => { 
-             if (!stat.head_block_num){
-                 return console.error('Cant get info from blockchain!');
-             }
-             let start = stat.head_block_num - 1;
-             let end = stat.head_block_num;
-             this.getBlocksInfo(start, end).then(block => {
-                 //console.log(block);
-                 if (block.start.transactions && block.end.transactions.length){
-                     this.TPSliveTx = block.start.transactions.length + block.end.transactions.length;
-                 }
-                 setTimeout(() => { this.getTPSlive() }, this.TPSliveTimeUpdate);
-             }).catch(err => {
-                 setTimeout(() => { this.getTPSlive() }, this.TPSliveTimeUpdate);
-                 console.error(err);
-             });
-           })
-           .catch(err => {
-               setTimeout(() => { this.getTPSlive() }, this.TPSliveTimeUpdate);
-               console.error(err);
-           });
+  countTPS(data){
+      if (!data || data.length < 2){
+           console.log("Data error TPS", data);
+           return null;
+      }
+      let start = data[0].transactions.length;
+      let end = data[1].transactions.length;
+      return start + end;
   }
 
-  async getBlocksInfo(block_start, block_end){
-      let startPromise = this.eos.getBlock({ block_num_or_id: block_start });
-      let endPromise   = this.eos.getBlock({ block_num_or_id: block_end });
-      let start = await startPromise;
-      let end   = await endPromise;
-      return {
-         start: start,
-         end: end
-      }
-  }*/
 
   ngOnInit() {
       this.getData();
@@ -163,8 +137,8 @@ export class MainCustomizeChartsComponent implements OnInit{
           this.blockchainData = res;
       });
 
-      this.socket.on('get_tps', res => {
-          this.TPSliveTx = res;
+      this.socket.on('get_last_blocks', res => {
+          this.TPSliveTx = this.countTPS(this.MainService.sortBlocks(res));
       });
 
       this.socket.on('get_aggregation', res => {

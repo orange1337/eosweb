@@ -39,21 +39,7 @@ module.exports = function(io, eos, mongoMain){
         info: cb => {
           eos.getInfo({})
              .then(stat => {
-                if (!stat.head_block_num){
-                    return cb('Cant get info from blockchain!');
-                }
-                let start = stat.head_block_num - 1;
-                let end = stat.head_block_num;
-                let TPSliveTx = 0;
-                getBlocksInfo(start, end).then(block => {
-                    if (block.start && block.end && block.start.transactions && block.end.transactions){
-                        TPSliveTx = block.start.transactions.length + block.end.transactions.length;
-                    }
-                    cb(null, { stat: stat, tps: TPSliveTx });
-                }).catch(err => {
-                    console.error(err);
-                    cb(null, { stat: stat, tps: 0 });
-                });
+                cb(null, stat);
              })
              .catch(err => {
                log.error(err);
@@ -63,8 +49,8 @@ module.exports = function(io, eos, mongoMain){
         blocks: cb => {
           customFunctions.getLastBlocks(eos, blocks, (err, result) => {
                       if (err){
-                        log.error(err);
-                        return cb('No result');
+                          log.error(err);
+                          return cb('No result');
                       }
                       cb(null, result);
           });
@@ -149,8 +135,7 @@ module.exports = function(io, eos, mongoMain){
              log.error(err);
              logSlack(`socket error - ${err}`);
           } else {
-              io.to(SOCKET_ROOM).emit('get_info', result.info.stat);
-              io.to(SOCKET_ROOM).emit('get_tps', result.info.tps);
+              io.to(SOCKET_ROOM).emit('get_info', result.info);
               io.to(SOCKET_ROOM).emit('get_last_blocks', result.blocks);
               io.to(SOCKET_ROOM).emit('get_aggregation', result.stat);
               io.to(SOCKET_ROOM).emit('get_ram', result.ram);
@@ -159,17 +144,6 @@ module.exports = function(io, eos, mongoMain){
           }
           setTimeout(getDataSocket, updateTimeBlocks);
       });
-  }
-
-  async function getBlocksInfo(block_start, block_end){
-      let startPromise = eos.getBlock({ block_num_or_id: block_start });
-      let endPromise   = eos.getBlock({ block_num_or_id: block_end });
-      let start = await startPromise;
-      let end   = await endPromise;
-      return {
-         start: start,
-         end: end
-      }
   }
 
   io.on('connection', socket => {

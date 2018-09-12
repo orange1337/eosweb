@@ -16,6 +16,8 @@ import { environment } from '../../../environments/environment';
 
 import { ActionsViewerModule } from '../actions_view/action_viewer.module';
 
+import { MainService } from '../../services/mainapp.service';
+
 let imports = [
     MatAutocompleteModule,
     MatButtonModule,
@@ -36,7 +38,7 @@ let imports = [
   ],
   imports:  imports,
   exports: [ MainTableComponent ],
-  providers: [ ],
+  providers: [ MainService ],
   bootstrap: [ MainTableComponent ]
 })
 export class MainTableModule {}
