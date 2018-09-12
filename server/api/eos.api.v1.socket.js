@@ -18,25 +18,23 @@ const updateTimeBlocks = config.blockUpdateTime;
 let timeToUpdate        = +new Date() + config.RAM_UPDATE;
 let timeToUpdateHistory = +new Date() + config.HISTORY_UPDATE;
 
+let SOCKET_ROOM = 'pool';
+let userCountHandler = 0;
+
 module.exports = function(io, eos, mongoMain){
 
   const STATS_AGGR  = require('../models/api.stats.model')(mongoMain);
   const RAM         = require('../models/ram.price.model')(mongoMain);
   const TRX_ACTIONS = require('../models/trx.actions.history.model')(mongoMain);
 
-  io.usersPool = {};
-
   let offset = config.offsetElementsOnMainpage;
-  let elements = Array.from({ length: offset }, (v, k) => k++);
+  let blocks = Array.from({ length: offset }, (v, k) => k++);
 
   function getDataSocket(){
-    setTimeout(() => {
-      let socketsArr = Object.keys(io.usersPool).map( key => { return io.usersPool[key] });
-      if (!socketsArr || !socketsArr.length){
-          log.info('No user online');
-          return getDataSocket();
+      if (!io || !io.sockets.adapter.rooms[SOCKET_ROOM]){
+          log.info('====== No users online');
+          return setTimeout(getDataSocket, updateTimeBlocks);;
       }
-      //console.log('=======', socketsArr.length);
       async.parallel({
         info: cb => {
           eos.getInfo({})
@@ -63,7 +61,7 @@ module.exports = function(io, eos, mongoMain){
              });
         },
         blocks: cb => {
-          customFunctions.getLastBlocks(eos, elements, (err, result) => {
+          customFunctions.getLastBlocks(eos, blocks, (err, result) => {
                       if (err){
                         log.error(err);
                         return cb('No result');
@@ -151,17 +149,16 @@ module.exports = function(io, eos, mongoMain){
              log.error(err);
              logSlack(`socket error - ${err}`);
           } else {
-            socketsArr.forEach(socket => {
-              socket.emit('get_info', result.info.stat);
-              socket.emit('get_tps', result.info.tps);
-              socket.emit('get_last_blocks', result.blocks);
-              socket.emit('get_aggregation', result.stat);
-              socket.emit('get_ram', result.ram);
-            });
+              io.to(SOCKET_ROOM).emit('get_info', result.info.stat);
+              io.to(SOCKET_ROOM).emit('get_tps', result.info.tps);
+              io.to(SOCKET_ROOM).emit('get_last_blocks', result.blocks);
+              io.to(SOCKET_ROOM).emit('get_aggregation', result.stat);
+              io.to(SOCKET_ROOM).emit('get_ram', result.ram);
+              //io.to(SOCKET_ROOM).emit('users_online', userCountHandler);
+              console.log(`===== Users online: ${userCountHandler}`);
           }
-          getDataSocket();
+          setTimeout(getDataSocket, updateTimeBlocks);
       });
-    }, updateTimeBlocks);
   }
 
   async function getBlocksInfo(block_start, block_end){
@@ -175,13 +172,15 @@ module.exports = function(io, eos, mongoMain){
       }
   }
 
-  io.sockets.on('connection',  (socket) => {
-    io.usersPool[socket.id] = socket;
+  io.on('connection', socket => {
+    socket.join(SOCKET_ROOM);
+
+    userCountHandler += 1;
     socket.on('disconnect', () => {
-       delete io.usersPool[socket.id];
+      socket.leave(SOCKET_ROOM);
+      userCountHandler -= 1;
     });
-  //====== connection end   
-  }); 
+  });
 
   getDataSocket(); 
 
