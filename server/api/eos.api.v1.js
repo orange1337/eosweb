@@ -72,7 +72,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	   	 			});
 			}
 		}, (err, result) => {
-			if (!text){
+			if (err){
 				log.error(err);
 				return res.status(501).end();
 			}

@@ -77,7 +77,7 @@ config.apiV = 'v1'; // api version
 config.RAM_UPDATE = 5 * 60 * 1000; // time for ram update - /api/api.*.socket
 config.HISTORY_UPDATE = 5 * 60 * 1000; // time for stats update - /api/api.*.socket 
 config.MAX_BUFFER = 500000; // max buffer size for child processes (kb) - /crons
-config.blockUpdateTime = 5000; // mainpage upades frequency  - /api/api.*.socket in ml sec
+config.blockUpdateTime = 900; // mainpage upades frequency  - /api/api.*.socket in ml sec
 config.offsetElementsOnMainpage = 10; // blocks on mainpage
 config.limitAsync = 30; // max threads for async.js module  
 

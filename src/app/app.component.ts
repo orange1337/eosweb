@@ -38,6 +38,8 @@ export class AppComponent {
                       this.router.navigate(['/account', res.account.account_name]);
                    } else if (res.key){
                       this.router.navigate(['/address', text ]);
+                   } else {
+                      this.router.navigate(['/notfound']);
                    }
                    this.search = '';
                },
