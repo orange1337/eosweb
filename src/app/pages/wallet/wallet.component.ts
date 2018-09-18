@@ -75,7 +75,7 @@ export class WalletPageComponent implements OnInit {
   }
 
   getBalance(accountId){
-      this.http.get(`/api/v1/get_currency_balance/eosio.token/${accountId}/EOS`)
+      this.http.get(`/api/v1/get_currency_balance/eosio.token/${accountId}/TLOS`)
            .subscribe((res: any) => {
                           this.unstaked = (!res[0]) ? 0 : Number(res[0].split(' ')[0]); 
                           if (this.mainData.voter_info && this.mainData.voter_info.staked){

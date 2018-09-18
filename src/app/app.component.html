@@ -1,8 +1,6 @@
 <nav class="main-navigation">
   <a routerLink="" class="logo pull-left">
-    <img src="/assets/images/eos_logo.png" width="25" alt="">
-    <span class="name-explorer">web</span>
-    <span class="name-eos">eos</span> 
+    <img src="/assets/images/telos_logo.png" height="28" alt="">
   </a>
   <div class="main-search">
     <i class="fal fa-search" (click)="searchGlobal(search)"></i>
@@ -10,16 +8,17 @@
   </div>
   <ul class="pull-right main-nav-middle">
     <!--<li><button mat-button color="basic" routerLink="tokens" [ngClass]="{'nav-active': activeMenu() === '/tokens'}">Tokens</button></li>-->
-    <li><button mat-button color="basic" routerLink="vote" [ngClass]="{'nav-active': activeMenu() === '/vote'}" class="mobile-no">vote</button></li>
+    <li><button mat-button color="basic" routerLink="producers" [ngClass]="{'nav-active': activeMenu()  === '/producers'}">Producers</button></li>
+    <li><button mat-button color="basic" routerLink="p2p" [ngClass]="{'nav-active': activeMenu()  === '/p2p'}">P2P</button></li>
+    <li><button mat-button color="basic" routerLink="vote" [ngClass]="{'nav-active': activeMenu() === '/vote'}" class="mobile-no">Vote</button></li>
     <li><button mat-button color="basic" routerLink="analytics" [ngClass]="{'nav-active': activeMenu() === '/analytics'}">Analytics</button></li>
     <li><button mat-button color="basic" routerLink="ram" [ngClass]="{'nav-active': activeMenu()  === '/ram'}">Ram</button></li>
-    <li><button mat-button color="basic" routerLink="producers" [ngClass]="{'nav-active': activeMenu()  === '/producers'}">Producers</button></li>
     <!--<li class="mobile-no"><button mat-button color="basic" routerLink="soon">API</button></li>-->
-    <li>
+    <!-- <li>
         <a _ngcontent-c0="" href="https://twitter.com/EoswebN" class="telegram-button" target="_blank">
           <i _ngcontent-c0="" class="fab fa-twitter"></i>
         </a>
-    </li>
+    </li> -->
   </ul>
 </nav>
 
@@ -31,17 +30,21 @@
 
 <footer>
   <div class="container">
-  <div class="pull-left">Copyright © 2018. EOSweb. Donation - <a [routerLink]="['/account/eoswebnetbp1']" class="color-green"><strong>eoswebnetbp1</strong></a></div>
-  <ul class="pull-right">
-       <!--<li><a routerLink="soon">API</a></li>-->
-       <li><a href="mailto:dev.eosweb.net@gmail.com">Support</a></li>
-       <li><a href="https://github.com/orange1337/eosweb" target="_blank"><i class="fab fa-github"></i></a></li>
-       <li><a href="https://www.facebook.com/EOSwebnet-199076424068961" target="_blank"><i class="fab fa-facebook"></i></a></li>
-       <li><a href="https://www.reddit.com/user/eosweb" target="_blank"><i class="fab fa-reddit-alien"></i></a></li>
-       <li><a href="https://medium.com/@EoswebN" target="_blank"><i class="fab fa-medium"></i></a></li>
-       <li><a href="https://twitter.com/EoswebN" target="_blank"><i class="fab fa-twitter"></i></a></li>
-       <li><a href="https://t.me/joinchat/GaeLD04sprvXIzSBW2cmWg" target="_blank"><i class="fab fa-telegram-plane"></i></a></li>
+  <ul class="pull-left">
+        <!--<li><a routerLink="soon">API</a></li>-->
+        <li><a href="https://twitter.com/HelloTelos" target="_blank"><i class="fab fa-twitter"></i></a></li>
+        <li><a href="https://t.me/HelloTelos" target="_blank"><i class="fab fa-telegram-plane"></i></a></li>
+        <li><a href="https://github.com/Telos-Foundation" target="_blank"><i class="fab fa-github"></i></a></li>
+        <li><a href="https://www.youtube.com/channel/UC1eRSAt81jUf7zM4hsy5S5Q?disable_polymer=true" target="_blank"><i class="fab fa-youtube"></i></a></li>
+        <li><a href="https://www.facebook.com/TelosFoundation.io/" target="_blank"><i class="fab fa-facebook"></i></a></li>
+
+        <!-- <li><a href="mailto:dev.eosweb.net@gmail.com">Support</a></li>
+        <li><a href="https://www.reddit.com/user/eosweb" target="_blank"><i class="fab fa-reddit-alien"></i></a></li>
+        <li><a href="https://medium.com/@EoswebN" target="_blank"><i class="fab fa-medium"></i></a></li> -->
   </ul>
-   </div>
+  <img src="/assets/images/telos_icon_334.png" width="45" alt="">
+  <div class="pull-right">
+    <a href="mailto:hello@telosfoundation.io">hello@telosfoundation.io</a></div>
+  </div>
 </footer>
 

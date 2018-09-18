@@ -14,7 +14,7 @@
           <img src="{{bpData?.org?.branding?.logo_256}}" alt="" class="branding-logo">
         </div>
         <div class="col-sm-9">
-          <strong class="account-name"><a [routerLink]="['/account', producerId]" class="color-green">{{producerId}}</a></strong>
+          <strong class="account-name"><a [routerLink]="['/account', producerId]" class="color-orange">{{producerId}}</a></strong>
         </div>
       </div>
 
@@ -32,7 +32,7 @@
           <strong class="block-info-header">Rewards:</strong>
         </div>
         <div class="col-sm-9">
-          <strong><small>{{ mainElement?.rewards?.toLocaleString() }} EOS</small></strong>
+          <strong><small>{{ mainElement?.rewards?.toLocaleString() }} TLS</small></strong>
         </div>
       </div>
 
@@ -51,7 +51,7 @@
           <strong class="block-info-header">Public Key:</strong>
         </div>
         <div class="col-sm-9">
-          <small class="tx-mobile-hash"> <a [routerLink]="['/address', mainElement?.producer_key]" class="color-green"> {{ mainElement?.producer_key }} </a> </small>
+          <small class="tx-mobile-hash"> <a [routerLink]="['/address', mainElement?.producer_key]" class="color-orange"> {{ mainElement?.producer_key }} </a> </small>
         </div>
       </div>
 
@@ -69,7 +69,7 @@
           <strong class="block-info-header">Url:</strong>
         </div>
         <div class="col-sm-9">
-          <small><a href="{{ mainElement?.url }}" target="_blank" class="color-green">{{ mainElement?.url }}</a></small>
+          <small><a href="{{ mainElement?.url }}" target="_blank" class="color-orange">{{ mainElement?.url }}</a></small>
         </div>
       </div>-->
 

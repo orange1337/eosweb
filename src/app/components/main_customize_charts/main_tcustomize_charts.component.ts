@@ -15,7 +15,7 @@ export class MainCustomizeChartsComponent implements OnInit{
    mainCurrencyChartDataRes;
    ngxChartOptions = {
       colorScheme : {
-          domain: ['#44a264']
+          domain: ['#D9632C']
       },
       view : [130, 70],
       showXAxis : false,
@@ -29,7 +29,7 @@ export class MainCustomizeChartsComponent implements OnInit{
       autoScale : true,
   }; 
   curve = shape.curveCardinal;
-  blockchainData;
+  blockchainData: any = {};
   aggragationData;
   ramPrice;
   //eos = this.MainService.getGlobalNetConfig();

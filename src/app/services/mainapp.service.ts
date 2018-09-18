@@ -38,48 +38,71 @@ export class MainService {
       let result = data.sort((a, b) => {
           return b.total_votes - a.total_votes;
       }).map((elem, index) => {
-          let eos_votes = Math.floor(this.calculateEosFromVotes(elem.total_votes));
+          // let eos_votes = Math.floor(this.calculateEosFromVotes(elem.total_votes));
           elem.all_votes = elem.total_votes;
-          elem.total_votes = Number(eos_votes).toLocaleString();
+          // elem.total_votes = Number(eos_votes).toLocaleString();
           elem.index = index + 1;
           return elem;
       });
       return result;
   }
 
-  countRate(data, totalProducerVoteWeight){
-      if(!data){
-        return;
+  countRate(data, totalProducerVoteWeight, supply){
+    if(!data){
+      return;
+    }
+    var totalProducers = 0;
+    data.forEach(producer => {
+      if(producer.is_active){
+        totalProducers++;
       }
-      this.votesToRemove = data.reduce((acc, cur) => {
-            const percentageVotes = cur.all_votes / totalProducerVoteWeight * 100;
-            if (percentageVotes * 200 < 100) {
-              acc += parseFloat(cur.all_votes);
-            }
-            return acc;
-      }, 0);
-      data.forEach((elem) => {
-        elem.rate    = (elem.all_votes / totalProducerVoteWeight * 100).toLocaleString();
-        elem.rewards = this.countRewards(elem.all_votes, elem.index, totalProducerVoteWeight);
-      });
-      
-      return data;
+    });
+
+    data.forEach((producer) => {
+      producer.votes    = (producer.all_votes * 100 / totalProducerVoteWeight).toLocaleString();
+      producer.rewards = this.countRewards(producer, totalProducers, supply);
+    });
+    
+    return data;
+}
+
+
+countRewards(producer, totalProducers, supply){
+  var position = producer.index;
+  var totalUnpaidBlocks = producer.unpaid_blocks;
+  var reward = (2.5/100 * supply * 1/364) * 40/100;
+  var min_unpaid_blocks_threshold = 342;
+  var totalShares;
+  var numProds;
+  var numStandbys;
+
+  if (totalProducers <= 21)
+  {
+      totalShares = (totalProducers * 2);
+      numProds = totalProducers;
+      numStandbys = 0;
+  } else {
+      totalShares = (totalProducers + 21);
+      numProds = 21;
+      numStandbys = (totalProducers - 21);
   }
 
-  countRewards(total_votes, index, totalProducerVoteWeight){
-    let position = index;
-    let reward = 0;
-    let percentageVotesRewarded = total_votes / (totalProducerVoteWeight - this.votesToRemove) * 100;
-     
-     if (position < 22) {
-       reward += 318;
-     }
-     reward += percentageVotesRewarded * 200;
-     if (reward < 100) {
-       reward = 0;
-     }
-     return Math.floor(reward).toLocaleString();
+  var shareValue = reward/totalShares;
+  var pay_amount = 0;
+  if (totalUnpaidBlocks > 0)
+  {
+      if (position <= 21 && totalUnpaidBlocks >= min_unpaid_blocks_threshold) {
+          pay_amount = (shareValue * 2);
+      } else if (position <= 21 && totalUnpaidBlocks <= min_unpaid_blocks_threshold) {
+          pay_amount = shareValue;
+      } else if (position >= 22 && position <= 51) {
+          pay_amount = shareValue;
+      } else {
+          pay_amount = 0;
+      }
   }
+  return pay_amount.toFixed(4);
+}
 
   calculateEosFromVotes(votes){
       let date = +new Date() / 1000 - 946684800;

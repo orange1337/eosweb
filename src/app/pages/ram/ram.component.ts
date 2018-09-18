@@ -25,7 +25,7 @@ export class RamPageComponent implements OnInit{
 
   ngxChartOptions = {
       colorScheme : {
-          domain: ['#44a264']
+          domain: ['#D9632C']
       },
       view : [900, 400],
       showXAxis : true,
@@ -33,9 +33,9 @@ export class RamPageComponent implements OnInit{
       gradient : true,
       showLegend : false,
       showXAxisLabel : false,
-      xAxisLabel : 'EOS',
+      xAxisLabel : 'TLS',
       showYAxisLabel : true,
-      yAxisLabel : 'EOS',
+      yAxisLabel : 'TLS',
       autoScale : true,
       timeline: true,
       fitContainer : true
@@ -176,7 +176,7 @@ export class RamPageComponent implements OnInit{
   }
 
   getBalance(accountId){
-      this.http.get(`/api/v1/get_currency_balance/eosio.token/${accountId}/EOS`)
+      this.http.get(`/api/v1/get_currency_balance/eosio.token/${accountId}/TLOS`)
            .subscribe((res: any) => {
                           this.unstaked = (!res[0]) ? 0 : Number(res[0].split(' ')[0]); 
                           let staked = 0;
@@ -190,13 +190,13 @@ export class RamPageComponent implements OnInit{
                       });
   }
 
-  buyChangeEOS(e) {
+  buyChangeTLS(e) {
       this.buyRAM.kb = this.buyRAM.eos / this.ramPrice;
   }
   buyChangeKB(e) {
       this.buyRAM.eos = this.ramPrice * this.buyRAM.kb;
   }
-  sellChangeEOS(e) {
+  sellChangeTLS(e) {
       this.sellRAM.kb = this.sellRAM.eos / this.ramPrice;
   }
   sellChangeKB(e) {
@@ -250,7 +250,7 @@ export class RamPageComponent implements OnInit{
             contract.buyram({
                 payer: this.identity.accounts[0].name,
                 receiver: this.identity.accounts[0].name,
-                quant: `${amount} EOS`
+                quant: `${amount} TLS`
             }).then(trx => {
                  console.log(trx);
                  this.saveOrder({ amount: this.buyRAM.kb * 1024, account: this.identity.accounts[0].name, type: 'buy', tx_id: trx.transaction_id, price: this.ramPrice });
@@ -313,7 +313,7 @@ export class RamPageComponent implements OnInit{
     }
         let amount = Number(`${this.donation}`).toFixed(4);
         let eos = this.WINDOW.scatter.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, "https");
-        eos.transfer(this.identity.accounts[0].name, 'eoswebnetbp1', `${amount} EOS`, 'Donation')
+        eos.transfer(this.identity.accounts[0].name, 'eoswebnetbp1', `${amount} TLS`, 'Donation')
            .then(result => {
                 console.log(result);
                 this.getAccount(this.identity.accounts[0].name);

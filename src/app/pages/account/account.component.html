@@ -122,7 +122,7 @@
 				</div>
 				<div class="col-sm-9 tokens-container">
 					<strong *ngFor="let token of tokensArray;" class="small-tokens"><small>{{ token?.amount }}</small> {{ token?.currency }} - 
-						<a [routerLink]="['/account', token?.issuer ]" class="color-green">{{ token?.issuer }}</a>
+						<a [routerLink]="['/account', token?.issuer ]" class="color-orange">{{ token?.issuer }}</a>
 					</strong>
 				</div>
 			</div>
@@ -240,7 +240,7 @@
 										 <strong>{{ moment(action?.block_time).format('MMMM Do YYYY, h:mm:ss a')  }}</strong>
 									</div>
 									<div class="actions-list text-center">
-										<div *ngIf="action?.action_trace?.act?.data?.to === mainData?.account_name" class="color-green">
+										<div *ngIf="action?.action_trace?.act?.data?.to === mainData?.account_name" class="color-orange">
 											<strong>In</strong>
 										</div>
 										<div *ngIf="action?.action_trace?.act?.data?.to !== mainData?.account_name" class="color-red">
@@ -248,12 +248,12 @@
 										</div>
 									</div>
 									<div class="actions-list">
-										<a [routerLink]="['/account', action?.action_trace?.act?.data?.from ]" class="color-green">
+										<a [routerLink]="['/account', action?.action_trace?.act?.data?.from ]" class="color-orange">
 											<strong>{{ action?.action_trace?.act?.data?.from }}</strong>
 										</a>
 									</div>
 									<div class="actions-list">
-										<a [routerLink]="['/account', action?.action_trace?.act?.data?.to ]" class="color-green">
+										<a [routerLink]="['/account', action?.action_trace?.act?.data?.to ]" class="color-orange">
 											<strong>{{ action?.action_trace?.act?.data?.to }}</strong>
 										</a>
 									</div>
@@ -265,7 +265,7 @@
 										<strong>{{ action?.action_trace?.act?.data?.quantity }}</strong>
 									</div>
 									<div class="actions-list">
-										<a [routerLink]="['/transaction', action?.action_trace?.trx_id]" class="color-green tx-hash">
+										<a [routerLink]="['/transaction', action?.action_trace?.trx_id]" class="color-orange tx-hash">
 											{{ action?.action_trace?.trx_id }}
 										</a>
 									</div>
@@ -328,7 +328,7 @@
 					    <ng-container matColumnDef="Address">
 					      <mat-header-cell *matHeaderCellDef class="account-address"> Account/Address</mat-header-cell>
 					      <mat-cell *matCellDef="let element" class="account-address"> 
-					          	<a [routerLink]="['/address', element?.required_auth?.keys[0]?.key || '' ]" class="color-green">
+					          	<a [routerLink]="['/address', element?.required_auth?.keys[0]?.key || '' ]" class="color-orange">
 					          		{{ element?.required_auth?.keys[0]?.key }}
 					          	</a>
 					      </mat-cell>
@@ -356,7 +356,7 @@
 
 				   <mat-tab label="Controlled Accounts ({{ controlledAccount?.controlled_accounts?.length }})">
 				  		  <div *ngFor="let acc of controlledAccount?.controlled_accounts;" class="controlled-acc">
-				  		  	<a [routerLink]="['/account', acc ]" class="color-green">
+				  		  	<a [routerLink]="['/account', acc ]" class="color-orange">
 					          		<strong>{{ acc }}</strong>
 					      	</a> 
 				  		  </div>

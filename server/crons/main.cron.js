@@ -38,7 +38,7 @@ module.exports = () => {
         if (config.TPS_ENABLE){
             startTPSdaemon();
         }
-        //startAccountsAnalytics();
+        startAccountsAnalytics();
 }
 
 function startTPSdaemon(){

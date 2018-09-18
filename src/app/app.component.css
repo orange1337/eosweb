@@ -1,14 +1,14 @@
 
 .main-navigation{
-	background-color: #111113;
-	color: #fff;
+	background-color: #F6F1E1;
+	color: black;
 	font-family: 'ClanProNews';
 	display: table;
 	width: 100%;
 	font-weight: 400;
 }
 .main-navigation a{
-	color: #fff;
+	color: black;
 	text-decoration: none;
 }
 .main-navigation ul li{
@@ -93,28 +93,31 @@
 .main-search{
     float: left;
     display: table;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: white;
     outline: none;
     margin: 14px 0px;
-    border-radius: 8px;
+    border-radius: 3px;
     padding: 9px 15px;
     border: none;
     color: #fff;
 }
 .main-search input{
-	background: #29292c;
+	background: white;
     padding: 3px 10px;
     width: 270px;
     margin-left: 10px;
     outline: none;
     border: 0;
     font-size: 12px;
-    border-left: 1px solid #4c4b4d;
+    border-left: 1px solid #bebdbe;
     color: #bebdbe;
     -webkit-transition: all .5s;
     -moz-transition: all .5s;
     transition: all .5s;
     -webkit-appearance: none;
+}
+.main-search .fa-search {
+	color: black;
 }
 .main-search::placeholder{
 	color: #fafafa;
@@ -137,7 +140,7 @@
     font-family: 'ClanProNews';
 }
 .main-navigation .mat-button:hover{
-	color: #6de29a;
+	color: #D9632C;
 }
 .main-nav-right{
 	margin-right: 30px !important; 
@@ -198,23 +201,27 @@ footer{
 	bottom: 0;
 	width: 100%;
 	display: table;
-	background-color: #141419;
+	background-color: #BBB7A5;
 }
 footer div{
 	color: #fff;
 	font-weight: 300;
 	margin-top: 15px;
 	font-size: 13px;
+	text-align: center;
+	width: auto;
+	padding: 0 25px;
 }
 footer ul {
 	margin-top: 2px;
+	padding: 0;
 }
 footer ul li{
 	color: #fff;
 	float: left;
 	list-style: none;
 	padding: 10px 15px;
-	font-size: 13px;
+	font-size: 16px;
 	font-weight: 300;
 }
 footer a{

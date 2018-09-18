@@ -22,6 +22,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { MainPageModule } from './pages/main_page/main_page.module';
 import { BlockPageModule } from './pages/block/block.module';
 import { TokensPageModule } from './pages/tokens/tokens.module';
+import { P2PageModule } from './pages/p2p/p2p.module';
 import { ProducersPageModule } from './pages/producers/producers.module';
 import { ProducerModule } from './pages/producer_page/producer_page.module';
 import { AnalyticsPageModule } from './pages/analytics/analytics.module';
@@ -36,7 +37,7 @@ import { MainTcustomizeModule } from './components/main_customize_charts/main_tc
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
-const socketConfig: SocketIoConfig = { url: '/', options: {
+const socketConfig: SocketIoConfig = { url: 'http://localhost:3039', options: {
     autoConnect: true,
     reconnection: true,
     reconnectionDelay: 1000,
@@ -72,6 +73,7 @@ const socketConfig: SocketIoConfig = { url: '/', options: {
     TransactionPageModule,
     WalletPageModule,
     VotePageModule,
+    P2PageModule,
     ProducersPageModule,
     ProducerModule,
     AnalyticsPageModule,

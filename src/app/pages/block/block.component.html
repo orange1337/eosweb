@@ -13,7 +13,7 @@
 					<strong class="block-info-header">Producer:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small><a [routerLink]="['/account', mainData?.producer ]" class="color-green">{{ mainData?.producer }}</a></small>
+					<small><a [routerLink]="['/account', mainData?.producer ]" class="color-orange">{{ mainData?.producer }}</a></small>
 				</div>
 			</div>
 
@@ -32,7 +32,7 @@
 				</div>
 				<div class="col-sm-9">
 					<small>
-						<a [routerLink]="['/block', mainData?.previous ]" class="color-green tx-mobile-hash">{{ mainData?.previous }}
+						<a [routerLink]="['/block', mainData?.previous ]" class="color-orange tx-mobile-hash">{{ mainData?.previous }}
 						</a>
 					</small>
 				</div>
@@ -119,7 +119,7 @@
 					    <ng-container matColumnDef="id" style="flex:2">
 					      <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
 					      <mat-cell *matCellDef="let element" class="marketcap-container">
-					          <a [routerLink]="['/transaction', element?.hash ]" class="color-green tx-hash">{{ element?.hash }}</a>
+					          <a [routerLink]="['/transaction', element?.hash ]" class="color-orange tx-hash">{{ element?.hash }}</a>
 					       </mat-cell>
 					    </ng-container>
 					    
