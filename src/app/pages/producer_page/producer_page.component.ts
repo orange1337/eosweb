@@ -20,9 +20,10 @@ export class ProducerComponent implements OnInit, OnDestroy{
   totalProducerVoteWeight;
   producer;
   producerId;
-  mainElement;
+  mainElement: any = {};
   bpData;
   rateProducersArr;
+  supply;
 
   options = {
     layers: [
@@ -40,13 +41,14 @@ export class ProducerComponent implements OnInit, OnDestroy{
       this.spinner = true;
   		let producers = this.http.get(`/api/custom/get_table_rows/eosio/eosio/producers/500`)
       let global     = this.http.get(`/api/v1/get_table_rows/eosio/eosio/global/1`);
+      let stat       = this.http.get(`/api/v1/get_table_rows/eosio.token/TLOS/stat/1`);
 
-      forkJoin([producers, global])
+      forkJoin([producers, global, stat])
   				 .subscribe(
                       (res: any) => {
                           this.totalProducerVoteWeight = res[1].rows[0].total_producer_vote_weight;
-                          this.mainElement = this.findProducer(this.MainService.countRate(this.MainService.sortArray(res[0].rows), this.totalProducerVoteWeight));
-                          console.log(this.mainElement)
+                          this.supply = Number(res[2].rows[0].supply.replace(/[^0-9.-]+/g,""));
+                          this.mainElement = this.findProducer(this.MainService.countRate(this.MainService.sortArray(res[0].rows), this.totalProducerVoteWeight, this.supply));
                           this.getBP(this.mainElement);
                           this.spinner = false;
                       },
@@ -93,6 +95,7 @@ export class ProducerComponent implements OnInit, OnDestroy{
   ngOnInit() {
      this.producer = this.route.params.subscribe(params => {
        this.producerId = params['id'];
+       console.log(this.producerId);
        this.getData();
     });
   }

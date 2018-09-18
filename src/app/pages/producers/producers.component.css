@@ -18,4 +18,8 @@ small {
 }
 .url-flex{
 	flex: 2;
+	overflow: hidden !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

@@ -14,7 +14,7 @@ import { MainService } from '../../services/mainapp.service';
 export class BlockPageComponent implements OnInit, OnDestroy{
   blockId;
   block;
-  mainData;
+  mainData: any = {};
   moment = moment;
   time;
   trxArr = [];

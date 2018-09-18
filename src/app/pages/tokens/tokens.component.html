@@ -34,7 +34,7 @@
 					    <ng-container matColumnDef="issuer">
 					      <mat-header-cell *matHeaderCellDef> Issuer </mat-header-cell>
 					      <mat-cell *matCellDef="let element; let i = index">
-					          <strong><a [routerLink]="['/account', element?.issuer]" class="color-green">{{ element?.issuer }}</a></strong>
+					          <strong><a [routerLink]="['/account', element?.issuer]" class="color-orange">{{ element?.issuer }}</a></strong>
 					      </mat-cell>
 					    </ng-container>
 					    
@@ -49,7 +49,7 @@
 					    <ng-container matColumnDef="url" style="flex:2">
 					      <mat-header-cell *matHeaderCellDef> Url </mat-header-cell>
 					      <mat-cell *matCellDef="let element" class="marketcap-container">
-					          <a [routerLink]="['/transaction', element?.hash ]" class="color-green tx-hash">{{ element?.hash }}</a>
+					          <a [routerLink]="['/transaction', element?.hash ]" class="color-orange tx-hash">{{ element?.hash }}</a>
 					       </mat-cell>
 					    </ng-container>
 					    

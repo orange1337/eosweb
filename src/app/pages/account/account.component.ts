@@ -59,7 +59,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   };
 
   getBalance(accountId){
-      this.http.get(`/api/v1/get_currency_balance/eosio.token/${accountId}/EOS`)
+      this.http.get(`/api/v1/get_currency_balance/eosio.token/${accountId}/TLOS`)
            .subscribe((res: any) => {
                           this.unstaked = (!res[0]) ? 0 : Number(res[0].split(' ')[0]); 
                           let staked = 0;
