@@ -15,7 +15,7 @@
     <ng-container matColumnDef="Number">
       <mat-header-cell *matHeaderCellDef> Number </mat-header-cell>
       <mat-cell *matCellDef="let element; let i = index">
-        <a [routerLink]="['/block', element?.block_num ]" class="color-green tx-hash">
+        <a [routerLink]="['/block', element?.block_num ]" class="color-orange tx-hash">
           <strong>{{ element?.block_num.toLocaleString() }}</strong>
         </a>
       </mat-cell>
@@ -33,7 +33,7 @@
     <ng-container matColumnDef="Producer">
       <mat-header-cell *matHeaderCellDef> Producer </mat-header-cell>
       <mat-cell *matCellDef="let element"> 
-          <a [routerLink]="['/producer', element?.producer]" class="color-green">
+          <a [routerLink]="['/producer', element?.producer]" class="color-orange">
               <strong>{{ element?.producer }}</strong>
           </a>
       </mat-cell>
@@ -64,7 +64,7 @@
       <ng-container matColumnDef="Number">
       <mat-header-cell *matHeaderCellDef style="flex: 0.9;"> Tx Hash </mat-header-cell>
       <mat-cell *matCellDef="let element; let i = index" style="flex: 0.9;">
-        <a [routerLink]="['/transaction', element?.block_num ]" class="color-green tx-hash">
+        <a [routerLink]="['/transaction', element?.block_num ]" class="color-orange tx-hash">
           <strong>{{ element?.block_num.toLocaleString() }}</strong>
         </a>
       </mat-cell>

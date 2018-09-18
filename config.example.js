@@ -8,7 +8,7 @@ let config = {};
 config.PROD = false;
 
 // mongo uri and options
-config.MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/EOSweb';
+config.MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/TLSweb';
 config.MONGO_OPTIONS = {
     socketTimeoutMS: 30000,
     keepAlive: true,
@@ -26,16 +26,16 @@ config.MARIA_DB = {
 };
 
 // cron processes (aggregation of main stat - actions, transactions, accounts, analytics)
-config.CRON = false;
-config.CRON_API = 'http://bp.cryptolions.io';
+config.CRON = true;
+config.CRON_API = 'http://18.223.130.112:8889';
 
 config.TPS_ENABLE = true;
 config.MAX_TPS_TIME_UPDATE = 5000;
 
 config.eosInfoConfigs = {
       mainNet: {
-        chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
-        httpEndpoint: "http://bp.cryptolions.io",
+        chainId: "ca03ab4a886a9b793da573a33cd21441ac6e8275d71c4a736f6989e5181168b0",
+        httpEndpoint: "http://18.223.130.112:8889",
         name: "Main Net",
         key: "mainNet"
       },
@@ -50,17 +50,17 @@ config.telegram = {
 
 // eosjs
 config.eosConfig = {
-  chainId: "038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca",
+  chainId: "ca03ab4a886a9b793da573a33cd21441ac6e8275d71c4a736f6989e5181168b0",
   keyProvider: "",
-  httpEndpoint: "http://bp.cryptolions.io",
+  httpEndpoint: "http://18.223.130.112:8889",
   expireInSeconds: 60,
   broadcast: true,
   debug: false,
-  sign: true,
-  logger: {
-    log: console.log,
-    error: console.error
-  }
+  // sign: true,
+  // logger: {
+  //   log: console.log,
+  //   error: console.error
+  // }
 };
 
 // scatter wallet

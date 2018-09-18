@@ -20,6 +20,7 @@ export class ProducersPageComponent implements OnInit{
   totalProducerVoteWeight;
   sortedArray;
   votesToRemove;
+  supply;
 
   constructor(private route: ActivatedRoute, protected http: HttpClient, private MainService: MainService){}
 
@@ -27,14 +28,17 @@ export class ProducersPageComponent implements OnInit{
       this.spinner   = true;
   		let producers  = this.http.get(`/api/custom/get_table_rows/eosio/eosio/producers/500`)
       let global     = this.http.get(`/api/v1/get_table_rows/eosio/eosio/global/1`);
+      let stat       = this.http.get(`/api/v1/get_table_rows/eosio.token/TLOS/stat/1`);
 
-      forkJoin([producers, global])
+      forkJoin([producers, global, stat])
   				 .subscribe(
                       (results: any) => {
                           this.mainData = results[0].rows;
                           this.totalProducerVoteWeight = results[1].rows[0].total_producer_vote_weight;
-                          let ELEMENT_DATA: Element[] = this.MainService.countRate(this.MainService.sortArray(this.mainData), this.totalProducerVoteWeight);
+                          this.supply = Number(results[2].rows[0].supply.replace(/[^0-9.-]+/g,""));
+                          let ELEMENT_DATA: Element[] = this.MainService.countRate(this.MainService.sortArray(this.mainData), this.totalProducerVoteWeight, this.supply);
                           this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+                          this.dataSource.filterPredicate = (data, filter) => data.owner.toLowerCase().indexOf(filter) > -1 || data.url.toLowerCase().indexOf(filter) > -1;
                           this.spinner = false;
                       },
                       (error) => {

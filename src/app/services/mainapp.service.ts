@@ -47,38 +47,30 @@ export class MainService {
       return result;
   }
 
-  countRate(data, totalProducerVoteWeight){
+  countRate(data, totalProducerVoteWeight, supply){
       if(!data){
         return;
       }
-      this.votesToRemove = data.reduce((acc, cur) => {
-            const percentageVotes = cur.all_votes / totalProducerVoteWeight * 100;
-            if (percentageVotes * 200 < 100) {
-              acc += parseFloat(cur.all_votes);
-            }
-            return acc;
-      }, 0);
+
       data.forEach((elem) => {
-        elem.rate    = (elem.all_votes / totalProducerVoteWeight * 100).toLocaleString();
-        elem.rewards = this.countRewards(elem.all_votes, elem.index, totalProducerVoteWeight);
+        elem.rate    = (elem.all_votes * 100 / totalProducerVoteWeight).toLocaleString();
+        elem.rewards = this.countRewards(elem.all_votes, elem.index, totalProducerVoteWeight, supply);
       });
       
       return data;
   }
 
-  countRewards(total_votes, index, totalProducerVoteWeight){
+  countRewards(total_votes, index, totalProducerVoteWeight, supply){
     let position = index;
-    let reward = 0;
-    let percentageVotesRewarded = total_votes / (totalProducerVoteWeight - this.votesToRemove) * 100;
-     
-     if (position < 22) {
-       reward += 318;
-     }
-     reward += percentageVotesRewarded * 200;
-     if (reward < 100) {
-       reward = 0;
-     }
-     return Math.floor(reward).toLocaleString();
+    let reward = (2.5/100 * supply * 1/364) * 40/100;
+      
+    if (position < 22) {
+      return Math.floor(reward).toLocaleString();
+    } else if(position > 21 && position < 52) {
+      return Math.floor(reward/2).toLocaleString();
+    } else {
+      return 0;
+    }
   }
 
   calculateEosFromVotes(votes){

@@ -9,11 +9,11 @@
 
 <div class="col-sm-4 filter-header">
   <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search by producer name">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search by producer name or by url">
   </mat-form-field> 
 </div>
 <!--<h3 class="producer-candidate pull-right"><small>our producer candidate: </small> 
-  <strong><a routerLink="/producer/eoswebnetbp1" class="color-green">eoswebnetbp1</a></strong>
+  <strong><a routerLink="/producer/eoswebnetbp1" class="color-orange">eoswebnetbp1</a></strong>
 </h3>-->
 
 <div class="example-container mat-elevation-z8 main-table">
@@ -31,7 +31,7 @@
     <ng-container matColumnDef="Name">
       <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
       <mat-cell *matCellDef="let element" class="marketcap-container">
-          <a [routerLink]="['/producer', element?.owner ]" class="color-green" id="{{element?.owner}}">
+          <a [routerLink]="['/producer', element?.owner ]" class="color-orange" id="{{element?.owner}}">
           	<strong>{{ element?.owner }}</strong>
           </a>
        </mat-cell>
@@ -40,13 +40,13 @@
     <ng-container matColumnDef="Status">
       <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
       <mat-cell *matCellDef="let element" class="marketcap-container">
-          <button mat-raised-button color="primary" class="status" *ngIf="element?.index <= 21">Top 21</button>
+          <button mat-raised-button color="primary" class="status" *ngIf="element?.index <= 21">Active</button>
           <button mat-raised-button color="warn" class="status" *ngIf="element?.index > 21">Standby</button>
        </mat-cell>
     </ng-container>
     
     <ng-container matColumnDef="Total Votes">
-      <mat-header-cell *matHeaderCellDef> Total Votes (EOS)</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Total Votes (TLS)</mat-header-cell>
       <mat-cell *matCellDef="let element"> 
              <strong> {{ element?.total_votes }}</strong>
       </mat-cell>
@@ -56,7 +56,7 @@
     <ng-container matColumnDef="Url">
       <mat-header-cell *matHeaderCellDef class="url-flex"> Url </mat-header-cell>
       <mat-cell *matCellDef="let element" class="color-light-grey url-flex"> 
-          <a href="{{element?.url}}" target="_blank" class="color-green">{{element?.url}}</a>
+          <a href="{{element?.url}}" target="_blank" [title]="element?.url" class="color-blue">{{element?.url}}</a>
       </mat-cell>
     </ng-container>
 
@@ -74,7 +74,7 @@
     <ng-container matColumnDef="Rewards">
       <mat-header-cell *matHeaderCellDef> Rewards Per Day</mat-header-cell>
       <mat-cell *matCellDef="let element" class="change-container"> 
-           <strong> {{ element?.rewards }} EOS</strong>
+        <strong> {{ element?.rewards }} TLS</strong>
       </mat-cell>
     </ng-container>
 

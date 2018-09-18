@@ -6,6 +6,8 @@
 	- node.js v.8^ https://nodejs.org/
 	- angular-cli 1.7.4 - npm install -g angular-cli@1.7.4
 	- mongodb 3.6^ https://www.mongodb.com/
+	- python 2.7
+	- mariadb
 
 ## docker-compose example
    `docker-compose.example.yml`

@@ -13,7 +13,7 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrls: ['./analytics.component.css']
 })
 export class AnalyticsPageComponent implements OnInit{
-  mainData;
+  mainData: any = {};
   spinner = false;
   displayedColumns = ['#', 'Name', 'Balance', 'Staked', 'Unstaked'];
   dataSource;
@@ -50,7 +50,9 @@ export class AnalyticsPageComponent implements OnInit{
   		this.http.get(`/api/v1/get_accounts_analytics/200`)
   				 .subscribe(
                       (res: any) => {
-                          this.mainData = res;
+                          this.mainData = res.filter( (elem) => {
+                            return elem.account_name !== undefined && Math.floor(elem.balance_eos) !== NaN;
+                          });
                           this.pieChart = this.createPieChart(this.mainData);
                           
                           let ELEMENT_DATA: Element[] = this.mainData;

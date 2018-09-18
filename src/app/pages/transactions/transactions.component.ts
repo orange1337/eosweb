@@ -15,7 +15,7 @@ import { MainService } from '../../services/mainapp.service';
 export class TransactionPageComponent implements OnInit, OnDestroy{
   transactionId;
   block;
-  mainData;
+  mainData: any = {};
   moment = moment;
   time;
   trxArr = [];
