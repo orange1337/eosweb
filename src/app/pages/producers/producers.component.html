@@ -45,14 +45,13 @@
        </mat-cell>
     </ng-container>
     
-    <ng-container matColumnDef="Total Votes">
+    <!-- <ng-container matColumnDef="Total Votes">
       <mat-header-cell *matHeaderCellDef> Total Votes (TLS)</mat-header-cell>
       <mat-cell *matCellDef="let element"> 
              <strong> {{ element?.total_votes }}</strong>
       </mat-cell>
-    </ng-container>
+    </ng-container> -->
 
-    <!-- Weight Column -->
     <ng-container matColumnDef="Url">
       <mat-header-cell *matHeaderCellDef class="url-flex"> Url </mat-header-cell>
       <mat-cell *matCellDef="let element" class="color-light-grey url-flex"> 
@@ -60,15 +59,11 @@
       </mat-cell>
     </ng-container>
 
-    
-    <!-- Name Column -->
-    
-        <!-- Name Column -->
-    <ng-container matColumnDef="Rate">
-      <mat-header-cell *matHeaderCellDef> Rate</mat-header-cell>
+    <ng-container matColumnDef="Votes">
+      <mat-header-cell *matHeaderCellDef> Votes </mat-header-cell>
       <mat-cell *matCellDef="let element" class="change-container"> 
-           <strong> {{ element?.rate }} %</strong>
-      </mat-cell>
+          <strong> {{ element?.votes }} %</strong>
+        </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="Rewards">

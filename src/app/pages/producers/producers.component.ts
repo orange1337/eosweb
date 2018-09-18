@@ -14,7 +14,7 @@ import { MainService } from '../../services/mainapp.service';
 export class ProducersPageComponent implements OnInit{
   mainData;
   spinner = false;
-  displayedColumns = ['#', 'Name', 'Status', 'Url', 'Total Votes', 'Rate', 'Rewards'];
+  displayedColumns = ['#', 'Name', 'Status', 'Url', 'Votes', 'Rewards'];
   dataSource;
   eosToInt = Math.pow(10, 13);
   totalProducerVoteWeight;
