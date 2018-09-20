@@ -74,9 +74,13 @@
 
     <div class="col-sm-12">
       <div class="pull-left container-tps">
-           <div class="color-grey-text pull-left tps-text">TRX/sec: </div>
+           <div class="color-grey-text pull-left tps-text">TPS: </div>
            <div class="pull-left color-green"> {{ TPSliveTx }} <small>live</small></div>
            <a class="pull-left color-green left-margin" href="/block/{{aggragationData?.max_tps_block}}">{{ aggragationData?.max_tps?.toLocaleString() }} <small>max</small></a>
+      </div>
+      <div class="pull-left container-tps users-oline">
+           <div class="color-grey-text pull-left tps-text"><small>users online:</small></div>
+           <div class="pull-left color-green"> {{ usersOnline }}</div>
       </div>
       <h3 class="producer-candidate pull-right"><small>vote for us: </small> 
           <strong><a routerLink="/vote" class="color-green">eoswebnetbp1</a></strong>

@@ -20,6 +20,7 @@ let timeToUpdateHistory = +new Date() + config.HISTORY_UPDATE;
 
 let SOCKET_ROOM = 'pool';
 let userCountHandler = 0;
+let SOCKET_HANGUP_TIME = +new Date();
 
 module.exports = function(io, eos, mongoMain){
 
@@ -35,6 +36,7 @@ module.exports = function(io, eos, mongoMain){
           log.info('====== No users online');
           return setTimeout(getDataSocket, updateTimeBlocks);;
       }
+      let timeRequestStart = +new Date(); 
       async.parallel({
         info: cb => {
           eos.getInfo({})
@@ -131,18 +133,31 @@ module.exports = function(io, eos, mongoMain){
             });
         },
       }, (err, result) => {
+          let date = +new Date();
           if (err){
              log.error(err);
-             logSlack(`socket error - ${err}`);
+             if (date < SOCKET_HANGUP_TIME){
+                logSlack(`socket error - ${err}`);
+              } else {
+                SOCKET_HANGUP_TIME = date + 60000;
+              }
           } else {
               io.to(SOCKET_ROOM).emit('get_info', result.info);
               io.to(SOCKET_ROOM).emit('get_last_blocks', result.blocks);
               io.to(SOCKET_ROOM).emit('get_aggregation', result.stat);
               io.to(SOCKET_ROOM).emit('get_ram', result.ram);
-              //io.to(SOCKET_ROOM).emit('users_online', userCountHandler);
-              console.log(`===== Users online: ${userCountHandler}`);
+              io.to(SOCKET_ROOM).emit('users_online', userCountHandler);
+              //console.log(`===== Users online: ${userCountHandler}`);
           }
-          setTimeout(getDataSocket, updateTimeBlocks);
+          let timeForRequest = date - timeRequestStart;
+          let sleep = 1000;
+          if (updateTimeBlocks - timeForRequest > 0){
+              sleep = updateTimeBlocks - timeForRequest;
+          } else {
+              sleep = 0;
+          }
+          //console.log("====== sleep", sleep);
+          setTimeout(getDataSocket, sleep);
       });
   }
 

@@ -257,9 +257,8 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	* params - account name
 	*/
 	router.get('/api/v1/get_code/:account', (req, res) => {
-	   	 eos.getCode({
-      			json: true,
-      			account_name: req.params.account,
+	   	 eos.getProducers({
+      			account_name: req.params.account
 			})
 	   	 	.then(result => {
 	   	 		res.json(result);
@@ -268,6 +267,17 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	   	 		log.error(err);
 	   	 		res.status(501).end();
 	   	 	});
+	});
+
+    /*
+	* router - get code
+	* params - account name
+	*/
+	router.get('/api/v1/get_raw_code_and_abi/:account', (req, res) => {
+			let data =  { 
+				account_name: req.params.account 
+			};
+	   	 	request.post({url: `${config.customChain}/v1/chain/get_raw_code_and_abi`, json: data }).pipe(res);
 	});
 
     /*

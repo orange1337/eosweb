@@ -34,6 +34,7 @@ export class MainCustomizeChartsComponent implements OnInit{
   ramPrice;
   //eos = this.MainService.getGlobalNetConfig();
   TPSliveTx = 0;
+  usersOnline = 0;
 
   constructor(private http: HttpClient, private socket: Socket, private MainService: MainService){}
 
@@ -135,6 +136,10 @@ export class MainCustomizeChartsComponent implements OnInit{
 
       this.socket.on('get_info', res => {
           this.blockchainData = res;
+      });
+
+      this.socket.on('users_online', res => {
+          this.usersOnline = res;
       });
 
       this.socket.on('get_last_blocks', res => {

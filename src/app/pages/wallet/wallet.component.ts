@@ -104,7 +104,7 @@ export class WalletPageComponent implements OnInit {
       this.spinner = true;
       this.http.get(`/api/v1/get_code/${name}`)
            .subscribe((res: any) => {
-                          console.log(res);
+                          //console.log(this.b64DecodeUnicode(res.abi));
                           if (res && res.abi && res.abi.structs){
                               this.contract = res.abi.structs;
                               this.contract.forEach(elem => {
@@ -117,6 +117,13 @@ export class WalletPageComponent implements OnInit {
                           console.error(error);
                           this.spinner = false;
                       });
+  }
+
+  b64DecodeUnicode(str) {
+    // Going backwards: from bytestream, to percent-encoding, to original string.
+    return decodeURIComponent(atob(str).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
   }
 
   selectContractMethod(method) {
