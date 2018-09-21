@@ -14,6 +14,7 @@ const customSlack   = require('../modules/slack.module');
 const logSlack      = customSlack.configure(config.loggerSlack.alerts);
 
 const updateTimeBlocks = config.blockUpdateTime;
+const updateTPS        = config.updateTPS;
 
 let timeToUpdate        = +new Date() + config.RAM_UPDATE;
 let timeToUpdateHistory = +new Date() + config.HISTORY_UPDATE;
@@ -176,7 +177,7 @@ module.exports = function(io, eos, mongoMain){
       customFunctions.getLastBlocks(eos, [1, 2], (err, result) => {
             if (err){
                 log.error(err);
-                return setTimeout(getTPS, updateTimeBlocks);
+                return setTimeout(getTPS, updateTPS);
             }
             
             io.to(SOCKET_ROOM).emit('get_tps_blocks', result);
@@ -185,8 +186,8 @@ module.exports = function(io, eos, mongoMain){
             let timeForRequest = date - timeRequestStart;
             let sleep = 1000;
 
-            if (updateTimeBlocks - timeForRequest > 0){
-                sleep = updateTimeBlocks - timeForRequest;
+            if (updateTPS - timeForRequest > 0){
+                sleep = updateTPS - timeForRequest;
             } else {
                 sleep = 0;
             }

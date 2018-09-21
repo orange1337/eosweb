@@ -80,6 +80,7 @@ config.MAX_BUFFER = 500000; // max buffer size for child processes (kb) - /crons
 config.blockUpdateTime = 900; // mainpage upades frequency  - /api/api.*.socket in ml sec
 config.offsetElementsOnMainpage = 10; // blocks on mainpage
 config.limitAsync = 30; // max threads for async.js module  
+config.updateTPS = 1000;
 
 // log4js
 config.logger = {
