@@ -35,6 +35,7 @@ export class MainCustomizeChartsComponent implements OnInit{
   //eos = this.MainService.getGlobalNetConfig();
   TPSliveTx = 0;
   usersOnline = 0;
+  timeForUpdate = 5000;
 
   constructor(private http: HttpClient, private socket: Socket, private MainService: MainService){}
 
@@ -44,9 +45,11 @@ export class MainCustomizeChartsComponent implements OnInit{
                       (res: any) => {
                            this.currencyObj = res;
                            this.MainService.setEosPrice(this.currencyObj);
+                           setTimeout(() => { this.getData() }, this.timeForUpdate);
                       },
                       (error) => {
-                          console.error(error);
+                           console.error(error);
+                           setTimeout(() => { this.getData() }, this.timeForUpdate);
                       });
   }
 
@@ -55,9 +58,11 @@ export class MainCustomizeChartsComponent implements OnInit{
                   .subscribe(
                       (res: any) => {
                            this.mainCurrencyChartDataRes = this.createChartArr(res.Data);
+                           setTimeout(() => { this.getChart() }, this.timeForUpdate);
                       },
                       (error) => {
-                          console.error(error);
+                           console.error(error);
+                           setTimeout(() => { this.getChart() }, this.timeForUpdate);
                       });
   }
 
