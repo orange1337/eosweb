@@ -207,6 +207,7 @@ export class RamPageComponent implements OnInit{
     if (!this.WINDOW.scatter){
         return this.notifications.error('Scatter error', 'Please install Scatter extension');
     }
+    localStorage.setItem("scatter", 'loggedIn');
     this.WINDOW.scatter.getIdentity({
        accounts: [this.eosNetwork]
     }).then(identity => {
@@ -224,6 +225,7 @@ export class RamPageComponent implements OnInit{
     if (!this.WINDOW.scatter){
         return this.notifications.error('Scatter error', 'Please install Scatter extension');
     }
+    localStorage.setItem("scatter", 'loggedOut');
     this.WINDOW.scatter.forgetIdentity().then(() => {
         location.reload();
         this.notifications.success('Logout success', '');
@@ -370,6 +372,10 @@ export class RamPageComponent implements OnInit{
            this.WINDOW.scatter.requireVersion(4.0);
            this.WINDOW.scatter.suggestNetwork(this.eosNetwork);
      });*/
+
+     if (localStorage.getItem("scatter") === 'loggedIn'){
+           setTimeout(() => { this.loginScatter() }, 1500);
+     }
 
       this.socket.on('get_ram', res => {
           this.countRamPrice(res);

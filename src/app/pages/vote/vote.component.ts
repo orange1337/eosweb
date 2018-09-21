@@ -239,6 +239,10 @@ export class VotePageComponent implements OnInit {
 
   ngOnInit() {
       this.getWalletAPI();
+
+      if (localStorage.getItem("scatter") === 'loggedIn'){
+          setTimeout(() => { this.loginScatter() }, 1500); 
+      }
   }
 }
 
