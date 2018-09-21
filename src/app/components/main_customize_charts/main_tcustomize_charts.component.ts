@@ -142,8 +142,8 @@ export class MainCustomizeChartsComponent implements OnInit{
           this.usersOnline = res;
       });
 
-      this.socket.on('get_last_blocks', res => {
-          this.TPSliveTx = this.countTPS(this.MainService.sortBlocks(res));
+      this.socket.on('get_tps_blocks', res => {
+          this.TPSliveTx = this.countTPS(res);
       });
 
       this.socket.on('get_aggregation', res => {

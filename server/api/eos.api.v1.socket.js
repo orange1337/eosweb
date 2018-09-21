@@ -171,6 +171,35 @@ module.exports = function(io, eos, mongoMain){
     });
   });
 
-  getDataSocket(); 
+  function getTPS(){
+      let timeRequestStart = +new Date(); 
+      customFunctions.getLastBlocks(eos, [1, 2], (err, result) => {
+            if (err){
+                log.error(err);
+                return setTimeout(getTPS, updateTimeBlocks);
+            }
+            
+            io.to(SOCKET_ROOM).emit('get_tps_blocks', result);
 
+            let date = +new Date();
+            let timeForRequest = date - timeRequestStart;
+            let sleep = 1000;
+
+            if (updateTimeBlocks - timeForRequest > 0){
+                sleep = updateTimeBlocks - timeForRequest;
+            } else {
+                sleep = 0;
+            }
+            setTimeout(getTPS, sleep);
+      });
+  }
+
+
+  getDataSocket();
+  getTPS();
+
+  // === end function export 
 }
+
+
+
