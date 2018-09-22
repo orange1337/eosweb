@@ -257,16 +257,10 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	* params - account name
 	*/
 	router.get('/api/v1/get_code/:account', (req, res) => {
-	   	 eos.getProducers({
-      			account_name: req.params.account
-			})
-	   	 	.then(result => {
-	   	 		res.json(result);
-	   	 	})
-	   	 	.catch(err => {
-	   	 		log.error(err);
-	   	 		res.status(501).end();
-	   	 	});
+	   	 	let data =  { 
+				account_name: req.params.account 
+			};
+	   	 	request.post({url: `${config.customChain}/v1/chain/get_abi`, json: data }).pipe(res);
 	});
 
     /*
