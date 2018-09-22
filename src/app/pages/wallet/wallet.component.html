@@ -64,6 +64,10 @@
       			  </div>
    			</div>
 
+        <div class="col-sm-12 acc-list no-padding" *ngIf="identity">
+            <button mat-raised-button class="btn-generate" color="primary" (click)="logoutScatter()">Logout</button>
+        </div>
+
 			</div>
 
 			<div class="col-sm-8">

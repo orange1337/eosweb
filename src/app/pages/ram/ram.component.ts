@@ -374,7 +374,7 @@ export class RamPageComponent implements OnInit{
      });*/
 
      if (localStorage.getItem("scatter") === 'loggedIn'){
-           setTimeout(() => { this.loginScatter() }, 1500);
+           setTimeout(() => { this.loginScatter() }, 1000);
      }
 
       this.socket.on('get_ram', res => {

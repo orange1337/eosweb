@@ -172,6 +172,7 @@ export class VotePageComponent implements OnInit {
     if (!this.WINDOW.scatter){
         return this.notifications.error('Scatter error', 'Please install Scatter extension');
     }
+    localStorage.setItem('scatter', 'loggedOut');
     this.WINDOW.scatter.forgetIdentity().then(() => {
         location.reload();
         this.notifications.success('Logout success', '');
@@ -241,7 +242,7 @@ export class VotePageComponent implements OnInit {
       this.getWalletAPI();
 
       if (localStorage.getItem("scatter") === 'loggedIn'){
-          setTimeout(() => { this.loginScatter() }, 1500); 
+          setTimeout(() => { this.loginScatter() }, 1000); 
       }
   }
 }

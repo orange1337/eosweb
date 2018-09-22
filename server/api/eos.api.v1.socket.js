@@ -137,10 +137,9 @@ module.exports = function(io, eos, mongoMain){
           let date = +new Date();
           if (err){
              log.error(err);
-             if (date < SOCKET_HANGUP_TIME){
-                logSlack(`socket error - ${err}`);
-              } else {
-                SOCKET_HANGUP_TIME = date + 60000;
+             if (date > SOCKET_HANGUP_TIME){
+                 logSlack(`socket error - ${err}`);
+                 SOCKET_HANGUP_TIME = date + 60000;
               }
           } else {
               io.to(SOCKET_ROOM).emit('get_info', result.info);

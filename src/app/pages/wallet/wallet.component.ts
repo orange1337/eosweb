@@ -149,6 +149,19 @@ export class WalletPageComponent implements OnInit {
     });
   }
 
+  logoutScatter(){
+    if (!this.WINDOW.scatter){
+        return this.notifications.error('Scatter error', 'Please install Scatter extension');
+    }
+    localStorage.setItem('scatter', 'loggedOut');
+    this.WINDOW.scatter.forgetIdentity().then(() => {
+        location.reload();
+        this.notifications.success('Logout success', '');
+    }).catch(err => {
+        console.error(err);
+    });
+  }
+
   generateTransaction(){
     if(!this.identity){
         return this.notifications.error('Identity error!!!', '');
@@ -255,6 +268,11 @@ export class WalletPageComponent implements OnInit {
 
   ngOnInit() {
       this.getWalletAPI();
+
+      if (localStorage.getItem("scatter") === 'loggedIn'){
+          setTimeout(() => { this.loginScatter() }, 1000); 
+      }
+
   }
 }
 
