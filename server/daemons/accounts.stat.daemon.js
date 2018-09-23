@@ -56,10 +56,10 @@ function getAccountAggregation (){
 		(stat, cb) => {
 			eos.getInfo({})
 			   	.then(result => { 
-			   		if (!result.head_block_num){
+			   		if (!result.last_irreversible_block_num){
 			   			return cb('Cant get info from blockchain getAccountAggregation!');
 			   		}
-			   		let elements = Array.from({length: result.head_block_num - stat.cursor_accounts}, (v, k) => stat.cursor_accounts++);
+			   		let elements = Array.from({length: result.last_irreversible_block_num - stat.cursor_accounts}, (v, k) => stat.cursor_accounts++);
 			   		cb(null, stat, result, elements);
 			   	})
 			   	.catch(err => {

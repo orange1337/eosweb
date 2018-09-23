@@ -61,11 +61,11 @@ function getMaxTps(){
 		(stat, cb) => {
 			eos.getInfo({})
 			   	.then(result => { 
-			   		if (!result.head_block_num){
+			   		if (!result.last_irreversible_block_num){
 			   			return cb('Cant get info from blockchain getStatAggregation!');
 			   		}
 			   		let start = stat.cursor_max_tps;
-			   		let elements = Array.from({length: result.head_block_num - start}, (v, k) => start = start + 1);
+			   		let elements = Array.from({length: result.last_irreversible_block_num - start}, (v, k) => start = start + 1);
 			   		cb(null, stat, result, elements);
 			   	})
 			   	.catch(err => {
