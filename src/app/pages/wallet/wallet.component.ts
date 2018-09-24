@@ -267,12 +267,17 @@ export class WalletPageComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.getWalletAPI();
+     this.getWalletAPI();
 
-      if (localStorage.getItem("scatter") === 'loggedIn'){
-          setTimeout(() => { this.loginScatter() }, 1000); 
-      }
-
+     if (localStorage.getItem("scatter") === 'loggedIn'){
+           if (!this.WINDOW.scatter){
+                document.addEventListener('scatterLoaded', () => {
+                      this.loginScatter();
+                });
+           } else {
+             this.loginScatter();
+           }
+     }
   }
 }
 

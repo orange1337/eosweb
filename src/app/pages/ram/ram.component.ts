@@ -374,12 +374,18 @@ export class RamPageComponent implements OnInit{
      });*/
 
      if (localStorage.getItem("scatter") === 'loggedIn'){
-           setTimeout(() => { this.loginScatter() }, 1000);
+           if (!this.WINDOW.scatter){
+                document.addEventListener('scatterLoaded', () => {
+                      this.loginScatter();
+                });
+           } else {
+             this.loginScatter();
+           }
      }
 
-      this.socket.on('get_ram', res => {
+     this.socket.on('get_ram', res => {
           this.countRamPrice(res);
-      });
+     });
   }
 }
 
