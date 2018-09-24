@@ -176,15 +176,21 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	* params - offset
 	*/
 	router.post('/api/v1/get_chart_ram', (req, res) => {
-		let query = (req.body.from === 'All') ? {} : { date : { $gte: new Date(req.body.from) } };
-	   	 RAM.find(query)
+		let dateFrom = +new Date(req.body.from);
+		let daysMax = +new Date() - 31 * 7 * 24 * 3600000;
+		let date;
+		if (daysMax < dateFrom){
+			date = daysMax;
+		}
+		date = dateFrom;
+	   	RAM.find({ date : { $gte: new Date(date) } })
 	   	 		.exec((err, result) => {
 	   	 		if (err){
 	   	 			log.error(err);
 	   	 			return res.status(500).end();
 	   	 		}
 	   	 		res.json(result);
-	   	 });
+	   	});
 	});
 
 	/*
