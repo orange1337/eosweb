@@ -156,6 +156,7 @@ export class VotePageComponent implements OnInit {
     if (!this.WINDOW.scatter){
         console.error('Please install scatter wallet !');
     }
+    localStorage.setItem("scatter", 'loggedIn');
     this.WINDOW.scatter.getIdentity({
        accounts: [this.eosNetwork]
     }).then(identity => {
