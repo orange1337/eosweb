@@ -46,7 +46,7 @@ export class VotePageComponent implements OnInit {
   vote = {
     voter: '',
     proxy: '',
-    producers: ['cryptolions1']
+    producers: ['eoswebnetbp1', 'cryptolions1']
   };
   contract;
   contractName = 'eosio';

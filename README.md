@@ -1,4 +1,4 @@
-# EOSweb.net - vote for our friends [cryptolions1](https://eosweb.net/vote)
+# EOSweb.net - vote for us [https://eosweb.net/vote](https://eosweb.net/vote)
 
 [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
 
