@@ -19,3 +19,12 @@ small {
 .url-flex{
 	flex: 2;
 }
+.branding-logo{
+	border-radius: 50%;
+	margin-right: 15px;
+	float: left;
+}
+.name-img{
+	display: table;
+	margin-top: 8px;
+}

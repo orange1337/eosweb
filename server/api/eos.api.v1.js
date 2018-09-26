@@ -12,7 +12,8 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	const STATS_ACCOUNT = require('../models/api.accounts.model')(mongoMain);
 	const RAM 			= require('../models/ram.price.model')(mongoMain);
 	const RAM_ORDERS 	= require('../models/ram.orders.model')(mongoMain);
-	const TRX_ACTIONS = require('../models/trx.actions.history.model')(mongoMain);
+	const TRX_ACTIONS 	= require('../models/trx.actions.history.model')(mongoMain);
+	const PRODUCERS 	= require('../models/producers.model')(mongoMain);
 
     //============ HISTORY API
     /*
@@ -84,6 +85,16 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 		res.json({ host: config.walletAPI.host, port: config.walletAPI.port, protocol: config.walletAPI.protocol });
 	});
 	
+
+	router.get('/api/v1/get_producers_bp_json', (req, res) => {
+		PRODUCERS.find({}, (err, result) => {
+			if (err){
+				log.error(err);
+				return res.status(501).end();
+			}
+			res.json(result);
+		});
+	});
 
 	/*
 	* router - ram_order
