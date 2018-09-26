@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
@@ -21,6 +21,8 @@ export class ProducersPageComponent implements OnInit{
   sortedArray;
   votesToRemove;
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   constructor(private route: ActivatedRoute, protected http: HttpClient, private MainService: MainService){}
 
   getBlockData(){
@@ -36,6 +38,7 @@ export class ProducersPageComponent implements OnInit{
                           this.totalProducerVoteWeight = results[1].rows[0].total_producer_vote_weight;
                           let ELEMENT_DATA: Element[] = this.joinOtherProducerInfo(this.MainService.countRate(this.MainService.sortArray(this.mainData), this.totalProducerVoteWeight), results[2]);
                           this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+                          this.dataSource.paginator = this.paginator;
                           this.spinner = false;
                       },
                       (error) => {
@@ -52,7 +55,7 @@ export class ProducersPageComponent implements OnInit{
       }  
       joinArr.forEach(elem => {
            joinObj[elem.name] = {
-              location: elem.location,
+              location: (elem.location.length === 2) ? elem.location : "",
               image: elem.image
            };
       });

@@ -33,6 +33,7 @@ let imports = [
   ],
   imports:  imports,
   providers: [MainService],
+  exports: [ProducersPageComponent],
   bootstrap: [ ProducersPageComponent ]
 })
 export class ProducersPageModule {}

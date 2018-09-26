@@ -32,6 +32,7 @@ body{
 	height: auto;
 	padding-bottom: 200px;
 	-webkit-font-smoothing: antialiased;
+	background: #f8f8f8;
 }
 a{
 	cursor: pointer;
@@ -127,7 +128,7 @@ a{
     height: 100%;
     display: block;
     position: absolute;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(248, 248, 248, 0.8);
     z-index: 1000;
 }
 .spinner-container .mat-spinner{
@@ -389,7 +390,7 @@ small{
 }
 .main-spinner{
 	width: 100%;
-	background-color: rgba(255, 255, 255, 0.8);
+	background-color: rgba(248, 248, 248, 0.8);
 	height: 100% !important;
 	position: absolute;
 	top: 0%;
@@ -536,6 +537,18 @@ action-viewer{
     background: linear-gradient(to right,#3fa3eb,#3568e4);
     background: -webkit-gradient(linear,left top,right top,from(#3fa3eb),to(#3568e4));
 }
+
+.main-page-table-producers .container,
+.main-page-table-producers .col-md-12{
+	padding-left: 0;
+}
+
+
+
+
+
+
+
 
 @media only screen and (max-width: 1280px) {
 	.container{

@@ -37,7 +37,7 @@ export class MainTableComponent implements OnInit{
   moment = moment;
   trxObj = {};
   spinner = false;
-  offsetPageElems = 10;
+  offsetPageElems = 6;
 
   /*@ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;*/
@@ -48,7 +48,7 @@ export class MainTableComponent implements OnInit{
 
   getData() {
       this.spinner = true;
-        this.http.get('/api/v1/get_last_blocks/10')
+        this.http.get('/api/v1/get_last_blocks/6')
                   .subscribe(
                       (res: any) => {
                           this.mainData = res;

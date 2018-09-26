@@ -18,6 +18,8 @@ import { ActionsViewerModule } from '../actions_view/action_viewer.module';
 
 import { MainService } from '../../services/mainapp.service';
 
+import { ProducersPageModule } from '../../pages/producers/producers.module';
+
 let imports = [
     MatAutocompleteModule,
     MatButtonModule,
@@ -30,7 +32,8 @@ let imports = [
     MatTableModule,
     CommonModule,
     appRoutes,
-    ActionsViewerModule ];
+    ActionsViewerModule,
+    ProducersPageModule ];
 
 @NgModule({
   declarations: [
