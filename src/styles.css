@@ -54,6 +54,10 @@ a{
 	background: linear-gradient(to right,#ff9048,#f44336);
 	background: -webkit-gradient(linear,left top,right top,from(#ff9048),to(#f44336)); 
 }
+.mat-fab.mat-accent, .mat-mini-fab.mat-accent, .mat-raised-button.mat-accent{
+	background: linear-gradient(to right,#ff9389,#ff8ea4);
+	background: -webkit-gradient(linear,left top,right top,from(#ff9389),to(#ff8ea4)); 
+}
 .text-right{
 	text-align: right;
 }
