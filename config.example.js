@@ -73,6 +73,10 @@ config.walletAPI = {
 // api url for producers list
 config.customChain = 'https://nodes.get-scatter.com';
 
+// api url for history
+config.historyNewAPI = false;
+config.historyChain = 'https://eos.greymass.com';
+
 config.apiV = 'v1'; // api version
 config.RAM_UPDATE = 5 * 60 * 1000; // time for ram update - /api/api.*.socket
 config.HISTORY_UPDATE = 5 * 60 * 1000; // time for stats update - /api/api.*.socket 

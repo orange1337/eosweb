@@ -17,9 +17,12 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	const PRODUCERS 	= require('../models/producers.model')(mongoMain);
 
     //============ HISTORY API
-    /*
-	* router - search global aggregation
-	*/
+
+	/**
+	 * POST - /api/v1/search
+	 * @body {string} text - search input text.
+	 */
+
 	router.post('/api/v1/search', (req, res) => {
 		let text = req.body.text;
 		if (!text){
@@ -358,7 +361,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	* params - account_name, position, offset
 	*/
 	router.get('/api/v1/get_actions/:account_name/:position/:offset', (req, res) => {
-	   	 eos.getActions({ 
+	   	 /*eos.getActions({ 
 	   	 		account_name: req.params.account_name,
 	   	 		pos: req.params.position,
 	   	 		offset: req.params.offset
@@ -369,7 +372,13 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	   	 	.catch(err => {
 	   	 		log.error(err);
 	   	 		res.status(501).end();
-	   	 	});
+	   	 	});*/
+	   	let formData = { json: true,
+			    account_name: req.params.account_name,
+	   	 		pos: req.params.position,
+	   	 		offset: (config.historyNewAPI) ? Math.abs(req.params.offset) : req.params.offset 
+		};
+	   	request.post({url:`${config.historyChain}/v1/history/get_actions`, json: formData}).pipe(res);
 	});
 
 	/*
@@ -377,14 +386,15 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	* params - transaction_id_type
 	*/
 	router.get('/api/v1/get_transaction/:transaction_id_type', (req, res) => {
-	   	 eos.getTransaction({ id: req.params.transaction_id_type })
+	   	 /*eos.getTransaction({ id: req.params.transaction_id_type })
 	   	 	.then(result => {
 	   	 		res.json(result);
 	   	 	})
 	   	 	.catch(err => {
 	   	 		log.error(err);
 	   	 		res.status(501).end();
-	   	 	});
+	   	 	});*/
+	   	request.post({url:`${config.historyChain}/v1/history/get_transaction`, json:  { id: req.params.transaction_id_type } }).pipe(res);
 	});
 
 	/*
@@ -392,22 +402,13 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	* params - transaction_id_type
 	*/
 	router.get('/api/v1/get_transactions', (req, res) => {
-	   	 eos.getTransaction({})
+	   	 eos.getTransactions({})
 	   	 	.then(result => {
 	   	 		res.json(result);
 	   	 	})
 	   	 	.catch(err => {
 	   	 		log.error(err);
 	   	 		res.status(501).end();
-	   	 	});
-
-	   	 	eos.getAccount({account_name: "eosio"})
-	   	 	.then(result => {
-	   	 		log.info(result);
-	   	 	})
-	   	 	.catch(err => {
-	   	 		log.error(err);
-	   	 		//res.status(501).end();
 	   	 	});
 	});
 
