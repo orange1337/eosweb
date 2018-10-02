@@ -74,7 +74,6 @@ config.walletAPI = {
 config.customChain = 'https://nodes.get-scatter.com';
 
 // api url for history
-config.historyNewAPI = false;
 config.historyChain = 'https://eos.greymass.com';
 
 config.apiV = 'v1'; // api version

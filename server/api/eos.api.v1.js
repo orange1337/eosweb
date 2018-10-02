@@ -361,18 +361,6 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	* params - account_name, position, offset
 	*/
 	router.get('/api/v1/get_actions/:account_name/:position/:offset', (req, res) => {
-	   	 /*eos.getActions({ 
-	   	 		account_name: req.params.account_name,
-	   	 		pos: req.params.position,
-	   	 		offset: req.params.offset
-	   	 	})
-	   	 	.then(result => {
-	   	 		res.json(result);
-	   	 	})
-	   	 	.catch(err => {
-	   	 		log.error(err);
-	   	 		res.status(501).end();
-	   	 	});*/
 	   	let formData = { json: true,
 			    account_name: req.params.account_name,
 	   	 		pos: req.params.position,
@@ -385,16 +373,9 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	* router - get_transaction
 	* params - transaction_id_type
 	*/
-	router.get('/api/v1/get_transaction/:transaction_id_type', (req, res) => {
-	   	 /*eos.getTransaction({ id: req.params.transaction_id_type })
-	   	 	.then(result => {
-	   	 		res.json(result);
-	   	 	})
-	   	 	.catch(err => {
-	   	 		log.error(err);
-	   	 		res.status(501).end();
-	   	 	});*/
-	   	request.post({url:`${config.historyChain}/v1/history/get_transaction`, json:  { id: req.params.transaction_id_type } }).pipe(res);
+	router.get('/api/v1/get_transaction/:trx_id', (req, res) => {
+		let data = { id: req.params.trx_id };
+	   	request.post({url:`${config.historyChain}/v1/history/get_transaction`, json: data }).pipe(res);
 	});
 
 	/*
