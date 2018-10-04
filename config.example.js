@@ -48,11 +48,14 @@ config.telegram = {
   TIME_UPDATE: 5000
 };
 
+// reserve nodes
+config.endpoints = ['https://eos.greymass.com', 'http://bp.cryptolions.io', 'http://eosbp-0.atticlab.net'];
+
 // eosjs
 config.eosConfig = {
   chainId: "038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca",
   keyProvider: "",
-  httpEndpoint: "http://bp.cryptolions.io",
+  httpEndpoint: config.endpoints[0],
   expireInSeconds: 60,
   broadcast: true,
   debug: false,

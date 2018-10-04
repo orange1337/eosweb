@@ -10,7 +10,7 @@ const async  = require('async');
 const TelegramBot = require('node-telegram-bot-api');
 const bot         = new TelegramBot(config.telegram.TOKEN, { polling: true });
 
-module.exports = function(eos, mongoMain){
+module.exports = function(mongoMain){
 
 	const TELEGRAM_USERS = require('../models/telegram.ram.model')(mongoMain);
 	
@@ -106,7 +106,7 @@ module.exports = function(eos, mongoMain){
 			if (!msg && !msg.chat && !msg.chat.id){
 				return log.error('Wrong chat id 5', msg);
 			}
-			eos.getTableRows({
+			global.eos.getTableRows({
 	               json: true,
 	               code: "eosio",
 	               scope: "eosio",
@@ -145,7 +145,7 @@ module.exports = function(eos, mongoMain){
 
 	function getRamPrice(){
 		setTimeout(() => {
-			eos.getTableRows({
+			global.eos.getTableRows({
 	               json: true,
 	               code: "eosio",
 	               scope: "eosio",

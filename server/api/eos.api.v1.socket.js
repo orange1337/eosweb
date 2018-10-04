@@ -5,6 +5,7 @@
 const config          = require('../../config.js');
 const async           = require('async');
 const customFunctions = require('./eos.api.v1.custom');
+const EOS             = require('eosjs');
 
 const log4js = require('log4js');
 log4js.configure(config.logger);
@@ -22,8 +23,9 @@ let timeToUpdateHistory = +new Date() + config.HISTORY_UPDATE;
 let SOCKET_ROOM = 'pool';
 let userCountHandler = 0;
 let SOCKET_HANGUP_TIME = +new Date();
+let changeAPI = 0;
 
-module.exports = function(io, eos, mongoMain){
+module.exports = function(io, mongoMain){
 
   const STATS_AGGR  = require('../models/api.stats.model')(mongoMain);
   const RAM         = require('../models/ram.price.model')(mongoMain);
@@ -40,7 +42,7 @@ module.exports = function(io, eos, mongoMain){
       let timeRequestStart = +new Date(); 
       async.parallel({
         info: cb => {
-          eos.getInfo({})
+          global.eos.getInfo({})
              .then(stat => {
                 cb(null, stat);
              })
@@ -50,7 +52,7 @@ module.exports = function(io, eos, mongoMain){
              });
         },
         blocks: cb => {
-          customFunctions.getLastBlocks(eos, blocks, (err, result) => {
+          customFunctions.getLastBlocks(global.eos, blocks, (err, result) => {
                       if (err){
                           log.error(err);
                           return cb('No result');
@@ -68,7 +70,7 @@ module.exports = function(io, eos, mongoMain){
           });
         },
         ram: cb => {
-              eos.getTableRows({
+              global.eos.getTableRows({
                   json: true,
                   code: "eosio",
                   scope: "eosio",
@@ -136,9 +138,14 @@ module.exports = function(io, eos, mongoMain){
       }, (err, result) => {
           let date = +new Date();
           if (err){
-             log.error(err);
+             console.error('========= ', err);
+             // change nodeos API 
              if (date > SOCKET_HANGUP_TIME){
-                 logSlack(`socket error - ${err}`);
+                 changeAPI += 1;
+                 changeAPI = (config.endpoints.length === changeAPI) ? 0 : changeAPI; 
+                 config.eosConfig.httpEndpoint = config.endpoints[changeAPI];
+                 global.eos = EOS(config.eosConfig);
+                 logSlack(`Change API to [${config.eosConfig.httpEndpoint}], socket error - ${err}`);
                  SOCKET_HANGUP_TIME = date + 60000;
               }
           } else {
@@ -175,7 +182,7 @@ module.exports = function(io, eos, mongoMain){
       let timeRequestStart = +new Date(); 
       customFunctions.getLastBlocks(eos, [1, 2], (err, result) => {
             if (err){
-                log.error(err);
+                console.error(err);
                 return setTimeout(getTPS, updateTPS);
             }
             

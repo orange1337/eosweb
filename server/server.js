@@ -19,7 +19,7 @@ const mongoose      = require("mongoose");
 mongoose.set('useCreateIndex', true);
 
 const EOS           = require('eosjs');
-const eos           = EOS(config.eosConfig);
+global.eos          = EOS(config.eosConfig);
 
 const log4js        = require('log4js');
 log4js.configure(config.logger);
@@ -70,13 +70,13 @@ server.on('listening', onListening);
 
 //========= socket io connection
 const io  = require('socket.io').listen(server);
-require(`./api/eos.api.${config.apiV}.socket`)(io, eos, mongoMain);
+require(`./api/eos.api.${config.apiV}.socket`)(io, mongoMain);
 
 if (config.CRON){
     require('./crons/main.cron')();
 }
 if (config.telegram.ON){
-    require('./daemons/ram.bot.daemon')(eos, mongoMain);
+    require('./daemons/ram.bot.daemon')(mongoMain);
 }
 if (config.MARIA_DB_ENABLE){
     const MARIA = new mariaDB(config.MARIA_DB);
@@ -93,7 +93,7 @@ app.use(function(req,res,next){
 app.use(express.static(path.join(__dirname, '../dist')));
 
 require('./router/main.router')(app, config, request, log);
-require(`./api/eos.api.${config.apiV}`)(app, config, request, log, eos, mongoMain);
+require(`./api/eos.api.${config.apiV}`)(app, config, request, log, mongoMain);
 
 /*app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../dist/index.html'));
@@ -111,7 +111,7 @@ app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-  log.error('=====Page not Found ', err);
+  console.error('===== Page not Found ', err);
   // render the error page
   res.status(err.status || 500).redirect('/notfound');
 });

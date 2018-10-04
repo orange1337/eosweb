@@ -6,8 +6,7 @@ const async = require('async');
 const path = require('path');
 const customFunctions = require('./eos.api.v1.custom');
 
-
-module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) {
+module.exports 	= function(router, config, request, log, mongoMain, MARIA) {
 
 	const STATS_AGGR 	= require('../models/api.stats.model')(mongoMain);
 	const STATS_ACCOUNT = require('../models/api.accounts.model')(mongoMain);
@@ -31,7 +30,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 
 		async.parallel({
 			block: (cb) =>{
-        		eos.getBlock({ block_num_or_id: text })
+        		global.eos.getBlock({ block_num_or_id: text })
 	   			 	.then(result => {
 	   			 		cb(null, result);
 	   			 	})
@@ -41,7 +40,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	   			 	});
 			},
 			transaction: (cb) =>{
-				eos.getTransaction({ id: text })
+				global.eos.getTransaction({ id: text })
 	   			 	.then(result => {
 	   			 		cb(null, result);
 	   			 	})
@@ -50,7 +49,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	   			 	});
 			},
 			account: (cb) =>{
-				eos.getAccount({ account_name: text })
+				global.eos.getAccount({ account_name: text })
 	   			 	.then(result => {
 	   			 		cb(null, result);
 	   			 	})
@@ -59,7 +58,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	   			 	});
 			},
 			key: (cb) => {
-				eos.getKeyAccounts({ public_key: text })
+				global.eos.getKeyAccounts({ public_key: text })
 	   	 			.then(result => {
 	   	 				cb(null, result);
 	   	 			})
@@ -68,7 +67,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	   	 			});
 			},
 			contract: (cb) =>{
-				eos.getCode({ json: true, account_name: text })
+				global.eos.getCode({ json: true, account_name: text })
 	   	 			.then(result => {
 	   	 				cb(null, result)
 	   	 			})
@@ -213,7 +212,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	* params - block_num_or_id
 	*/
 	router.get('/api/v1/get_block/:block_num_or_id', (req, res) => {
-	   	 eos.getBlock({ block_num_or_id: req.params.block_num_or_id })
+	   	 global.eos.getBlock({ block_num_or_id: req.params.block_num_or_id })
 	   	 	.then(result => {
 	   	 		res.json(result);
 	   	 	})
@@ -259,7 +258,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	* router - get blocks producers
 	*/
 	router.get('/api/v1/get_producers/:offset', (req, res) => {
-	   	 eos.getProducers({
+	   	 global.eos.getProducers({
       			json: true,
       			lower_bound: "string",
       			limit: req.params.offset
@@ -299,7 +298,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	* router - get currency balance
 	*/
 	router.get('/api/v1/get_currency_balance/:code/:account/:symbol', (req, res) => {
-	   	 eos.getCurrencyBalance({
+	   	 global.eos.getCurrencyBalance({
       			code: req.params.code,
       			account: req.params.account,
       			symbol: req.params.symbol
@@ -317,7 +316,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	* router - get_table_rows
 	*/
 	router.get('/api/v1/get_table_rows/:code/:scope/:table/:limit', (req, res) => {
-	   	 eos.getTableRows({
+	   	 global.eos.getTableRows({
 			      json: true,
 			      code: req.params.code,
 			      scope: req.params.scope,
@@ -383,7 +382,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	* params - transaction_id_type
 	*/
 	router.get('/api/v1/get_transactions', (req, res) => {
-	   	 eos.getTransactions({})
+	   	 global.eos.getTransactions({})
 	   	 	.then(result => {
 	   	 		res.json(result);
 	   	 	})
@@ -397,7 +396,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	* router - get_info
 	*/
 	router.get('/api/v1/get_info', (req, res) => {
-	   	 eos.getInfo({})
+	   	 global.eos.getInfo({})
 	   	 	.then(result => {
 	   	 		res.json(result);
 	   	 	})
@@ -415,7 +414,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	* params - code: 'name', symbol: 'string'
 	*/
 	router.get('/api/v1/get_currency_stats/:code/:symbol', (req, res) => {
-	   	 eos.getCurrencyStats({
+	   	 global.eos.getCurrencyStats({
 	   	 		code: req.params.code,
 	   	 		symbol: req.params.symbol
 	   	 	})
@@ -435,7 +434,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	* params - name
 	*/
 	router.get('/api/v1/get_account/:name', (req, res) => {
-	   	 eos.getAccount({
+	   	 global.eos.getAccount({
 	   	 		account_name: req.params.name
 	   	 	})
 	   	 	.then(result => {
@@ -452,7 +451,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	* params - name
 	*/
 	router.get('/api/v1/get_key_accounts/:key', (req, res) => {
-	   	 eos.getKeyAccounts({
+	   	 global.eos.getKeyAccounts({
 	   	 		public_key: req.params.key
 	   	 	})
 	   	 	.then(result => {
@@ -469,7 +468,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	* params - name
 	*/
 	router.get('/api/v1/get_controlled_accounts/:acccount', (req, res) => {
-	   	 eos.getControlledAccounts({
+	   	 global.eos.getControlledAccounts({
 	   	 		controlling_account: req.params.acccount
 	   	 	})
 	   	 	.then(result => {
@@ -488,7 +487,7 @@ module.exports 	= function(router, config, request, log, eos, mongoMain, MARIA) 
 	* params - name
 	*/
 	router.get('/api/v1/get_currency_stats/:code/:symbol', (req, res) => {
-	   	 eos.getAccount({
+	   	 global.eos.getAccount({
 	   	 		code: req.params.code,
 	   	 		//symbol: req.params.symbol
 	   	 	})
