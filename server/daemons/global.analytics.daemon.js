@@ -84,7 +84,7 @@ function getStatAggregation (){
 			   		})
 			   		.catch(err => {
 			   			log.error('getStatAggregation getBlock error - ', err);
-			   			ret();
+			   			//ret();
 			   		});
 			   	}, (error) => {
 			   		if (error){

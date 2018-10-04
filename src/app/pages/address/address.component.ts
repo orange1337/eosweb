@@ -26,10 +26,7 @@ export class AddressPageComponent implements OnInit, OnDestroy{
       this.spinner = true;
   		this.http.get(`/api/v1/get_key_accounts/${address}`)
   				 .subscribe((res: any) => {
-                          this.mainData = res;
-                          //let ELEMENT_DATA: Element[] = this.mainData.permissions;
-                          //this.dataSourcePermission = new MatTableDataSource<Element>(ELEMENT_DATA);
-
+                          this.mainData = (res && typeof !res.account_names) ? this.createArrayAccounts(res): res;
                           this.spinner = false;
                       },
                       (error) => {
@@ -37,6 +34,18 @@ export class AddressPageComponent implements OnInit, OnDestroy{
                           this.spinner = false;
                       });
   };
+
+  createArrayAccounts(data){
+      let result = {
+        account_names: []
+      };
+      data.forEach(elem => {
+          if (elem.permission === "active"){
+             result.account_names.push(elem.account); 
+          }  
+      });
+      return result;
+  }
 
 
   ngOnInit() {

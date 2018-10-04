@@ -377,6 +377,24 @@ module.exports 	= function(router, config, request, log, mongoMain, MARIA) {
 	   	request.post({url:`${config.historyChain}/v1/history/get_transaction`, json: data }).pipe(res);
 	});
 
+    /*
+	* router - get_account
+	* params - name
+	*/
+	router.get('/api/v1/get_key_accounts/:key', (req, res) => {
+	   	let data = { public_key: req.params.key };
+	   	request.post({url:`${config.historyChain}/v1/history/get_key_accounts`, json: data }).pipe(res);
+	});
+
+	/*
+	* router - get_account_controlled
+	* params - name
+	*/
+	router.get('/api/v1/get_controlled_accounts/:acccount', (req, res) => {
+	   	let data = { controlling_account: req.params.acccount };
+	   	request.post({url:`${config.historyChain}/v1/history/get_controlled_accounts`, json: data }).pipe(res);
+	});
+
 	/*
 	* router - get_transactions
 	* params - transaction_id_type
@@ -446,39 +464,6 @@ module.exports 	= function(router, config, request, log, mongoMain, MARIA) {
 	   	 	});
 	});
 
-	/*
-	* router - get_account
-	* params - name
-	*/
-	router.get('/api/v1/get_key_accounts/:key', (req, res) => {
-	   	 global.eos.getKeyAccounts({
-	   	 		public_key: req.params.key
-	   	 	})
-	   	 	.then(result => {
-	   	 		res.json(result);
-	   	 	})
-	   	 	.catch(err => {
-	   	 		log.error(err);
-	   	 		res.status(501).end();
-	   	 	});
-	});
-
-	/*
-	* router - get_account_controlled
-	* params - name
-	*/
-	router.get('/api/v1/get_controlled_accounts/:acccount', (req, res) => {
-	   	 global.eos.getControlledAccounts({
-	   	 		controlling_account: req.params.acccount
-	   	 	})
-	   	 	.then(result => {
-	   	 		res.json(result);
-	   	 	})
-	   	 	.catch(err => {
-	   	 		log.error(err);
-	   	 		res.status(501).end();
-	   	 	});
-	});
 	//============ END of Account API
 
 	//============ Prod API

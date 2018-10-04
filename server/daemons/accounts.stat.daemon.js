@@ -83,7 +83,7 @@ function getAccountAggregation (){
 			   		})
 			   		.catch(err => {
 			   			log.error('getStatAggregation getBlock elem error - ', err);
-			   			ret();
+			   			//ret();
 			   		});
 			   	}, (error) => {
 			   		if (error){

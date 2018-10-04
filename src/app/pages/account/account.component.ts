@@ -152,11 +152,23 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   getControlledAccounts(account){
         this.http.get(`/api/v1/get_controlled_accounts/${account}`)
               .subscribe((res: any) => {
-                              this.controlledAccount = res;
+                              this.controlledAccount = (res && !res.controlled_accounts) ? this.createArrayAccounts(res) : res;
                           },
                           (error) => {
                               console.error(error);
                           });
+  }
+
+  createArrayAccounts(data){
+      let result = {
+        controlled_accounts: []
+      };
+      data.forEach(elem => {
+          if (elem.controlled_permission === "active"){
+             result.controlled_accounts.push(elem.controlled_account); 
+          }  
+      });
+      return result;
   }
 
   getAllTokens(account){
