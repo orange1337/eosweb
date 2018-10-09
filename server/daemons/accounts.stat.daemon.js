@@ -1,6 +1,7 @@
 // Accounts analytics for airdrops (public info)
 const async			= require('async');
-const mongoose      = require("mongoose");
+const mongoose      = require('mongoose');
+const request 		= require('request');
 const config      	= require('../../config');
 
 const EOS     		= require('eosjs');
@@ -34,7 +35,7 @@ process.on('uncaughtException', (err) => {
     process.exit(1);
 });
 
-function getAccountAggregation (){
+function getAccountAggregation(){
 	async.waterfall([
 		(cb) => {
 			SETTINGS.findOne({}, (err, result) => {
@@ -54,48 +55,7 @@ function getAccountAggregation (){
 			});
 		},
 		(stat, cb) => {
-			eos.getInfo({})
-			   	.then(result => { 
-			   		if (!result.last_irreversible_block_num){
-			   			return cb('Cant get info from blockchain getAccountAggregation!');
-			   		}
-			   		let elements = Array.from({length: result.last_irreversible_block_num - stat.cursor_accounts}, (v, k) => stat.cursor_accounts++);
-			   		cb(null, stat, result, elements);
-			   	})
-			   	.catch(err => {
-			   		cb(err);
-			   	});
-		},
-		(stat, result, elements, cb) => {
-			async.eachLimit(elements, config.limitAsync, (elem, ret) => {
-			   	eos.getBlock({ block_num_or_id: elem })
-			   		.then(block => {
-			   			if (block.transactions && block.transactions.length > 0){
-			   				transactionsAggregate(block.transactions, stat, () => {
-			   					stat.cursor_accounts = block.block_num;
-			   					log.info(`======== SAVED accoounts, block ${block.block_num}`);
-			   					ret();
-			   				});
-			   			} else {
-			   				stat.cursor_accounts = block.block_num;
-			   				ret();
-			   			}
-			   		})
-			   		.catch(err => {
-			   			log.error('getStatAggregation getBlock elem error - ', err);
-			   			ret();
-			   		});
-			   	}, (error) => {
-			   		if (error){
-			   			return cb(error)
-			   		}
-			   		stat.save((err) => {
-			   				if (err){
-			   					return cb(err);
-			   				}
-			   				cb(null, stat);
-			   		});
-			   	});
+			getAccounts(stat, cb);
 		},
 		(stat, cb) => {
 			STATS_ACCOUNT.distinct("account_name").count( (err, result) => {
@@ -119,49 +79,70 @@ function getAccountAggregation (){
 		log.info('===== end accounts aggr stat ', stat);
 		process.exit(0);
 	});
-};
+}
 
 
-function transactionsAggregate (trx, stat, callback){
-	async.each(trx, (elem, cbTx) => {
-		if (!elem.trx || !elem.trx.transaction || !elem.trx.transaction.actions){
-			//log.error('elem.trx.transaction.actions - error', elem); actions array - empty
-			return cbTx();
+function getAccounts(stat, cb){
+	let limit = 1000;
+	let skip = stat.cursor_accounts;
+	request.get(`${config.historyChain}/v1/history/get_accounts?counter=on&skip=${skip}&limit=${limit}`, (error, response, body) => {
+			if (error){
+				return cb(error);
+			}
+			if (!body){
+				return cb(body);
+			}
+			let data = JSON.parse(body);
+			if (stat.cursor_accounts > data.allEosAccounts){
+				stat.cursor_accounts -= limit;
+				return cb(null, stat);
+			}
+			saveAccounts(data, (err, result) => {
+					if (err){
+						return cb(err);
+					}
+					skip += limit;
+					stat.cursor_accounts = skip;
+					console.log('===== skip', skip, 'cursor_accounts', stat.cursor_accounts);
+					getAccounts(stat, cb);
+			});
+	});
+}
+
+function saveAccounts (action, callback){
+		if (!action || !action.accounts || !action.accounts.length){
+			return callback('Wrong data accounts action!!');
 		}
-	   	async.each(elem.trx.transaction.actions, (action, cbAction) => {
-	   		STATS_ACCOUNT.find({ account_name: action.data.name }, (err, result) => {
+		console.log('accounts length', action.accounts.length);
+	   	async.each(action.accounts, (action, cb) => {
+	   		STATS_ACCOUNT.find({ account_name: action.name }, (err, result) => {
 	   			if (err){
 	   				log.error(err);
-	   				return cbAction();
+	   				return cb();
 	   			}
 	   			if (result && result.length){
-	   				return cbAction();
+	   				return cb();
 	   			}
 	   			let stat_acc = new STATS_ACCOUNT({
-	   					account_name: action.data.name
+	   					account_name: action.name
 	   			});
 	   			stat_acc.save((err) => {
 	   				if (err){
 	   					log.error(err);
 	   				}
-	   				cbAction();
+	   				cb();
 	   			})
 	   		});
 	   	}, (err) => {
 	   		if (err){
 	   			log.error(err);	
 	   		}
-	   		cbTx();
+	   		callback(null);
 	   	});
-	}, (error) => {
-		if (error){
-			log.error(error);
-		}
-		callback();
-	});
 }
 
 getAccountAggregation();
+
 
 
 
