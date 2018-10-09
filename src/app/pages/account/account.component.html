@@ -116,13 +116,13 @@
 				</div>
 			</div>
 
-			<div class="col-sm-12 block-info-line" *ngIf="tokensArray?.length">
+			<div class="col-sm-12 block-info-line" *ngIf="tokensArray?.balances?.length">
 				<div class="col-sm-3">
 					<strong class="block-info-header">Tokens:</strong>
 				</div>
 				<div class="col-sm-9 tokens-container">
-					<strong *ngFor="let token of tokensArray;" class="small-tokens"><small>{{ token?.amount }}</small> {{ token?.currency }} - 
-						<a [routerLink]="['/account', token?.issuer ]" class="color-green">{{ token?.issuer }}</a>
+					<strong *ngFor="let token of tokensArray?.balances;" class="small-tokens"><small>{{ token?.amount }}</small> {{ token?.currency }} - 
+						<a [routerLink]="['/account', token?.issuer ]" class="color-green">{{ token?.contract }}</a>
 					</strong>
 				</div>
 			</div>

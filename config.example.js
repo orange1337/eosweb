@@ -16,15 +16,6 @@ config.MONGO_OPTIONS = {
     useNewUrlParser: true
 };
 
-// connection to Mariadb (Tokens list for account)
-config.MARIA_DB_ENABLE = false;
-config.MARIA_DB = {
-    host: '',
-    user: '',
-    password: '',
-    db: '' 
-};
-
 // cron processes (aggregation of main stat - actions, transactions, accounts, analytics)
 config.CRON = false;
 config.CRON_API = 'http://bp.cryptolions.io';
@@ -78,6 +69,9 @@ config.customChain = 'https://nodes.get-scatter.com';
 
 // api url for history
 config.historyChain = 'https://eos.greymass.com';
+
+// tokens api
+config.tokensAPI = 'http://tokenapi.eoswatch.info/api/account/b1';
 
 config.apiV = 'v1'; // api version
 config.RAM_UPDATE = 5 * 60 * 1000; // time for ram update - /api/api.*.socket

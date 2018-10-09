@@ -13,7 +13,6 @@ const request       = require('request');
 const async			    = require('async');
 
 const config        = require('../config');
-const mariaDB       = require('mariasql');
 
 const mongoose      = require("mongoose");
 mongoose.set('useCreateIndex', true);
@@ -77,10 +76,6 @@ if (config.CRON){
 }
 if (config.telegram.ON){
     require('./daemons/ram.bot.daemon')(mongoMain);
-}
-if (config.MARIA_DB_ENABLE){
-    const MARIA = new mariaDB(config.MARIA_DB);
-    require(`./api/eos.api.${config.apiV}.tokens`)(app, log, MARIA);
 }
 
 app.use(function(req,res,next){
