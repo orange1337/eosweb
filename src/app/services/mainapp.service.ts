@@ -21,6 +21,8 @@ export class MainService {
       error: console.error
     }*/
   };
+  ungerKey = "EOS1111111111111111111111111111111114T1Anm";
+
 
   constructor() {}
 
@@ -35,14 +37,18 @@ export class MainService {
       if(!data){
         return;
       }
-      let result = data.sort((a, b) => {
+      let result = [];
+      data.sort((a, b) => {
           return b.total_votes - a.total_votes;
       }).map((elem, index) => {
+          if (elem.producer_key === this.ungerKey){
+              return;
+          }
           let eos_votes = Math.floor(this.calculateEosFromVotes(elem.total_votes));
           elem.all_votes = elem.total_votes;
           elem.total_votes = Number(eos_votes).toLocaleString();
-          elem.index = index + 1;
-          return elem;
+          
+          result.push(elem);
       });
       return result;
   }
@@ -58,7 +64,8 @@ export class MainService {
             }
             return acc;
       }, 0);
-      data.forEach((elem) => {
+      data.forEach((elem, index) => {
+        elem.index   = index + 1;
         elem.rate    = (elem.all_votes / totalProducerVoteWeight * 100).toLocaleString();
         elem.rewards = this.countRewards(elem.all_votes, elem.index, totalProducerVoteWeight);
       });
