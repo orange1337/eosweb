@@ -28,4 +28,4 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-If you have any question, please welcome to our group [EOSweb Dev Chat](https://t.me/joinchat/GaeLD04sprvXIzSBW2cmWg)
+If you have any question, please welcome to our group [EOSweb Dev Chat](https://t.me/eoswebdevchat)
