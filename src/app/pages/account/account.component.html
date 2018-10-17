@@ -7,15 +7,6 @@
 	<h1 class="market-header">Account: {{ mainData?.account_name }}</h1>
 
 	<div class="block-info">
-
-			<div class="col-sm-12 block-info-line">
-				<div class="col-sm-3">
-					<strong class="block-info-header">Privileged:</strong>
-				</div>
-				<div class="col-sm-9">
-					<small>{{ mainData?.privileged }}</small>
-				</div>
-			</div>
 			
 			<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
@@ -55,24 +46,6 @@
 					<span class="account-info"> Time: <small>{{ moment(mainData?.refund_request?.request_time).format('lll') }}</small></span>
 				</div>
 			</div>
-
-			<!--<div class="col-sm-12 block-info-line">
-				<div class="col-sm-3">
-					<strong class="block-info-header">Token Balance:</strong>
-				</div>
-				<div class="col-sm-9">
-					<small><strong>{{ balance.toLocaleString() }} EOS</strong></small>
-				</div>
-			</div>-->
-
-			<!--<div class="col-sm-12 block-info-line">
-				<div class="col-sm-3">
-					<strong class="block-info-header">Key:</strong>
-				</div>
-				<div class="col-sm-9">
-					<small class="color-grey">{{ mainData?.permissions[0]?.required_auth?.keys[0]?.key  }}</small>
-				</div>
-			</div>-->
 
 			<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
@@ -121,9 +94,12 @@
 					<strong class="block-info-header">Tokens:</strong>
 				</div>
 				<div class="col-sm-9 tokens-container">
-					<strong *ngFor="let token of tokensArray?.balances;" class="small-tokens"><small>{{ token?.amount }}</small> {{ token?.currency }} - 
-						<a [routerLink]="['/account', token?.issuer ]" class="color-green">{{ token?.contract }}</a>
-					</strong>
+					<span *ngFor="let token of tokensArray?.balances">
+						<strong *ngIf="token?.currency !== 'EOS'" class="small-tokens">
+							<small >{{ token?.amount }}</small> {{ token?.currency }} - 
+							<a [routerLink]="['/account', token?.contract ]" class="color-green">{{ token?.contract }}</a>
+						</strong>
+					</span>
 				</div>
 			</div>
 
@@ -159,10 +135,21 @@
 					<span class="account-info"> Owner: <small>{{ mainData?.voter_info?.owner }}</small></span>
 				</div>
 			</div>
+			
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">Created by:</strong>
+				</div>
+				<div class="col-sm-9">
+					<a routerLink="/account/{{creator?.act?.data?.creator}}" class="color-green">
+						{{creator?.act?.data?.creator}}
+				    </a>
+				</div>
+			</div>
 
 			<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
-					<strong class="block-info-header">Created:</strong>
+					<strong class="block-info-header">Created time:</strong>
 				</div>
 				<div class="col-sm-9">
 					<small class="color-grey">{{ time }}</small>

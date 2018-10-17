@@ -26,12 +26,17 @@ export class ProducersPageComponent implements OnInit{
   firstLoad = true;
   globalTableData;
   producer;
+  filterVal = '';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private route: ActivatedRoute, protected http: HttpClient, private MainService: MainService, private socket: Socket){}
 
   getBlockData(){
+      if (this.filterVal.length > 0){
+          setTimeout(() => { this.getBlockData() }, this.timeToUpdate);
+          return console.log('filter val');
+      }
       this.spinner   = (this.firstLoad) ? true : false;
   		let producers  = this.http.get(`/api/custom/get_table_rows/eosio/eosio/producers/500`);
       let global     = this.http.get(`/api/v1/get_table_rows/eosio/eosio/global/1`);
@@ -79,6 +84,7 @@ export class ProducersPageComponent implements OnInit{
 
 
   applyFilter(filterValue: string) {
+    this.filterVal = filterValue;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 

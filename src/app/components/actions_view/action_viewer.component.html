@@ -55,7 +55,7 @@
 	</div>
 </div>
 
-<div class="main-container-actions" *ngIf="data?.name === 'delegatebw'">
+<div class="main-container-actions" *ngIf="data?.name === 'delegatebw' && dataObj?.from">
 	<div class="actions-list-view">
 		<strong><a [routerLink]="['/account', dataObj?.from ]" class="color-green pull-left">
 			{{ dataObj?.from }}
@@ -72,6 +72,17 @@
 	</div>
 	<div class="actions-list-view">
 		<span class="resources">cpu: </span> <strong> {{ dataObj?.stake_cpu_quantity }} </strong>
+	</div>
+</div>
+
+<div class="main-container-actions" *ngIf="data?.name === 'delegatebw' && dataObj?.to">
+	<div class="actions-list-view">
+		<strong><a [routerLink]="['/account', dataObj?.to ]" class="color-green pull-left">
+			{{ dataObj?.to }}
+		</a></strong>
+	</div>
+	<div class="actions-list-view">
+		<span class="resources">quantity: </span><strong> {{ dataObj?.quantity }} </strong>
 	</div>
 </div>
 
@@ -108,20 +119,6 @@
 		</a></strong>
 	</div>
 </div>
-
-<!--<div class="main-container-actions" *ngIf="data?.name === 'bidname'">
-	<div class="actions-list-view">
-		<strong><a [routerLink]="['/account', dataObj?.bidder ]" class="color-green pull-left">
-			{{ dataObj?.bidder }}
-		</a></strong>
-		<i class="fas fa-long-arrow-right"></i>
-	</div>
-	<div class="actions-list-view">
-		<strong><a [routerLink]="['/account', dataObj?.name ]" class="color-green">
-			{{ dataObj?.name }}
-		</a></strong>
-	</div>
-</div>-->
 
 <div class="main-container-actions" *ngIf="data?.name === 'buyrambytes'">
 	<div class="actions-list-view">
