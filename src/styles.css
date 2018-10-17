@@ -505,8 +505,17 @@ action-viewer{
 	padding-left: 20px;
 	font-size: 14px;
 }
+.account-action-name{
+	flex: 2 !important;
+}
+.number-flex{
+	flex: 0.5 !important;
+}
+.actions-name-account{
+	margin-left: 40px;
+}
 .actions-list-container{
-	width: 600px;
+	width: 450px;
 	flex: 5 !important;
 }
 .fa-long-arrow-right {
@@ -546,7 +555,9 @@ action-viewer{
 .main-page-table-producers .col-md-12{
 	padding-left: 0;
 }
-
+.load-more{
+	margin: 10px auto;
+}
 
 
 

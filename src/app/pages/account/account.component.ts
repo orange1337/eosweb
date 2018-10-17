@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -18,11 +18,12 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   moment = moment;
   time;
   spinner = false;
+  spinnerActions = false;
   balance = 0;
   unstaked;
   actions;
   dataSource;
-  displayedColumns = ['actions'];
+  displayedColumns = [ '#', 'tx', 'date', 'name', 'data'];
   code;
   tables = [];
   eosRate;
@@ -31,6 +32,11 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   dataSourcePermission;
   controlledAccount;
   tokensArray;
+  actionsTotal = 0;
+  position = 1;
+  pageIndex = 0;
+  actionsArray = [];
+  elementsLimit = 100;
 
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient, 
@@ -44,7 +50,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
                           this.mainData = res;
                           this.getBalance(accountId);
                           this.time = this.moment(this.mainData.created).format('MMMM Do YYYY, h:mm:ss a');
-                          this.getActions(this.mainData.account_name);
+                          this.getActions(this.mainData.account_name, this.position);
                           this.getCode(this.mainData.account_name);
 
                           let ELEMENT_DATA: Element[] = res.permissions;
@@ -74,24 +80,37 @@ export class AccountPageComponent implements OnInit, OnDestroy{
                       });
   }
 
-  getActions(accountName){
-      this.http.get(`/api/v1/get_actions/${accountName}/-1/-100`)
+  getActions(accountName, pos){
+      this.spinnerActions = true;
+      this.http.get(`/api/v1/get_actions/${accountName}/-${pos}/-${this.elementsLimit}`)
            .subscribe((res: any) => {
                           res.actions = this.sortArrayFunctions(res.actions);
-
                           if(res.actions[0] && !res.actions[0].action_trace){
                             res.actions = this.createActionsArr(res.actions);
+                            this.actionsTotal = res.actionsTotal;
                           } else {
                             res.actions.reverse();
                           }
+                          Array.prototype.push.apply(this.actionsArray, res.actions);
 
-                          this.actions = res;
-                          let ELEMENT_DATA: Element[] = [res];
+                          this.actions = this.actionsArray;
+                          let ELEMENT_DATA: Element[] = this.actionsArray;
                           this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+
+                          this.spinnerActions = false;
                       },
                       (error) => {
+                          this.spinnerActions = false;
                           console.error(error);
                       });
+  }
+  nextPage(pageIndex){
+    if (this.actionsTotal < this.position * this.elementsLimit){
+        return;
+    }
+    this.position += pageIndex;
+    this.getActions(this.mainData.account_name, this.position);
+    
   }
 
   getCode(accountName){
@@ -126,15 +145,15 @@ export class AccountPageComponent implements OnInit, OnDestroy{
        if (!data){
            return [];
        }
-       let block_nums = [];
+       let block_time = [];
        let result = [];
        data.forEach(elem => {
-           if (block_nums.indexOf(elem.block_num) === -1){
+           if (block_time.indexOf(elem.block_time) === -1){
                result.push(elem);
-               block_nums.push(elem.block_num);
+               block_time.push(elem.block_time);
            }
        });
-       block_nums = [];
+       block_time = [];
        return result;
   }
 
@@ -194,6 +213,10 @@ export class AccountPageComponent implements OnInit, OnDestroy{
          json: json
       }
     });
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 

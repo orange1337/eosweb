@@ -32,8 +32,8 @@ export class ActionsViewerComponent implements OnInit {
     }
 
     ngOnInit(){
-      this.dataString = JSON.stringify(this.data.data);
-      this.dataObj = this.data.data;
+      this.dataString = (this.data) ? JSON.stringify(this.data.data) : '';
+      this.dataObj = (this.data) ? this.data.data : '';
     }
 }
 
