@@ -23,6 +23,7 @@ export class ProducerComponent implements OnInit, OnDestroy{
   mainElement;
   bpData;
   rateProducersArr;
+  voters;
 
   options = {
     layers: [
@@ -90,16 +91,46 @@ export class ProducerComponent implements OnInit, OnDestroy{
                 });
   }
 
+  getLastVotes(accountName){
+     this.http.get(`/api/v1/get_voters/${accountName}?limit=20`)
+           .subscribe((res: any) => {
+                          this.voters = res;
+                          if (!res.voters){
+                             return;
+                          }
+                          res.voters.forEach(elem => {
+                              this.getStakeBalances(elem);
+                          });
+                      },
+                      (error) => {
+                          console.error(error);
+                      });
+  }
+
+  getStakeBalances(elem){
+    if(elem.act && elem.act.data && elem.act.data.voter){
+      this.http.get(`/api/v1/get_account/${elem.act.data.voter}`)
+           .subscribe((res: any) => {
+                           if (res && res.voter_info && res.voter_info.staked){
+                                elem.stake = res.voter_info.staked / 10000;
+                           }
+                      },
+                      (error) => {
+                          console.error(error);
+                      });
+    }
+  }
+
   ngOnInit() {
      this.producer = this.route.params.subscribe(params => {
        this.producerId = params['id'];
        this.getData();
+       this.getLastVotes(this.producerId);
     });
   }
 
   ngOnDestroy() {
     this.producer.unsubscribe(); 
-    //this.subscription.unsubscribe();
   }
 }
 

@@ -381,12 +381,25 @@ module.exports 	= function(router, config, request, log, mongoMain, MARIA) {
 		let queryString = '?';
 		let	accountName = req.params.account_name;
 	   	let skip = (req.query.skip) ? queryString += `skip=${req.query.skip}` : queryString;
-	   	let	limit = (req.query.limit) ? queryString += `&imit=${req.query.limit}` : queryString;
+	   	let	limit = (req.query.limit) ? queryString += `&limit=${req.query.limit}` : queryString;
 	   	let	sort = (req.query.sort) ? queryString += `&sort=${req.query.sort}` : queryString;
 	   	let	actionName = req.params.action_name;
 	   	request.get(`${config.historyChain}/v1/history/get_actions/${accountName}/${actionName}${queryString}`).pipe(res);
 	});
 
+	/*
+	* router - get_voters by action name
+	* params - account_name, position, offset
+	*/
+	router.get('/api/v1/get_voters/:account_name', (req, res) => {
+		let queryString = '?';
+		let	accountName = req.params.account_name;
+	   	let skip = (req.query.skip) ? queryString += `skip=${req.query.skip}` : queryString;
+	   	let	limit = (req.query.limit) ? queryString += `&limit=${req.query.limit}` : queryString;
+	   	let	sort = (req.query.sort) ? queryString += `&sort=${req.query.sort}` : queryString;
+	   	request.get(`${config.historyChain}/v1/history/get_voters/${accountName}${queryString}`).pipe(res);
+	});
+	
 	/*
 	* router - get_transaction
 	* params - transaction_id_type

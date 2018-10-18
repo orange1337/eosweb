@@ -23,7 +23,16 @@
           <strong class="block-info-header">Votes:</strong>
         </div>
         <div class="col-sm-9">
-          <strong>{{ mainElement?.rate?.toLocaleString() }} % <small>/ {{ mainElement?.total_votes?.toLocaleString() }}</small></strong>
+          <strong>{{ mainElement?.rate?.toLocaleString() }} % <small>/ {{ mainElement?.total_votes?.toLocaleString() }} EOS</small></strong>
+        </div>
+      </div>
+
+      <div class="col-sm-12 block-info-line">
+        <div class="col-sm-3">
+          <strong class="block-info-header">All voters:</strong>
+        </div>
+        <div class="col-sm-9">
+          <strong>{{ voters?.votesCounter?.toLocaleString() }}</strong>
         </div>
       </div>
 
@@ -45,16 +54,6 @@
         </div>
       </div>
 
-
-      <div class="col-sm-12 block-info-line">
-        <div class="col-sm-3">
-          <strong class="block-info-header">Public Key:</strong>
-        </div>
-        <div class="col-sm-9">
-          <small class="tx-mobile-hash"> <a [routerLink]="['/address', mainElement?.producer_key]" class="color-green"> {{ mainElement?.producer_key }} </a> </small>
-        </div>
-      </div>
-
       <div class="col-sm-12 block-info-line">
         <div class="col-sm-3">
           <strong class="block-info-header">Location:</strong>
@@ -63,15 +62,6 @@
           <small> {{ bpData?.org?.location?.country }}, {{ bpData?.org?.location?.name }} </small>
         </div>
       </div>
-
-      <!--<div class="col-sm-12 block-info-line">
-        <div class="col-sm-3">
-          <strong class="block-info-header">Url:</strong>
-        </div>
-        <div class="col-sm-9">
-          <small><a href="{{ mainElement?.url }}" target="_blank" class="color-green">{{ mainElement?.url }}</a></small>
-        </div>
-      </div>-->
 
       <div class="col-sm-12 block-info-line">
         <div class="col-sm-3">
@@ -87,6 +77,29 @@
             <a href="https://github.com/{{ bpData?.org?.social?.github }}" *ngIf="bpData?.org?.social?.github" target="_blank" class="social-links"><i class="fab fa-github"></i></a>
             <a href="https://steemit.com/{{ bpData?.org?.social?.steemit }}" *ngIf="bpData?.org?.social?.steemit" target="_blank" class="social-links"><i class="fab fa-steemit"></i></a>
             <a href="https://keybase.io/{{ bpData?.org?.social?.keybase }}" *ngIf="bpData?.org?.social?.keybase" target="_blank" class="social-links"><i class="fab fa-keybase"></i></a>
+        </div>
+      </div>
+
+      <div class="col-sm-12 block-info-line">
+        <div class="col-sm-3">
+          <strong class="block-info-header">Public Key:</strong>
+        </div>
+        <div class="col-sm-9">
+          <small class="tx-mobile-hash"> <a [routerLink]="['/address', mainElement?.producer_key]" class="color-green"> {{ mainElement?.producer_key }} </a> </small>
+        </div>
+      </div>
+
+      <div class="col-sm-12 block-info-line">
+        <div class="col-sm-3">
+          <strong class="block-info-header">Last voters:</strong>
+        </div>
+        <div class="col-sm-9 tokens-container">
+          <span *ngFor="let voter of voters?.voters">
+            <strong *ngIf="voter?.currency !== 'EOS'" class="small-tokens">
+              <a [routerLink]="['/account', voter?.act?.data?.voter ]" class="color-green">{{ voter?.act?.data?.voter }}</a>
+              <small> stake </small> - <strong>{{ (voter?.stake) ? voter?.stake?.toLocaleString() : 0 }} EOS</strong>
+            </strong>
+          </span>
         </div>
       </div>
 
