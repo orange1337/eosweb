@@ -117,10 +117,6 @@ export class MainCustomizeChartsComponent implements OnInit{
   }
 
   countTPS(data){
-      if (!data || data.length < 2){
-           console.log("Data error TPS", data);
-           return null;
-      }
       let start = data[0].transactions.length;
       let end = data[1].transactions.length;
       return start + end;
@@ -148,7 +144,9 @@ export class MainCustomizeChartsComponent implements OnInit{
       });
 
       this.socket.on('get_tps_blocks', res => {
-          this.TPSliveTx = this.countTPS(res);
+          if (res || res.length === 2){
+             this.TPSliveTx = this.countTPS(res);
+          }
       });
 
       this.socket.on('get_aggregation', res => {
