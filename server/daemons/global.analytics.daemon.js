@@ -78,8 +78,8 @@ function getStatAggregation (){
 			   					 }
 			   				});
 			   			}
-			   			stat.cursor_block = block.block_num;
-			   			log.info("Saved global stat block ==== ", stat.cursor_block);
+			   			//stat.cursor_block = block.block_num;
+			   			log.info("Saved global stat block ==== ", block.block_num);
 			   			ret();
 			   		})
 			   		.catch(err => {
@@ -90,6 +90,7 @@ function getStatAggregation (){
 			   		if (error){
 			   			return cb(error)
 			   		}
+			   		stat.cursor_block += elements.length;
 			   		stat.save((err) => {
 			   				if (err){
 			   					return cb(err);
