@@ -40,7 +40,7 @@ export class MainService {
       let result = [];
       data.sort((a, b) => {
           return b.total_votes - a.total_votes;
-      }).map((elem, index) => {
+      }).forEach((elem, index) => {
           if (elem.producer_key === this.ungerKey){
               return;
           }

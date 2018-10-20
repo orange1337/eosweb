@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject, ViewChild, Compiler } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -42,9 +42,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient, 
               private MainService: MainService,
-              public dialog: MatDialog,
-              private _compiler: Compiler){
-    this._compiler.clearCache();
+              public dialog: MatDialog){
   }
 
   getBlockData(accountId){
@@ -254,6 +252,8 @@ export class AccountPageComponent implements OnInit, OnDestroy{
 
   ngOnDestroy() {
     this.block.unsubscribe(); 
+    this.actionsArray = [];
+    this.tables = [];
   }	
 }
 

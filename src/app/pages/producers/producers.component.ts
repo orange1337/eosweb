@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
@@ -12,7 +12,7 @@ import { Socket } from 'ng-socket-io';
   templateUrl: './producers.component.html',
   styleUrls: ['./producers.component.css']
 })
-export class ProducersPageComponent implements OnInit{
+export class ProducersPageComponent implements OnInit, OnDestroy{
   mainData;
   spinner = false;
   displayedColumns = ['#', 'Name', 'Status', 'Url', 'Location', 'Total Votes', 'Rate', 'Rewards'];
@@ -27,16 +27,13 @@ export class ProducersPageComponent implements OnInit{
   globalTableData;
   producer;
   filterVal = '';
+  bpJson;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private route: ActivatedRoute, protected http: HttpClient, private MainService: MainService, private socket: Socket){}
 
   getBlockData(){
-      if (this.filterVal.length > 0){
-          setTimeout(() => { this.getBlockData() }, this.timeToUpdate);
-          return console.log('filter val');
-      }
       this.spinner   = (this.firstLoad) ? true : false;
   		let producers  = this.http.get(`/api/custom/get_table_rows/eosio/eosio/producers/500`);
       let global     = this.http.get(`/api/v1/get_table_rows/eosio/eosio/global/1`);
@@ -45,21 +42,33 @@ export class ProducersPageComponent implements OnInit{
       forkJoin([producers, global, bpInfo])
   				 .subscribe(
                       (results: any) => {
-                          this.mainData = results[0].rows;
                           this.totalProducerVoteWeight = results[1].rows[0].total_producer_vote_weight;
-                          this.globalTableData = this.joinOtherProducerInfo(this.MainService.countRate(this.MainService.sortArray(this.mainData), this.totalProducerVoteWeight), results[2]);
-                          let ELEMENT_DATA: Element[] = this.globalTableData;
-                          this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
-                          this.dataSource.paginator = this.paginator;
+                          this.bpJson = results[2];
+                          this.createTable(results[0], this.totalProducerVoteWeight, this.bpJson);
+
+                          this.socket.on('producers', (data) => {
+                            if (!data) return;
+                            this.createTable(data, this.totalProducerVoteWeight, this.bpJson);
+                          });
+
                           this.spinner = false;
-                          setTimeout(() => { this.getBlockData() }, this.timeToUpdate);
                       },
                       (error) => {
                           console.error(error);
                           this.spinner = false;
-                          setTimeout(() => { this.getBlockData() }, this.timeToUpdate);
                       });
   };
+
+  createTable(table, totalVotes, bpJson){
+      if (this.filterVal.length > 0){
+          return console.log('filter val');
+      }
+      this.mainData = table.rows;
+      this.globalTableData = this.joinOtherProducerInfo(this.MainService.countRate(this.MainService.sortArray(this.mainData), totalVotes), bpJson);
+      let ELEMENT_DATA: Element[] = this.globalTableData;
+      this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+      this.dataSource.paginator = this.paginator;
+  }
 
   joinOtherProducerInfo(sortedArr, joinArr){
       let result = [];
@@ -69,7 +78,7 @@ export class ProducersPageComponent implements OnInit{
       }  
       joinArr.forEach(elem => {
            joinObj[elem.name] = {
-              location: (elem.location.length === 2) ? elem.location : "",
+              location: elem.location,
               image: elem.image
            };
       });
@@ -101,6 +110,10 @@ export class ProducersPageComponent implements OnInit{
        }
        this.producer = data[1].producer;
      });
+  }
+  ngOnDestroy() {
+     this.socket.removeAllListeners('producers');
+     this.socket.removeAllListeners('get_tps_blocks');
   }
 }
 

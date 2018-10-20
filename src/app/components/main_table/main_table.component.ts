@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, Inject, Optional, PLATFORM_ID  } from '@angular/core';
+import { Component, ViewChild, OnInit, Inject, Optional, PLATFORM_ID, OnDestroy  } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
@@ -22,7 +22,7 @@ export interface Element {
   templateUrl: './main_table.component.html',
   styleUrls: ['./main_table.component.css']
 })
-export class MainTableComponent implements OnInit{
+export class MainTableComponent implements OnInit, OnDestroy{
   
   curve;
   currMap: any;
@@ -120,6 +120,10 @@ export class MainTableComponent implements OnInit{
           this.dataSourceTrx = new MatTableDataSource<Element>(ELEMENT_DATA_TX);
 
       });
+  }
+
+  ngOnDestroy(){
+    this.socket.removeAllListeners('get_last_blocks');
   }
 }
 

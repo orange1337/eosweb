@@ -65,7 +65,7 @@
     <ng-container matColumnDef="Location">
       <mat-header-cell *matHeaderCellDef> Location </mat-header-cell>
       <mat-cell *matCellDef="let element" class="color-light-grey"> 
-            <img src="/assets/images/flags/{{element?.location}}.svg" width="30" alt="">
+            <img src="/assets/images/flags/{{element?.location}}.svg" *ngIf="element?.location?.length === 2" width="30" alt="">
       </mat-cell>
     </ng-container>
     
