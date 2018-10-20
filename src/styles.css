@@ -32,6 +32,7 @@ body{
 	height: auto;
 	padding-bottom: 200px;
 	-webkit-font-smoothing: antialiased;
+	background: #f8f8f8;
 }
 a{
 	cursor: pointer;
@@ -52,6 +53,10 @@ a{
 .mat-fab.mat-warn, .mat-mini-fab.mat-warn, .mat-raised-button.mat-warn { 
 	background: linear-gradient(to right,#ff9048,#f44336);
 	background: -webkit-gradient(linear,left top,right top,from(#ff9048),to(#f44336)); 
+}
+.mat-fab.mat-accent, .mat-mini-fab.mat-accent, .mat-raised-button.mat-accent{
+	background: linear-gradient(to right,#ff9389,#ff8ea4);
+	background: -webkit-gradient(linear,left top,right top,from(#ff9389),to(#ff8ea4)); 
 }
 .text-right{
 	text-align: right;
@@ -127,7 +132,7 @@ a{
     height: 100%;
     display: block;
     position: absolute;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(248, 248, 248, 0.8);
     z-index: 1000;
 }
 .spinner-container .mat-spinner{
@@ -389,7 +394,7 @@ small{
 }
 .main-spinner{
 	width: 100%;
-	background-color: rgba(255, 255, 255, 0.8);
+	background-color: rgba(248, 248, 248, 0.8);
 	height: 100% !important;
 	position: absolute;
 	top: 0%;
@@ -500,8 +505,17 @@ action-viewer{
 	padding-left: 20px;
 	font-size: 14px;
 }
+.account-action-name{
+	flex: 2 !important;
+}
+.number-flex{
+	flex: 0.5 !important;
+}
+.actions-name-account{
+	margin-left: 40px;
+}
 .actions-list-container{
-	width: 600px;
+	width: 450px;
 	flex: 5 !important;
 }
 .fa-long-arrow-right {
@@ -536,6 +550,20 @@ action-viewer{
     background: linear-gradient(to right,#3fa3eb,#3568e4);
     background: -webkit-gradient(linear,left top,right top,from(#3fa3eb),to(#3568e4));
 }
+
+.main-page-table-producers .container,
+.main-page-table-producers .col-md-12{
+	padding-left: 0;
+}
+.load-more{
+	margin: 10px auto;
+}
+
+
+
+
+
+
 
 @media only screen and (max-width: 1280px) {
 	.container{

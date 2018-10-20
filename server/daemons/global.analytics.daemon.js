@@ -55,11 +55,11 @@ function getStatAggregation (){
 		(stat, cb) => {
 			eos.getInfo({})
 			   	.then(result => { 
-			   		if (!result.head_block_num){
+			   		if (!result.last_irreversible_block_num){
 			   			return cb('Cant get info from blockchain getStatAggregation!');
 			   		}
 			   		let start = stat.cursor_block;
-			   		let elements = Array.from({length: result.head_block_num - start}, (v, k) => start = start + 1);
+			   		let elements = Array.from({length: result.last_irreversible_block_num - start}, (v, k) => start = start + 1);
 			   		cb(null, stat, result, elements);
 			   	})
 			   	.catch(err => {
@@ -78,8 +78,8 @@ function getStatAggregation (){
 			   					 }
 			   				});
 			   			}
-			   			stat.cursor_block = block.block_num;
-			   			log.info("Saved global stat block ==== ", stat.cursor_block);
+			   			//stat.cursor_block = block.block_num;
+			   			log.info("Saved global stat block ==== ", block.block_num);
 			   			ret();
 			   		})
 			   		.catch(err => {
@@ -90,6 +90,7 @@ function getStatAggregation (){
 			   		if (error){
 			   			return cb(error)
 			   		}
+			   		stat.cursor_block += elements.length;
 			   		stat.save((err) => {
 			   				if (err){
 			   					return cb(err);

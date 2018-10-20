@@ -104,7 +104,7 @@ export class WalletPageComponent implements OnInit {
       this.spinner = true;
       this.http.get(`/api/v1/get_code/${name}`)
            .subscribe((res: any) => {
-                          console.log(res);
+                          //console.log(this.b64DecodeUnicode(res.abi));
                           if (res && res.abi && res.abi.structs){
                               this.contract = res.abi.structs;
                               this.contract.forEach(elem => {
@@ -119,6 +119,13 @@ export class WalletPageComponent implements OnInit {
                       });
   }
 
+  b64DecodeUnicode(str) {
+    // Going backwards: from bytestream, to percent-encoding, to original string.
+    return decodeURIComponent(atob(str).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+  }
+
   selectContractMethod(method) {
     if (this.contractKeys[method]){
        this.contractField = {};
@@ -130,6 +137,7 @@ export class WalletPageComponent implements OnInit {
     if (!this.WINDOW.scatter){
         console.error('Please install scatter wallet !');
     }
+    localStorage.setItem("scatter", 'loggedIn');
     this.WINDOW.scatter.getIdentity({
        accounts: [this.eosNetwork]
     }).then(identity => {
@@ -137,6 +145,19 @@ export class WalletPageComponent implements OnInit {
         if (identity && identity.accounts[0] && identity.accounts[0].name){
             this.getAccount(identity.accounts[0].name);
         }
+    }).catch(err => {
+        console.error(err);
+    });
+  }
+
+  logoutScatter(){
+    if (!this.WINDOW.scatter){
+        return this.notifications.error('Scatter error', 'Please install Scatter extension');
+    }
+    localStorage.setItem('scatter', 'loggedOut');
+    this.WINDOW.scatter.forgetIdentity().then(() => {
+        location.reload();
+        this.notifications.success('Logout success', '');
     }).catch(err => {
         console.error(err);
     });
@@ -247,7 +268,17 @@ export class WalletPageComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.getWalletAPI();
+     this.getWalletAPI();
+
+     if (localStorage.getItem("scatter") === 'loggedIn'){
+           if (!this.WINDOW.scatter){
+                document.addEventListener('scatterLoaded', () => {
+                      this.loginScatter();
+                });
+           } else {
+             this.loginScatter();
+           }
+     }
   }
 }
 

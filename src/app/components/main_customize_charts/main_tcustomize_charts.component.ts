@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Socket } from 'ng-socket-io';
 import * as shape from 'd3-shape';
 import { MainService } from '../../services/mainapp.service';
+import { forkJoin } from "rxjs/observable/forkJoin";
 
 @Component({
   selector: 'main-tcustomize-charts',
@@ -31,6 +32,10 @@ export class MainCustomizeChartsComponent implements OnInit{
   blockchainData;
   aggragationData;
   ramPrice;
+  //eos = this.MainService.getGlobalNetConfig();
+  TPSliveTx = 0;
+  usersOnline = 0;
+  timeForUpdate = 5000;
 
   constructor(private http: HttpClient, private socket: Socket, private MainService: MainService){}
 
@@ -40,9 +45,11 @@ export class MainCustomizeChartsComponent implements OnInit{
                       (res: any) => {
                            this.currencyObj = res;
                            this.MainService.setEosPrice(this.currencyObj);
+                           setTimeout(() => { this.getData() }, this.timeForUpdate);
                       },
                       (error) => {
-                          console.error(error);
+                           console.error(error);
+                           setTimeout(() => { this.getData() }, this.timeForUpdate);
                       });
   }
 
@@ -51,9 +58,11 @@ export class MainCustomizeChartsComponent implements OnInit{
                   .subscribe(
                       (res: any) => {
                            this.mainCurrencyChartDataRes = this.createChartArr(res.Data);
+                           setTimeout(() => { this.getChart() }, this.timeForUpdate);
                       },
                       (error) => {
-                          console.error(error);
+                           console.error(error);
+                           setTimeout(() => { this.getChart() }, this.timeForUpdate);
                       });
   }
 
@@ -107,12 +116,20 @@ export class MainCustomizeChartsComponent implements OnInit{
         this.ramPrice = (quoteBalance / baseBalance * 1024).toFixed(5);
   }
 
+  countTPS(data){
+      let start = data[0].transactions.length;
+      let end = data[1].transactions.length;
+      return start + end;
+  }
+
+
   ngOnInit() {
       this.getData();
       this.getChart();
       this.getBlockchainData();
       this.getAggregationData();
       this.getRam();
+      //this.getTPSlive();
 
       this.socket.on('get_ram', res => {
           this.countRamPrice(res);
@@ -120,6 +137,16 @@ export class MainCustomizeChartsComponent implements OnInit{
 
       this.socket.on('get_info', res => {
           this.blockchainData = res;
+      });
+
+      this.socket.on('users_online', res => {
+          this.usersOnline = res;
+      });
+
+      this.socket.on('get_tps_blocks', res => {
+          if (res && res.length === 2){
+             this.TPSliveTx = this.countTPS(res);
+          }
       });
 
       this.socket.on('get_aggregation', res => {

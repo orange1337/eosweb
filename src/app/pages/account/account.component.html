@@ -7,15 +7,6 @@
 	<h1 class="market-header">Account: {{ mainData?.account_name }}</h1>
 
 	<div class="block-info">
-
-			<div class="col-sm-12 block-info-line">
-				<div class="col-sm-3">
-					<strong class="block-info-header">Privileged:</strong>
-				</div>
-				<div class="col-sm-9">
-					<small>{{ mainData?.privileged }}</small>
-				</div>
-			</div>
 			
 			<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
@@ -55,24 +46,6 @@
 					<span class="account-info"> Time: <small>{{ moment(mainData?.refund_request?.request_time).format('lll') }}</small></span>
 				</div>
 			</div>
-
-			<!--<div class="col-sm-12 block-info-line">
-				<div class="col-sm-3">
-					<strong class="block-info-header">Token Balance:</strong>
-				</div>
-				<div class="col-sm-9">
-					<small><strong>{{ balance.toLocaleString() }} EOS</strong></small>
-				</div>
-			</div>-->
-
-			<!--<div class="col-sm-12 block-info-line">
-				<div class="col-sm-3">
-					<strong class="block-info-header">Key:</strong>
-				</div>
-				<div class="col-sm-9">
-					<small class="color-grey">{{ mainData?.permissions[0]?.required_auth?.keys[0]?.key  }}</small>
-				</div>
-			</div>-->
 
 			<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
@@ -116,14 +89,17 @@
 				</div>
 			</div>
 
-			<div class="col-sm-12 block-info-line" *ngIf="tokensArray?.length">
+			<div class="col-sm-12 block-info-line" *ngIf="tokensArray?.balances?.length">
 				<div class="col-sm-3">
 					<strong class="block-info-header">Tokens:</strong>
 				</div>
 				<div class="col-sm-9 tokens-container">
-					<strong *ngFor="let token of tokensArray;" class="small-tokens"><small>{{ token?.amount }}</small> {{ token?.currency }} - 
-						<a [routerLink]="['/account', token?.issuer ]" class="color-green">{{ token?.issuer }}</a>
-					</strong>
+					<span *ngFor="let token of tokensArray?.balances">
+						<strong *ngIf="token?.currency !== 'EOS'" class="small-tokens">
+							<small >{{ token?.amount }}</small> {{ token?.currency }} - 
+							<a [routerLink]="['/account', token?.contract ]" class="color-green">{{ token?.contract }}</a>
+						</strong>
+					</span>
 				</div>
 			</div>
 
@@ -159,10 +135,21 @@
 					<span class="account-info"> Owner: <small>{{ mainData?.voter_info?.owner }}</small></span>
 				</div>
 			</div>
+			
+			<div class="col-sm-12 block-info-line">
+				<div class="col-sm-3">
+					<strong class="block-info-header">Created by:</strong>
+				</div>
+				<div class="col-sm-9">
+					<a routerLink="/account/{{creator?.act?.data?.creator}}" class="color-green">
+						{{creator?.act?.data?.creator}}
+				    </a>
+				</div>
+			</div>
 
 			<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
-					<strong class="block-info-header">Created:</strong>
+					<strong class="block-info-header">Created time:</strong>
 				</div>
 				<div class="col-sm-9">
 					<small class="color-grey">{{ time }}</small>
@@ -210,6 +197,76 @@
 
 			<div class="col-sm-12 block-info-line">
 				<mat-tab-group>
+				  
+				  <mat-tab label="Actions info">
+
+				  	<div class="spinner-container" *ngIf="spinnerActions">
+    					<mat-spinner class="spinner-color"></mat-spinner>
+					</div>
+
+					<div class="col-sm-4">
+					  <mat-form-field>
+					      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by action name">
+					  </mat-form-field> 
+					</div>
+
+				  	<div class="example-container mat-elevation-z8 main-table block-trx-table">
+					
+					  <mat-table #table [dataSource]="dataSource" class="big-table" matSort>	
+						
+						<ng-container matColumnDef="#">
+					      <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+					      <mat-cell *matCellDef="let element; let index = index;" class="number-flex"> 
+					      	    {{ index + 1 }}
+					      </mat-cell>
+					    </ng-container>
+
+						<ng-container matColumnDef="tx">
+					      <mat-header-cell *matHeaderCellDef class="account-action-name"> Tx id </mat-header-cell>
+					      <mat-cell *matCellDef="let element"> 
+					      	<a [routerLink]="['/transaction', element?.action_trace?.trx_id]" class="color-green tx-hash">
+					          	{{element?.action_trace?.trx_id}}
+					        </a>
+					      </mat-cell>
+					    </ng-container>
+
+					    <ng-container matColumnDef="date">
+					      <mat-header-cell *matHeaderCellDef class="account-action-name"> Date</mat-header-cell>
+					      <mat-cell *matCellDef="let element"> 
+					          	<span class="color-light-grey">{{ moment(element?.createdAt).format('lll') }}</span>
+					      </mat-cell>
+					    </ng-container>
+
+						<ng-container matColumnDef="name">
+					      <mat-header-cell *matHeaderCellDef class="account-action-name"> Name</mat-header-cell>
+					      <mat-cell *matCellDef="let element" class="account-action-name">
+					      		<strong class="actions-name-account">
+					      			<span class="color-light-grey">{{element?.action_trace?.act?.account}}</span> -
+					          	    {{element?.action_trace?.act?.name}}
+					          	</strong>
+					      </mat-cell>
+					    </ng-container>
+
+					    <!-- Weight Column -->
+					    <ng-container matColumnDef="data">
+					      <mat-header-cell *matHeaderCellDef class="actions-list-container"> Action data</mat-header-cell>
+					      <mat-cell *matCellDef="let element"> 
+					          	<action-viewer [data]="element?.action_trace?.act" [length]="50" class="color-light-grey actions-list-container"></action-viewer>
+					      </mat-cell>
+					    </ng-container>
+
+					    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+					    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+					  </mat-table>
+					
+              		  <div class="col-sm-4 load-more" *ngIf="actionsTotal > 100">
+               			 	<button mat-raised-button color="primary" class="btn-generate" (click)="nextPage(pageIndex + 1)">Load More </button>
+              		  </div>
+
+					  <!--<mat-paginator #paginator [length]="actionsTotal" [pageSize]="actions?.length" [pageIndex]="pageIndex" (page)="nextPage($event)"></mat-paginator>-->
+					</div>
+				  </mat-tab>
+
 				  <mat-tab label="Token transfer">
 				  		<div class="actions-main-container token-tranfer-table">
 				  				<div class="actions-list">
@@ -234,10 +291,10 @@
 				  					Tx id
 				  				</div>
 				  		</div>
-				        <div *ngFor="let action of actions?.actions">
+				        <div *ngFor="let action of actions">
 								  <div class="actions-main-container" *ngIf="action?.action_trace?.act?.name === 'transfer'">
 								  	<div class="actions-list">
-										 <strong>{{ moment(action?.block_time).format('MMMM Do YYYY, h:mm:ss a')  }}</strong>
+										 <strong>{{ moment(action?.createdAt).format('MMMM Do YYYY, h:mm:ss a')  }}</strong>
 									</div>
 									<div class="actions-list text-center">
 										<div *ngIf="action?.action_trace?.act?.data?.to === mainData?.account_name" class="color-green">
@@ -271,41 +328,6 @@
 									</div>
 								  </div>		 
 						</div>
-				  </mat-tab>
-				  <mat-tab label="Actions info">
-				  	<div class="example-container mat-elevation-z8 main-table block-trx-table" *ngIf="actions?.actions.length">
-					
-					  <mat-table #table [dataSource]="dataSource" class="big-table" matSort>	
-
-					    <!-- Weight Column -->
-					    <ng-container matColumnDef="actions">
-					      <mat-header-cell *matHeaderCellDef class="actions-list-container"> Actions Info</mat-header-cell>
-					      <mat-cell *matCellDef="let element"> 
-					          	<!--{{element?.actions}}-->
-								<div *ngFor="let action of element?.actions" class="actions-list-container">
-
-								  <div class="actions-main-container">
-									<div class="actions-list">
-										<strong>{{ action?.action_trace?.act?.name }}</strong>
-									</div>
-									<div class="actions-list">
-										<action-viewer [data]="action?.action_trace?.act" [length]="50" class="color-light-grey"></action-viewer>
-									</div>
-								  </div>
-
-								</div>
-					      </mat-cell>
-					    </ng-container>
-
-					    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-					    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-					  </mat-table>
-					
-					  <!--<mat-paginator #paginator
-					                 [pageSize]="100"
-					                 [pageSizeOptions]="[50, 100]">
-					  </mat-paginator>-->
-					</div>
 				  </mat-tab>
 
 				  <mat-tab label="Actions (Raw Data)">

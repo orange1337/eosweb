@@ -72,30 +72,6 @@ function getAccountsAnalytics (){
 			   		cb(null);
 			   	});
 		},
-		/*(cb) => {
-			STATS_ACCOUNTS.find({}, (err, result) => {
-				if (err){
-					return cb(err);
-				}
-				if (!result){
-					return cb(result);
-				}
-				let writer = csvWriter();
-
-				writer.pipe(fs.createWriteStream('./eosAnalytics.csv'));
-
-				result.forEach((elem) => {
-					console.log(elem);
-					writer.write(elem);
-				});
-				//writer.write(['world', 'bar']);
-
-				writer.end(() => {
-					console.log('Write end!');
-					cb(null);
-				});
-			});
-		},*/
 	], (err) => {
 		if (err){
 			log.error(err);

@@ -46,7 +46,7 @@ export class VotePageComponent implements OnInit {
   vote = {
     voter: '',
     proxy: '',
-    producers: ['eoswebnetbp1']
+    producers: ['eoswebnetbp1', 'cryptolions1']
   };
   contract;
   contractName = 'eosio';
@@ -156,6 +156,7 @@ export class VotePageComponent implements OnInit {
     if (!this.WINDOW.scatter){
         console.error('Please install scatter wallet !');
     }
+    localStorage.setItem("scatter", 'loggedIn');
     this.WINDOW.scatter.getIdentity({
        accounts: [this.eosNetwork]
     }).then(identity => {
@@ -172,6 +173,7 @@ export class VotePageComponent implements OnInit {
     if (!this.WINDOW.scatter){
         return this.notifications.error('Scatter error', 'Please install Scatter extension');
     }
+    localStorage.setItem('scatter', 'loggedOut');
     this.WINDOW.scatter.forgetIdentity().then(() => {
         location.reload();
         this.notifications.success('Logout success', '');
@@ -239,6 +241,16 @@ export class VotePageComponent implements OnInit {
 
   ngOnInit() {
       this.getWalletAPI();
+
+     if (localStorage.getItem("scatter") === 'loggedIn'){
+           if (!this.WINDOW.scatter){
+                document.addEventListener('scatterLoaded', () => {
+                      this.loginScatter();
+                });
+           } else {
+             this.loginScatter();
+           }
+     }
   }
 }
 

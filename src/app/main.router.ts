@@ -69,7 +69,7 @@ export const routes: Routes = [
     component: TokensPageComponent 
   },
   { 
-    path: 'soon', 
+    path: 'notfound', 
     component: SoonComponent 
   },
   { path: '**', redirectTo: '' },

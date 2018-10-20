@@ -68,7 +68,7 @@ export class RamPageComponent implements OnInit{
   donation;
   orderHistory;
   defaultTimeName = 'Day';
-  timeArray = ['Week', 'Month', 'All'];
+  timeArray = ['Week', 'Month'];
   dateFrom = new Date(+new Date() - 24 * 60 * 60 * 1000);
 
   constructor(private route: ActivatedRoute, 
@@ -135,8 +135,6 @@ export class RamPageComponent implements OnInit{
           date = +new Date() - 7 * 24 * 3600000;
       } else if (name === 'Month'){
           date = +new Date() - 30 * 7 * 24 * 3600000;
-      } else if (name === 'All'){
-          date = 'All';
       }
       this.getChart(date);
   }
@@ -207,6 +205,7 @@ export class RamPageComponent implements OnInit{
     if (!this.WINDOW.scatter){
         return this.notifications.error('Scatter error', 'Please install Scatter extension');
     }
+    localStorage.setItem("scatter", 'loggedIn');
     this.WINDOW.scatter.getIdentity({
        accounts: [this.eosNetwork]
     }).then(identity => {
@@ -224,6 +223,7 @@ export class RamPageComponent implements OnInit{
     if (!this.WINDOW.scatter){
         return this.notifications.error('Scatter error', 'Please install Scatter extension');
     }
+    localStorage.setItem("scatter", 'loggedOut');
     this.WINDOW.scatter.forgetIdentity().then(() => {
         location.reload();
         this.notifications.success('Logout success', '');
@@ -365,15 +365,19 @@ export class RamPageComponent implements OnInit{
      this.getChart(this.dateFrom);
      this.getWalletAPI();
 
-     /*document.addEventListener('scatterLoaded', scatterExtension => { 
-           console.log('Scattter has been loaded!');
-           this.WINDOW.scatter.requireVersion(4.0);
-           this.WINDOW.scatter.suggestNetwork(this.eosNetwork);
-     });*/
+     if (localStorage.getItem("scatter") === 'loggedIn'){
+           if (!this.WINDOW.scatter){
+                document.addEventListener('scatterLoaded', () => {
+                      this.loginScatter();
+                });
+           } else {
+             this.loginScatter();
+           }
+     }
 
-      this.socket.on('get_ram', res => {
+     this.socket.on('get_ram', res => {
           this.countRamPrice(res);
-      });
+     });
   }
 }
 

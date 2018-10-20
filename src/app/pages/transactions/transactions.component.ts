@@ -33,6 +33,11 @@ export class TransactionPageComponent implements OnInit, OnDestroy{
   				 .subscribe(
                       (res: any) => {
                           this.mainData = res;
+                          if (this.mainData && !this.mainData.trx && this.mainData.action_traces){
+                              this.mainData.trx = {};
+                              this.mainData.trx.trx = {};
+                              this.mainData.trx.trx.actions = this.createActionsArr(this.mainData.action_traces);
+                          }
                           this.time = this.moment(this.mainData.block_time).format('MMMM Do YYYY, h:mm:ss a');
                           let ELEMENT_DATA: Element[] = [this.mainData.trx];
                           this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
@@ -43,6 +48,13 @@ export class TransactionPageComponent implements OnInit, OnDestroy{
                           this.spinner = false;
                       });
   };
+
+  createActionsArr(actions){
+      let result = actions.map(elem => {
+          return elem.act;
+      });
+      return result;
+  }
 
   openDialogMemo(event, data){
     let result = data;

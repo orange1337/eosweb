@@ -7,25 +7,25 @@
 	"code_of_conduct": "",
 	"email": "",
 	"branding": {
-	"logo_256": "https://pbs.twimg.com/profile_images/1006810603191767040/umz8OHx4_400x400.jpg",
-	"logo_1024": "https://pbs.twimg.com/profile_images/1006810603191767040/umz8OHx4_400x400.jpg",
+	"logo_256": "https://secure.gravatar.com/avatar/b7e0f18f9621ed4f2d54be1bb89de0d8.jpg?s=80&r=g&d=mm",
+	"logo_1024": "https://secure.gravatar.com/avatar/b7e0f18f9621ed4f2d54be1bb89de0d8.jpg?s=80&r=g&d=mm",
 	"logo_svg": ""
 },
 	"location": {
 	"name": "Kiev",
-	"country": "Ukraine",
+	"country": "UA",
 	"latitude": 50.431782,
 	"longitude": 30.516382
 },
 	"social": {
 		"steemit": "@eosweb.net",
-		"twitter": "https://twitter.com/EoswebN",
+		"twitter": "EoswebN",
 		"youtube": "",
-		"facebook": "https://www.facebook.com/EOSwebnet-199076424068961",
-		"github": "",
-		"reddit": "https://www.reddit.com/user/eosweb",
+		"facebook": "EOSwebnet-199076424068961",
+		"github": "orange1337",
+		"reddit": "eosweb",
 		"keybase": "",
-		"telegram": "https://t.me/eosweb",
+		"telegram": "eosweb",
 		"wechat": ""
 	}
 },
@@ -38,7 +38,7 @@
 		},
 		"is_producer": true,
 		"p2p_endpoint": "node.eosweb.net",
-		"api_endpoint": "http://api.eosweb.net",
-		"ssl_endpoint": "https://api.eosweb.net"
+		"api_endpoint": "http://apinode.eosweb.net",
+		"ssl_endpoint": "https://apinode.eosweb.net"
 	}]
 }

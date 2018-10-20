@@ -10,7 +10,7 @@
           <div class="pull-right chart-child-container-change first-container-change"> 
             <div class="color-green" [ngClass]="{'color-red': currencyObj?.RAW?.EOS?.USD?.CHANGEDAY < 0}">
               <i class="material-icons">{{ (currencyObj?.RAW?.EOS?.USD?.CHANGEDAY < 0) ? 'arrow_drop_down' : 'keyboard_arrow_up' }}</i>
-              {{ (currencyObj?.RAW?.EOS?.USD?.CHANGEDAY.toFixed(2)).replace('-', '') }} <i class="fas fa-percent"></i>
+              {{ (currencyObj?.RAW?.EOS?.USD?.CHANGEDAY?.toFixed(2)).replace('-', '') }} <i class="fas fa-percent"></i>
             </div>
           </div>
        </div>        
@@ -47,34 +47,43 @@
     <div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline">
        <div class="color-grey-text">Accounts</div> 
        <div class="chart-child-container-dollar">
-          <div class="pull-left color-green"> {{ aggragationData?.accounts.toLocaleString() }}</div>
+          <div class="pull-left color-green"> {{ aggragationData?.accounts?.toLocaleString() }}</div>
        </div> 
     </div>
 
     <div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline">
        <div class="color-grey-text">Blocks</div>
        <div class="chart-child-container-dollar">
-          <div class="pull-left color-green"> {{ blockchainData?.head_block_num.toLocaleString() }}</div>
+          <div class="pull-left color-green"> {{ blockchainData?.head_block_num?.toLocaleString() }}</div>
        </div>
     </div>
 
     <div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline">
        <div class="color-grey-text">Transactions</div>
        <div class="chart-child-container-dollar">
-          <div class="pull-left color-green"> {{ aggragationData?.transactions.toLocaleString() }}</div>
+          <div class="pull-left color-green"> {{ aggragationData?.transactions?.toLocaleString() }}</div>
        </div> 
     </div>  
     
     <div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline">
        <div class="color-grey-text">Actions</div> 
        <div class="chart-child-container-dollar">
-          <div class="pull-left color-green"> {{ aggragationData?.actions.toLocaleString() }} </div>
+          <div class="pull-left color-green"> {{ aggragationData?.actions?.toLocaleString() }} </div>
        </div> 
     </div>
 
     <div class="col-sm-12">
+      <div class="pull-left container-tps">
+           <div class="color-grey-text pull-left tps-text">TPS: </div>
+           <div class="pull-left color-green"> {{ TPSliveTx }} <small>live</small></div>
+           <a class="pull-left color-green left-margin" href="/block/{{aggragationData?.max_tps_block}}">{{ aggragationData?.max_tps?.toLocaleString() }} <small>max</small></a>
+      </div>
+      <div class="pull-left container-tps users-oline">
+           <div class="color-grey-text pull-left tps-text"><small>users online:</small></div>
+           <div class="pull-left color-green"> {{ usersOnline }}</div>
+      </div>
       <h3 class="producer-candidate pull-right"><small>vote for us: </small> 
-          <strong><a routerLink="/producer/eoswebnetbp1" class="color-green">eoswebnetbp1</a></strong>
+          <strong><a routerLink="/vote" class="color-green">eoswebnetbp1</a></strong>
       </h3>
     </div>
 

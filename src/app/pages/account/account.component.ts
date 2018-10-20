@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -18,11 +18,12 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   moment = moment;
   time;
   spinner = false;
+  spinnerActions = false;
   balance = 0;
   unstaked;
   actions;
   dataSource;
-  displayedColumns = ['actions'];
+  displayedColumns = [ '#', 'tx', 'date', 'name', 'data'];
   code;
   tables = [];
   eosRate;
@@ -31,11 +32,18 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   dataSourcePermission;
   controlledAccount;
   tokensArray;
+  actionsTotal = 0;
+  position = 1;
+  pageIndex = 0;
+  actionsArray = [];
+  elementsLimit = 100;
+  creator;
 
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient, 
               private MainService: MainService,
-              public dialog: MatDialog){}
+              public dialog: MatDialog){
+  }
 
   getBlockData(accountId){
       this.spinner = true;
@@ -44,7 +52,8 @@ export class AccountPageComponent implements OnInit, OnDestroy{
                           this.mainData = res;
                           this.getBalance(accountId);
                           this.time = this.moment(this.mainData.created).format('MMMM Do YYYY, h:mm:ss a');
-                          this.getActions(this.mainData.account_name);
+                          this.getActions(this.mainData.account_name, this.position);
+                          this.getAccountCreator(this.mainData.account_name);
                           this.getCode(this.mainData.account_name);
 
                           let ELEMENT_DATA: Element[] = res.permissions;
@@ -74,14 +83,47 @@ export class AccountPageComponent implements OnInit, OnDestroy{
                       });
   }
 
-  getActions(accountName){
-      this.http.get(`/api/v1/get_actions/${accountName}/-1/-250`)
+  getActions(accountName, pos){
+      this.spinnerActions = true;
+      this.http.get(`/api/v1/get_actions/${accountName}/-${pos}/-${this.elementsLimit}`)
            .subscribe((res: any) => {
-                          res.actions.reverse();
-                          res.actions = this.sortArrayFunctions(res.actions); 
-                          this.actions = res;
-                          let ELEMENT_DATA: Element[] = [res];
+                          res.actions = this.sortArrayFunctions(res.actions);
+                          if(res.actions[0] && !res.actions[0].action_trace){
+                            res.actions = this.createActionsArr(res.actions);
+                            this.actionsTotal = res.actionsTotal;
+                          } else {
+                            res.actions.reverse();
+                          }
+                          Array.prototype.push.apply(this.actionsArray, res.actions);
+
+                          this.actions = this.actionsArray;
+                          let ELEMENT_DATA: Element[] = this.actionsArray;
                           this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+
+                          this.dataSource.filterPredicate = function(data, filter: string): boolean {
+                                      return data.action_trace.act.name.toLowerCase().includes(filter) || 
+                                             data.action_trace.act.account.toLowerCase().includes(filter);
+                          };
+
+                          this.spinnerActions = false;
+                      },
+                      (error) => {
+                          this.spinnerActions = false;
+                          console.error(error);
+                      });
+  }
+  nextPage(pageIndex){
+    if (this.actionsTotal < this.position * this.elementsLimit){
+        return;
+    }
+    this.position += pageIndex;
+    this.getActions(this.mainData.account_name, this.position);
+  }
+
+  getAccountCreator(accountName){
+      this.http.get(`/api/v1/get_actions_name/${accountName}/newaccount?sort=1`)
+           .subscribe((res: any) => {
+                          this.creator = res.actions[0];
                       },
                       (error) => {
                           console.error(error);
@@ -120,27 +162,53 @@ export class AccountPageComponent implements OnInit, OnDestroy{
        if (!data){
            return [];
        }
-       let block_nums = [];
+       let block_time = [];
        let result = [];
        data.forEach(elem => {
-           if (block_nums.indexOf(elem.block_num) === -1){
+           if (block_time.indexOf(elem.block_time) === -1){
                result.push(elem);
-               block_nums.push(elem.block_num);
+               block_time.push(elem.block_time);
            }
        });
-       block_nums = [];
+       block_time = [];
        return result;
+  }
+
+  filterTokens(data){
+    let result = data.map();
+  }
+
+  createActionsArr(actions){
+      actions.forEach(elem => {
+           elem.action_trace = {};
+           elem.action_trace.receipt = elem.receipt;
+           elem.action_trace.act = elem.act;
+           elem.action_trace.trx_id = elem.trx_id;
+      });
+      return actions;
   }
 
 
   getControlledAccounts(account){
         this.http.get(`/api/v1/get_controlled_accounts/${account}`)
               .subscribe((res: any) => {
-                              this.controlledAccount = res;
+                              this.controlledAccount = (res && !res.controlled_accounts) ? this.createArrayAccounts(res) : res;
                           },
                           (error) => {
                               console.error(error);
                           });
+  }
+
+  createArrayAccounts(data){
+      let result = {
+        controlled_accounts: []
+      };
+      data.forEach(elem => {
+          if (elem.controlled_permission === "active"){
+             result.controlled_accounts.push(elem.controlled_account); 
+          }  
+      });
+      return result;
   }
 
   getAllTokens(account){
@@ -168,6 +236,10 @@ export class AccountPageComponent implements OnInit, OnDestroy{
     });
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
 
   ngOnInit() {
     this.block = this.route.params.subscribe(params => {
@@ -176,12 +248,12 @@ export class AccountPageComponent implements OnInit, OnDestroy{
        this.getControlledAccounts(this.accountId);
        this.getAllTokens(this.accountId);
     });
-    //this.subscription = this.MainService.getEosPrice().subscribe(item => { this.eosRate = item; console.log(item); });
   }
 
   ngOnDestroy() {
     this.block.unsubscribe(); 
-    //this.subscription.unsubscribe();
+    this.actionsArray = [];
+    this.tables = [];
   }	
 }
 

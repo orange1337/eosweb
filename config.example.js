@@ -12,21 +12,25 @@ config.MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/EOSweb';
 config.MONGO_OPTIONS = {
     socketTimeoutMS: 30000,
     keepAlive: true,
-    reconnectTries: 30000
-};
-
-// connection to Mariadb (Tokens list for account)
-config.MARIA_DB_ENABLE = false;
-config.MARIA_DB = {
-    host: '',
-    user: '',
-    password: '',
-    db: '' 
+    reconnectTries: 30000,
+    useNewUrlParser: true
 };
 
 // cron processes (aggregation of main stat - actions, transactions, accounts, analytics)
 config.CRON = false;
 config.CRON_API = 'http://bp.cryptolions.io';
+
+config.TPS_ENABLE = true;
+config.MAX_TPS_TIME_UPDATE = 5000;
+
+config.eosInfoConfigs = {
+      mainNet: {
+        chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
+        httpEndpoint: "http://bp.cryptolions.io",
+        name: "Main Net",
+        key: "mainNet"
+      },
+};
 
 // telegram alert bot
 config.telegram = {
@@ -35,11 +39,14 @@ config.telegram = {
   TIME_UPDATE: 5000
 };
 
+// reserve nodes
+config.endpoints = ['https://eos.greymass.com', 'http://bp.cryptolions.io', 'http://eosbp-0.atticlab.net'];
+
 // eosjs
 config.eosConfig = {
   chainId: "038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca",
   keyProvider: "",
-  httpEndpoint: "http://bp.cryptolions.io",
+  httpEndpoint: config.endpoints[0],
   expireInSeconds: 60,
   broadcast: true,
   debug: false,
@@ -60,13 +67,20 @@ config.walletAPI = {
 // api url for producers list
 config.customChain = 'https://nodes.get-scatter.com';
 
+// api url for history
+config.historyChain = 'https://eos.greymass.com';
+
+// tokens api
+config.tokensAPI = 'http://tokenapi.eoswatch.info/api/account/b1';
+
 config.apiV = 'v1'; // api version
 config.RAM_UPDATE = 5 * 60 * 1000; // time for ram update - /api/api.*.socket
 config.HISTORY_UPDATE = 5 * 60 * 1000; // time for stats update - /api/api.*.socket 
 config.MAX_BUFFER = 500000; // max buffer size for child processes (kb) - /crons
-config.blockUpdateTime = 5000; // mainpage upades frequency  - /api/api.*.socket in ml sec
-config.offsetElementsOnMainpage = 20; // blocks on mainpage
+config.blockUpdateTime = 900; // mainpage upades frequency  - /api/api.*.socket in ml sec
+config.offsetElementsOnMainpage = 10; // blocks on mainpage
 config.limitAsync = 30; // max threads for async.js module  
+config.updateTPS = 1000;
 
 // log4js
 config.logger = {
@@ -134,10 +148,10 @@ config.logger = {
 // slack notifications
 config.loggerSlack = {
       alerts: {
-        type: 'slack',
-        token: 'xoxp-383300076864-385041998119-384243063570-5121a15e945780f6c452d98b838466d9',
-        channel_id: 'dev_notify',
-        username: 'System bot',
+        type: '',
+        token: '',
+        channel_id: '',
+        username: '',
       }
 };
 

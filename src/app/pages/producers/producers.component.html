@@ -29,9 +29,10 @@
     
     <!-- Name Column -->
     <ng-container matColumnDef="Name">
-      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *matCellDef="let element" class="marketcap-container">
-          <a [routerLink]="['/producer', element?.owner ]" class="color-green" id="{{element?.owner}}">
+      <mat-header-cell *matHeaderCellDef class="url-flex"> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="marketcap-container url-flex">
+          <img src="{{ element?.image }}" class="branding-logo" alt="" width="40">
+          <a [routerLink]="['/producer', element?.owner ]" [ngClass]="{'name-img': element?.image }" class="color-green" id="{{element?.owner}}">
           	<strong>{{ element?.owner }}</strong>
           </a>
        </mat-cell>
@@ -40,8 +41,9 @@
     <ng-container matColumnDef="Status">
       <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
       <mat-cell *matCellDef="let element" class="marketcap-container">
-          <button mat-raised-button color="primary" class="status" *ngIf="element?.index <= 21">Top 21</button>
-          <button mat-raised-button color="warn" class="status" *ngIf="element?.index > 21">Standby</button>
+          <button mat-raised-button color="primary" class="status" *ngIf="element?.index <= 21 && producer !== element.owner">Top 21</button>
+          <button mat-raised-button color="accent" class="status" *ngIf="producer === element.owner">Producing</button>
+          <button mat-raised-button color="warn" class="status" *ngIf="element?.index > 21 && producer !== element.owner">Standby</button>
        </mat-cell>
     </ng-container>
     
@@ -59,7 +61,13 @@
           <a href="{{element?.url}}" target="_blank" class="color-green">{{element?.url}}</a>
       </mat-cell>
     </ng-container>
-
+    
+    <ng-container matColumnDef="Location">
+      <mat-header-cell *matHeaderCellDef> Location </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="color-light-grey"> 
+            <img src="/assets/images/flags/{{element?.location}}.svg" *ngIf="element?.location?.length === 2" width="30" alt="">
+      </mat-cell>
+    </ng-container>
     
     <!-- Name Column -->
     
@@ -82,10 +90,10 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 
-  <!--<mat-paginator #paginator
-                 [pageSize]="100"
-                 [pageSizeOptions]="[50, 100]">
-  </mat-paginator>-->
+  <mat-paginator #paginator
+                 [pageSize]="80"
+                 [pageSizeOptions]="[80, 500]">
+  </mat-paginator>
 </div>
 </div>
 

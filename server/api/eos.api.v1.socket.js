@@ -5,51 +5,68 @@
 const config          = require('../../config.js');
 const async           = require('async');
 const customFunctions = require('./eos.api.v1.custom');
+const EOS             = require('eosjs');
+const request         = require('request');
 
 const log4js = require('log4js');
 log4js.configure(config.logger);
 const log    = log4js.getLogger('socket_io');
 
+const customSlack   = require('../modules/slack.module');
+const logSlack      = customSlack.configure(config.loggerSlack.alerts);
+
 const updateTimeBlocks = config.blockUpdateTime;
+const updateTPS        = config.updateTPS;
 
 let timeToUpdate        = +new Date() + config.RAM_UPDATE;
 let timeToUpdateHistory = +new Date() + config.HISTORY_UPDATE;
 
-module.exports = function(io, eos, mongoMain){
+let SOCKET_ROOM = 'pool';
+let userCountHandler = 0;
+let SOCKET_HANGUP_TIME = +new Date();
+let changeAPI = 0;
+
+module.exports = function(io, mongoMain){
 
   const STATS_AGGR  = require('../models/api.stats.model')(mongoMain);
   const RAM         = require('../models/ram.price.model')(mongoMain);
   const TRX_ACTIONS = require('../models/trx.actions.history.model')(mongoMain);
 
-  io.usersPool = {};
-
   let offset = config.offsetElementsOnMainpage;
-  let elements = Array.from({ length: offset }, (v, k) => k++);
+  let blocks = Array.from({ length: offset }, (v, k) => k++);
+
+  io.on('connection', socket => {
+    socket.join(SOCKET_ROOM);
+
+    userCountHandler += 1;
+    socket.on('disconnect', () => {
+      socket.leave(SOCKET_ROOM);
+      userCountHandler -= 1;
+    });
+  });
 
   function getDataSocket(){
-    setTimeout(() => {
-      let socketsArr = Object.keys(io.usersPool).map( key => { return io.usersPool[key] });
-      if (!socketsArr || !socketsArr.length){
-          log.info('No user online');
-          return getDataSocket();
+      if (!io || !io.sockets.adapter.rooms[SOCKET_ROOM]){
+          log.info('====== No users online');
+          return setTimeout(getDataSocket, updateTimeBlocks);;
       }
-      //console.log('=======', socketsArr.length);
+      let timeRequestStart = +new Date(); 
       async.parallel({
         info: cb => {
-          eos.getInfo({})
-             .then(result => {
-               cb(null, result);
+          global.eos.getInfo({})
+             .then(stat => {
+                cb(null, stat);
              })
              .catch(err => {
                log.error(err);
-               cb('No result');
+               cb('No stat');
              });
         },
         blocks: cb => {
-          customFunctions.getLastBlocks(eos, elements, (err, result) => {
+          customFunctions.getLastBlocks(global.eos, blocks, (err, result) => {
                       if (err){
-                        log.error(err);
-                        return cb('No result');
+                          log.error(err);
+                          return cb('No result');
                       }
                       cb(null, result);
           });
@@ -62,96 +79,167 @@ module.exports = function(io, eos, mongoMain){
               }
               cb(null, result);
           });
-        },
-        ram: cb => {
-              eos.getTableRows({
-                  json: true,
-                  code: "eosio",
-                  scope: "eosio",
-                  table: "rammarket",
-                  limit: 10
-              })
-               .then(result => {
-                    let dateNow = +new Date();
-                    if (dateNow < timeToUpdate){
-                        return cb(null, result);
-                    }
-                    timeToUpdate = +new Date() + config.RAM_UPDATE;
-                    if (!result || !result.rows || !result.rows[0] || !result.rows[0].quote || !result.rows[0].base){
-                                      log.error('rammarket data error', result);
-                                      return cb(null);
-                    }
-                    let data = result.rows[0];
-                    let quoteBalance  = data.quote.balance;
-                    let baseBalance   = data.base.balance;
-                    let ram = new RAM({
-                        quote: quoteBalance,
-                        base: baseBalance
-                    });
-                    ram.save(err => {
-                       if (err) {
-                        return cb(err); 
-                       }
-                       log.info('ram market price data ========= ', ram);
-                       cb(null, result);
-                    });
-               })
-               .catch(err => {
-                    log.error(err);
-                    cb('No result');
-               });
-        },
-        history: cb => {
-            let dateNow = +new Date();
-            if (dateNow < timeToUpdateHistory){
-                        return cb(null);
-            }
-            timeToUpdateHistory = +new Date() + config.HISTORY_UPDATE;
-            STATS_AGGR.findOne({}, (err, result) => {
-                  if (err){
-                     log.error(err);
-                     return cb(null);
-                  }
-                  if (!result || isNaN(Number(result.transactions)) || isNaN(Number(result.actions))){
-                      log.error('====== transactions actions history error');
-                      return cb(null);
-                  }
-                  let trxActions = new TRX_ACTIONS({
-                        transactions: result.transactions,
-                        actions: result.actions
-                  });
-                  trxActions.save(err => {
-                     if (err){
-                        log.error(err);
-                     }
-                     log.info(trxActions);
-                     cb(null);
-                  });
-            });
-        },
+        }
       }, (err, result) => {
+          let date = +new Date();
           if (err){
-             log.error(err);
+             console.error('========= ', err);
+             // change nodeos API 
+             if (date > SOCKET_HANGUP_TIME){
+                 changeAPI += 1;
+                 changeAPI = (config.endpoints.length === changeAPI) ? 0 : changeAPI; 
+                 config.eosConfig.httpEndpoint = config.endpoints[changeAPI];
+                 global.eos = EOS(config.eosConfig);
+                 logSlack(`Change API to [${config.eosConfig.httpEndpoint}], socket error - ${err}`);
+                 SOCKET_HANGUP_TIME = date + 60000;
+              }
+          } else {
+              io.to(SOCKET_ROOM).emit('get_info', result.info);
+              io.to(SOCKET_ROOM).emit('get_last_blocks', result.blocks);
+              io.to(SOCKET_ROOM).emit('get_aggregation', result.stat);
+              io.to(SOCKET_ROOM).emit('users_online', userCountHandler);
           }
-          socketsArr.forEach(socket => {
-              socket.emit('get_info', result.info);
-              socket.emit('get_last_blocks', result.blocks);
-              socket.emit('get_aggregation', result.stat);
-              socket.emit('get_ram', result.ram);
-          });
-          getDataSocket();
+          setTimeout(getDataSocket, getSleepTime(timeRequestStart));
       });
-    }, updateTimeBlocks);
   }
 
-  io.sockets.on('connection',  (socket) => {
-    io.usersPool[socket.id] = socket;
-    socket.on('disconnect', () => {
-       delete io.usersPool[socket.id];
-    });
-  //====== connection end   
-  }); 
+  function getTPS(){
+      let timeRequestStart = +new Date(); 
+      customFunctions.getLastBlocks(eos, [1, 2], (err, result) => {
+            if (err){
+                console.error(err);
+                return setTimeout(getTPS, getSleepTimeTPS(timeRequestStart));
+            }
+            io.to(SOCKET_ROOM).emit('get_tps_blocks', result);
+            setTimeout(getTPS, getSleepTimeTPS(timeRequestStart));
+      });
+  }
 
-  getDataSocket(); 
+  function getProducersTable(){
+      let timeRequestStart = +new Date(); 
+      let formData = { 
+        json: true,
+        code: 'eosio',
+        scope: 'eosio',
+        table: 'producers',
+        limit: 500
+      };
+      request.post({url:`${config.customChain}/v1/chain/get_table_rows`, json: formData}, (err, response, body) => {
+            if (err){
+                log.error(err);
+                return setTimeout(getProducersTable, getSleepTime(timeRequestStart));
+            }
+            io.to(SOCKET_ROOM).emit('producers', body);
+            setTimeout(getProducersTable, getSleepTime(timeRequestStart));
+      });
+  }
 
+  /*function getHistory(){
+      let timeRequestStart = +new Date();
+      if (timeRequestStart < timeToUpdateHistory){
+                  return setTimeout(getHistory, getSleepTime(timeRequestStart));
+      }
+      timeToUpdateHistory = +new Date() + config.HISTORY_UPDATE;
+      STATS_AGGR.findOne({}, (err, result) => {
+            if (err){
+                log.error(err);
+                return setTimeout(getHistory, getSleepTime(timeRequestStart));
+            }
+            if (!result || isNaN(Number(result.transactions)) || isNaN(Number(result.actions))){
+                log.error('====== transactions actions history error');
+                return setTimeout(getHistory, getSleepTime(timeRequestStart));
+            }
+            let trxActions = new TRX_ACTIONS({
+                  transactions: result.transactions,
+                  actions: result.actions
+            });
+            trxActions.save(err => {
+               if (err){
+                  log.error(err);
+               }
+               log.info(trxActions);
+               setTimeout(getHistory, getSleepTime(timeRequestStart));
+            });
+      });
+  }*/
+
+  function getRam(){
+      let timeRequestStart = +new Date();
+      global.eos.getTableRows({
+          json: true,
+          code: "eosio",
+          scope: "eosio",
+          table: "rammarket",
+          limit: 10
+      }).then(result => {
+            let dateNow = +new Date();
+            if (dateNow < timeToUpdate){
+                io.to(SOCKET_ROOM).emit('get_ram', result);
+                return setTimeout(getRam, getSleepTime(timeRequestStart));
+            }
+            timeToUpdate = +new Date() + config.RAM_UPDATE;
+            if (!result || !result.rows || !result.rows[0] || !result.rows[0].quote || !result.rows[0].base){
+                              log.error('rammarket data error', result);
+                              return setTimeout(getRam, getSleepTime(timeRequestStart));
+            }
+            let data = result.rows[0];
+            let quoteBalance  = data.quote.balance;
+            let baseBalance   = data.base.balance;
+            let ram = new RAM({
+                quote: quoteBalance,
+                base: baseBalance
+            });
+            ram.save(err => {
+               if (err) {
+                 log.error(err); 
+                 return setTimeout(getRam, getSleepTime(timeRequestStart));
+               }
+               log.info('ram market price data ========= ', ram);
+               io.to(SOCKET_ROOM).emit('get_ram', result);
+               setTimeout(getRam, getSleepTime(timeRequestStart));
+            });
+       })
+       .catch(err => {
+            log.error(err);
+            setTimeout(getRam, getSleepTime(timeRequestStart));
+       });
+  }
+
+  function getSleepTime(timeRequestStart){
+      let date = +new Date();
+      let timeForRequest = date - timeRequestStart;
+      let sleep = 3000;
+
+      if (updateTimeBlocks - timeForRequest > 0){
+          sleep = updateTimeBlocks - timeForRequest;
+      } else {
+          sleep = 0;
+      }
+      return sleep;
+  }
+
+  function getSleepTimeTPS(timeRequestStart){
+      let date = +new Date();
+      let timeForRequest = date - timeRequestStart;
+      let sleep = 3000;
+
+      if (updateTPS - timeForRequest > 0){
+          sleep = updateTPS - timeForRequest;
+      } else {
+          sleep = 0;
+      }
+      return sleep;
+  }
+
+
+  getDataSocket();
+  getTPS();
+  getProducersTable();
+  //getHistory();
+  getRam();
+
+  // === end function export 
 }
+
+
+

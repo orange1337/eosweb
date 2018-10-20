@@ -11,6 +11,7 @@ import { MatAutocompleteModule,
          MatFormFieldModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { appRoutes } from '../../main.router';
+import { MainService } from '../../services/mainapp.service';
 
 
 let imports = [
@@ -31,7 +32,8 @@ let imports = [
     ProducersPageComponent
   ],
   imports:  imports,
-  providers: [],
+  providers: [MainService],
+  exports: [ProducersPageComponent],
   bootstrap: [ ProducersPageComponent ]
 })
 export class ProducersPageModule {}
