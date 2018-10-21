@@ -100,20 +100,10 @@ export class ProducersPageComponent implements OnInit, OnDestroy{
   ngOnInit() {
      this.getBlockData();
      this.firstLoad = false;
-     
-     this.socket.on('get_tps_blocks', (data) => {
-       if (!data[1]){
-           return;
-       }
-       if (this.producer === data[1].producer){
-           return;
-       }
-       this.producer = data[1].producer;
-     });
+     this.MainService.currentMessage.subscribe(message => this.producer = message)
   }
   ngOnDestroy() {
      this.socket.removeAllListeners('producers');
-     this.socket.removeAllListeners('get_tps_blocks');
   }
 }
 

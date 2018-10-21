@@ -1,4 +1,5 @@
 import { Injectable, EventEmitter, Inject } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class MainService {
@@ -23,6 +24,12 @@ export class MainService {
   };
   ungerKey = "EOS1111111111111111111111111111111114T1Anm";
 
+  private messageSource = new BehaviorSubject();
+  currentMessage = this.messageSource.asObservable();
+
+  changeMessage(message: string) {
+      this.messageSource.next(message)
+  }
 
   constructor() {}
 

@@ -36,6 +36,7 @@ export class MainCustomizeChartsComponent implements OnInit{
   TPSliveTx = 0;
   usersOnline = 0;
   timeForUpdate = 5000;
+  producer;
 
   constructor(private http: HttpClient, private socket: Socket, private MainService: MainService){}
 
@@ -146,6 +147,8 @@ export class MainCustomizeChartsComponent implements OnInit{
       this.socket.on('get_tps_blocks', res => {
           if (res && res.length === 2){
              this.TPSliveTx = this.countTPS(res);
+             this.producer = (this.producer === res[1].producer) ? this.producer : res[1].producer;
+             this.MainService.changeMessage(this.producer);
           }
       });
 
