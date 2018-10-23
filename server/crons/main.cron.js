@@ -23,21 +23,21 @@ module.exports = () => {
         cron.schedule('*/1 * * * *', () => {
             if (ACCOUNTS_STAT_PROCESS === 0){
               console.log('====== global stat daemon');
-              startGlobalStatAnalytics();
+              startAccountsAnalytics();
             }
         });
 
         cron.schedule('0 0 0 * * *', () => {
             if (GLOBAL_STAT_PROCESS === 0){
               console.log('running account analytics daemon 2');
-              startAccountsAnalytics();
+              startGlobalStatAnalytics();
             }
         });
 
         cron.schedule('0 0 0 * * *', () => {
             if (PRODUCERS_PROCESS === 0){
               console.log('running account analytics daemon 2');
-              startAccountsAnalytics();
+              startProducersInfoDaemon();
             }
         });
 
