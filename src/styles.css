@@ -558,9 +558,22 @@ action-viewer{
 .load-more{
 	margin: 10px auto;
 }
-
-
-
+.progress-bar-votes {
+	margin-top: 50px;
+	position: relative;
+}
+.progress-bar-votes .progress-bar-usage{
+	height: 15px !important;
+	margin-left: -30px;
+}
+.progress-bar-votes span{
+    position: absolute;
+    font-size: 11px;
+    top: 7px;
+    left: -7px;
+    color: #fff;
+    font-weight: bold;
+}
 
 
 

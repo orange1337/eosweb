@@ -5,7 +5,12 @@
 </div>
 
 <div class="col-md-12">
-<h1 class="market-header pull-left col-sm-8">Producers rate</h1>
+<h1 class="market-header col-sm-3">Producers rate</h1>
+
+<div class="progress-bar-votes col-sm-5">
+   <mat-progress-bar mode="determinate" value="{{chainPercentage}}" class="progress-bar-usage account-ram"></mat-progress-bar> 
+   <span>Votes: {{ chainNumber?.toLocaleString() }} ({{chainPercentage}}%)</span>
+</div>
 
 <div class="col-sm-4 filter-header">
   <mat-form-field>
@@ -54,7 +59,6 @@
       </mat-cell>
     </ng-container>
 
-    <!-- Weight Column -->
     <ng-container matColumnDef="Url">
       <mat-header-cell *matHeaderCellDef class="url-flex"> Url </mat-header-cell>
       <mat-cell *matCellDef="let element" class="color-light-grey url-flex"> 
@@ -69,9 +73,6 @@
       </mat-cell>
     </ng-container>
     
-    <!-- Name Column -->
-    
-        <!-- Name Column -->
     <ng-container matColumnDef="Rate">
       <mat-header-cell *matHeaderCellDef> Rate</mat-header-cell>
       <mat-cell *matCellDef="let element" class="change-container"> 

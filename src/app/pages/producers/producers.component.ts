@@ -28,6 +28,9 @@ export class ProducersPageComponent implements OnInit, OnDestroy{
   producer;
   filterVal = '';
   bpJson;
+  globalTable;
+  chainPercentage;
+  chainNumber;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -44,6 +47,8 @@ export class ProducersPageComponent implements OnInit, OnDestroy{
                       (results: any) => {
                           this.totalProducerVoteWeight = results[1].rows[0].total_producer_vote_weight;
                           this.bpJson = results[2];
+                          this.globalTable = results[1];
+                          this.calculateTotalVotes(this.globalTable);
                           this.createTable(results[0], this.totalProducerVoteWeight, this.bpJson);
 
                           this.socket.on('producers', (data) => {
@@ -91,6 +96,13 @@ export class ProducersPageComponent implements OnInit, OnDestroy{
       return sortedArr;
   }
 
+  calculateTotalVotes(global){
+      if (!global || !global.rows || !global.rows[0] || !global.rows[0].total_activated_stake){
+          return;
+      }
+      this.chainPercentage = (global.rows[0].total_activated_stake / 10000 / 1000011818 * 100).toFixed(2);
+      this.chainNumber = global.rows[0].total_activated_stake / 1000011818 * 100000;
+  }
 
   applyFilter(filterValue: string) {
     this.filterVal = filterValue;
