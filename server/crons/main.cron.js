@@ -36,7 +36,7 @@ module.exports = () => {
 
         cron.schedule('0 0 0 * * *', () => {
             if (PRODUCERS_PROCESS === 0){
-              console.log('running account analytics daemon 2');
+              console.log('running PRODUCERS PROCESS 2');
               startAccountsAnalytics();
             }
         });

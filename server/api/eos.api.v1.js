@@ -368,7 +368,8 @@ module.exports 	= function(router, config, request, log, mongoMain, MARIA) {
 	   	let formData = { json: true,
 			    account_name: req.params.account_name,
 	   	 		pos: req.params.position,
-	   	 		offset: (config.historyNewAPI) ? Math.abs(req.params.offset) : req.params.offset 
+	   	 		offset: (config.historyNewAPI) ? Math.abs(req.params.offset) : req.params.offset,
+	   	 		counter: 1
 		};
 	   	request.post({url:`${config.historyChain}/v1/history/get_actions`, json: formData}).pipe(res);
 	});

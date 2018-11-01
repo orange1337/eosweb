@@ -7,7 +7,7 @@
 <div class="col-md-12">
 <h1 class="market-header col-sm-3">Producers rate</h1>
 
-<div class="progress-bar-votes col-sm-5">
+<div class="progress-bar-votes col-sm-5" *ngIf="chainNumber">
    <mat-progress-bar mode="determinate" value="{{chainPercentage}}" class="progress-bar-usage account-ram"></mat-progress-bar> 
    <span>Votes: {{ chainNumber?.toLocaleString() }} ({{chainPercentage}}%)</span>
 </div>
