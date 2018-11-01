@@ -48,7 +48,7 @@ export class ProducersPageComponent implements OnInit, OnDestroy{
                           this.totalProducerVoteWeight = results[1].rows[0].total_producer_vote_weight;
                           this.bpJson = results[2];
                           this.globalTable = results[1];
-                          this.calculateTotalVotes(this.globalTable);
+                          this.getSupplyEOS(this.globalTable);
                           this.createTable(results[0], this.totalProducerVoteWeight, this.bpJson);
 
                           this.socket.on('producers', (data) => {
@@ -96,12 +96,24 @@ export class ProducersPageComponent implements OnInit, OnDestroy{
       return sortedArr;
   }
 
-  calculateTotalVotes(global){
+  calculateTotalVotes(global, supply){
       if (!global || !global.rows || !global.rows[0] || !global.rows[0].total_activated_stake){
           return;
       }
-      this.chainPercentage = (global.rows[0].total_activated_stake / 10000 / 1000011818 * 100).toFixed(2);
-      this.chainNumber = global.rows[0].total_activated_stake / 1000011818 * 100000;
+      this.chainPercentage = (global.rows[0].total_activated_stake / 10000 / supply * 100).toFixed(2);
+      this.chainNumber = global.rows[0].total_activated_stake / supply * 100000;
+  }
+
+  getSupplyEOS(globalTable){
+    this.http.get(`/api/custom/get_table_rows/eosio.token/EOS/stat/1`)
+             .subscribe((res: any) => {
+                if (!res || !res.rows || !res.rows[0] || !res.rows[0].supply){
+                    return;
+                }
+                this.calculateTotalVotes(globalTable, Number(res.rows[0].supply.split(" ")[0]));
+             }, err => {
+                console.log(err);
+             });
   }
 
   applyFilter(filterValue: string) {
