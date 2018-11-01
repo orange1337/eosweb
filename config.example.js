@@ -52,7 +52,7 @@ config.eosConfig = {
   debug: false,
   sign: true,
   logger: {
-    log: console.log,
+    //log: console.log,
     error: console.error
   }
 };
