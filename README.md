@@ -1,10 +1,10 @@
 # EOSweb.net - vote for us [https://eosweb.net/vote](https://eosweb.net/vote)
 
-[Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
+[Angular CLI](https://github.com/angular/angular-cli) version 1.7.1
 
 ## manual installation 
 	- node.js v.8^ https://nodejs.org/
-	- angular-cli 1.7.4 - npm install -g angular-cli@1.7.4
+	- angular-cli 1.7.4 - npm install -g angular-cli@1.7.1
 	- mongodb 3.6^ https://www.mongodb.com/
 
 ## docker-compose example
