@@ -85,14 +85,14 @@ module.exports = function(io, mongoMain){
           if (err){
              console.error('========= ', err);
              // change nodeos API 
-             if (date > SOCKET_HANGUP_TIME){
+             //if (date > SOCKET_HANGUP_TIME){
                  changeAPI += 1;
                  changeAPI = (config.endpoints.length === changeAPI) ? 0 : changeAPI; 
                  config.eosConfig.httpEndpoint = config.endpoints[changeAPI];
                  global.eos = EOS(config.eosConfig);
-                 logSlack(`Change API to [${config.eosConfig.httpEndpoint}], socket error - ${err}`);
-                 SOCKET_HANGUP_TIME = date + 60000;
-              }
+                 console.error('\x1b[33m%s\x1b[0m', `Change API to [${config.eosConfig.httpEndpoint}], socket error - ${err}`);
+                 //SOCKET_HANGUP_TIME = date + 60000;
+              //}
           } else {
               io.to(SOCKET_ROOM).emit('get_info', result.info);
               io.to(SOCKET_ROOM).emit('get_last_blocks', result.blocks);
