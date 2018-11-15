@@ -38,6 +38,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   actionsArray = [];
   elementsLimit = 100;
   creator;
+  actionsNotSorted;
 
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient, 
@@ -87,6 +88,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
       this.spinnerActions = true;
       this.http.get(`/api/v1/get_actions/${accountName}/-${pos}/-${this.elementsLimit}`)
            .subscribe((res: any) => {
+                          this.actionsNotSorted = res.actions;
                           res.actions = this.sortArrayFunctions(res.actions);
                           if(res.actions[0] && !res.actions[0].action_trace){
                             res.actions = this.createActionsArr(res.actions);
@@ -113,11 +115,8 @@ export class AccountPageComponent implements OnInit, OnDestroy{
                       });
   }
   nextPage(pageIndex){
-    if (this.actionsTotal < this.position * this.elementsLimit){
-        return;
-    }
     this.position += pageIndex;
-    this.getActions(this.mainData.account_name, this.position);
+    this.getActions(this.mainData.account_name, this.position * this.elementsLimit);
   }
 
   getAccountCreator(accountName){

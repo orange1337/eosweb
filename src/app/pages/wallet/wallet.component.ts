@@ -54,6 +54,7 @@ export class WalletPageComponent implements OnInit {
   contractMethod = '';
   contractField = {};
   contractFieldsRender = [];
+  ScatterJS;
 
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient,
@@ -133,29 +134,43 @@ export class WalletPageComponent implements OnInit {
       }
   }
 
+
   loginScatter(){
-    if (!this.WINDOW.scatter){
-        console.error('Please install scatter wallet !');
+    if (!this.WINDOW.ScatterJS){
+        return this.notifications.error('Scatter error', 'Please install Scatter extension');
     }
     localStorage.setItem("scatter", 'loggedIn');
-    this.WINDOW.scatter.getIdentity({
-       accounts: [this.eosNetwork]
-    }).then(identity => {
-        this.identity = identity;
-        if (identity && identity.accounts[0] && identity.accounts[0].name){
-            this.getAccount(identity.accounts[0].name);
-        }
-    }).catch(err => {
-        console.error(err);
+    this.WINDOW.ScatterJS.scatter.connect('EOSweb').then(connected => {
+        if(!connected) {
+          return this.notifications.error('Scatter error', 'Can\'t connect to Scatter');
+        } 
+      
+        this.ScatterJS = this.WINDOW.ScatterJS.scatter;
+        this.WINDOW.scatter = null;
+  
+        this.ScatterJS.getIdentity({
+           accounts: [this.eosNetwork]
+        }).then(identity => {
+            if (identity.accounts.length === 0) {
+                return;
+            }
+            let objectIdentity = this.ScatterJS.identity.accounts.find(x => x.blockchain === 'eos'); //identity.accounts[0].name;
+            this.identity = (objectIdentity && objectIdentity.name) ? objectIdentity.name : null;
+            if (this.identity){
+                this.getAccount(this.identity);
+            }
+        }).catch(err => {
+            console.error(err);
+        });
     });
   }
 
   logoutScatter(){
-    if (!this.WINDOW.scatter){
+    if (!this.ScatterJS){
         return this.notifications.error('Scatter error', 'Please install Scatter extension');
     }
     localStorage.setItem('scatter', 'loggedOut');
-    this.WINDOW.scatter.forgetIdentity().then(() => {
+    this.ScatterJS.forgetIdentity().then(() => {
         location.reload();
         this.notifications.success('Logout success', '');
     }).catch(err => {
@@ -171,7 +186,7 @@ export class WalletPageComponent implements OnInit {
         return this.notifications.error('Error', 'Please type account To and Amount');
     }
         let amount = Number(`${this.transfer.amount}`).toFixed(4) + ` ${this.transfer.symbol}`;
-        let eos = this.WINDOW.scatter.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
+        let eos = this.ScatterJS.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
         eos.transfer(this.identity.accounts[0].name, this.transfer.to, amount, this.transfer.memo)
            .then(result => {
                 this.getAccount(this.identity.accounts[0].name);
@@ -222,7 +237,7 @@ export class WalletPageComponent implements OnInit {
         let requiredFields = {
             accounts: [this.eosNetwork]
         }
-        let eos = this.WINDOW.scatter.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
+        let eos = this.ScatterJS.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
         eos.contract(this.contractName, {
             requiredFields
         }).then(contract => {
@@ -271,7 +286,7 @@ export class WalletPageComponent implements OnInit {
      this.getWalletAPI();
 
      if (localStorage.getItem("scatter") === 'loggedIn'){
-           if (!this.WINDOW.scatter){
+           if (!this.WINDOW.ScatterJS){
                 document.addEventListener('scatterLoaded', () => {
                       this.loginScatter();
                 });

@@ -58,6 +58,7 @@ export class VotePageComponent implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
+  ScatterJS;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   constructor(private route: ActivatedRoute, 
@@ -153,28 +154,41 @@ export class VotePageComponent implements OnInit {
   }
 
   loginScatter(){
-    if (!this.WINDOW.scatter){
-        console.error('Please install scatter wallet !');
+    if (!this.WINDOW.ScatterJS){
+        return this.notifications.error('Scatter error', 'Please install Scatter extension');
     }
     localStorage.setItem("scatter", 'loggedIn');
-    this.WINDOW.scatter.getIdentity({
-       accounts: [this.eosNetwork]
-    }).then(identity => {
-        this.identity = identity;
-        if (identity && identity.accounts[0] && identity.accounts[0].name){
-            this.getAccount(identity.accounts[0].name);
-        }
-    }).catch(err => {
-        console.error(err);
+    this.WINDOW.ScatterJS.scatter.connect('EOSweb').then(connected => {
+        if(!connected) {
+          return this.notifications.error('Scatter error', 'Can\'t connect to Scatter');
+        } 
+      
+        this.ScatterJS = this.WINDOW.ScatterJS.scatter;
+        this.WINDOW.scatter = null;
+  
+        this.ScatterJS.getIdentity({
+           accounts: [this.eosNetwork]
+        }).then(identity => {
+            if (identity.accounts.length === 0) {
+                return;
+            }
+            let objectIdentity = this.ScatterJS.identity.accounts.find(x => x.blockchain === 'eos'); //identity.accounts[0].name;
+            this.identity = (objectIdentity && objectIdentity.name) ? objectIdentity.name : null;
+            if (this.identity){
+                this.getAccount(this.identity);
+            }
+        }).catch(err => {
+            console.error(err);
+        });
     });
   }
 
   logoutScatter(){
-    if (!this.WINDOW.scatter){
+    if (!this.ScatterJS){
         return this.notifications.error('Scatter error', 'Please install Scatter extension');
     }
     localStorage.setItem('scatter', 'loggedOut');
-    this.WINDOW.scatter.forgetIdentity().then(() => {
+    this.ScatterJS.forgetIdentity().then(() => {
         location.reload();
         this.notifications.success('Logout success', '');
     }).catch(err => {
@@ -189,7 +203,7 @@ export class VotePageComponent implements OnInit {
     if (! this.vote.voter.length){
         return this.notifications.error('Error', 'Please type Voter');
     }
-        let eos = this.WINDOW.scatter.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
+        let eos = this.ScatterJS.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
         eos.contract('eosio', {
             accounts: [this.eosNetwork]
         }).then(contract => {
@@ -243,7 +257,7 @@ export class VotePageComponent implements OnInit {
       this.getWalletAPI();
 
      if (localStorage.getItem("scatter") === 'loggedIn'){
-           if (!this.WINDOW.scatter){
+           if (!this.WINDOW.ScatterJS){
                 document.addEventListener('scatterLoaded', () => {
                       this.loginScatter();
                 });
