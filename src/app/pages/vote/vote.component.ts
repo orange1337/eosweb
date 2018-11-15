@@ -60,11 +60,14 @@ export class VotePageComponent implements OnInit {
   addOnBlur = true;
   ScatterJS;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  eos;
 
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient,
               public dialog: MatDialog,
-              private notifications: NotificationsService){}
+              private notifications: NotificationsService){
+    this.WINDOW.ScatterJS.plugins(new this.WINDOW.ScatterEOS());
+  }
 
   getAccount(name){
       this.spinner = true;
@@ -165,6 +168,8 @@ export class VotePageComponent implements OnInit {
       
         this.ScatterJS = this.WINDOW.ScatterJS.scatter;
         this.WINDOW.scatter = null;
+
+        this.eos = this.ScatterJS.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
   
         this.ScatterJS.getIdentity({
            accounts: [this.eosNetwork]
@@ -203,8 +208,8 @@ export class VotePageComponent implements OnInit {
     if (! this.vote.voter.length){
         return this.notifications.error('Error', 'Please type Voter');
     }
-        let eos = this.ScatterJS.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
-        eos.contract('eosio', {
+        //let eos = this.ScatterJS.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
+        this.eos.contract('eosio', {
             accounts: [this.eosNetwork]
         }).then(contract => {
             contract.voteproducer({

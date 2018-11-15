@@ -55,11 +55,14 @@ export class WalletPageComponent implements OnInit {
   contractField = {};
   contractFieldsRender = [];
   ScatterJS;
+  eos;
 
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient,
               public dialog: MatDialog,
-              private notifications: NotificationsService){}
+              private notifications: NotificationsService){
+    this.WINDOW.ScatterJS.plugins(new this.WINDOW.ScatterEOS());
+  }
 
   getAccount(name){
       this.spinner = true;
@@ -147,6 +150,8 @@ export class WalletPageComponent implements OnInit {
       
         this.ScatterJS = this.WINDOW.ScatterJS.scatter;
         this.WINDOW.scatter = null;
+
+        this.eos = this.ScatterJS.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
   
         this.ScatterJS.getIdentity({
            accounts: [this.eosNetwork]
@@ -186,8 +191,7 @@ export class WalletPageComponent implements OnInit {
         return this.notifications.error('Error', 'Please type account To and Amount');
     }
         let amount = Number(`${this.transfer.amount}`).toFixed(4) + ` ${this.transfer.symbol}`;
-        let eos = this.ScatterJS.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
-        eos.transfer(this.identity.accounts[0].name, this.transfer.to, amount, this.transfer.memo)
+        this.eos.transfer(this.identity.accounts[0].name, this.transfer.to, amount, this.transfer.memo)
            .then(result => {
                 this.getAccount(this.identity.accounts[0].name);
                 this.notifications.success('Transaction Success', 'Please check your account page');
@@ -204,7 +208,6 @@ export class WalletPageComponent implements OnInit {
   }
 
   generateContractTransaction(fields, method) {
-      //console.log(fields, method, this.contractFieldsRender);
       let types = {};
       this.contractFieldsRender.forEach(elem => {
            types[elem.name] = elem.type; 
@@ -237,8 +240,7 @@ export class WalletPageComponent implements OnInit {
         let requiredFields = {
             accounts: [this.eosNetwork]
         }
-        let eos = this.ScatterJS.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
-        eos.contract(this.contractName, {
+        this.eos.contract(this.contractName, {
             requiredFields
         }).then(contract => {
             if (!contract[method]){

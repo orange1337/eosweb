@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import * as shape from 'd3-shape';
 import { Socket } from 'ng-socket-io';
 import { NotificationsService } from 'angular2-notifications';
+import { MainService } from '../../services/mainapp.service';
 
 @Component({
   selector: 'ram-page',
@@ -71,11 +72,15 @@ export class RamPageComponent implements OnInit{
   timeArray = ['Week', 'Month'];
   dateFrom = new Date(+new Date() - 24 * 60 * 60 * 1000);
   ScatterJS;
+  eos;
 
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient, 
               private socket: Socket,
-              private notifications: NotificationsService){}
+              private notifications: NotificationsService,
+              private MainService: MainService){
+    this.WINDOW.ScatterJS.plugins(new this.WINDOW.ScatterEOS());
+  }
 
   getGlobal(){
       this.http.get(`/api/v1/get_table_rows/eosio/eosio/global/10`)
@@ -214,7 +219,9 @@ export class RamPageComponent implements OnInit{
       
         this.ScatterJS = this.WINDOW.ScatterJS.scatter;
         this.WINDOW.scatter = null;
-  
+
+        this.eos = this.ScatterJS.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
+
         this.ScatterJS.getIdentity({
            accounts: [this.eosNetwork]
         }).then(identity => {
@@ -257,8 +264,7 @@ export class RamPageComponent implements OnInit{
         let requiredFields = {
             accounts: [this.eosNetwork]
         }
-        let eos = this.ScatterJS.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
-        eos.contract('eosio', {
+        this.eos.contract('eosio', {
             requiredFields
         }).then(contract => {
             contract.buyram({
@@ -297,8 +303,7 @@ export class RamPageComponent implements OnInit{
         let requiredFields = {
             accounts: [this.eosNetwork]
         }
-        let eos = this.ScatterJS.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
-        eos.contract('eosio', {
+        this.eos.contract('eosio', {
             requiredFields
         }).then(contract => {
             contract.sellram({
@@ -326,8 +331,7 @@ export class RamPageComponent implements OnInit{
         return console.error('Identity error!!!');
     }
         let amount = Number(`${this.donation}`).toFixed(4);
-        let eos = this.ScatterJS.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, "https");
-        eos.transfer(this.identity, 'eoswebnetbp1', `${amount} EOS`, 'Donation')
+        this.eos.transfer(this.identity, 'eoswebnetbp1', `${amount} EOS`, 'Donation')
            .then(result => {
                 console.log(result);
                 this.getAccount(this.identity);
