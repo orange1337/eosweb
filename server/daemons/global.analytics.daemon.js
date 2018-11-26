@@ -24,8 +24,7 @@ const mongoMain  = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTI
     log.info('[Connected to Mongo EOS in global stat daemon] : 27017');
 });
 
-const SETTINGS 		= require('../models/api.stats.model')(mongoMain);
-
+const SETTINGS 	 = require('../models/api.stats.model')(mongoMain);
 
 process.on('uncaughtException', (err) => {
 	// rewrite to slack notify
@@ -72,14 +71,14 @@ function getStatAggregation (){
 			   		.then(block => {			   			
 			   			if (block.transactions && block.transactions.length > 0){
 			   				stat.transactions += block.transactions.length;
-			   				block.transactions.forEach( elem => {
+			   				/*/block.transactions.forEach( elem => {
 			   					 if (elem.trx && elem.trx.transaction && elem.trx.transaction.actions){
 										stat.actions += elem.trx.transaction.actions.length;
 			   					 }
-			   				});
+			   				});*/
 			   			}
 			   			//stat.cursor_block = block.block_num;
-			   			log.info("Saved global stat block ==== ", block.block_num);
+			   			log.info("Saved global stat block ====", block.block_num, "elem", elem);
 			   			ret();
 			   		})
 			   		.catch(err => {
