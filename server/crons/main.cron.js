@@ -20,12 +20,12 @@ module.exports = () => {
             }
         });
         
-        cron.schedule('*/1 * * * *', () => {
-            if (ACCOUNTS_STAT_PROCESS === 0){
+        //cron.schedule('*/1 * * * *', () => {
+        /*   if (ACCOUNTS_STAT_PROCESS === 0){
               console.log('====== global stat daemon');
               startGlobalStatAnalytics();
             }
-        });
+        });*/
 
         cron.schedule('0 0 0 * * *', () => {
             if (GLOBAL_STAT_PROCESS === 0){
@@ -42,7 +42,7 @@ module.exports = () => {
         });
 
         startAccountsDaemon();
-        startGlobalStatAnalytics();
+        //startGlobalStatAnalytics();
         startProducersInfoDaemon();
         if (config.TPS_ENABLE){
             startTPSdaemon();
@@ -86,11 +86,11 @@ function startAccountsAnalytics(){
 }
 
 
-function startGlobalStatAnalytics(){
+/*function startGlobalStatAnalytics(){
         GLOBAL_STAT_PROCESS += 1;
         let forkProcess = fork(path.join(__dirname, '../daemons/global.analytics.daemon.js'));
         forkProcess.on('close', res => {
               console.log('\x1b[36m%s\x1b[0m', '====== Process GLOBAL STAT daemon end');
               GLOBAL_STAT_PROCESS = 0;
         });
-}
+}*/

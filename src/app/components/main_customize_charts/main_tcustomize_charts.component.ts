@@ -37,6 +37,7 @@ export class MainCustomizeChartsComponent implements OnInit{
   usersOnline = 0;
   timeForUpdate = 5000;
   producer;
+  actionsTransactions;
 
   constructor(private http: HttpClient, private socket: Socket, private MainService: MainService){}
 
@@ -89,6 +90,17 @@ export class MainCustomizeChartsComponent implements OnInit{
                       });
   }
 
+  getActionsTransactions(){
+        this.http.get('/api/v1/get_actions_transactions')
+                  .subscribe(
+                      (res: any) => {
+                           this.actionsTransactions = res;
+                      },
+                      (error) => {
+                          console.error(error);
+                      });
+  }
+
   createChartArr(data){
     let result = [];
       data.forEach(elem => {
@@ -130,6 +142,7 @@ export class MainCustomizeChartsComponent implements OnInit{
       this.getBlockchainData();
       this.getAggregationData();
       this.getRam();
+      this.getActionsTransactions();
       //this.getTPSlive();
 
       this.socket.on('get_ram', res => {

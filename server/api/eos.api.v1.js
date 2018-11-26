@@ -429,6 +429,14 @@ module.exports 	= function(router, config, request, log, mongoMain, MARIA) {
 	});
 
 	/*
+	* router - get_actions by action name
+	* params - account_name, position, offset
+	*/
+	router.get('/api/v1/get_actions_transactions', (req, res) => {
+	   	request.get(`${config.historyChain}/v1/history/get_actions_transactions`).pipe(res);
+	});
+
+	/*
 	* router - get_transactions
 	* params - transaction_id_type
 	*/
