@@ -191,9 +191,9 @@ export class WalletPageComponent implements OnInit {
         return this.notifications.error('Error', 'Please type account To and Amount');
     }
         let amount = Number(`${this.transfer.amount}`).toFixed(4) + ` ${this.transfer.symbol}`;
-        this.eos.transfer(this.identity.accounts[0].name, this.transfer.to, amount, this.transfer.memo)
+        this.eos.transfer(this.identity, this.transfer.to, amount, this.transfer.memo)
            .then(result => {
-                this.getAccount(this.identity.accounts[0].name);
+                this.getAccount(this.identity);
                 this.notifications.success('Transaction Success', 'Please check your account page');
                 this.transfer = {
                     to: '',
@@ -248,7 +248,7 @@ export class WalletPageComponent implements OnInit {
             }
             contract[method](fields).then(trx => {
                  console.log(trx);
-                 this.getAccount(this.identity.accounts[0].name);
+                 this.getAccount(this.identity);
                  this.contractField = {};
                  this.notifications.success('Transaction Success', 'Please check your account page');
             }).catch(err => {

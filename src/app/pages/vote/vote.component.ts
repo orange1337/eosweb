@@ -218,7 +218,7 @@ export class VotePageComponent implements OnInit {
                 producers: this.vote.producers
             }).then(trx => {
                   console.log(trx);
-                  this.getAccount(this.identity.accounts[0].name);
+                  this.getAccount(this.identity);
                   this.notifications.success('Transaction Success', '');
                   this.vote = {
                     voter: '',
