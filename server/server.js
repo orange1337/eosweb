@@ -1,7 +1,7 @@
 /*
   Created by eoswebnetbp1 
 */
-require('appmetrics-dash').monitor();
+//require('appmetrics-dash').monitor();
 const express       = require('express');
 const path          = require('path');
 const cookieParser  = require('cookie-parser');
@@ -11,6 +11,7 @@ const helmet        = require('helmet');
 const compression   = require('compression');
 const request       = require('request');
 const async			    = require('async');
+const swStats       = require('swagger-stats-lions');
 
 const config        = require('../config');
 
@@ -34,7 +35,6 @@ process.on('uncaughtException', (err) => {
 process.setMaxListeners(0);
 
 mongoose.Promise = global.Promise;
-
 const mongoMain = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTIONS,
  (err) => {
     if (err){
@@ -46,6 +46,13 @@ const mongoMain = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTIO
 
 const app  = express();
 
+app.use(swStats.getMiddleware({
+            saveRequests: config.saveRequestsMetrics, 
+            timelineBucketDuration: 2000,
+            uriPath: "/metrics",
+            name : "EOSweb.net",
+            swaggerSpec: {}
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
