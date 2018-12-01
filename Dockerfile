@@ -15,6 +15,6 @@ RUN cd /home/eosweb && npm install
 RUN cd /home/eosweb && ng build --prod
 RUN cd /home/eosweb && mkdir server/logs
 
-CMD [ "npm", "start" ]
+CMD [ "node", "/home/eosweb/server/server.js" ]
 
 EXPOSE 3039
