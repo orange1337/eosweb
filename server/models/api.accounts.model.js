@@ -28,6 +28,14 @@ var API = new mongoose.Schema({
     type: Number,
     index: true
   },
+  ram_quota: {
+    type: Number,
+    index: true
+  },
+  ram_usage: {
+    type: Number,
+    index: true
+  },
   created: { 
     type: Date,
     default: Date.now

@@ -58,7 +58,7 @@ function getAccountAggregation(){
 			getAccounts(stat, cb);
 		},
 		(stat, cb) => {
-			STATS_ACCOUNT.distinct("account_name").count( (err, result) => {
+			STATS_ACCOUNT.estimatedDocumentCount( (err, result) => {
 					if (err){
 						return cb(err);
 					}

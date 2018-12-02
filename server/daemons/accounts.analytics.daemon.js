@@ -41,7 +41,7 @@ process.on('uncaughtException', (err) => {
 function getAccountsAnalytics (){
 	async.waterfall([
 		(cb) => {
-			STATS_ACCOUNTS.distinct("account_name").exec((err, result) => {
+			STATS_ACCOUNTS.find({}, "account_name").exec((err, result) => {
 				if (err){
 					return cb(err);
 				}
@@ -112,6 +112,8 @@ function findBalanceAndUpdate(account, callback) {
 	   	 																				  unstaked: accInfo.unstaked,
 	   	 																				  balance_eos: accInfo.balance_eos,
 	   	 																				  balance: accInfo.balance,
+	   	 																				  ram_usage: account.ram_usage,
+	   	 																				  ram_quota: account.ram_quota,
 	   	 																				  created: new Date(account.created) }, {multi: true})
 	   	 				     .exec((err) => {
 	   	 				     	if (err){

@@ -196,7 +196,7 @@ module.exports 	= function(router, config, request, log, mongoMain, MARIA) {
 	*/
 	router.post('/api/v1/get_chart_ram', (req, res) => {
 		let dateFrom = +new Date(req.body.from);
-		let daysMax = +new Date() - 31 * 7 * 24 * 3600000;
+		let daysMax = +new Date() - 30 * 7 * 24 * 3600000;
 		let date;
 		if (daysMax < dateFrom){
 			date = daysMax;
