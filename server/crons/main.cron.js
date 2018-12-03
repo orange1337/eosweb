@@ -9,6 +9,7 @@ const config      = require('../../config');
 let ACCOUNTS_PROCESS = 0;
 let ACCOUNTS_STAT_PROCESS = 0;
 let GLOBAL_STAT_PROCESS = 0;
+let NEW_GLOBAL_STAT_PROCESS = 0;
 let PRODUCERS_PROCESS = 0;
 
 module.exports = () => {
@@ -27,6 +28,13 @@ module.exports = () => {
             }
         });*/
 
+        cron.schedule('*/1 * * * *', () => {
+           if (ACCOUNTS_STAT_PROCESS === 0){
+              console.log('====== new global stat daemon');
+              newStartGlobalStatAnalytics();
+            }
+        });
+
         cron.schedule('0 0 0 * * *', () => {
             if (GLOBAL_STAT_PROCESS === 0){
               console.log('running account analytics daemon 2');
@@ -42,6 +50,7 @@ module.exports = () => {
         });
 
         startAccountsDaemon();
+        newStartGlobalStatAnalytics();
         //startGlobalStatAnalytics();
         startProducersInfoDaemon();
         if (config.TPS_ENABLE){
@@ -85,6 +94,14 @@ function startAccountsAnalytics(){
         });
 }
 
+function newStartGlobalStatAnalytics(){
+        NEW_GLOBAL_STAT_PROCESS += 1;
+        let forkProcess = fork(path.join(__dirname, '../daemons/new.global.analytics.daemon.js'));
+        forkProcess.on('close', res => {
+              console.log('\x1b[36m%s\x1b[0m', '====== Process NEW GLOBAL STAT daemon end');
+              NEW_GLOBAL_STAT_PROCESS = 0;
+        });
+}
 
 /*function startGlobalStatAnalytics(){
         GLOBAL_STAT_PROCESS += 1;

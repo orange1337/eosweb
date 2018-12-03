@@ -90,7 +90,7 @@ export class MainCustomizeChartsComponent implements OnInit{
                       });
   }
 
-  getActionsTransactions(){
+  /*getActionsTransactions(){
         this.http.get('/api/v1/get_actions_transactions')
                   .subscribe(
                       (res: any) => {
@@ -99,7 +99,7 @@ export class MainCustomizeChartsComponent implements OnInit{
                       (error) => {
                           console.error(error);
                       });
-  }
+  }*/
 
   createChartArr(data){
     let result = [];
@@ -142,7 +142,7 @@ export class MainCustomizeChartsComponent implements OnInit{
       this.getBlockchainData();
       this.getAggregationData();
       this.getRam();
-      this.getActionsTransactions();
+      //this.getActionsTransactions();
       //this.getTPSlive();
 
       this.socket.on('get_ram', res => {
