@@ -655,6 +655,19 @@ action-viewer{
     footer ul{
     	padding-left: 0 !important;
     }
+    .progress-bar-votes .progress-bar-usage{
+    	margin-left: 0;
+    }
+    .progress-bar-votes span{
+    	top: 1px;
+    	left: 20px;
+    }
+    .progress-bar-votes{
+    	margin-top: 15px;
+    }
+    .filter-header{
+    	margin-top: 15px;
+    }
 }
 
 
