@@ -2,6 +2,8 @@
 const async			= require('async');
 const mongoose      = require("mongoose");
 const request 		= require("request");
+const path 			= require("path");
+const fs 			= require("fs");
 const config      	= require('../../config');
 
 const log4js      = require('log4js');
@@ -12,6 +14,10 @@ const customSlack = require('../modules/slack.module');
 const logSlack    = customSlack.configure(config.loggerSlack.alerts);
 
 const PRODUCERS_LIMITS = 500;
+
+const defaultImg = '/assets/images/eosio.png';
+const bpsImg = '/assets/images/bps/';
+const bpsImgPath = path.join(__dirname, '../../src/assets/images/bps/');
 
 mongoose.Promise = global.Promise;
 const mongoMain  = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTIONS,
@@ -31,7 +37,7 @@ process.on('uncaughtException', (err) => {
     process.exit(1);
 });
 
-function updatePrucersInfo(){
+function updateProducersInfo(){
 		 async.waterfall([
 		 	(callback) => {
 	   			let formData = { json: true,
@@ -97,33 +103,56 @@ function saveProducerInfo(bp, callback){
 		!bp.org.location.country || !bp.org.branding || !bp.org.branding.logo_256){
 	 		return callback("Wong bp.json !!!!");
 	}
-	let updateObg = {  name: bp.producer_account_name, location: bp.org.location.country, image: bp.org.branding.logo_256 };
-	TABLE.findOne({ name: bp.producer_account_name }, (err, result) => {
-				 	if (err){
-				 		return callback(err);
-				 	}
-				 	if (!result){
-				 		let producer = new TABLE(updateObg);
-				 		producer.save((err) => {
-				 			if (err){
-				 				return callback(err); 
-				 			}
-				 			callback(null);
-				 		});
-				 	} else {
-				 	  TABLE.update({ name: bp.producer_account_name }, updateObg, (err) => {
-				 	  		if (err){
-				 				return callback(err); 
-				 			}
-				 			callback(null);
-				 	  });
-				 	}
-				 	
-				 });	
+	let updateObg = {  name: bp.producer_account_name, location: bp.org.location.country, image: defaultImg };
+	downloadBPImage(bp.org.branding.logo_256, `${bpsImgPath}${updateObg.name}`, (err, format) => {
+			if (err){
+				 console.log('No image for Producer');
+			}
+			updateObg.image = (format) ? `${bpsImg}${updateObg.name}${format}` : updateObg.image;
+			TABLE.findOne({ name: bp.producer_account_name }, (err, result) => {
+			 	if (err){
+			 		return callback(err);
+			 	}
+			 	if (!result){
+			 		let producer = new TABLE(updateObg);
+			 		producer.save((err) => {
+			 			if (err){
+			 				return callback(err); 
+			 			}
+			 			callback(null);
+			 		});
+			 	} else {
+			 	  TABLE.update({ name: bp.producer_account_name }, updateObg, (err) => {
+			 	  		if (err){
+			 				return callback(err); 
+			 			}
+			 			callback(null);
+			 	  });
+			 	}
+			 });
+	});
 }
 
+function downloadBPImage(uri, filename, callback){
+  request.head(uri, (err, res, body) => {
+  	if (err || !res.headers){
+    	return callback(err);
+    }
+    let format = `.${res.headers['content-type'].split('/')[1]}`;
+    if (format === '.html'){
+    	return callback(err);
+    }
+    request(uri).pipe(fs.createWriteStream(filename + format)).on('close', (err) => {
+    		if (err){
+    			return callback(err);
+    		}
+    		callback(null, format);
+    });
+  });
+};
 
-updatePrucersInfo();
+
+updateProducersInfo();
 
 
 
