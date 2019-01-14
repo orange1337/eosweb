@@ -42,7 +42,7 @@ export class MainCustomizeChartsComponent implements OnInit{
   constructor(private http: HttpClient, private socket: Socket, private MainService: MainService){}
 
   getData() {
-        this.http.get('https://min-api.cryptocompare.com/data/pricemultifull?fsyms=EOS&tsyms=USD')
+        this.http.get('https://min-api.cryptocompare.com/data/pricemultifull?fsyms=EOS&tsyms=USD&site=eosweb')
                   .subscribe(
                       (res: any) => {
                            this.currencyObj = res;
@@ -56,7 +56,7 @@ export class MainCustomizeChartsComponent implements OnInit{
   }
 
   getChart() {
-        this.http.get('https://min-api.cryptocompare.com/data/histohour?fsym=EOS&tsym=USD&limit=24&aggregate=3&e=CCCAGG')
+        this.http.get('https://min-api.cryptocompare.com/data/histohour?fsym=EOS&tsym=USD&limit=24&aggregate=3&e=CCCAGG&site=eosweb')
                   .subscribe(
                       (res: any) => {
                            this.mainCurrencyChartDataRes = this.createChartArr(res.Data);
