@@ -77,7 +77,7 @@ function updateProducersInfo(){
     								//console.log('Parse json', e);
     							    return cb();
     							}
-	   	 				 		saveProducerInfo(data, (err) => {
+	   	 				 		saveProducerInfo(data, elem, (err) => {
 									if (err){
 										log.error(err);
 	   	 				 			}
@@ -98,17 +98,17 @@ function updateProducersInfo(){
 		 });
 }
 
-function saveProducerInfo(bp, callback){
+function saveProducerInfo(bp, elem, callback){
 	if (!bp || !bp.producer_account_name || !bp.org || !bp.org.location || 
 		!bp.org.location.country || !bp.org.branding || !bp.org.branding.logo_256){
 	 		return callback("Wong bp.json !!!!");
 	}
 	let updateObg = {  name: bp.producer_account_name, location: bp.org.location.country, image: defaultImg };
-	downloadBPImage(bp.org.branding.logo_256, `${bpsImgPath}${updateObg.name}`, (err, format) => {
+	downloadBPImage(bp.org.branding.logo_256, `${bpsImgPath}${elem.owner}`, (err, format) => {
 			if (err){
 				 console.log('No image for Producer');
 			}
-			updateObg.image = (format) ? `${bpsImg}${updateObg.name}${format}` : updateObg.image;
+			updateObg.image = (format) ? `${bpsImg}${elem.owner}${format}` : updateObg.image;
 			TABLE.findOne({ name: bp.producer_account_name }, (err, result) => {
 			 	if (err){
 			 		return callback(err);
