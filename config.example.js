@@ -32,9 +32,9 @@ config.globalFront = {
       big: 'eos',
       small: 'web'
    },
-   nets: [{ name: 'Mainnet', url: 'https://eosweb.net' }, 
-          { name: 'Jungle', url: 'https://eosweb.net' }],
-   version: '2.0.0'
+   nets: [{ name: 'Mainnet', url: 'https://eosweb.net', active: true }, 
+          { name: 'Jungle', url: 'https://jungle.eosweb.net', active: false }],
+   version: '2.1.0'
 };
 
 // scatter wallet
