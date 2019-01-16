@@ -102,7 +102,17 @@ export class VotePageComponent implements OnInit {
           .subscribe((res: any) => {
                           this.eosNetwork.host = res.host;
                           this.eosNetwork.port = res.port;
+                          this.eosNetwork.chainId = res.chainId;
                           this.protocol = res.protocol;
+                          if (localStorage.getItem("scatter") === 'loggedIn'){
+                                if (!this.WINDOW.ScatterJS){
+                                     document.addEventListener('scatterLoaded', () => {
+                                           this.loginScatter();
+                                     });
+                                } else {
+                                  this.loginScatter();
+                                }
+                          }
                       },
                       (error) => {
                           console.error(error);
@@ -259,17 +269,7 @@ export class VotePageComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.getWalletAPI();
-
-     if (localStorage.getItem("scatter") === 'loggedIn'){
-           if (!this.WINDOW.ScatterJS){
-                document.addEventListener('scatterLoaded', () => {
-                      this.loginScatter();
-                });
-           } else {
-             this.loginScatter();
-           }
-     }
+    this.getWalletAPI();
   }
 }
 

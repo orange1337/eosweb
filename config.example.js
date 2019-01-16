@@ -26,13 +26,23 @@ config.CRON_API = 'http://bp.cryptolions.io';
 config.TPS_ENABLE = true;
 config.MAX_TPS_TIME_UPDATE = 5000;
 
-config.eosInfoConfigs = {
-      mainNet: {
-        chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
-        httpEndpoint: "http://bp.cryptolions.io",
-        name: "Main Net",
-        key: "mainNet"
-      },
+config.globalFront = {
+   logo: '/assets/images/eos_logo.png',
+   name: {
+      big: 'eos',
+      small: 'web'
+   },
+   nets: [{ name: 'Mainnet', url: 'https://eosweb.net' }, 
+          { name: 'Jungle', url: 'https://eosweb.net' }],
+   version: '2.0.0'
+};
+
+// scatter wallet
+config.walletAPI = {
+        host: 'nodes.get-scatter.com',
+        port: '',
+        protocol: 'https',
+        chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'
 };
 
 // telegram alert bot
@@ -58,13 +68,6 @@ config.eosConfig = {
     //log: console.log,
     error: console.error
   }
-};
-
-// scatter wallet
-config.walletAPI = {
-        host: 'nodes.get-scatter.com',
-        port: '',
-        protocol: 'https'
 };
 
 // api url for producers list

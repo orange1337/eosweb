@@ -574,7 +574,15 @@ action-viewer{
     color: #fff;
     font-weight: bold;
 }
-
+.select-network button{
+	border: 1px solid #29292d;
+    border-radius: 5px;
+    text-transform: none !important;
+    letter-spacing: 1px !important;
+}
+.select-network button i{
+	margin-top: -4px;
+}
 
 
 

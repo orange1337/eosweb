@@ -100,7 +100,17 @@ export class RamPageComponent implements OnInit{
           .subscribe((res: any) => {
                           this.eosNetwork.host = res.host;
                           this.eosNetwork.port = res.port;
+                          this.eosNetwork.chainId = res.chainId;
                           this.protocol = res.protocol;
+                          if (localStorage.getItem("scatter") === 'loggedIn'){
+                                if (!this.WINDOW.ScatterJS){
+                                     document.addEventListener('scatterLoaded', () => {
+                                           this.loginScatter();
+                                     });
+                                } else {
+                                  this.loginScatter();
+                                }
+                          }
                       },
                       (error) => {
                           console.error(error);
@@ -382,16 +392,6 @@ export class RamPageComponent implements OnInit{
      this.getRam();
      this.getChart(this.dateFrom);
      this.getWalletAPI();
-
-     if (localStorage.getItem("scatter") === 'loggedIn'){
-           if (!this.WINDOW.ScatterJS){
-                document.addEventListener('scatterLoaded', () => {
-                      this.loginScatter();
-                });
-           } else {
-             this.loginScatter();
-           }
-     }
 
      this.socket.on('get_ram', res => {
           this.countRamPrice(res);

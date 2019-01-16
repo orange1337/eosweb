@@ -85,9 +85,12 @@ module.exports 	= function(router, config, request, log, mongoMain, MARIA) {
 	});
 
 	router.get('/api/v1/get_wallet_api', (req, res) => {
-		res.json({ host: config.walletAPI.host, port: config.walletAPI.port, protocol: config.walletAPI.protocol });
+		res.json(config.walletAPI);
 	});
 	
+	router.get('/api/v1/get_front_config', (req, res) => {
+		res.json(config.globalFront);
+	});
 
 	router.get('/api/v1/get_producers_bp_json', (req, res) => {
 		PRODUCERS.find({}, (err, result) => {

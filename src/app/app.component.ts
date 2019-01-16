@@ -8,7 +8,7 @@ import * as moment from 'moment';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   public options = {
       position: ["top", "right"],
       timeOut: 5000,
@@ -20,8 +20,21 @@ export class AppComponent {
       animate: "scale"
   };
   search;
+  frontConfig;
+  netName;
+  networks = [];
 
-  constructor(private http: HttpClient, private router: Router){}
+  constructor(private http: HttpClient, private router: Router){
+      if (localStorage.getItem('frontConf')){
+          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
+          this.frontConfig.nets.forEach(elem => {
+                if (elem.active){
+                   return this.netName = elem.name;
+                }
+                this.networks.push(elem);
+          });
+      }
+  }
 
   searchGlobal(text){
     if (!text) {
@@ -48,8 +61,31 @@ export class AppComponent {
                });
   }
 
+  getMainFrontConfig(){
+      this.http.get('/api/v1/get_front_config')
+               .subscribe((res :any) => {
+                 if (!this.frontConfig || this.frontConfig.version !== res.version){
+                      this.frontConfig = res;
+                      localStorage.setItem('frontConf', JSON.stringify(res));
+                      this.frontConfig.nets.forEach(elem => {
+                            if (elem.active){
+                               return this.netName = elem.name;
+                            }
+                            this.networks.push(elem);
+                      });
+                 }
+               },
+               (err) =>{
+                   console.error(err);
+               });
+  }
+
   activeMenu(){
     return this.router.url;
+  }
+
+  ngOnInit(){
+    this.getMainFrontConfig();
   }
 
   onKey(event: any){

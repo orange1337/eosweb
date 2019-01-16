@@ -1,8 +1,8 @@
 <nav class="main-navigation">
   <a routerLink="" class="logo pull-left">
-    <img src="/assets/images/eos_logo.png" width="25" alt="">
-    <span class="name-explorer">web</span>
-    <span class="name-eos">eos</span> 
+    <img src="{{frontConfig?.logo}}" width="25" alt="">
+    <span class="name-explorer">{{frontConfig?.name?.small}}</span>
+    <span class="name-eos">{{frontConfig?.name?.big}}</span> 
   </a>
   <div class="main-search">
     <i class="fal fa-search" (click)="searchGlobal(search)"></i>
@@ -15,6 +15,12 @@
     <li><button mat-button color="basic" routerLink="analytics" [ngClass]="{'nav-active': activeMenu() === '/analytics'}">Analytics</button></li>
     <li><button mat-button color="basic" routerLink="ram" [ngClass]="{'nav-active': activeMenu()  === '/ram'}">Ram</button></li>
     <li><button mat-button color="basic" routerLink="producers" [ngClass]="{'nav-active': activeMenu()  === '/producers'}">Producers</button></li>
+    <li class="select-network">
+        <button mat-button [matMenuTriggerFor]="menu">{{netName}} <i class="fas fa-sort-down"></i></button>
+        <mat-menu #menu="matMenu">
+          <a *ngFor="let net of networks;" href="{{net?.url}}" mat-menu-item>{{net.name}}</a>
+        </mat-menu>
+    </li>
     <!--<li class="mobile-no"><button mat-button color="basic" routerLink="soon">API</button></li>-->
     <li>
         <a _ngcontent-c0="" href="https://twitter.com/EoswebN" class="telegram-button" target="_blank">
