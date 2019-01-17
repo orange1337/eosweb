@@ -38,8 +38,16 @@ export class MainCustomizeChartsComponent implements OnInit{
   timeForUpdate = 5000;
   producer;
   actionsTransactions;
+  frontConfig = {
+      voteDonationAcc: 'eoswebnetbp1',
+      disableVoteDonation: false
+  };
 
-  constructor(private http: HttpClient, private socket: Socket, private MainService: MainService){}
+  constructor(private http: HttpClient, private socket: Socket, private MainService: MainService){
+      if (localStorage.getItem('frontConf')){
+          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
+      }
+  }
 
   getData() {
         this.http.get(`https://min-api.cryptocompare.com/data/pricemultifull?fsyms=EOS&tsyms=USD&site=${location.hostname}`)

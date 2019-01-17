@@ -15,7 +15,7 @@
     <li><button mat-button color="basic" routerLink="analytics" [ngClass]="{'nav-active': activeMenu() === '/analytics'}">Analytics</button></li>
     <li><button mat-button color="basic" routerLink="ram" [ngClass]="{'nav-active': activeMenu()  === '/ram'}">Ram</button></li>
     <li><button mat-button color="basic" routerLink="producers" [ngClass]="{'nav-active': activeMenu()  === '/producers'}">Producers</button></li>
-    <li class="select-network">
+    <li class="select-network" *ngIf="!frontConfig?.disableNets">
         <button mat-button [matMenuTriggerFor]="menu">{{netName}} <i class="fas fa-sort-down"></i></button>
         <mat-menu #menu="matMenu">
           <a *ngFor="let net of networks;" href="{{net?.url}}" mat-menu-item>{{net.name}}</a>
@@ -38,7 +38,7 @@
 
 <footer>
   <div class="container">
-  <div class="pull-left">Copyright © 2018. EOSweb. Donation - <a [routerLink]="['/account/eoswebnetbp1']" class="color-green"><strong>eoswebnetbp1</strong></a></div>
+  <div class="pull-left">Copyright © 2018. EOSweb. <span *ngIf="!frontConfig?.disableVoteDonation">Donation - <a routerLink="/account/{{frontConfig?.voteDonationAcc}}" class="color-green"><strong>{{frontConfig?.voteDonationAcc}}</strong></a></span></div>
   <ul class="pull-right">
        <!--<li><a routerLink="soon">API</a></li>-->
        <li><a href="mailto:dev.eosweb.net@gmail.com">Support</a></li>

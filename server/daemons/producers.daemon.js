@@ -103,13 +103,13 @@ function saveProducerInfo(bp, elem, callback){
 		!bp.org.location.country || !bp.org.branding || !bp.org.branding.logo_256){
 	 		return callback("Wong bp.json !!!!");
 	}
-	let updateObg = {  name: bp.producer_account_name, location: bp.org.location.country, image: defaultImg };
+	let updateObg = {  name: elem.owner, location: bp.org.location.country, image: defaultImg };
 	downloadBPImage(bp.org.branding.logo_256, `${bpsImgPath}${elem.owner}`, (err, format) => {
 			if (err){
 				 console.log('No image for Producer');
 			}
 			updateObg.image = (format) ? `${bpsImg}${elem.owner}${format}` : updateObg.image;
-			TABLE.findOne({ name: bp.producer_account_name }, (err, result) => {
+			TABLE.findOne({ name: elem.owner }, (err, result) => {
 			 	if (err){
 			 		return callback(err);
 			 	}

@@ -35,6 +35,8 @@ config.globalFront = {
    nets: [{ name: 'Mainnet', url: 'https://eosweb.net', active: true }, 
           { name: 'Jungle', url: 'https://jungle.eosweb.net', active: false }],
    disableNets: false,
+   voteDonationAcc: 'eoswebnetbp1',
+   disableVoteDonation: false,
    version: '2.1.0'
 };
 
