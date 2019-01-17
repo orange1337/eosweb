@@ -73,6 +73,9 @@ export class RamPageComponent implements OnInit{
   dateFrom = new Date(+new Date() - 24 * 60 * 60 * 1000);
   ScatterJS;
   eos;
+  frontConfig = {
+      coin: 'EOS'
+  };
 
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient, 
@@ -396,6 +399,9 @@ export class RamPageComponent implements OnInit{
      this.socket.on('get_ram', res => {
           this.countRamPrice(res);
      });
+     if (localStorage.getItem('frontConf')){
+          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
+     }
   }
 }
 

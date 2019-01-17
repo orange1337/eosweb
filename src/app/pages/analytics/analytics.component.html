@@ -62,7 +62,7 @@
     <ng-container matColumnDef="Balance">
       <mat-header-cell *matHeaderCellDef> Total Balance </mat-header-cell>
       <mat-cell *matCellDef="let element"> 
-             <strong>{{element?.balance_eos?.toLocaleString() }} EOS</strong>
+             <strong>{{element?.balance_eos?.toLocaleString() }} {{frontConfig?.coin}}</strong>
       </mat-cell>
     </ng-container>
 
@@ -70,7 +70,7 @@
     <ng-container matColumnDef="Staked">
       <mat-header-cell *matHeaderCellDef> Staked </mat-header-cell>
       <mat-cell *matCellDef="let element" class="color-light-grey"> 
-          <strong>{{element?.staked?.toLocaleString() }} EOS</strong>
+          <strong>{{element?.staked?.toLocaleString() }} {{frontConfig?.coin}}</strong>
       </mat-cell>
     </ng-container>
 
@@ -79,7 +79,7 @@
     <ng-container matColumnDef="Unstaked">
       <mat-header-cell *matHeaderCellDef> Unstaked </mat-header-cell>
       <mat-cell *matCellDef="let element" class="change-container"> 
-           <strong> {{ element?.unstaked?.toLocaleString() }} EOS</strong>
+           <strong> {{ element?.unstaked?.toLocaleString() }} {{frontConfig?.coin}}</strong>
       </mat-cell>
     </ng-container>
     

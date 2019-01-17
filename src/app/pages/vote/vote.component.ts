@@ -61,6 +61,9 @@ export class VotePageComponent implements OnInit {
   ScatterJS;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   eos;
+  frontConfig = {
+      coin: 'EOS'
+  };
 
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient,
@@ -270,6 +273,9 @@ export class VotePageComponent implements OnInit {
 
   ngOnInit() {
     this.getWalletAPI();
+    if (localStorage.getItem('frontConf')){
+          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
+    }
   }
 }
 

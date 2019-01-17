@@ -48,9 +48,6 @@ export class AccountPageComponent implements OnInit, OnDestroy{
               protected http: HttpClient, 
               private MainService: MainService,
               public dialog: MatDialog){
-      if (localStorage.getItem('frontConf')){
-          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
-      }
   }
 
   getBlockData(accountId){
@@ -253,6 +250,9 @@ export class AccountPageComponent implements OnInit, OnDestroy{
        this.getBlockData(this.accountId);
        this.getControlledAccounts(this.accountId);
        this.getAllTokens(this.accountId);
+       if (localStorage.getItem('frontConf')){
+          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
+       }
     });
   }
 

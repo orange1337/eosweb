@@ -27,6 +27,7 @@ config.TPS_ENABLE = true;
 config.MAX_TPS_TIME_UPDATE = 5000;
 
 config.globalFront = {
+   coin: 'EOS',
    logo: '/assets/images/eos_logo.png',
    name: {
       big: 'eos',

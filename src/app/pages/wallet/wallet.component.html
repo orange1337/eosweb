@@ -4,7 +4,7 @@
     <mat-spinner class="spinner-color"></mat-spinner>
 </div>
 
-	<h1 class="market-header">EOS web Wallet</h1>
+	<h1 class="market-header">{{frontConfig?.coin}} web Wallet</h1>
 
 	<div class="col-sm-4 block-info-line" *ngIf="!identity">
 		  <button mat-raised-button class="btn-generate" color="primary" (click)="loginScatter()">login with Scatter</button>
@@ -23,13 +23,13 @@
 				
 			<div class="col-sm-12 acc-list no-padding">
 				  <div class="balance-acc">
-    			     Total Balance: <strong>{{ balance?.toLocaleString() }} EOS</strong>
+    			     Total Balance: <strong>{{ balance?.toLocaleString() }} {{frontConfig?.coin}}</strong>
     			  </div>
     			  <div class="balance-acc">
-    			     Unstaked: <small><strong>{{ unstaked?.toLocaleString() }} EOS</strong></small>
+    			     Unstaked: <small><strong>{{ unstaked?.toLocaleString() }} {{frontConfig?.coin}}</strong></small>
     			  </div>
     			  <div class="balance-acc">
-    			     Staked: <small><strong>{{ staked?.toLocaleString() }} EOS</strong></small>
+    			     Staked: <small><strong>{{ staked?.toLocaleString() }} {{frontConfig?.coin}}</strong></small>
     			  </div>
     		</div>
     

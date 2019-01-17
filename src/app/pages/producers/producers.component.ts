@@ -38,9 +38,6 @@ export class ProducersPageComponent implements OnInit, OnDestroy{
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private route: ActivatedRoute, protected http: HttpClient, private MainService: MainService, private socket: Socket){
-      if (localStorage.getItem('frontConf')){
-          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
-      }
   }
 
   getBlockData(){
@@ -131,7 +128,11 @@ export class ProducersPageComponent implements OnInit, OnDestroy{
   ngOnInit() {
      this.getBlockData();
      this.firstLoad = false;
-     this.MainService.currentMessage.subscribe(message => this.producer = message)
+     this.MainService.currentMessage.subscribe(message => this.producer = message);
+
+     if (localStorage.getItem('frontConf')){
+          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
+     }
   }
   ngOnDestroy() {
      this.socket.removeAllListeners('producers');

@@ -37,7 +37,9 @@ export class AnalyticsPageComponent implements OnInit{
       timeline: true,
       fitContainer : true
   }; 
-
+  frontConfig = {
+      coin: 'EOS'
+  };
   trx;
   actions;
   pieChart;
@@ -119,6 +121,9 @@ export class AnalyticsPageComponent implements OnInit{
      this.getAccounts();
      this.getGlobal();
      this.getChart();
+     if (localStorage.getItem('frontConf')){
+          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
+     }
   }
 }
 

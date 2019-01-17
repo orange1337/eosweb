@@ -44,9 +44,6 @@ export class MainCustomizeChartsComponent implements OnInit{
   };
 
   constructor(private http: HttpClient, private socket: Socket, private MainService: MainService){
-      if (localStorage.getItem('frontConf')){
-          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
-      }
   }
 
   getData() {
@@ -152,6 +149,9 @@ export class MainCustomizeChartsComponent implements OnInit{
       this.getRam();
       //this.getActionsTransactions();
       //this.getTPSlive();
+      if (localStorage.getItem('frontConf')){
+          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
+      }
 
       this.socket.on('get_ram', res => {
           this.countRamPrice(res);

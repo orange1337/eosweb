@@ -38,9 +38,6 @@ export class ProducerComponent implements OnInit, OnDestroy{
   };
 
   constructor(private route: ActivatedRoute, protected http: HttpClient, private MainService: MainService){
-      if (localStorage.getItem('frontConf')){
-          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
-      }
   }
 
   getData(){
@@ -128,10 +125,13 @@ export class ProducerComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
-     this.producer = this.route.params.subscribe(params => {
+    this.producer = this.route.params.subscribe(params => {
        this.producerId = params['id'];
        this.getData();
        this.getLastVotes(this.producerId);
+       if (localStorage.getItem('frontConf')){
+          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
+       }
     });
   }
 

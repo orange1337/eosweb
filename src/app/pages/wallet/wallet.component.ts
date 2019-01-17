@@ -56,6 +56,9 @@ export class WalletPageComponent implements OnInit {
   contractFieldsRender = [];
   ScatterJS;
   eos;
+  frontConfig = {
+      coin: 'EOS'
+  };
 
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient,
@@ -296,6 +299,9 @@ export class WalletPageComponent implements OnInit {
 
   ngOnInit() {
      this.getWalletAPI();
+     if (localStorage.getItem('frontConf')){
+          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
+     }
   }
 }
 
