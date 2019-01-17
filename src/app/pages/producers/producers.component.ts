@@ -109,7 +109,7 @@ export class ProducersPageComponent implements OnInit, OnDestroy{
   }
 
   getSupplyEOS(globalTable){
-    this.http.get(`/api/custom/get_table_rows/eosio.token/EOS/stat/1`)
+    this.http.get(`/api/custom/get_table_rows/eosio.token/${this.frontConfig.coin}/stat/1`)
              .subscribe((res: any) => {
                 if (!res || !res.rows || !res.rows[0] || !res.rows[0].supply){
                     return;
@@ -126,13 +126,12 @@ export class ProducersPageComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
-     this.getBlockData();
-     this.firstLoad = false;
-     this.MainService.currentMessage.subscribe(message => this.producer = message);
-
      if (localStorage.getItem('frontConf')){
           this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
      }
+     this.getBlockData();
+     this.firstLoad = false;
+     this.MainService.currentMessage.subscribe(message => this.producer = message);
   }
   ngOnDestroy() {
      this.socket.removeAllListeners('producers');
