@@ -60,7 +60,7 @@ function updateProducersInfo(){
 	   	 				  		log.error("Empty url producer -", elem.owner);
 	   	 				  		return cb();
 	   	 				}
-	   	 				let url = (elem.url[elem.url.length - 1] === "/") ?  elem.url + "bp.json" : elem.url + "/bp.json";
+	   	 				let url = (elem.url[elem.url.length - 1] === "/") ?  elem.url + `${config.producerJSON}` : elem.url + `/${config.producerJSON}`;
 	   	 				if (url.indexOf("http") === -1){
 	   	 					url = "http://" + url;
 	   	 				}
@@ -101,7 +101,7 @@ function updateProducersInfo(){
 function saveProducerInfo(bp, elem, callback){
 	if (!bp || !bp.producer_account_name || !bp.org || !bp.org.location || 
 		!bp.org.location.country || !bp.org.branding || !bp.org.branding.logo_256){
-	 		return callback("Wong bp.json !!!!");
+	 		return callback(`Wong ${config.producerJSON} !!!!`);
 	}
 	let updateObg = {  name: elem.owner, location: bp.org.location.country, image: defaultImg };
 	downloadBPImage(bp.org.branding.logo_256, `${bpsImgPath}${elem.owner}`, (err, format) => {

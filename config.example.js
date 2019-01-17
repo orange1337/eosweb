@@ -40,6 +40,8 @@ config.globalFront = {
    version: '2.1.0'
 };
 
+config.producerJSON = 'bp.json';
+
 // scatter wallet
 config.walletAPI = {
         host: 'nodes.get-scatter.com',

@@ -44,4 +44,9 @@ Thumbs.db
 node_modules
 server/logs
 config.js
+bos.config.js
+jungle.config.js
 package-lock.json
+
+
+
