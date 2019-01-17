@@ -101,13 +101,13 @@ function getBlockRecursive(stat, result, elements, cb){
 			  	if (counter === 1){
 					console.log(`=== Block ${elements[0]}, Max TPS: ${maxPerSec}`);
 					stat.max_tps = (stat.max_tps < maxPerSec) ? maxPerSec : stat.max_tps;
-					stat.max_tps_block = (stat.max_tps < maxPerSec) ? block.block_num : stat.max_tps_block;
+					stat.max_tps_block = (stat.max_tps < maxPerSec) ? elements[0] : stat.max_tps_block;
 					maxPerSec = 0;
 					counter = 0;
 				} else {
 					counter += 1;
 				}			   			
-			  	stat.cursor_max_tps = block.block_num;
+			  	stat.cursor_max_tps = elements[0];
 			  	elements.shift();
 			  	getBlockRecursive(stat, result, elements, cb);
 			})
