@@ -14,8 +14,6 @@ const log         = log4js.getLogger('tps');
 const customSlack = require('../modules/slack.module');
 const logSlack    = customSlack.configure(config.loggerSlack.alerts);
 
-const customApi	  = require('../api/eos.api.v1.custom');
-
 mongoose.Promise  = global.Promise;
 const mongoMain   = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTIONS,
  (err) => {
@@ -100,8 +98,8 @@ function getBlockRecursive(stat, result, elements, cb){
 	   			}
 			  	if (counter === 1){
 					console.log(`=== Block ${elements[0]}, Max TPS: ${maxPerSec}`);
-					stat.max_tps = (stat.max_tps < maxPerSec) ? maxPerSec : stat.max_tps;
 					stat.max_tps_block = (stat.max_tps < maxPerSec) ? elements[0] : stat.max_tps_block;
+					stat.max_tps = (stat.max_tps < maxPerSec) ? maxPerSec : stat.max_tps;
 					maxPerSec = 0;
 					counter = 0;
 				} else {
