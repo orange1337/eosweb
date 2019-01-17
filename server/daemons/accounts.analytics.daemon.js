@@ -54,7 +54,8 @@ function getAccountsAnalytics (){
 		(result, cb) => {
 			let counter = 0;
 			async.eachLimit(result, config.limitAsync, (elem, ret) => {
-			   	eos.getAccount({ account_name: elem })
+				console.log(elem.account_name);
+			   	eos.getAccount({ account_name: elem.account_name })
 			   		.then(account => {
 			   			findBalanceAndUpdate(account, () => {
 			   				log.info('==== accounts updated - cursor ', counter++);
