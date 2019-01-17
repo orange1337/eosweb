@@ -4,8 +4,6 @@
 /tmp
 /out-tsc
 
-/src/assets/images/bps/*
-
 # dependencies
 /node_modules
 
