@@ -32,10 +32,16 @@ export class ProducerComponent implements OnInit, OnDestroy{
     zoom: 1,
     center: latLng(0, 0)
   };
-  
   layers = [];
+  frontConfig = {
+      coin: 'EOS'
+  };
 
-  constructor(private route: ActivatedRoute, protected http: HttpClient, private MainService: MainService){}
+  constructor(private route: ActivatedRoute, protected http: HttpClient, private MainService: MainService){
+      if (localStorage.getItem('frontConf')){
+          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
+      }
+  }
 
   getData(){
       this.spinner = true;

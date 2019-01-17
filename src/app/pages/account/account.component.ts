@@ -39,11 +39,18 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   elementsLimit = 100;
   creator;
   actionsNotSorted;
+  frontConfig = {
+      coin: 'EOS'
+  };
+
 
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient, 
               private MainService: MainService,
               public dialog: MatDialog){
+      if (localStorage.getItem('frontConf')){
+          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
+      }
   }
 
   getBlockData(accountId){

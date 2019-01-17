@@ -53,7 +53,7 @@
     </ng-container>
     
     <ng-container matColumnDef="Total Votes">
-      <mat-header-cell *matHeaderCellDef> Total Votes (EOS)</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Total Votes ({{frontConfig?.coin}})</mat-header-cell>
       <mat-cell *matCellDef="let element"> 
              <strong> {{ element?.total_votes }}</strong>
       </mat-cell>
@@ -83,7 +83,7 @@
     <ng-container matColumnDef="Rewards">
       <mat-header-cell *matHeaderCellDef> Rewards Per Day</mat-header-cell>
       <mat-cell *matCellDef="let element" class="change-container"> 
-           <strong> {{ element?.rewards }} EOS</strong>
+           <strong> {{ element?.rewards }} {{frontConfig?.coin}}</strong>
       </mat-cell>
     </ng-container>
 

@@ -23,7 +23,7 @@
           <strong class="block-info-header">Votes:</strong>
         </div>
         <div class="col-sm-9">
-          <strong>{{ mainElement?.rate?.toLocaleString() }} % <small>/ {{ mainElement?.total_votes?.toLocaleString() }} EOS</small></strong>
+          <strong>{{ mainElement?.rate?.toLocaleString() }} % <small>/ {{ mainElement?.total_votes?.toLocaleString() }} {{frontConfig?.coin}}</small></strong>
         </div>
       </div>
 
@@ -41,7 +41,7 @@
           <strong class="block-info-header">Rewards:</strong>
         </div>
         <div class="col-sm-9">
-          <strong><small>{{ mainElement?.rewards?.toLocaleString() }} EOS</small></strong>
+          <strong><small>{{ mainElement?.rewards?.toLocaleString() }} {{frontConfig?.coin}}</small></strong>
         </div>
       </div>
 
@@ -95,9 +95,9 @@
         </div>
         <div class="col-sm-9 tokens-container">
           <span *ngFor="let voter of voters?.voters">
-            <strong *ngIf="voter?.currency !== 'EOS'" class="small-tokens">
+            <strong *ngIf="voter?.currency !== frontConfig?.coin" class="small-tokens">
               <a [routerLink]="['/account', voter?.act?.data?.voter ]" class="color-green">{{ voter?.act?.data?.voter }}</a>
-              <small> stake </small> - <strong>{{ (voter?.stake) ? voter?.stake?.toLocaleString() : 0 }} EOS</strong>
+              <small> stake </small> - <strong>{{ (voter?.stake) ? voter?.stake?.toLocaleString() : 0 }} {{frontConfig?.coin}}</strong>
             </strong>
           </span>
         </div>

@@ -13,7 +13,7 @@
 					<strong class="block-info-header">Total Balance:</strong>
 				</div>
 				<div class="col-sm-9">
-					<strong>{{ balance?.toLocaleString() }} EOS</strong> / 
+					<strong>{{ balance?.toLocaleString() }} {{frontConfig?.coin}}</strong> / 
 					<small>{{ (balance * eosRate?.RAW?.EOS?.USD?.PRICE).toLocaleString() }} USD</small>
 				</div>
 			</div>
@@ -23,7 +23,7 @@
 					<strong class="block-info-header">Unstaked:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small><strong>{{ unstaked }} EOS</strong></small>
+					<small><strong>{{ unstaked }} {{frontConfig?.coin}}</strong></small>
 				</div>
 			</div>
 
@@ -32,7 +32,7 @@
 					<strong class="block-info-header">Staked:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small><strong>{{ mainData?.voter_info?.staked / 10000 }} EOS</strong></small>
+					<small><strong>{{ mainData?.voter_info?.staked / 10000 }} {{frontConfig?.coin}}</strong></small>
 				</div>
 			</div>
 
@@ -95,7 +95,7 @@
 				</div>
 				<div class="col-sm-9 tokens-container">
 					<span *ngFor="let token of tokensArray?.balances">
-						<strong *ngIf="token?.currency !== 'EOS'" class="small-tokens">
+						<strong *ngIf="token?.currency !== frontConfig?.coin" class="small-tokens">
 							<small >{{ token?.amount }}</small> {{ token?.currency }} - 
 							<a [routerLink]="['/account', token?.contract ]" class="color-green">{{ token?.contract }}</a>
 						</strong>

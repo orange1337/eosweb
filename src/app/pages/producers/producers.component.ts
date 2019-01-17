@@ -31,10 +31,17 @@ export class ProducersPageComponent implements OnInit, OnDestroy{
   globalTable;
   chainPercentage;
   chainNumber;
+  frontConfig = {
+      coin: 'EOS'
+  };
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private route: ActivatedRoute, protected http: HttpClient, private MainService: MainService, private socket: Socket){}
+  constructor(private route: ActivatedRoute, protected http: HttpClient, private MainService: MainService, private socket: Socket){
+      if (localStorage.getItem('frontConf')){
+          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
+      }
+  }
 
   getBlockData(){
       this.spinner   = (this.firstLoad) ? true : false;
