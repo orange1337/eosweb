@@ -120,7 +120,7 @@
       <mat-tab label="Buy ram">
         <div class="col-sm-4">
             <mat-form-field>
-                <input matInput placeholder="frontConfig?.coin" [(ngModel)]="buyRAM.eos" (ngModelChange)="buyChangeEOS($event)">
+                <input matInput [placeholder]="frontConfig?.coin" [(ngModel)]="buyRAM.eos" (ngModelChange)="buyChangeEOS($event)">
             </mat-form-field>
         </div>
         <div class="col-sm-4">
@@ -135,7 +135,7 @@
       <mat-tab label="Sell ram">
         <div class="col-sm-4">
             <mat-form-field>
-                <input matInput placeholder="frontConfig?.coin" [(ngModel)]="sellRAM.eos" (ngModelChange)="sellChangeEOS($event)">
+                <input matInput [placeholder]="frontConfig?.coin" [(ngModel)]="sellRAM.eos" (ngModelChange)="sellChangeEOS($event)">
             </mat-form-field>
         </div>
         <div class="col-sm-4">
@@ -150,7 +150,7 @@
       <mat-tab label="Donate">
         <div class="col-sm-4">
             <mat-form-field>
-                <input matInput placeholder="frontConfig?.coin" [(ngModel)]="donation">
+                <input matInput [placeholder]="frontConfig?.coin" [(ngModel)]="donation">
             </mat-form-field>
         </div>
         <div class="col-sm-3">
