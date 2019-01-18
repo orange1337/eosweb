@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import * as moment from 'moment';
 
 @Component({
@@ -86,6 +86,12 @@ export class AppComponent implements OnInit {
 
   ngOnInit(){
     this.getMainFrontConfig();
+    this.router.events.subscribe((evt) => {
+            if (!(evt instanceof NavigationEnd)) {
+                return;
+            }
+            window.scrollTo(0, 0)
+    });
   }
 
   onKey(event: any){

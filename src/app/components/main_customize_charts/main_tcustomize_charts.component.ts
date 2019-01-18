@@ -40,6 +40,7 @@ export class MainCustomizeChartsComponent implements OnInit{
   actionsTransactions;
   frontConfig = {
       voteDonationAcc: 'eoswebnetbp1',
+      coin: 'EOS',
       disableVoteDonation: false
   };
 

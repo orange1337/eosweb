@@ -39,6 +39,9 @@ export class AddressPageComponent implements OnInit, OnDestroy{
       let result = {
         account_names: []
       };
+      if (data && data.account_names){
+          data = data.account_names;
+      }
       data.forEach(elem => {
           if (elem.permission === "active"){
              result.account_names.push(elem.account); 
