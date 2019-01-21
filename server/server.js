@@ -79,7 +79,7 @@ const io  = require('socket.io').listen(server);
 require(`./api/eos.api.${config.apiV}.socket`)(io, mongoMain);
 
 if (config.CRON){
-    require('./crons/main.cron')();
+    require('./daemons/init')();
 }
 if (config.telegram.ON){
     require('./daemons/ram.bot.daemon')(mongoMain);

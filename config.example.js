@@ -23,9 +23,11 @@ config.MONGO_OPTIONS = {
 config.CRON = false;
 config.CRON_API = 'http://bp.cryptolions.io';
 
+// anable TPS APS daemon aggregation
 config.TPS_ENABLE = true;
-config.MAX_TPS_TIME_UPDATE = 5000;
+config.MAX_TPS_TIME_UPDATE = 5000; // time of break between reload (leave by default)
 
+// global front customizations
 config.globalFront = {
    coin: 'EOS',
    logo: '/assets/images/eos_logo.png',
@@ -41,6 +43,7 @@ config.globalFront = {
    version: '2.1.0'
 };
 
+// producer json name
 config.producerJSON = 'bp.json';
 
 // scatter wallet

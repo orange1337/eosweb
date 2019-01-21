@@ -33,6 +33,10 @@ var API = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  max_aps: {
+    type: Number,
+    default: 0
+  },
   cursor_max_tps: {
     type: Number,
     default: 0
