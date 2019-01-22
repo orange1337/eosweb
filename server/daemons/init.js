@@ -20,18 +20,11 @@ module.exports = () => {
               startAccountsDaemon();
             }
         });
-        
-        //cron.schedule('*/1 * * * *', () => {
-        /*   if (ACCOUNTS_STAT_PROCESS === 0){
-              console.log('====== global stat daemon');
-              startGlobalStatAnalytics();
-            }
-        });*/
 
         cron.schedule('*/1 * * * *', () => {
            if (ACCOUNTS_STAT_PROCESS === 0){
               console.log('====== new global stat daemon');
-              newStartGlobalStatAnalytics();
+              startGlobalStatAnalytics();
             }
         });
 
@@ -50,13 +43,11 @@ module.exports = () => {
         });
 
         startAccountsDaemon();
-        newStartGlobalStatAnalytics();
-        //startGlobalStatAnalytics();
+        startGlobalStatAnalytics();
         startProducersInfoDaemon();
         if (config.TPS_ENABLE){
             startTPSdaemon();
         }
-        //startAccountsAnalytics();
 }
 
 function startTPSdaemon(){
@@ -71,16 +62,16 @@ function startProducersInfoDaemon(){
         PRODUCERS_PROCESS += 1;
         let forkProcess = fork(path.join(__dirname, '../daemons/producers.daemon.js'));
         forkProcess.on('close', res => {
-              console.log('\x1b[36m%s\x1b[0m', '====== Process stat PRODUCERS daemon end');
+              console.log('\x1b[36m%s\x1b[0m', '====== Process PRODUCERS daemon end');
               PRODUCERS_PROCESS = 0;
         });
 }
 
 function startAccountsDaemon(){
         ACCOUNTS_PROCESS += 1;
-        let forkProcess = fork(path.join(__dirname, '../daemons/accounts.stat.daemon.js'));
+        let forkProcess = fork(path.join(__dirname, '../daemons/accounts.daemon.js'));
         forkProcess.on('close', res => {
-              console.log('\x1b[36m%s\x1b[0m', '====== Process stat ACCOUNTS daemon end');
+              console.log('\x1b[36m%s\x1b[0m', '====== Process ACCOUNTS daemon end');
               ACCOUNTS_PROCESS = 0;
         });
 }
@@ -94,20 +85,11 @@ function startAccountsAnalytics(){
         });
 }
 
-function newStartGlobalStatAnalytics(){
+function startGlobalStatAnalytics(){
         NEW_GLOBAL_STAT_PROCESS += 1;
-        let forkProcess = fork(path.join(__dirname, '../daemons/new.global.analytics.daemon.js'));
+        let forkProcess = fork(path.join(__dirname, '../daemons/global.daemon.js'));
         forkProcess.on('close', res => {
               console.log('\x1b[36m%s\x1b[0m', '====== Process NEW GLOBAL STAT daemon end');
               NEW_GLOBAL_STAT_PROCESS = 0;
         });
 }
-
-/*function startGlobalStatAnalytics(){
-        GLOBAL_STAT_PROCESS += 1;
-        let forkProcess = fork(path.join(__dirname, '../daemons/global.analytics.daemon.js'));
-        forkProcess.on('close', res => {
-              console.log('\x1b[36m%s\x1b[0m', '====== Process GLOBAL STAT daemon end');
-              GLOBAL_STAT_PROCESS = 0;
-        });
-}*/

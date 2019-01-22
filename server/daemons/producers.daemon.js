@@ -1,101 +1,68 @@
-// Producers info
-const async			= require('async');
-const mongoose      = require("mongoose");
-const request 		= require("request");
-const path 			= require("path");
-const fs 			= require("fs");
-const config      	= require('../../config');
+/*
+ 	Producers daemon info
+*/
+const { TABLE_DB, log, logSlack, config, request, req, path, fs, asyncjs } = require('./header')('producers');
+const { asyncWrapper, asyncForEach } = require('../utils/main.utils');
+const wrapper = new asyncWrapper(log);
 
-const log4js      = require('log4js');
-log4js.configure(config.logger);
-const log         = log4js.getLogger('producers');
+const PRODUCERS_LIMITS 	= 500;
+const defaultImg 		= '/assets/images/eosio.png';
+const bpsImg 			= '/assets/images/bps/';
+const bpsImgPath 		= path.join(__dirname, '../../src/assets/images/bps/');
 
-const customSlack = require('../modules/slack.module');
-const logSlack    = customSlack.configure(config.loggerSlack.alerts);
+async function updateProducersInfo(){
+	let options = {
+			uri:`${config.customChain}/v1/chain/get_table_rows`, 
+			method: 'POST', 
+			body: {
+				json: true,
+				code: "eosio",
+				scope: "eosio",
+				table: "producers",
+				limit: PRODUCERS_LIMITS
+			}, 
+			json: true
+	};
+	let data = await wrapper.toStrong(request(options));
+	if (!data || !data.rows){
+		logSlack(`======= Producers list empty : ${data}`);
+		process.exit(1);
+	}
 
-const PRODUCERS_LIMITS = 500;
-
-const defaultImg = '/assets/images/eosio.png';
-const bpsImg = '/assets/images/bps/';
-const bpsImgPath = path.join(__dirname, '../../src/assets/images/bps/');
-
-mongoose.Promise = global.Promise;
-const mongoMain  = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTIONS,
- (err) => {
-    if (err){
-      log.error(err);
-      process.exit(1);
-    }
-    log.info('[Connected to Mongo EOS in PRODUCERS daemon] : 27017');
-});
-
-const TABLE = require('../models/producers.model')(mongoMain);
-
-process.on('uncaughtException', (err) => {
-	// rewrite to slack notify
-    logSlack(`======= UncaughtException Producers daemon : ${err}`);
-    process.exit(1);
-});
-
-function updateProducersInfo(){
-		 async.waterfall([
-		 	(callback) => {
-	   			let formData = { json: true,
-					      code: "eosio",
-					      scope: "eosio",
-					      table: "producers",
-					      limit: PRODUCERS_LIMITS
-				};
-	   			request.post({url:`${config.customChain}/v1/chain/get_table_rows`, json: formData}, (error, response, body) => {
-	   					if (error){
-	   						console.error(error);
-	   	 				 	return callback(error);
-	   					}
-    					callback(null, body);
-	   			});	
-		 	},
-		 	(result, callback) => {
-		 		async.eachLimit(result.rows, config.limitAsync, (elem, cb) => {
-	   	 				if (!elem.url){
-	   	 				  		log.error("Empty url producer -", elem.owner);
-	   	 				  		return cb();
-	   	 				}
-	   	 				let url = (elem.url[elem.url.length - 1] === "/") ?  elem.url + `${config.producerJSON}` : elem.url + `/${config.producerJSON}`;
-	   	 				if (url.indexOf("http") === -1){
-	   	 					url = "http://" + url;
-	   	 				}
-	   	 				console.log(url);
-	   	 				request.get(url, (error, response, body) => {
-	   	 				 		if (error){
-	   	 				 			console.error(error);
-	   	 				 			return cb();
-	   	 				 		}
-	   	 				 		let data;
-								try {
-    							    data = JSON.parse(body);
-    							} catch (e) {
-    								//console.log('Parse json', e);
-    							    return cb();
-    							}
-	   	 				 		saveProducerInfo(data, elem, (err) => {
-									if (err){
-										log.error(err);
-	   	 				 			}
-	   	 				 			console.log("Producer updated successfully !!!", data.producer_account_name);
-	   	 				 			cb();
-	   	 				 		});
-	   	 				});
-	   	 			}, () => {
-						callback(null);
-	   	 			});
-		 	}
-		 ], (err) => {
-		 	if (err){
-		 		return logSlack(`======= Producers list empty : ${err}`);
-		 	}
-		 	log.info("======= Producers list info updated successfully !!!");
-		 	process.exit();
-		 });
+	asyncjs.eachLimit(data.rows, config.limitAsync, (elem, cb) => {
+	   	 	if (!elem.url){
+	   	 	  		log.error("Empty url producer -", elem.owner);
+	   	 	  		return cb();
+	   	 	}
+	   	 	let url = (elem.url[elem.url.length - 1] === "/") ?  elem.url + `${config.producerJSON}` : elem.url + `/${config.producerJSON}`;
+	   	 	if (url.indexOf("http") === -1){
+	   	 		url = "http://" + url;
+	   	 	}
+	   	 	console.log(url);
+	   		req.get(url, (error, response, body) => {
+	   		 		if (error){
+	   		 			console.error(error);
+	   		 			return cb();
+	   		 		}
+	   		 		let data;
+					try {
+    				    data = JSON.parse(body);
+    				} catch (e) {
+    					//console.log('Parse json', e);
+    				    return cb();
+    				}
+	   		 		saveProducerInfo(data, elem, (err) => {
+					if (err){
+							log.error(err);
+	   		 			}
+	   		 			console.log("Producer updated successfully !!!", data.producer_account_name);
+	   		 			cb();
+	   		 		});
+	   		});
+	}, () => {	
+		log.info("======= Producers list info updated successfully !!!");
+		process.exit();
+	});
 }
 
 function saveProducerInfo(bp, elem, callback){
@@ -109,12 +76,12 @@ function saveProducerInfo(bp, elem, callback){
 				 console.log('No image for Producer');
 			}
 			updateObg.image = (format) ? `${bpsImg}${elem.owner}${format}` : updateObg.image;
-			TABLE.findOne({ name: elem.owner }, (err, result) => {
+			TABLE_DB.findOne({ name: elem.owner }, (err, result) => {
 			 	if (err){
 			 		return callback(err);
 			 	}
 			 	if (!result){
-			 		let producer = new TABLE(updateObg);
+			 		let producer = new TABLE_DB(updateObg);
 			 		producer.save((err) => {
 			 			if (err){
 			 				return callback(err); 
@@ -122,7 +89,7 @@ function saveProducerInfo(bp, elem, callback){
 			 			callback(null);
 			 		});
 			 	} else {
-			 	  TABLE.update({ name: bp.producer_account_name }, updateObg, (err) => {
+			 	  TABLE_DB.update({ name: bp.producer_account_name }, updateObg, (err) => {
 			 	  		if (err){
 			 				return callback(err); 
 			 			}
@@ -134,7 +101,7 @@ function saveProducerInfo(bp, elem, callback){
 }
 
 function downloadBPImage(uri, filename, callback){
-  request.head(uri, (err, res, body) => {
+  req.head(uri, (err, res, body) => {
   	if (err || !res.headers){
     	return callback(err);
     }
@@ -142,7 +109,7 @@ function downloadBPImage(uri, filename, callback){
     if (format === '.html'){
     	return callback(err);
     }
-    request(uri).pipe(fs.createWriteStream(filename + format)).on('close', (err) => {
+    req(uri).pipe(fs.createWriteStream(filename + format)).on('close', (err) => {
     		if (err){
     			return callback(err);
     		}

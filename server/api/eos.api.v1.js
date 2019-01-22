@@ -6,7 +6,7 @@ const async = require('async');
 const path = require('path');
 const customFunctions = require('./eos.api.v1.custom');
 
-module.exports 	= function(router, config, request, log, mongoMain, MARIA) {
+module.exports 	= (router, config, request, log, mongoMain, MARIA) => {
 
 	const STATS_AGGR 	= require('../models/api.stats.model')(mongoMain);
 	const STATS_ACCOUNT = require('../models/api.accounts.model')(mongoMain);

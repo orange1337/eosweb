@@ -1,7 +1,7 @@
 /*
 	max TPS, APS daemons
 */ 
-const { eos, SETTINGS_DB, log, logSlack, asyncjs, config } = require('./header.require')('tps');
+const { eos, SETTINGS_DB, log, config } = require('./header')('tps');
 const { asyncWrapper } = require('../utils/main.utils');
 const wrapper = new asyncWrapper(log);
 
@@ -14,35 +14,34 @@ let currentTrx = 0,
 	counter = 0;
 
 async function getMaxTps(){
-	let stat = await wrapper.toStrong(SETTINGS_DB.findOne({}));
-	
-	if (!stat){
-		stat = new SETTINGS_DB();
-		await wrapper.toStrong(stat.save());
+	let settings = await wrapper.toStrong(SETTINGS_DB.findOne({}));
+	if (!settings){
+		settings = new SETTINGS_DB();
+		await wrapper.toStrong(settings.save());
 	}
 	
 	let info = await wrapper.toStrong(eos.getInfo({}));
 	if (!info.last_irreversible_block_num){
-		return log.error('Cant get info from blockchain getStatAggregation!');
+		return log.error('Cant get info from blockchain!');
 	}
-	let start = stat.cursor_max_tps;
+	let start = settings.cursor_max_tps;
 	let elements = Array.from({length: info.last_irreversible_block_num - start}, (v, k) => start = start + 1);
 
-	await getBlockRecursive(stat, info, elements);
+	await getBlockRecursive(settings, info, elements);
 
-	log.info('===== end getMaxTPS ', stat);
+	log.info('===== end getMaxTPS ', settings);
 	setTimeout(getMaxTps, config.MAX_TPS_TIME_UPDATE);
 };
 
-async function getBlockRecursive(stat, info, elements){
+async function getBlockRecursive(settings, info, elements){
 	let blockNumber = elements[0];
 	if (elements.length === 0){
-		 return await wrapper.toStrong(stat.save());
+		 return await wrapper.toStrong(settings.save());
 	}
 	let [err, block] = await wrapper.to(eos.getBlock({ block_num_or_id: blockNumber }));
 	if (err){
 		log.error('getMaxTps error - ', err);
-		return await getBlockRecursive(stat, info, elements);
+		return await getBlockRecursive(settings, info, elements);
 	}
 
 	if (block && block.transactions && block.transactions.length){
@@ -60,8 +59,8 @@ async function getBlockRecursive(stat, info, elements){
 			maxPerSec = currentTrx + previousTrx;
 		}
 
-		stat.max_tps_block = (stat.max_tps < maxPerSec) ? blockNumber : stat.max_tps_block;
-		stat.max_tps = (stat.max_tps < maxPerSec) ? maxPerSec : stat.max_tps;
+		settings.max_tps_block = (settings.max_tps < maxPerSec) ? blockNumber : settings.max_tps_block;
+		settings.max_tps = (settings.max_tps < maxPerSec) ? maxPerSec : settings.max_tps;
 		
 		currentTrx = 0;
 		previousTrx = 0;
@@ -74,9 +73,9 @@ async function getBlockRecursive(stat, info, elements){
 		previousTrx = getActionsCount(block).trxCounter;
 		previousTrxTime = +new Date(block.timestamp);
 	}			   			
-	stat.cursor_max_tps = blockNumber;
+	settings.cursor_max_tps = blockNumber;
 	elements.shift();
-	await getBlockRecursive(stat, block, elements);
+	await getBlockRecursive(settings, block, elements);
 }
 
 function getActionsCount (block){

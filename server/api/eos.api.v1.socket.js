@@ -26,7 +26,7 @@ let userCountHandler = 0;
 let SOCKET_HANGUP_TIME = +new Date();
 let changeAPI = 0;
 
-module.exports = function(io, mongoMain){
+module.exports = (io, mongoMain) => {
 
   const STATS_AGGR  = require('../models/api.stats.model')(mongoMain);
   const RAM         = require('../models/ram.price.model')(mongoMain);

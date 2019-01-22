@@ -1,11 +1,18 @@
+/*
+	Header require for daemons
+*/
 const asyncjs		= require('async');
 const config      	= require('../../config');
+const request		= require('request-promise');
+const req			= require('request');
+const path 			= require("path");
+const fs 			= require("fs");
 
 const mongoose      = require("mongoose");
 mongoose.Promise  	= global.Promise;
 
 const EOS     		= require('eosjs');
-config.eosConfig.httpEndpoint = config.CRON_API;
+config.eosConfig.httpEndpoint = (config.CRON) ? config.CRON_API : config.eosConfig.httpEndpoint;
 const eos     		= EOS(config.eosConfig);
 
 module.exports = (loggerFileName) => {
@@ -27,10 +34,12 @@ module.exports = (loggerFileName) => {
 	      log.error(err);
 	      process.exit(1);
 	    }
-	    log.info('[Connected to Mongo EOS in TPS daemon]');
+	    log.info(`[Connected to Mongo EOS in (${loggerFileName}) Daemon]`);
 	});
 	
-	const SETTINGS_DB = require('../models/api.stats.model')(mongoMain);
+	const SETTINGS_DB 		= require('../models/api.stats.model')(mongoMain);
+	const STATS_ACCOUNT_DB 	= require('../models/api.accounts.model')(mongoMain);
+	const TABLE_DB 			= require('../models/producers.model')(mongoMain);
 
-	return {eos, SETTINGS_DB, log, logSlack, asyncjs, config};
+	return {eos, SETTINGS_DB, STATS_ACCOUNT_DB, TABLE_DB, log, logSlack, asyncjs, config, request, req, path, fs};
 };
