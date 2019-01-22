@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   frontConfig;
   netName;
   networks = [];
-  darkTheme = localStorage.getItem('darkTheme');
+  darkTheme = (localStorage.getItem('darkTheme') === 'true') ? true : false;
 
   constructor(private http: HttpClient, private router: Router){
       if (localStorage.getItem('frontConf')){
