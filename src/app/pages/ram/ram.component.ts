@@ -241,7 +241,12 @@ export class RamPageComponent implements OnInit{
             if (identity.accounts.length === 0) {
                 return;
             }
-            let objectIdentity = this.ScatterJS.identity.accounts.find(x => x.blockchain === 'eos'); //identity.accounts[0].name;
+            let objectIdentity;
+            if (this.ScatterJS.identity && this.ScatterJS.identity.accounts){
+               objectIdentity = this.ScatterJS.identity.accounts.find(x => x.blockchain === 'eos');
+            }
+            objectIdentity = { name: identity.accounts[0].name };
+             //identity.accounts[0].name;
             this.identity = (objectIdentity && objectIdentity.name) ? objectIdentity.name : null;
             if (this.identity){
                 this.getAccount(this.identity);
