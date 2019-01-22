@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   frontConfig;
   netName;
   networks = [];
+  darkTheme = localStorage.getItem('darkTheme');
 
   constructor(private http: HttpClient, private router: Router){
       if (localStorage.getItem('frontConf')){
@@ -82,6 +83,11 @@ export class AppComponent implements OnInit {
 
   activeMenu(){
     return this.router.url;
+  }
+
+  darkEnable(mode){
+      localStorage.setItem('darkTheme', mode);
+      this.darkTheme = mode;
   }
 
   ngOnInit(){

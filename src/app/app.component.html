@@ -23,8 +23,9 @@
     </li>
     <!--<li class="mobile-no"><button mat-button color="basic" routerLink="soon">API</button></li>-->
     <li>
-        <a _ngcontent-c0="" href="https://twitter.com/EoswebN" class="telegram-button" target="_blank">
-          <i _ngcontent-c0="" class="fab fa-twitter"></i>
+        <a class="telegram-button" (click)="darkEnable(!darkTheme)">
+          <i class="fas fa-moon" *ngIf="!darkTheme"></i>
+          <i class="fas fa-sun" *ngIf="darkTheme"></i>
         </a>
     </li>
   </ul>
@@ -51,4 +52,7 @@
   </ul>
    </div>
 </footer>
+
+<link rel="stylesheet" href="/assets/css/dark.css" *ngIf="darkTheme">
+
 

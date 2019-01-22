@@ -5,13 +5,13 @@
 
 <div class="main-container-actions" *ngIf="data?.name === 'transfer'">
 	<div class="actions-list-view">
-		<strong><a href="/account/{{dataObj?.from}}" class="color-green pull-left">
+		<strong class="strong-content"><a href="/account/{{dataObj?.from}}" class="color-green pull-left">
 			{{ dataObj?.from }}
 		</a></strong>
 		<i class="fas fa-long-arrow-right"></i>
 	</div>
 	<div class="actions-list-view">
-		<strong><a href="/account/{{dataObj?.to}}" class="color-green">
+		<strong class="strong-content"><a href="/account/{{dataObj?.to}}" class="color-green">
 			{{ dataObj?.to }}
 		</a></strong>
 	</div>
@@ -22,96 +22,96 @@
 		</div>
 	</div>
 	<div class="actions-list-view">
-		<strong>{{ dataObj?.quantity }}</strong>
+		<strong class="strong-content">{{ dataObj?.quantity }}</strong>
 	</div>
 </div>
 
 
 <div class="main-container-actions" *ngIf="data?.name === 'buyram'">
 	<div class="actions-list-view">
-		<strong><a href="/account/{{dataObj?.payer}}" class="color-green pull-left">
+		<strong class="strong-content"><a href="/account/{{dataObj?.payer}}" class="color-green pull-left">
 			{{ dataObj?.payer }}
 		</a></strong>
 		<i class="fas fa-long-arrow-right"></i>
 	</div>
 	<div class="actions-list-view">
-		<strong><a href="/account/{{dataObj?.receiver}}" class="color-green">
+		<strong class="strong-content"><a href="/account/{{dataObj?.receiver}}" class="color-green">
 			{{ dataObj?.receiver }}
 		</a></strong>
 	</div>
 	<div class="actions-list-view">
-		<strong>{{ dataObj?.quant }}</strong>
+		<strong class="strong-content">{{ dataObj?.quant }}</strong>
 	</div>
 </div>
 
 <div class="main-container-actions" *ngIf="data?.name === 'sellram'">
 	<div class="actions-list-view">
-		<strong><a href="/account/{{dataObj?.account}}" class="color-green pull-left">
+		<strong class="strong-content"><a href="/account/{{dataObj?.account}}" class="color-green pull-left">
 			{{ dataObj?.account }}
 		</a></strong>
 	</div>
 	<div class="actions-list-view">
-		<strong> {{ (dataObj?.bytes / 1024).toLocaleString() }} kb </strong>
+		<strong class="strong-content"> {{ (dataObj?.bytes / 1024).toLocaleString() }} kb </strong>
 	</div>
 </div>
 
 <div class="main-container-actions" *ngIf="data?.name === 'delegatebw'">
 	<div class="actions-list-view" *ngIf="dataObj?.from">
-		<strong><a href="/account/{{dataObj?.from}}" class="color-green pull-left">
+		<strong class="strong-content"><a href="/account/{{dataObj?.from}}" class="color-green pull-left">
 			{{ dataObj?.from }}
 		</a></strong>
 		<i class="fas fa-long-arrow-right"></i>
 	</div>
 	<div class="actions-list-view" *ngIf="dataObj?.from">
-		<strong><a href="/account/{{dataObj?.receiver}}" class="color-green">
+		<strong class="strong-content"><a href="/account/{{dataObj?.receiver}}" class="color-green">
 			{{ dataObj?.receiver }}
 		</a></strong>
 	</div>
 	<div class="actions-list-view" *ngIf="dataObj?.from">
-		<span class="resources">net: </span><strong> {{ dataObj?.stake_net_quantity }} </strong>
+		<span class="resources">net: </span><strong class="strong-content"> {{ dataObj?.stake_net_quantity }} </strong>
 	</div>
 	<div class="actions-list-view" *ngIf="dataObj?.from">
-		<span class="resources">cpu: </span> <strong> {{ dataObj?.stake_cpu_quantity }} </strong>
+		<span class="resources">cpu: </span> <strong class="strong-content"> {{ dataObj?.stake_cpu_quantity }} </strong>
 	</div>
 	<div class="actions-list-view" *ngIf="dataObj?.to">
-		<strong><a href="/account/{{dataObj?.to}}" class="color-green pull-left">
+		<strong class="strong-content"><a href="/account/{{dataObj?.to}}" class="color-green pull-left">
 			{{ dataObj?.to }}
 		</a></strong>
 	</div>
 	<div class="actions-list-view" *ngIf="dataObj?.to">
-		<span class="resources">quantity: </span><strong> {{ dataObj?.quantity }} </strong>
+		<span class="resources">quantity: </span><strong class="strong-content"> {{ dataObj?.quantity }} </strong>
 	</div>
 </div>
 
 <div class="main-container-actions" *ngIf="data?.name === 'undelegatebw'">
 	<div class="actions-list-view">
-		<strong><a href="/account/{{dataObj?.from}}" class="color-green pull-left">
+		<strong class="strong-content"><a href="/account/{{dataObj?.from}}" class="color-green pull-left">
 			{{ dataObj?.from }}
 		</a></strong>
 		<i class="fas fa-long-arrow-right"></i>
 	</div>
 	<div class="actions-list-view">
-		<strong><a href="/account/{{dataObj?.receiver}}" class="color-green">
+		<strong class="strong-content"><a href="/account/{{dataObj?.receiver}}" class="color-green">
 			{{ dataObj?.receiver }}
 		</a></strong>
 	</div>
 	<div class="actions-list-view">
-		<span class="resources">net: </span><strong> {{ dataObj?.unstake_net_quantity }} </strong>
+		<span class="resources">net: </span><strong class="strong-content"> {{ dataObj?.unstake_net_quantity }} </strong>
 	</div>
 	<div class="actions-list-view">
-		<span class="resources">cpu: </span> <strong> {{ dataObj?.unstake_cpu_quantity }} </strong>
+		<span class="resources">cpu: </span> <strong class="strong-content"> {{ dataObj?.unstake_cpu_quantity }} </strong>
 	</div>
 </div>
 
 <div class="main-container-actions" *ngIf="data?.name === 'newaccount'">
 	<div class="actions-list-view">
-		<strong><a href="/account/{{dataObj?.creator}}" class="color-green pull-left">
+		<strong class="strong-content"><a href="/account/{{dataObj?.creator}}" class="color-green pull-left">
 			{{ dataObj?.creator }}
 		</a></strong>
 		<i class="fas fa-long-arrow-right"></i>
 	</div>
 	<div class="actions-list-view">
-		<strong><a href="/account/{{dataObj?.name}}" class="color-green">
+		<strong class="strong-content"><a href="/account/{{dataObj?.name}}" class="color-green">
 			{{ dataObj?.name }}
 		</a></strong>
 	</div>
@@ -119,37 +119,37 @@
 
 <div class="main-container-actions" *ngIf="data?.name === 'buyrambytes'">
 	<div class="actions-list-view">
-		<strong><a href="/account/{{dataObj?.payer}}" class="color-green pull-left">
+		<strong class="strong-content"><a href="/account/{{dataObj?.payer}}" class="color-green pull-left">
 			{{ dataObj?.payer }}
 		</a></strong>
 		<i class="fas fa-long-arrow-right"></i>
 	</div>
 	<div class="actions-list-view">
-		<strong><a href="/account/{{dataObj?.receiver}}" class="color-green">
+		<strong class="strong-content"><a href="/account/{{dataObj?.receiver}}" class="color-green">
 			{{ dataObj?.receiver }}
 		</a></strong>
 	</div>
 	<div class="actions-list-view">
-		<strong> {{ (dataObj?.bytes / 1024).toLocaleString() }} kb </strong>
+		<strong class="strong-content"> {{ (dataObj?.bytes / 1024).toLocaleString() }} kb </strong>
 	</div>
 </div>
 
 
 <div class="main-container-actions" *ngIf="data?.name === 'voteproducer'">
 	<div class="actions-list-view">
-		<strong><a href="/account/{{dataObj?.voter}}" class="color-green pull-left">
+		<strong class="strong-content"><a href="/account/{{dataObj?.voter}}" class="color-green pull-left">
 			{{ dataObj?.voter }}
 		</a></strong>
 		<i class="fas fa-long-arrow-right"></i>
 	</div>
 	<div class="actions-list-view">
-		<strong><a href="/account/{{dataObj?.proxy}}" class="color-green">
+		<strong class="strong-content"><a href="/account/{{dataObj?.proxy}}" class="color-green">
 			{{ dataObj?.proxy }}
 		</a></strong>
 	</div>
 	<div class="actions-list-view">
-		<strong> producers: </strong>
-		<strong><a href="/account/{{prod}}" *ngFor="let prod of dataObj?.producers" class="color-green pull-left producer-link">
+		<strong class="strong-content"> producers: </strong>
+		<strong class="strong-content"><a href="/account/{{prod}}" *ngFor="let prod of dataObj?.producers" class="color-green pull-left producer-link">
 			{{ prod }}
 		</a></strong>
 	</div>

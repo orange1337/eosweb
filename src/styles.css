@@ -68,6 +68,9 @@ a{
 	margin-top: 6px;
 	height: 8px !important;
 }
+.strong-content{
+	color: #333;
+}
 .nav-active{
 	color: #71d479 !important;
 }

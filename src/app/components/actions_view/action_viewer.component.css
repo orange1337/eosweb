@@ -1,9 +1,6 @@
 .main-container-actions{
 	display: flex;
 }
-strong{
-	color: #333;
-}
 .actions-list-view{
 	margin-left: 10px;
 	display: flex;
