@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy, ViewChild, Inject } from '@angular/core';
-import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MAT_DIALOG_DATA, MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { MainService } from '../../services/mainapp.service';
 
 @Component({
@@ -22,8 +21,8 @@ export class BlockPageComponent implements OnInit, OnDestroy{
   displayedColumns = ['expiration', 'cpu', 'net', 'id', 'status', 'actions'];
   spinner = false;
 
-  /*@ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;*/
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+   /*@ViewChild(MatSort) sort: MatSort;*/
 
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient,
@@ -40,8 +39,9 @@ export class BlockPageComponent implements OnInit, OnDestroy{
                               this.trxArr = this.createTransactionsArray(this.mainData.transactions);
                               
                               let ELEMENT_DATA: Element[] = this.trxArr;
+                              console.log(ELEMENT_DATA.length)
                               this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
-
+                              setTimeout(() => this.dataSource.paginator = this.paginator);
                               //console.log(this.trxArr);                              
                           }
                           this.spinner = false;

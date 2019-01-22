@@ -26,7 +26,7 @@ export const routes: Routes = [
   },
   { 
     path: 'account/:id', 
-    component: AccountPageComponent 
+    component: AccountPageComponent
   },
   { 
     path: 'address/:id', 

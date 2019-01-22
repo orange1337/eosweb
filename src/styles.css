@@ -108,6 +108,12 @@ a{
 	color: #71d479 !important;
 	text-decoration: none;
 }
+.arrows-prev-next{
+	font-size: 14px !important;
+}
+.arrows-prev-next a:nth-child(2) {
+	margin-left: 10px;
+}   
 .color-red{
 	color: red !important;
 }
@@ -518,7 +524,7 @@ action-viewer{
 	width: 450px;
 	flex: 5 !important;
 }
-.fa-long-arrow-right {
+.main-container-actions .fa-long-arrow-right {
 	margin-left: 10px;
 	color: #333;
 }

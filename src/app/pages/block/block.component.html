@@ -4,7 +4,12 @@
     <mat-spinner class="spinner-color"></mat-spinner>
 </div>
 
-	<h1 class="market-header">Block  No. {{ mainData?.block_num }}</h1>
+	<h1 class="market-header">Block  No. {{ mainData?.block_num }} 
+		<span class="arrows-prev-next">
+			<a routerLink="/block/{{ mainData?.block_num - 1 }}" class="color-green"> <i class="far fa-long-arrow-left"></i> Prev</a>
+			<a routerLink="/block/{{ mainData?.block_num + 1 }}" class="color-green"> Next <i class="far fa-long-arrow-right"></i></a>
+		</span>
+	</h1>
 
 	<div class="block-info">
 
@@ -13,7 +18,7 @@
 					<strong class="block-info-header">Producer:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small><a [routerLink]="['/account', mainData?.producer ]" class="color-green">{{ mainData?.producer }}</a></small>
+					<small><a routerLink="/account/{{mainData?.producer}}" class="color-green">{{ mainData?.producer }}</a></small>
 				</div>
 			</div>
 
@@ -32,7 +37,7 @@
 				</div>
 				<div class="col-sm-9">
 					<small>
-						<a [routerLink]="['/block', mainData?.previous ]" class="color-green tx-mobile-hash">{{ mainData?.previous }}
+						<a routerLink="/block/{{mainData?.previous}}" class="color-green tx-mobile-hash">{{ mainData?.previous }}
 						</a>
 					</small>
 				</div>
@@ -99,18 +104,26 @@
 			<div class="col-sm-12">
 					<div class="example-container mat-elevation-z8 main-table block-trx-table" *ngIf="trxArr?.length">
 					
-					  <mat-table #table [dataSource]="dataSource" matSort>
-					
+					  <mat-table #table [dataSource]="dataSource">
+						
+						<!-- Name Column -->
+					    <ng-container matColumnDef="expiration">
+					      <mat-header-cell *matHeaderCellDef style="flex:1.2"> Expiration</mat-header-cell>
+					      <mat-cell *matCellDef="let element" class="change-container"> 
+					            {{ moment(element?.expiration).format('MMMM Do YYYY, h:mm:ss a') }}
+					      </mat-cell>
+					    </ng-container>	
+
 					    <ng-container matColumnDef="cpu">
 					      <mat-header-cell *matHeaderCellDef> CPU </mat-header-cell>
-					      <mat-cell *matCellDef="let element; let i = index">
+					      <mat-cell *matCellDef="let element; let i = index" style="flex:0.5">
 					          <strong>{{ element?.cpu }}</strong>
 					      </mat-cell>
 					    </ng-container>
 					    
 					     <ng-container matColumnDef="net">
 					      <mat-header-cell *matHeaderCellDef> NET </mat-header-cell>
-					      <mat-cell *matCellDef="let element; let i = index">
+					      <mat-cell *matCellDef="let element; let i = index" class="text-center" style="flex:0.5">
 					          <strong>{{ element?.net }}</strong>
 					      </mat-cell>
 					    </ng-container>
@@ -119,7 +132,7 @@
 					    <ng-container matColumnDef="id" style="flex:2">
 					      <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
 					      <mat-cell *matCellDef="let element" class="marketcap-container">
-					          <a [routerLink]="['/transaction', element?.hash ]" class="color-green tx-hash">{{ element?.hash }}</a>
+					          <a routerLink="/transaction/{{element?.hash}}" class="color-green tx-hash">{{ element?.hash }}</a>
 					       </mat-cell>
 					    </ng-container>
 					    
@@ -129,23 +142,16 @@
 					             <strong>{{element?.status}}</strong>
 					      </mat-cell>
 					    </ng-container>
-					    
-					    <!-- Name Column -->
-					    <ng-container matColumnDef="expiration">
-					      <mat-header-cell *matHeaderCellDef> Expiration</mat-header-cell>
-					      <mat-cell *matCellDef="let element" class="change-container"> 
-					            {{ moment(element?.expiration).format('MMMM Do YYYY, h:mm:ss a') }}
-					      </mat-cell>
-					    </ng-container>		
+					   	
 
 					    <!-- Weight Column -->
 					    <ng-container matColumnDef="actions">
-					      <mat-header-cell *matHeaderCellDef class="actions-list-container"> Actions </mat-header-cell>
+					      <mat-header-cell *matHeaderCellDef class="actions-list-container" style="flex: 4 !important;"> Actions </mat-header-cell>
 					      <mat-cell *matCellDef="let element"> 
 					          	<!--{{element?.actions}}-->
-								<div *ngFor="let action of element?.actions" class="actions-list-container">
+								<div *ngFor="let action of element?.actions" class="actions-list-container" style="width: 520px;">
 								  
-								  <div class="actions-main-container">
+								  <div class="actions-main-container" style="padding-left: 0px;">
 									<div class="actions-list">
 										<strong>{{ action?.name }}</strong>
 									</div>
@@ -159,13 +165,14 @@
 					    </ng-container>
 
 					    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-					    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-					  </mat-table>
+					    	<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+					  	</mat-table>
 					
-					  <!--<mat-paginator #paginator
-					                 [pageSize]="100"
-					                 [pageSizeOptions]="[50, 100]">
-					  </mat-paginator>-->
+					  	<mat-paginator #paginator
+					  	               [pageSize]="50"
+					  	               [pageSizeOptions]="[20, 50, 100]"
+					  	               showFirstLastButtons>
+					  	</mat-paginator>
 					</div>
 			</div>
 	</div>

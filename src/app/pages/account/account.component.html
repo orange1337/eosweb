@@ -97,7 +97,7 @@
 					<span *ngFor="let token of tokensArray?.balances">
 						<strong *ngIf="token?.currency !== frontConfig?.coin" class="small-tokens">
 							<small >{{ token?.amount }}</small> {{ token?.currency }} - 
-							<a [routerLink]="['/account', token?.contract ]" class="color-green">{{ token?.contract }}</a>
+							<a href="/account/{{token?.contract}}" class="color-green">{{ token?.contract }}</a>
 						</strong>
 					</span>
 				</div>
@@ -141,7 +141,7 @@
 					<strong class="block-info-header">Created by:</strong>
 				</div>
 				<div class="col-sm-9">
-					<a routerLink="/account/{{creator?.act?.data?.creator}}" class="color-green">
+					<a href="/account/{{creator?.act?.data?.creator}}" class="color-green">
 						{{creator?.act?.data?.creator}}
 				    </a>
 				</div>
@@ -224,7 +224,7 @@
 						<ng-container matColumnDef="tx">
 					      <mat-header-cell *matHeaderCellDef class="account-action-name"> Tx id </mat-header-cell>
 					      <mat-cell *matCellDef="let element"> 
-					      	<a [routerLink]="['/transaction', element?.action_trace?.trx_id]" class="color-green tx-hash">
+					      	<a routerLink="/transaction/{{element?.action_trace?.trx_id}}" class="color-green tx-hash">
 					          	{{element?.action_trace?.trx_id}}
 					        </a>
 					      </mat-cell>
@@ -305,12 +305,12 @@
 										</div>
 									</div>
 									<div class="actions-list">
-										<a [routerLink]="['/account', action?.action_trace?.act?.data?.from ]" class="color-green">
+										<a href="/account/{{action?.action_trace?.act?.data?.from}}" class="color-green">
 											<strong>{{ action?.action_trace?.act?.data?.from }}</strong>
 										</a>
 									</div>
 									<div class="actions-list">
-										<a [routerLink]="['/account', action?.action_trace?.act?.data?.to ]" class="color-green">
+										<a href="/account/{{action?.action_trace?.act?.data?.to}}" class="color-green">
 											<strong>{{ action?.action_trace?.act?.data?.to }}</strong>
 										</a>
 									</div>
@@ -322,7 +322,7 @@
 										<strong>{{ action?.action_trace?.act?.data?.quantity }}</strong>
 									</div>
 									<div class="actions-list">
-										<a [routerLink]="['/transaction', action?.action_trace?.trx_id]" class="color-green tx-hash">
+										<a routerLink="/transaction/{{action?.action_trace?.trx_id}}" class="color-green tx-hash">
 											{{ action?.action_trace?.trx_id }}
 										</a>
 									</div>
@@ -350,7 +350,7 @@
 					    <ng-container matColumnDef="Address">
 					      <mat-header-cell *matHeaderCellDef class="account-address"> Account/Address</mat-header-cell>
 					      <mat-cell *matCellDef="let element" class="account-address"> 
-					          	<a [routerLink]="['/address', element?.required_auth?.keys[0]?.key || '' ]" class="color-green">
+					          	<a routerLink="/address/{{element?.required_auth?.keys[0]?.key}}" class="color-green">
 					          		{{ element?.required_auth?.keys[0]?.key }}
 					          	</a>
 					      </mat-cell>
@@ -378,7 +378,7 @@
 
 				   <mat-tab label="Controlled Accounts ({{ controlledAccount?.controlled_accounts?.length }})">
 				  		  <div *ngFor="let acc of controlledAccount?.controlled_accounts;" class="controlled-acc">
-				  		  	<a [routerLink]="['/account', acc ]" class="color-green">
+				  		  	<a href="/account/{{acc}}" class="color-green">
 					          		<strong>{{ acc }}</strong>
 					      	</a> 
 				  		  </div>
