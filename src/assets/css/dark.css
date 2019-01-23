@@ -48,13 +48,32 @@ body{
 	box-shadow: 1px 1px 1px #29292d;
 }
 .account-ram .mat-progress-bar-buffer {
-	background: #0794ec; 
+	background: #515d65; /*#0794ec;*/ 
 }
 .account-ram .mat-progress-bar-fill::after{
 	background-color: #0984ef; 
 }
+.account-net .mat-progress-bar-buffer{
+	background: #69624d;
+}
+.account-cpu .mat-progress-bar-buffer {
+    background: #5e715f;
+}	
 .segment-key{
 	color: #c08aef !important;
+}
+.mat-dialog-container {
+    background: #24242a;
+    color: #b1b6bf;
+}
+.mat-fab.mat-warn, .mat-mini-fab.mat-warn, .mat-raised-button.mat-warn{
+	border: 1px solid #f44336;
+	background: rgba(0,0,0,0);
+}
+.mat-fab.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary{
+	background: -webkit-gradient(linear,left top, right top,from(#0086f4),to(#2c5aca));
+    background: linear-gradient(to right,#0086f4,#2c5aca);
+    background: -webkit-gradient(linear,left top,right top,from(#0086f4),to(#2c5aca));
 }
 
 
