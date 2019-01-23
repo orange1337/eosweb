@@ -75,6 +75,9 @@ body{
     background: linear-gradient(to right,#0086f4,#2c5aca);
     background: -webkit-gradient(linear,left top,right top,from(#0086f4),to(#2c5aca));
 }
+.main-container-actions .fa-long-arrow-right{
+	color: #fff;
+}
 
 
 
