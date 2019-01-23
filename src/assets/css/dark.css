@@ -79,8 +79,8 @@ body{
 	color: #fff !important;
 }
 .small-tokens{
-	color: #fff;
-	background: #33333a;
+	color: #fff !important;
+	background: #33333a !important;
 }
 
 
