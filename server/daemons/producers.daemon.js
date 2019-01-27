@@ -9,6 +9,7 @@ const PRODUCERS_LIMITS 	= 500;
 const defaultImg 		= '/assets/images/eosio.png';
 const bpsImg 			= '/assets/images/bps/';
 const bpsImgPath 		= path.join(__dirname, '../../src/assets/images/bps/');
+const sharp 			= require('sharp');
 
 async function updateProducersInfo(){
 	let options = {
@@ -75,7 +76,7 @@ function saveProducerInfo(bp, elem, callback){
 			if (err){
 				 console.log('No image for Producer');
 			}
-			updateObg.image = (format) ? `${bpsImg}${elem.owner}${format}` : updateObg.image;
+			updateObg.image = (format) ? `${bpsImg}${elem.owner}_40${format}` : updateObg.image;
 			TABLE_DB.findOne({ name: elem.owner }, (err, result) => {
 			 	if (err){
 			 		return callback(err);
@@ -109,11 +110,17 @@ function downloadBPImage(uri, filename, callback){
     if (format === '.html'){
     	return callback(err);
     }
-    req(uri).pipe(fs.createWriteStream(filename + format)).on('close', (err) => {
+    let pathToFile = filename + format;
+    req(uri).pipe(fs.createWriteStream(pathToFile)).on('close', (err) => {
     		if (err){
     			return callback(err);
     		}
-    		callback(null, format);
+    		sharp(pathToFile).resize(40, 40).toFile(filename + '_40' + format, (err, info) => {
+				if (err){
+					 console.log(err);
+				}
+				callback(null, format);
+			});
     });
   });
 };
