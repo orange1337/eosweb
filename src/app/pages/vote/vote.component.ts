@@ -64,6 +64,7 @@ export class VotePageComponent implements OnInit {
   frontConfig = {
       coin: 'EOS'
   };
+  options = { authorization: [''] };
 
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient,
@@ -199,6 +200,7 @@ export class VotePageComponent implements OnInit {
             if (this.identity){
                 this.getAccount(this.identity);
             }
+            this.options.authorization = [this.identity];
         }).catch(err => {
             console.error(err);
         });
@@ -222,18 +224,20 @@ export class VotePageComponent implements OnInit {
     if(!this.identity){
         return this.notifications.error('Identity error!!!', '');
     }
-    if (! this.vote.voter.length){
+    if (!this.vote.voter.length){
         return this.notifications.error('Error', 'Please type Voter');
     }
         //let eos = this.ScatterJS.eos(this.eosNetwork, this.WINDOW.Eos, this.eosOptions, this.protocol);
+        console.log(this.eos);
         this.eos.contract('eosio', {
             accounts: [this.eosNetwork]
         }).then(contract => {
+            console.log(contract);
             contract.voteproducer({
                 voter: this.vote.voter,
                 proxy: this.vote.proxy,
                 producers: this.vote.producers
-            }).then(trx => {
+            }, this.options).then(trx => {
                   console.log(trx);
                   this.getAccount(this.identity);
                   this.notifications.success('Transaction Success', '');

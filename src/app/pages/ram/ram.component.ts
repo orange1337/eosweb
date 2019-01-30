@@ -76,6 +76,7 @@ export class RamPageComponent implements OnInit{
   frontConfig = {
       coin: 'EOS'
   };
+  options = { authorization: [''] };
 
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient, 
@@ -252,6 +253,7 @@ export class RamPageComponent implements OnInit{
                 this.getAccount(this.identity);
                 this.getOrderHistory(this.identity);
             }
+            this.options.authorization = [this.identity];
         }).catch(err => {
             console.error(err);
         });
@@ -289,7 +291,7 @@ export class RamPageComponent implements OnInit{
                 payer: this.identity,
                 receiver: this.identity,
                 quant: `${amount} EOS`
-            }).then(trx => {
+            }, this.options).then(trx => {
                  console.log(trx);
                  this.saveOrder({ amount: this.buyRAM.kb * 1024, account: this.identity, type: 'buy', tx_id: trx.transaction_id, price: this.ramPrice });
                  this.getAccount(this.identity);
@@ -327,7 +329,7 @@ export class RamPageComponent implements OnInit{
             contract.sellram({
                 account: this.identity,
                 bytes: amount
-            }).then(trx => {
+            }, this.options).then(trx => {
                  console.log(trx);
                  this.saveOrder({ amount: amount, account: this.identity, type: 'sell', tx_id: trx.transaction_id, price: this.ramPrice });
                  this.getAccount(this.identity);
@@ -349,7 +351,7 @@ export class RamPageComponent implements OnInit{
         return console.error('Identity error!!!');
     }
         let amount = Number(`${this.donation}`).toFixed(4);
-        this.eos.transfer(this.identity, 'eoswebnetbp1', `${amount} EOS`, 'Donation')
+        this.eos.transfer(this.identity, 'eoswebnetbp1', `${amount} EOS`, 'Donation', this.options)
            .then(result => {
                 console.log(result);
                 this.getAccount(this.identity);

@@ -59,6 +59,7 @@ export class WalletPageComponent implements OnInit {
   frontConfig = {
       coin: 'EOS'
   };
+  options = { authorization: [''] };
 
   constructor(private route: ActivatedRoute, 
               protected http: HttpClient,
@@ -181,6 +182,7 @@ export class WalletPageComponent implements OnInit {
             if (this.identity){
                 this.getAccount(this.identity);
             }
+            this.options.authorization = [this.identity];
         }).catch(err => {
             console.error(err);
         });
@@ -208,7 +210,7 @@ export class WalletPageComponent implements OnInit {
         return this.notifications.error('Error', 'Please type account To and Amount');
     }
         let amount = Number(`${this.transfer.amount}`).toFixed(4) + ` ${this.transfer.symbol}`;
-        this.eos.transfer(this.identity, this.transfer.to, amount, this.transfer.memo)
+        this.eos.transfer(this.identity, this.transfer.to, amount, this.transfer.memo, this.options)
            .then(result => {
                 this.getAccount(this.identity);
                 this.notifications.success('Transaction Success', 'Please check your account page');
@@ -263,7 +265,7 @@ export class WalletPageComponent implements OnInit {
             if (!contract[method]){
                 return this.notifications.error('Transaction Fail', 'Incorrect Contract Method');
             }
-            contract[method](fields).then(trx => {
+            contract[method](fields, this.options).then(trx => {
                  console.log(trx);
                  this.getAccount(this.identity);
                  this.contractField = {};
