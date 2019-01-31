@@ -73,7 +73,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   };
 
   getBalance(accountId){
-      this.http.get(`/api/v1/get_currency_balance/eosio.token/${accountId}/EOS`)
+      this.http.get(`/api/v1/get_currency_balance/eosio.token/${accountId}/${this.frontConfig.coin}`)
            .subscribe((res: any) => {
                           this.unstaked = (!res[0]) ? 0 : Number(res[0].split(' ')[0]); 
                           let staked = 0;
@@ -247,12 +247,12 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   ngOnInit() {
     this.block = this.route.params.subscribe(params => {
        this.accountId = params['id'];
-       this.getBlockData(this.accountId);
-       this.getControlledAccounts(this.accountId);
-       this.getAllTokens(this.accountId);
        if (localStorage.getItem('frontConf')){
           this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
        }
+       this.getBlockData(this.accountId);
+       this.getControlledAccounts(this.accountId);
+       this.getAllTokens(this.accountId);
     });
   }
 
