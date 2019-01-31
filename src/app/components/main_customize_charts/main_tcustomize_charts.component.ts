@@ -41,7 +41,8 @@ export class MainCustomizeChartsComponent implements OnInit{
   frontConfig = {
       voteDonationAcc: 'eoswebnetbp1',
       coin: 'EOS',
-      disableVoteDonation: false
+      disableVoteDonation: false,
+      convertToUSD: true
   };
 
   constructor(private http: HttpClient, private socket: Socket, private MainService: MainService){
@@ -143,6 +144,9 @@ export class MainCustomizeChartsComponent implements OnInit{
 
 
   ngOnInit() {
+      if (localStorage.getItem('frontConf')){
+          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
+      }
       this.getData();
       this.getChart();
       this.getBlockchainData();
@@ -150,9 +154,6 @@ export class MainCustomizeChartsComponent implements OnInit{
       this.getRam();
       //this.getActionsTransactions();
       //this.getTPSlive();
-      if (localStorage.getItem('frontConf')){
-          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
-      }
 
       this.socket.on('get_ram', res => {
           this.countRamPrice(res);

@@ -40,7 +40,11 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   creator;
   actionsNotSorted;
   frontConfig = {
-      coin: 'EOS'
+      coin: 'EOS',
+      totalBalance: 'EOS',
+      convertToUSD: true,
+      customBalance: false,
+      tokenContract: 'eosio.token'
   };
 
 
@@ -73,14 +77,14 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   };
 
   getBalance(accountId){
-      this.http.get(`/api/v1/get_currency_balance/eosio.token/${accountId}/${this.frontConfig.coin}`)
+      this.http.get(`/api/v1/get_currency_balance/${this.frontConfig.tokenContract}/${accountId}/${this.frontConfig.totalBalance}`)
            .subscribe((res: any) => {
                           this.unstaked = (!res[0]) ? 0 : Number(res[0].split(' ')[0]); 
                           let staked = 0;
                           if (this.mainData.voter_info && this.mainData.voter_info.staked){
                               staked = this.mainData.voter_info.staked;
                           }
-                          this.balance = this.unstaked + staked / 10000;
+                          this.balance = (this.frontConfig.customBalance) ? this.unstaked : this.unstaked + staked / 10000;
                           this.eosRate = this.MainService.getEosPrice();
                       },
                       (error) => {

@@ -2,7 +2,7 @@
 <div class="container">
 <div class="row main-custom-chart-container">
     
-    <div class="col-sm-4 chart-child-container customize-containers-not-active customize-containers-active grid-cs-5-inline">
+    <div class="col-sm-4 chart-child-container customize-containers-not-active customize-containers-active grid-cs-5-inline" *ngIf="frontConfig?.convertToUSD">
       <div class="col-xs-8 no-padding first-container-widget">
        <div class="color-grey-text">eos - usd</div> 
        <div class="chart-child-container-dollar">
@@ -100,4 +100,9 @@
 </div>
 </div>
 
+<style *ngIf="frontConfig?.convertToUSD">
+  .grid-cs-5-inline{
+    width: 19.68% !important;
+  }
+</style>
 
