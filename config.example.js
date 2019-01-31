@@ -27,6 +27,9 @@ config.CRON_API = 'http://bp.cryptolions.io';
 config.TPS_ENABLE = true;
 config.MAX_TPS_TIME_UPDATE = 5000; // time of break between reload (leave by default)
 
+// enable for private network (daemon for Actions, Accounts)
+config.CUSTOM_GLOBA_STATS = false;
+
 // global front customizations
 config.globalFront = {
    coin: 'EOS',

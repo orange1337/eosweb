@@ -14,13 +14,6 @@ let NEW_GLOBAL_STAT_PROCESS = 0;
 let PRODUCERS_PROCESS = 0;
 
 module.exports = () => {
-        
-        cron.schedule('*/10 * * * *', () => {
-            if (ACCOUNTS_PROCESS === 0){
-              console.log('====== running daemon analytics account 1');
-              startAccountsDaemon();
-            }
-        });
 
         cron.schedule('*/1 * * * *', () => {
            if (ACCOUNTS_STAT_PROCESS === 0){
@@ -43,7 +36,15 @@ module.exports = () => {
             }
         });
 
-        startAccountsDaemon();
+        if (!config.CUSTOM_GLOBA_STATS){
+            startAccountsDaemon();
+            cron.schedule('*/10 * * * *', () => {
+                if (ACCOUNTS_PROCESS === 0){
+                  console.log('====== running daemon analytics account 1');
+                  startAccountsDaemon();
+                }
+            });
+        }
         startGlobalStatAnalytics();
         startProducersInfoDaemon();
         if (config.TPS_ENABLE){
