@@ -4,7 +4,8 @@ const cron        = require('node-cron');
 const fork        = require('child_process').fork;
 const path        = require('path');
 
-const config      = require('../../config');
+const configName    = (process.env.CONFIG) ? process.env.CONFIG : 'config';
+const config        = require(`../../${configName}`);
 
 let ACCOUNTS_PROCESS = 0;
 let ACCOUNTS_STAT_PROCESS = 0;

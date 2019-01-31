@@ -1,5 +1,6 @@
 
-const config = require('../../config');
+const configName    = (process.env.CONFIG) ? process.env.CONFIG : 'config';
+const config        = require(`../../${configName}`);
 
 const log4js = require('log4js');
 log4js.configure(config.logger);

@@ -2,11 +2,13 @@
 	Header require for daemons
 */
 const asyncjs		= require('async');
-const config      	= require('../../config');
 const request		= require('request-promise');
 const req			= require('request');
 const path 			= require("path");
 const fs 			= require("fs");
+
+const configName    = (process.env.CONFIG) ? process.env.CONFIG : 'config';
+const config        = require(`../../${configName}`);
 
 const mongoose      = require("mongoose");
 mongoose.Promise  	= global.Promise;

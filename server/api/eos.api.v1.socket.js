@@ -2,7 +2,9 @@
    Created by eoswebnetbp1
 */
 
-const config          = require('../../config.js');
+const configName      = (process.env.CONFIG) ? process.env.CONFIG : 'config';
+const config          = require(`../../${configName}`);
+
 const async           = require('async');
 const customFunctions = require('./eos.api.v1.custom');
 const EOS             = require('eosjs');

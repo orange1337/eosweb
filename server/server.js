@@ -13,7 +13,8 @@ const request       = require('request');
 const async			    = require('async');
 const swStats       = require('swagger-stats-lions');
 
-const config        = require('../config');
+const configName    = (process.env.CONFIG) ? process.env.CONFIG : 'config';
+const config        = require(`../${configName}`);
 
 const mongoose      = require("mongoose");
 mongoose.set('useCreateIndex', true);

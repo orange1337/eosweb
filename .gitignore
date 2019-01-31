@@ -46,6 +46,7 @@ server/logs
 config.js
 bos.config.js
 jungle.config.js
+geneva.config.js
 package-lock.json
 
 

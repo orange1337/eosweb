@@ -3,7 +3,8 @@
 */
 
 const async = require('async');
-const config = require('../../config');
+const configName    = (process.env.CONFIG) ? process.env.CONFIG : 'config';
+const config        = require(`../../${configName}`);
 
 let customFunctions = {};
 
