@@ -14,8 +14,8 @@
 				</div>
 				<div class="col-sm-9">
 					<strong>{{ balance?.toLocaleString() }} {{frontConfig?.totalBalance}}</strong> 
-					<span *ngIf="convertToUSD"> / </span> 
-					<small *ngIf="convertToUSD">{{ (balance * eosRate?.RAW?.EOS?.USD?.PRICE).toLocaleString() }} USD</small>
+					<span *ngIf="frontConfig?.convertToUSD"> / </span> 
+					<small *ngIf="frontConfig?.convertToUSD">{{ (balance * eosRate?.RAW?.EOS?.USD?.PRICE).toLocaleString() }} USD</small>
 				</div>
 			</div>
 			
