@@ -20,22 +20,16 @@ export class AppComponent implements OnInit {
       animate: "scale"
   };
   search;
-  frontConfig;
+  frontConfig = {
+      version: '1.0.0',
+      customBalance: false,
+      nets: []
+  };
   netName;
   networks = [];
   darkTheme = (localStorage.getItem('darkTheme') === 'true') ? true : false;
 
-  constructor(private http: HttpClient, private router: Router){
-      if (localStorage.getItem('frontConf')){
-          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
-          this.frontConfig.nets.forEach(elem => {
-                if (elem.active){
-                   return this.netName = elem.name;
-                }
-                this.networks.push(elem);
-          });
-      }
-  }
+  constructor(private http: HttpClient, private router: Router){}
 
   searchGlobal(text){
     if (!text) {
@@ -91,6 +85,15 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(){
+    if (localStorage.getItem('frontConf')){
+          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
+          this.frontConfig.nets.forEach(elem => {
+                if (elem.active){
+                   return this.netName = elem.name;
+                }
+                this.networks.push(elem);
+          });
+    }
     this.getMainFrontConfig();
     this.router.events.subscribe((evt) => {
             if (!(evt instanceof NavigationEnd)) {
