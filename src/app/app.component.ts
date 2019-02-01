@@ -20,11 +20,7 @@ export class AppComponent implements OnInit {
       animate: "scale"
   };
   search;
-  frontConfig = {
-      version: '1.0.0',
-      customBalance: false,
-      nets: []
-  };
+  frontConfig;
   netName;
   networks = [];
   darkTheme = (localStorage.getItem('darkTheme') === 'true') ? true : false;
