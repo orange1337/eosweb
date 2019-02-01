@@ -28,7 +28,7 @@
 				</div>
 			</div>
 
-			<div class="col-sm-12 block-info-line">
+			<div class="col-sm-12 block-info-line" *ngIf="!frontConfig?.customBalance">
 				<div class="col-sm-3">
 					<strong class="block-info-header">Staked:</strong>
 				</div>
@@ -37,7 +37,7 @@
 				</div>
 			</div>
 
-			<div class="col-sm-12 block-info-line" *ngIf="mainData?.refund_request">
+			<div class="col-sm-12 block-info-line" *ngIf="mainData?.refund_request && !frontConfig?.customBalance">
 				<div class="col-sm-3">
 					<strong class="block-info-header">Refund:</strong>
 				</div>
@@ -48,7 +48,7 @@
 				</div>
 			</div>
 
-			<div class="col-sm-12 block-info-line">
+			<div class="col-sm-12 block-info-line" *ngIf="!frontConfig?.customBalance">
 				<div class="col-sm-3">
 					<strong class="block-info-header">CPU:</strong>
 				</div>
@@ -62,7 +62,7 @@
 				</div>
 			</div>
 
-			<div class="col-sm-12 block-info-line">
+			<div class="col-sm-12 block-info-line" *ngIf="!frontConfig?.customBalance">
 				<div class="col-sm-3">
 					<strong class="block-info-header">NET:</strong>
 				</div>
@@ -76,7 +76,7 @@
 				</div>
 			</div>
 
-			<div class="col-sm-12 block-info-line">
+			<div class="col-sm-12 block-info-line" *ngIf="!frontConfig?.customBalance">
 				<div class="col-sm-3">
 					<strong class="block-info-header">RAM:</strong>
 				</div>
@@ -90,7 +90,7 @@
 				</div>
 			</div>
 
-			<div class="col-sm-12 block-info-line" *ngIf="tokensArray?.balances?.length">
+			<div class="col-sm-12 block-info-line" *ngIf="tokensArray?.balances?.length && !frontConfig?.customBalance">
 				<div class="col-sm-3">
 					<strong class="block-info-header">Tokens:</strong>
 				</div>
@@ -104,7 +104,7 @@
 				</div>
 			</div>
 
-			<div class="col-sm-12 block-info-line">
+			<div class="col-sm-12 block-info-line" *ngIf="!frontConfig?.customBalance">
 				<div class="col-sm-3">
 					<strong class="block-info-header">Total Resources:</strong>
 				</div>
@@ -115,7 +115,7 @@
 				</div>
 			</div>	
 
-			<div class="col-sm-12 block-info-line">
+			<div class="col-sm-12 block-info-line" *ngIf="!frontConfig?.customBalance">
 				<div class="col-sm-3">
 					<strong class="block-info-header">Delegated Bandwidth:</strong>
 				</div>
@@ -127,7 +127,7 @@
 				</div>
 			</div>
 
-			<div class="col-sm-12 block-info-line">
+			<div class="col-sm-12 block-info-line" *ngIf="!frontConfig?.customBalance">
 				<div class="col-sm-3">
 					<strong class="block-info-header">Voter Info:</strong>
 				</div>
@@ -137,7 +137,7 @@
 				</div>
 			</div>
 			
-			<div class="col-sm-12 block-info-line">
+			<div class="col-sm-12 block-info-line" *ngIf="creator?.act?.data?.creator && !frontConfig?.customBalance">
 				<div class="col-sm-3">
 					<strong class="block-info-header">Created by:</strong>
 				</div>
