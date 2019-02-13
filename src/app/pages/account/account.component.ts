@@ -97,13 +97,13 @@ export class AccountPageComponent implements OnInit, OnDestroy{
       this.http.get(`/api/v1/get_actions/${accountName}/-${pos}/-${this.elementsLimit}`)
            .subscribe((res: any) => {
                           this.actionsNotSorted = res.actions;
-                          //res.actions = this.sortArrayFunctions(res.actions);
                           if(res.actions[0] && !res.actions[0].action_trace){
                             res.actions = this.createActionsArr(res.actions);
                             this.actionsTotal = res.actionsTotal;
                           } else {
                             res.actions.reverse();
                           }
+                          res.actions = this.sortArrayFunctions(res.actions);
                           Array.prototype.push.apply(this.actionsArray, res.actions);
 
                           this.actions = this.actionsArray;
@@ -169,15 +169,16 @@ export class AccountPageComponent implements OnInit, OnDestroy{
        if (!data){
            return [];
        }
-       let block_time = [];
+       let uniqieString = [];
        let result = [];
        data.forEach(elem => {
-           if (block_time.indexOf(elem.block_time) === -1){
+           let unique = elem.action_trace.act.hex_data + elem.action_trace.trx_id;
+           if (uniqieString.indexOf(unique) === -1){
                result.push(elem);
-               block_time.push(elem.block_time);
+               uniqieString.push(unique);
            }
        });
-       block_time = [];
+       uniqieString = [];
        return result;
   }
 
