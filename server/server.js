@@ -47,8 +47,8 @@ const mongoMain = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTIO
 /**
  * PM2 Metrics
  */
-const io = require('@pm2/io');
-io.init({
+const pm2IO = require('@pm2/io');
+pm2IO.init({
   metrics: {
     network: {
       ports: true
