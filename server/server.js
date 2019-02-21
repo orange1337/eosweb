@@ -11,7 +11,6 @@ const helmet        = require('helmet');
 const compression   = require('compression');
 const request       = require('request');
 const async			    = require('async');
-const swStats       = require('swagger-stats-lions');
 
 const configName    = (process.env.CONFIG) ? process.env.CONFIG : 'config';
 const config        = require(`../${configName}`);
@@ -45,15 +44,20 @@ const mongoMain = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTIO
     log.info('[Connected to Mongo EOS] : 27017');
 });
 
-const app  = express();
+/**
+ * PM2 Metrics
+ */
+const io = require('@pm2/io');
+io.init({
+  metrics: {
+    network: {
+      ports: true
+    }
+  },
+  http: true
+});
 
-app.use(swStats.getMiddleware({
-            saveRequests: config.saveRequestsMetrics, 
-            timelineBucketDuration: 2000,
-            uriPath: "/metrics",
-            name : "EOSweb.net",
-            swaggerSpec: {}
-}));
+const app  = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
