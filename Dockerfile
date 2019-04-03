@@ -18,7 +18,7 @@ RUN cd /home/eosweb && npm install
 RUN cd /home/eosweb && ng build --prod
 RUN cd /home/eosweb/server && mkdir logs
 
-CMD ["pm2-runtime", "/home/eosweb/server/ecosystem.config.js"]
+CMD ["pm2-runtime", "/home/eosweb/server/ecosystem.config.js", "--web"]
 
 EXPOSE ${PORT}
 EXPOSE 9615
