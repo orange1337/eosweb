@@ -26,7 +26,8 @@ export class AddressPageComponent implements OnInit, OnDestroy{
       this.spinner = true;
   		this.http.get(`/api/v1/get_key_accounts/${address}`)
   				 .subscribe((res: any) => {
-                          this.mainData = (res && typeof !res.account_names) ? this.createArrayAccounts(res): res;
+                          this.mainData = (res && !res.account_names) ? this.createArrayAccounts(res): res;
+                          console.log(this.mainData);
                           this.spinner = false;
                       },
                       (error) => {
