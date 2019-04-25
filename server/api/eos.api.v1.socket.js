@@ -28,7 +28,7 @@ let userCountHandler = 0;
 let SOCKET_HANGUP_TIME = +new Date();
 let changeAPI = 0;
 
-module.exports = (io, mongoMain) => {
+module.exports = (io, mongoMain, metrics) => {
 
   const STATS_AGGR  = require('../models/api.stats.model')(mongoMain);
   const RAM         = require('../models/ram.price.model')(mongoMain);
@@ -41,9 +41,12 @@ module.exports = (io, mongoMain) => {
     socket.join(SOCKET_ROOM);
 
     userCountHandler += 1;
+    metrics.users.set(userCountHandler);
+
     socket.on('disconnect', () => {
       socket.leave(SOCKET_ROOM);
       userCountHandler -= 1;
+      metrics.users.set(userCountHandler);
     });
   });
 

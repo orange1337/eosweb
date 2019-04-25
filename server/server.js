@@ -47,15 +47,10 @@ const mongoMain = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTIO
 /**
  * PM2 Metrics
  */
-const pm2IO = require('@pm2/io');
-pm2IO.init({
-  metrics: {
-    network: {
-      ports: true
-    }
-  },
-  http: true
-});
+const pm2 = require('@pm2/io');
+let metrics = {
+   users: pm2.metric({name: 'realtimeUsers'})
+};
 
 const app  = express();
 app.use(bodyParser.json());
@@ -81,7 +76,7 @@ server.on('listening', onListening);
 
 //========= socket io connection
 const io  = require('socket.io').listen(server);
-require(`./api/eos.api.${config.apiV}.socket`)(io, mongoMain);
+require(`./api/eos.api.${config.apiV}.socket`)(io, mongoMain, metrics);
 
 if (config.CRON){
     require('./daemons/init')();
