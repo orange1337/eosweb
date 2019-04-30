@@ -36,7 +36,7 @@
     <ng-container matColumnDef="Name">
       <mat-header-cell *matHeaderCellDef class="url-flex"> Name </mat-header-cell>
       <mat-cell *matCellDef="let element" class="marketcap-container url-flex">
-          <img [src]="element?.image" (error)="noImg($event)" class="branding-logo" alt="" width="40">
+          <img [src]="(element?.image) ? element?.image : '/assets/images/eosio.png'" class="branding-logo" alt="" width="40">
           <a [routerLink]="['/producer', element?.owner ]" [ngClass]="{'name-img': element?.image }" class="color-green" id="{{element?.owner}}">
           	<strong>{{ element?.owner }}</strong>
           </a>

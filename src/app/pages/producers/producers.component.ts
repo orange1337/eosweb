@@ -37,10 +37,6 @@ export class ProducersPageComponent implements OnInit, OnDestroy{
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  noImg(event){
-      event.target.src = '/assets/images/eosio.png';
-  }
-
   constructor(private route: ActivatedRoute, protected http: HttpClient, private MainService: MainService, private socket: Socket){
   }
 
