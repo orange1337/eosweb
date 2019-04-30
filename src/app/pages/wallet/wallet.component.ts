@@ -65,7 +65,6 @@ export class WalletPageComponent implements OnInit {
               protected http: HttpClient,
               public dialog: MatDialog,
               private notifications: NotificationsService){
-    this.WINDOW.ScatterJS.plugins(new this.WINDOW.ScatterEOS());
   }
 
   getAccount(name){
@@ -304,10 +303,13 @@ export class WalletPageComponent implements OnInit {
   }
 
   ngOnInit() {
-     this.getWalletAPI();
-     if (localStorage.getItem('frontConf')){
+    if (this.WINDOW.ScatterJS &&  this.WINDOW.ScatterJS.plugins){
+      this.WINDOW.ScatterJS.plugins(new this.WINDOW.ScatterEOS());
+      this.getWalletAPI(); 
+    }
+    if (localStorage.getItem('frontConf')){
           this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
-     }
+    }
   }
 }
 

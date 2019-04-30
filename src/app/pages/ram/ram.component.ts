@@ -83,7 +83,6 @@ export class RamPageComponent implements OnInit{
               private socket: Socket,
               private notifications: NotificationsService,
               private MainService: MainService){
-    this.WINDOW.ScatterJS.plugins(new this.WINDOW.ScatterEOS());
   }
 
   getGlobal(){
@@ -401,7 +400,11 @@ export class RamPageComponent implements OnInit{
      this.getGlobal();
      this.getRam();
      this.getChart(this.dateFrom);
-     this.getWalletAPI();
+
+     if (this.WINDOW.ScatterJS && this.WINDOW.ScatterJS.plugins){
+       this.WINDOW.ScatterJS.plugins(new this.WINDOW.ScatterEOS());
+       this.getWalletAPI();
+     }
 
      this.socket.on('get_ram', res => {
           this.countRamPrice(res);

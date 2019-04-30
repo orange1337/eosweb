@@ -14,7 +14,6 @@ import { CommonModule } from '@angular/common';
 import { appRoutes } from '../../main.router';
 import { MainService } from '../../services/mainapp.service';
 
-
 let imports = [
     MatAutocompleteModule,
     MatButtonModule,
@@ -27,7 +26,8 @@ let imports = [
     MatTableModule,
     MatProgressBarModule,
     CommonModule,
-    appRoutes ];
+    appRoutes
+];
 
 @NgModule({
   declarations: [
