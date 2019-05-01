@@ -69,7 +69,7 @@ export class RamPageComponent implements OnInit{
   donation;
   orderHistory;
   defaultTimeName = 'Day';
-  timeArray = ['Week', 'Month'];
+  timeArray = ['Week'];
   dateFrom = new Date(+new Date() - 24 * 60 * 60 * 1000);
   ScatterJS;
   eos;

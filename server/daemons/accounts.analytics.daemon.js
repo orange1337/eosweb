@@ -7,19 +7,22 @@ const wrapper = new asyncWrapper(log);
 
 const eosToInt = 10000;
 
+let usersMaxLimit = 100000;
+let usersMaxSkip = 0;
+let counter = 0;
+
 async function getAccountsAnalytics (){
-	let accounts = await wrapper.toStrong(STATS_ACCOUNT_DB.find({}, "account_name"));
+	let accounts = await wrapper.toStrong(STATS_ACCOUNT_DB.find({}, "account_name").skip(usersMaxSkip).limit(usersMaxLimit));
 	if (!accounts || !accounts.length){
 		log.info('No Accounts in DB!');
 		process.exit();
 	}
-	
-	let counter = 0;
+
 	asyncjs.eachLimit(accounts, config.limitAsync, (elem, cb) => {
 			eos.getAccount({ account_name: elem.account_name })
 				.then(account => {
 					findBalanceAndUpdate(account, () => {
-						console.log('==== Accounts updated - cursor ', counter++);
+						console.log(`==== Accounts updated - ${elem.account_name}, cursor `, counter++);
 						cb();
 					});
 				})
@@ -30,10 +33,10 @@ async function getAccountsAnalytics (){
 			}, (err) => {
 				if (err){
 					log.error(err);
-					process.exit(1);
 				}
-				log.info('===== end analytics function ');
-				process.exit(0);
+				log.info('===== end analytics function, cursor', usersMaxSkip);
+				usersMaxSkip += accounts.length;
+				getAccountsAnalytics();
 	});
 };
 
