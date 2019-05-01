@@ -57,17 +57,11 @@ async function saveAccounts (data){
 		}
 		console.log('Accounts length', data.accounts.length);
 		await asyncForEach(data.accounts, async (elem) => {
-			    let [err, accounts] = await wrapper.to(STATS_ACCOUNT_DB.find({ account_name: elem.name }));
-			    if (err){
-	   				log.error(err);
-	   				return;
-	   		    }
-	   		    let statAccount = new STATS_ACCOUNT_DB({ account_name: elem.name });
-	   		    [err] = await wrapper.to(statAccount.save());
+				let query = { account_name: elem.name };
+			    let [err, accounts] = await wrapper.to(STATS_ACCOUNT_DB.updateOne(query, query, { upsert: true }));
 			    if (err){
 	   				log.error(err);
 	   		    }
-	   		    return;
 		});
 }
 
