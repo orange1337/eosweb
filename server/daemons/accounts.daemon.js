@@ -56,7 +56,7 @@ async function saveAccounts (data){
 			return;
 		}
 		console.log('Accounts length', data.accounts.length);
-		asyncForEach(data.accounts, async (elem) => {
+		await asyncForEach(data.accounts, async (elem) => {
 			    let [err, accounts] = await wrapper.to(STATS_ACCOUNT_DB.find({ account_name: elem.name }));
 			    if (err){
 	   				log.error(err);

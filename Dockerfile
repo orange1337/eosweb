@@ -15,7 +15,7 @@ COPY . /home/eosweb
 RUN npm install -g pm2
 RUN npm install -g @angular/cli@1.7.1
 RUN cd /home/eosweb && npm install
-RUN cd /home/eosweb && ng build --prod
+RUN cd /home/eosweb && ng build --prod --aot
 RUN cd /home/eosweb/server && mkdir logs
 
 CMD ["pm2-runtime", "/home/eosweb/server/ecosystem.config.js", "--web"]
