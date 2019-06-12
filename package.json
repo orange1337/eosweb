@@ -37,6 +37,7 @@
     "csv-write-stream": "^2.0.0",
     "echarts": "^4.1.0",
     "eos-scatter": "^1.0.0",
+    "eos-ulm": "^0.1.3",
     "eosjs": "^14.1.0",
     "express": "^4.16.3",
     "fs": "0.0.1-security",

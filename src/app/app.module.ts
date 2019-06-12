@@ -36,6 +36,9 @@ import { MainTcustomizeModule } from './components/main_customize_charts/main_tc
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
+import { environment } from '../environments/environment';
+import { LoginEOSModule } from 'eos-ulm';
+
 const socketConfig: SocketIoConfig = { url: '/', options: {
     autoConnect: true,
     reconnection: true,
@@ -64,6 +67,17 @@ const socketConfig: SocketIoConfig = { url: '/', options: {
     SimpleNotificationsModule.forRoot(),
     SocketIoModule.forRoot(socketConfig),
     LeafletModule.forRoot(),
+    LoginEOSModule.forRoot({
+          appName: environment.appName,
+          httpEndpoint: environment.Eos.httpEndpoint,
+          chain: environment.chain,
+          verbose: environment.Eos.verbose,
+          blockchain: environment.network.blockchain,
+          host: environment.network.host,
+          port: environment.network.port,
+          protocol: environment.network.protocol,
+          expireInSeconds: environment.network.expireInSeconds
+    }),
     MainPageModule,
     BlockPageModule,
     TokensPageModule,
