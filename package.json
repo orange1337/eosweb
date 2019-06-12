@@ -33,6 +33,7 @@
     "rxjs": "~6.3.3",
     "rxjs-compat": "^6.3.3",
     "tslib": "^1.9.0",
+    "webpack-dev-server": "^3.1.11",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
