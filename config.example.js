@@ -33,14 +33,6 @@ config.CUSTOM_GLOBA_STATS = false;
 // producer json name
 config.producerJSON = 'bp.json';
 
-// scatter wallet
-config.walletAPI = {
-        host: 'nodes.get-scatter.com',
-        port: '',
-        protocol: 'https',
-        chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'
-};
-
 // telegram alert bot
 config.telegram = {
   ON: false,
