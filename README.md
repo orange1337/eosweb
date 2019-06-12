@@ -1,11 +1,11 @@
 # EOSweb.net - vote for us [https://eosweb.net/vote](https://eosweb.net/vote)
 
-[Angular CLI](https://github.com/angular/angular-cli) version 1.7.1
+[Angular CLI](https://github.com/angular/angular-cli) version 7.1.4
 
 ## manual installation 
-	- node.js v.8^ https://nodejs.org/
-	- angular-cli 1.7.1 - npm install -g angular-cli@1.7.1
-	- mongodb 3.6^ https://www.mongodb.com/
+	- node.js v.10^ https://nodejs.org/
+	- npm install -g angular-cli@7.1.4
+	- mongodb 4.0^ https://www.mongodb.com/
 
 ## docker-compose example
    `docker-compose.example.yml`
@@ -21,8 +21,6 @@ For creating `config.js` file you need to see `config.example.js` (default confi
 ## Build and start
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build. Starting project `node server/server.js`
-
-## App metrics - `http://localhost:3039/metrics/ui`
 
 ## Code scaffolding
 
