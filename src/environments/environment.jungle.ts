@@ -27,8 +27,8 @@ export const environment = {
           big: 'eos',
           small: 'web'
        },
-       nets: [{ name: 'Mainnet', url: 'https://eosweb.net', active: true },
-              { name: 'Jungle', url: 'https://jungle.eosweb.net', active: false }],
+       nets: [{ name: 'Mainnet', url: 'https://eosweb.net', active: false },
+              { name: 'Jungle', url: 'https://jungle.eosweb.net', active: true }],
        disableNets: false,
        voteDonationAcc: 'lioninjungle',
        disableVoteDonation: false,
