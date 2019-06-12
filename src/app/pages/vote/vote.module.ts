@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { VotePageComponent, DialogDataMemo } from './vote.component';
+import { VotePageComponent } from './vote.component';
 import { MatAutocompleteModule,
          MatButtonModule,
          MatInputModule,
@@ -47,10 +47,9 @@ let imports = [
 
 @NgModule({
   declarations: [
-    VotePageComponent,
-    DialogDataMemo
+    VotePageComponent
   ],
-  entryComponents: [VotePageComponent, DialogDataMemo],
+  entryComponents: [VotePageComponent],
   imports:  imports,
   providers: [MainService],
   bootstrap: [ VotePageComponent ]

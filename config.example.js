@@ -30,22 +30,6 @@ config.MAX_TPS_TIME_UPDATE = 5000; // time of break between reload (leave by def
 // enable for private network (daemon for Actions, Accounts)
 config.CUSTOM_GLOBA_STATS = false;
 
-// global front customizations
-config.globalFront = {
-   coin: 'EOS',
-   logo: '/assets/images/eos_logo.png',
-   name: {
-      big: 'eos',
-      small: 'web'
-   },
-   nets: [{ name: 'Mainnet', url: 'https://eosweb.net', active: true }, 
-          { name: 'Jungle', url: 'https://jungle.eosweb.net', active: false }],
-   disableNets: false,
-   voteDonationAcc: 'eoswebnetbp1',
-   disableVoteDonation: false,
-   version: '2.1.0'
-};
-
 // producer json name
 config.producerJSON = 'bp.json';
 
@@ -89,7 +73,7 @@ config.customChain = 'https://nodes.get-scatter.com';
 config.historyChain = 'https://eos.greymass.com';
 
 // tokens api
-config.tokensAPI = 'http://tokenapi.eoswatch.info/api/account/b1';
+config.tokensAPI = 'http://api.light.xeos.me/api/account/eos/';
 
 config.apiV = 'v1'; // api version
 config.RAM_UPDATE = 5 * 60 * 1000; // time for ram update - /api/api.*.socket
@@ -99,69 +83,6 @@ config.blockUpdateTime = 900; // mainpage upades frequency  - /api/api.*.socket 
 config.offsetElementsOnMainpage = 10; // blocks on mainpage
 config.limitAsync = 30; // max threads for async.js module  
 config.updateTPS = 1000;
-
-// log4js
-config.logger = {
-    appenders: {
-      out:  {
-            type: 'stdout'
-      },
-      server: {
-        type: 'file',
-        filename: path.join(__dirname, './server/logs/server.log'),
-      },
-      socket_io: {
-        type: 'file',
-        filename: path.join(__dirname, './server/logs/socket_io.log'),
-      },      
-      accounts_daemon: {
-        type: 'file',
-        filename: path.join(__dirname, './server/logs/accounts_daemon.log'),
-      },
-      accounts_analytics: {
-        type: 'file',
-        filename: path.join(__dirname, './server/logs/accounts_analytics.log'),
-      },
-      global_stat: {
-        type: 'file',
-        filename: path.join(__dirname, './server/logs/global_stat.log'),
-      },
-      ram_bot: {
-        type: 'file',
-        filename: path.join(__dirname, './server/logs/ram_bot.log'),
-      }
-    },
-    categories: {
-        default:       {
-          appenders: ['out'],
-          level:     'trace'
-        },
-        server:  {
-          appenders: ['out', 'server'],
-          level:     'trace'
-        },
-        socket_io:  {
-          appenders: ['out', 'socket_io'],
-          level:     'trace'
-        },
-        accounts_daemon:  {
-          appenders: ['out', 'accounts_daemon'],
-          level:     'trace'
-        },
-        accounts_analytics:  {
-          appenders: ['out', 'accounts_analytics'],
-          level:     'trace'
-        },
-        global_stat:  {
-          appenders: ['out', 'global_stat'],
-          level:     'trace'
-        },
-        ram_bot:  {
-          appenders: ['out', 'ram_bot'],
-          level:     'trace'
-        }
-    }
-};
 
 // slack notifications
 config.loggerSlack = {

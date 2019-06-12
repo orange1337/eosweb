@@ -10,9 +10,8 @@ const customFunctions = require('./eos.api.v1.custom');
 const EOS             = require('eosjs');
 const request         = require('request');
 
-const log4js = require('log4js');
-log4js.configure(config.logger);
-const log    = log4js.getLogger('socket_io');
+const { logWrapper } = require('../utils/main.utils');
+const log            = new logWrapper('socket_io');
 
 const customSlack   = require('../modules/slack.module');
 const logSlack      = customSlack.configure(config.loggerSlack.alerts);

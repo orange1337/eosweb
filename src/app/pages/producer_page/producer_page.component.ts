@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { tileLayer, latLng, marker, circle, polygon } from 'leaflet';
 import { MainService } from '../../services/mainapp.service';
 import { forkJoin } from "rxjs/observable/forkJoin";
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'producer',
@@ -33,9 +34,7 @@ export class ProducerComponent implements OnInit, OnDestroy{
     center: latLng(0, 0)
   };
   layers = [];
-  frontConfig = {
-      coin: 'EOS'
-  };
+  frontConfig = environment.frontConfig;
 
   constructor(private route: ActivatedRoute, protected http: HttpClient, private MainService: MainService){
   }
@@ -129,9 +128,6 @@ export class ProducerComponent implements OnInit, OnDestroy{
        this.producerId = params['id'];
        this.getData();
        this.getLastVotes(this.producerId);
-       if (localStorage.getItem('frontConf')){
-          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
-       }
     });
   }
 

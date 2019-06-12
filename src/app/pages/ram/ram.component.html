@@ -1,6 +1,6 @@
 <div class="container">
 
-<div class="spinner-container" *ngIf="spinner">
+<div class="spinner-container" *ngIf="scatterService.spinnerRAM">
     <mat-spinner class="spinner-color"></mat-spinner>
 </div>
 
@@ -34,7 +34,7 @@
 <div class="col-sm-3 padding-right-no text-right analytics-container-right">
     <div class="col-sm-12">
       <div class="analytics-header-right">{{frontConfig?.coin}} RAM price:</div>
-      <div class="analytics-text-right">{{ ramPrice }} {{frontConfig?.coin}}/kb</div>
+      <div class="analytics-text-right">{{ scatterService.ramPrice }} {{frontConfig?.coin}}/kb</div>
     </div>
 
     <div class="col-sm-12">
@@ -52,118 +52,118 @@
       </div>
     </div>
 
-    <div class="col-sm-12" *ngIf="!identity">
+    <div class="col-sm-12" *ngIf="!loginEOSService?.accountName">
       <div class="analytics-header-right">
-        <button mat-raised-button color="primary" class="btn-generate" (click)="loginScatter()">login with Scatter</button>
+        <button mat-raised-button color="primary" class="btn-generate" (click)="loginEOSService.openPopup()">Connect Wallet</button>
       </div>
     </div>
-    <div class="col-sm-12" *ngIf="identity">
+    <div class="col-sm-12" *ngIf="loginEOSService?.accountName">
       <div class="analytics-header-right logout">
-        <button mat-raised-button color="primary"  (click)="logoutScatter()">Logout</button>
+        <button mat-raised-button color="primary"  (click)="loginEOSService.logout()">Logout</button>
       </div>
     </div>
     
-    <div class="col-sm-6" *ngIf="identity">
+    <div class="col-sm-6" *ngIf="loginEOSService?.accountName">
       <div class="analytics-header-right">
         Account:
       </div>
       <div class="analytics-text-right">
-        <a [routerLink]="['/account', identity]" class="color-green">
-            {{ identity }}
+        <a [routerLink]="['/account', loginEOSService?.accountName]" class="color-green">
+            {{ loginEOSService?.accountName }}
         </a>
       </div>
     </div>
 
-    <div class="col-sm-6" *ngIf="identity">
+    <div class="col-sm-6" *ngIf="loginEOSService?.accountName">
       <div class="analytics-header-right">
          Unstake:
       </div>
       <div class="analytics-text-right">
-        {{ unstaked?.toLocaleString() }} {{frontConfig?.coin}}
+        {{ scatterService.unstaked?.toLocaleString() }} {{frontConfig?.coin}}
       </div>
     </div>
     
-    <div class="col-sm-12" *ngIf="identity">
+    <div class="col-sm-12" *ngIf="loginEOSService?.accountName">
       <div class="analytics-header-right top-ten">
         RAM:
       </div>
       <div class="analytics-text-right">
-        <mat-progress-bar mode="determinate" value="{{mainData?.ram_usage / mainData?.ram_quota * 100}}" class="progress-bar-usage account-ram"></mat-progress-bar>
-        <small>{{ (mainData?.ram_usage / 1024).toFixed(2) }} kb</small> / <small>{{ (mainData?.ram_quota / 1024).toFixed(2) }} kb</small>
+        <mat-progress-bar mode="determinate" value="{{scatterService.mainDataRAM?.ram_usage / scatterService.mainDataRAM?.ram_quota * 100}}" class="progress-bar-usage account-ram"></mat-progress-bar>
+        <small>{{ (scatterService.mainDataRAM?.ram_usage / 1024).toFixed(2) }} kb</small> / <small>{{ (scatterService.mainDataRAM?.ram_quota / 1024).toFixed(2) }} kb</small>
       </div>
     </div>
 
-    <div class="col-sm-12" *ngIf="identity">
+    <div class="col-sm-12" *ngIf="loginEOSService?.accountName">
       <div class="analytics-header-right top-ten">
         CPU:
       </div>
       <div class="analytics-text-right">
-        <mat-progress-bar mode="determinate" value="{{mainData?.cpu_limit?.used / mainData?.cpu_limit?.max * 100}}" class="progress-bar-usage account-cpu"></mat-progress-bar>
-        <small>{{ (mainData?.cpu_limit?.used / 1000000).toFixed(2) }} sec</small> / <small>{{ (mainData?.cpu_limit?.max / 1000000).toFixed(2) }} sec</small>
+        <mat-progress-bar mode="determinate" value="{{scatterService.mainDataRAM?.cpu_limit?.used / scatterService.mainDataRAM?.cpu_limit?.max * 100}}" class="progress-bar-usage account-cpu"></mat-progress-bar>
+        <small>{{ (scatterService.mainDataRAM?.cpu_limit?.used / 1000000).toFixed(2) }} sec</small> / <small>{{ (scatterService.mainDataRAM?.cpu_limit?.max / 1000000).toFixed(2) }} sec</small>
       </div>
     </div>
 
-    <div class="col-sm-12" *ngIf="identity">
+    <div class="col-sm-12" *ngIf="loginEOSService?.accountName">
       <div class="analytics-header-right top-ten">
         NET:
       </div>
       <div class="analytics-text-right ">
-        <mat-progress-bar mode="determinate" value="{{mainData?.net_limit?.used / mainData?.net_limit?.max * 100}}" class="progress-bar-usage account-net"></mat-progress-bar>
-        <small>{{ (mainData?.net_limit?.used / 1024).toFixed(2) }} kb</small> / <small>{{ (mainData?.net_limit?.max / 1024).toFixed(2) }} kb</small>
+        <mat-progress-bar mode="determinate" value="{{scatterService.mainDataRAM?.net_limit?.used / scatterService.mainDataRAM?.net_limit?.max * 100}}" class="progress-bar-usage account-net"></mat-progress-bar>
+        <small>{{ (scatterService.mainDataRAM?.net_limit?.used / 1024).toFixed(2) }} kb</small> / <small>{{ (scatterService.mainDataRAM?.net_limit?.max / 1024).toFixed(2) }} kb</small>
       </div>
     </div>
   
 </div>
 
-<div class="col-sm-5" *ngIf="identity">
+<div class="col-sm-5" *ngIf="loginEOSService?.accountName">
     <mat-tab-group>
       <mat-tab label="Buy ram">
         <div class="col-sm-4">
             <mat-form-field>
-                <input matInput [placeholder]="frontConfig?.coin" [(ngModel)]="buyRAM.eos" (ngModelChange)="buyChangeEOS($event)">
+                <input matInput [placeholder]="frontConfig?.coin" [(ngModel)]="scatterService.buyRAM.eos" (ngModelChange)="buyChangeEOS($event)">
             </mat-form-field>
         </div>
         <div class="col-sm-4">
             <mat-form-field>
-               <input matInput placeholder="KB" [(ngModel)]="buyRAM.kb" (ngModelChange)="buyChangeKB($event)">
+               <input matInput placeholder="KB" [(ngModel)]="scatterService.buyRAM.kb" (ngModelChange)="buyChangeKB($event)">
             </mat-form-field>
         </div>
         <div class="col-sm-3">
-               <button mat-raised-button color="primary" (click)="funcBuyRAM(buyRAM.eos)">Buy Ram</button>
+               <button mat-raised-button color="primary" (click)="scatterService.funcBuyRAM(scatterService.buyRAM.eos)">Buy Ram</button>
         </div>
       </mat-tab>
       <mat-tab label="Sell ram">
         <div class="col-sm-4">
             <mat-form-field>
-                <input matInput [placeholder]="frontConfig?.coin" [(ngModel)]="sellRAM.eos" (ngModelChange)="sellChangeEOS($event)">
+                <input matInput [placeholder]="frontConfig?.coin" [(ngModel)]="scatterService.sellRAM.eos" (ngModelChange)="sellChangeEOS($event)">
             </mat-form-field>
         </div>
         <div class="col-sm-4">
             <mat-form-field>
-               <input matInput placeholder="KB" [(ngModel)]="sellRAM.kb" (ngModelChange)="sellChangeKB($event)">
+               <input matInput placeholder="KB" [(ngModel)]="scatterService.sellRAM.kb" (ngModelChange)="sellChangeKB($event)">
             </mat-form-field>
         </div>
         <div class="col-sm-3">
-               <button mat-raised-button color="warn" (click)="funcSellRAM(sellRAM.kb)">Sell Ram</button>
+               <button mat-raised-button color="warn" (click)="scatterService.funcSellRAM(scatterService.sellRAM.kb)">Sell Ram</button>
         </div>
       </mat-tab>
       <mat-tab label="Donate">
         <div class="col-sm-4">
             <mat-form-field>
-                <input matInput [placeholder]="frontConfig?.coin" [(ngModel)]="donation">
+                <input matInput [placeholder]="frontConfig?.coin" [(ngModel)]="scatterService.donation">
             </mat-form-field>
         </div>
         <div class="col-sm-3">
-               <button mat-raised-button color="warn" (click)="funcDonation(donation)">Donate</button>
+               <button mat-raised-button color="warn" (click)="scatterService.funcDonation(donation)">Donate</button>
         </div>
       </mat-tab>
     </mat-tab-group>
 </div>
 
-<div class="col-sm-7 order-history-table" *ngIf="identity">
+<div class="col-sm-7 order-history-table" *ngIf="loginEOSService?.accountName">
       <div class="example-container mat-elevation-z8 main-table block-trx-table">
           
-            <mat-table #table [dataSource]="dataSource" class="big-table" matSort>  
+            <mat-table #table [dataSource]="scatterService.dataSourceRAM" class="big-table" matSort>  
 
               <!-- Weight Column -->
               <ng-container matColumnDef="Tx">

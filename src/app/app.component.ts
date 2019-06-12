@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, NavigationEnd } from '@angular/router';
 import * as moment from 'moment';
+import { environment } from '../environments/environment';
+
+import { ScatterService } from './services/scatter.service';
+import { LoginEOSService } from 'eos-ulm';
 
 @Component({
   selector: 'app-root',
@@ -20,12 +24,15 @@ export class AppComponent implements OnInit {
       animate: "scale"
   };
   search;
-  frontConfig;
+  frontConfig = environment.frontConfig;
   netName;
   networks = [];
   darkTheme = (localStorage.getItem('darkTheme') === 'true') ? true : false;
 
-  constructor(private http: HttpClient, private router: Router){}
+  constructor(private http: HttpClient, 
+              private router: Router,
+              public scatterService: ScatterService,
+              public loginEOSService: LoginEOSService){}
 
   searchGlobal(text){
     if (!text) {
@@ -53,22 +60,12 @@ export class AppComponent implements OnInit {
   }
 
   getMainFrontConfig(){
-      this.http.get('/api/v1/get_front_config')
-               .subscribe((res :any) => {
-                 if (!this.frontConfig || this.frontConfig.version !== res.version){
-                      this.frontConfig = res;
-                      localStorage.setItem('frontConf', JSON.stringify(res));
-                      this.frontConfig.nets.forEach(elem => {
-                            if (elem.active){
-                               return this.netName = elem.name;
-                            }
-                            this.networks.push(elem);
-                      });
-                 }
-               },
-               (err) =>{
-                   console.error(err);
-               });
+    this.frontConfig.nets.forEach(elem => {
+          if (elem.active){
+             return this.netName = elem.name;
+          }
+          this.networks.push(elem);
+    });
   }
 
   activeMenu(){
@@ -81,16 +78,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(){
-    if (localStorage.getItem('frontConf')){
-          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
-          this.frontConfig.nets.forEach(elem => {
-                if (elem.active){
-                   return this.netName = elem.name;
-                }
-                this.networks.push(elem);
-          });
-    }
     this.getMainFrontConfig();
+    this.loginEOSService.loggedIn.subscribe(res => {
+           this.scatterService.getAccount();
+    });
     this.router.events.subscribe((evt) => {
             if (!(evt instanceof NavigationEnd)) {
                 return;

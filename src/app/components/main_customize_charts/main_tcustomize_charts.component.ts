@@ -4,6 +4,7 @@ import { Socket } from 'ng-socket-io';
 import * as shape from 'd3-shape';
 import { MainService } from '../../services/mainapp.service';
 import { forkJoin } from "rxjs/observable/forkJoin";
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'main-tcustomize-charts',
@@ -38,12 +39,7 @@ export class MainCustomizeChartsComponent implements OnInit{
   timeForUpdate = 5000;
   producer;
   actionsTransactions;
-  frontConfig = {
-      voteDonationAcc: 'eoswebnetbp1',
-      coin: 'EOS',
-      disableVoteDonation: false,
-      convertToUSD: true
-  };
+  frontConfig = environment.frontConfig;
 
   constructor(private http: HttpClient, private socket: Socket, private MainService: MainService){
   }
@@ -144,9 +140,6 @@ export class MainCustomizeChartsComponent implements OnInit{
 
 
   ngOnInit() {
-      if (localStorage.getItem('frontConf')){
-          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
-      }
       this.getData();
       this.getChart();
       this.getBlockchainData();

@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import * as shape from 'd3-shape';
 import { Socket } from 'ng-socket-io';
 import { NotificationsService } from 'angular2-notifications';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'analytics-page',
@@ -37,9 +38,7 @@ export class AnalyticsPageComponent implements OnInit{
       timeline: true,
       fitContainer : true
   }; 
-  frontConfig = {
-      coin: 'EOS'
-  };
+  frontConfig = environment.frontConfig;
   trx;
   actions;
   pieChart;
@@ -121,9 +120,6 @@ export class AnalyticsPageComponent implements OnInit{
      this.getAccounts();
      this.getGlobal();
      this.getChart();
-     if (localStorage.getItem('frontConf')){
-          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
-     }
   }
 }
 

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { WalletPageComponent, DialogDataMemo } from './wallet.component';
+import { WalletPageComponent } from './wallet.component';
 import { MatAutocompleteModule,
          MatButtonModule,
          MatInputModule,
@@ -44,9 +44,8 @@ let imports = [
 @NgModule({
   declarations: [
     WalletPageComponent,
-    DialogDataMemo
   ],
-  entryComponents: [WalletPageComponent, DialogDataMemo],
+  entryComponents: [WalletPageComponent],
   imports:  imports,
   providers: [MainService],
   bootstrap: [ WalletPageComponent ]

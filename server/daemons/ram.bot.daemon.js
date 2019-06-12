@@ -2,9 +2,8 @@
 const configName    = (process.env.CONFIG) ? process.env.CONFIG : 'config';
 const config        = require(`../../${configName}`);
 
-const log4js = require('log4js');
-log4js.configure(config.logger);
-const log    = log4js.getLogger('ram_bot');
+const { logWrapper } = require('../utils/main.utils');
+const log            = new logWrapper('ram_bot');
 
 const async  = require('async');
 

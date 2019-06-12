@@ -1,0 +1,32 @@
+{
+  "name": "eosweb-server",
+  "version": "2.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "orange1337",
+  "license": "MIT",
+  "dependencies": {
+    "@pm2/io": "^4.2.3",
+    "async": "^3.0.1",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.4",
+    "csv-parser": "^2.3.0",
+    "eosjs": "^16.0.9",
+    "express": "^4.17.1",
+    "helmet": "^3.18.0",
+    "mongoose": "^5.5.14",
+    "node-cron": "^2.0.3",
+    "node-telegram-bot-api": "^0.30.0",
+    "path": "^0.12.7",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
+    "sharp": "^0.22.1",
+    "slack": "^11.0.2",
+    "socket.io": "^2.2.0"
+  }
+}

@@ -39,6 +39,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { environment } from '../environments/environment';
 import { LoginEOSModule } from 'eos-ulm';
 
+import { ScatterService } from './services/scatter.service';
+
 const socketConfig: SocketIoConfig = { url: '/', options: {
     autoConnect: true,
     reconnection: true,
@@ -92,7 +94,7 @@ const socketConfig: SocketIoConfig = { url: '/', options: {
     RamPageModule,
     SoonModule
   ],
-  providers: [appRoutingProviders],
+  providers: [appRoutingProviders, ScatterService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -18,9 +18,8 @@ config.eosConfig.httpEndpoint = (config.CRON) ? config.CRON_API : config.eosConf
 const eos     		= EOS(config.eosConfig);
 
 module.exports = (loggerFileName) => {
-	const log4js      = require('log4js');
-	log4js.configure(config.logger);
-	const log         = log4js.getLogger(loggerFileName);
+	const { logWrapper } = require('../utils/main.utils');
+	const log            = new logWrapper(loggerFileName);
 	
 	const customSlack = require('../modules/slack.module');
 	const logSlack    = customSlack.configure(config.loggerSlack.alerts);

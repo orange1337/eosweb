@@ -21,9 +21,8 @@ mongoose.set('useCreateIndex', true);
 const EOS           = require('eosjs');
 global.eos          = EOS(config.eosConfig);
 
-const log4js        = require('log4js');
-log4js.configure(config.logger);
-const log           = log4js.getLogger('server');
+const { logWrapper } = require('./utils/main.utils');
+const log            = new logWrapper('server');
 
 const customSlack   = require('./modules/slack.module');
 const logSlack      = customSlack.configure(config.loggerSlack.alerts);
@@ -113,9 +112,10 @@ app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-  console.error('===== Page not Found ', err);
+  //console.log('Url not found', req.url);
+  //console.error('===== Page not Found ', err);
   // render the error page
-  res.status(err.status || 500).redirect('/notfound');
+  res.status(err.status || 500).end();
 });
 
 function normalizePort(val) {

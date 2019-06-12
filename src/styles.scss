@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "assets/css/grid12.css";
 @import "assets/css/cryptofont.min.css";
@@ -24,18 +25,22 @@ html {
     position: relative;
     width: 100vw;
     min-height: 100%;
+    height: auto !important;
 }
 body{
-	margin: 0;
-	font-family: 'ClanProNews';
+	margin: 0 !important;
+	font-family: 'ClanProNews' !important;
 	overflow-x: hidden;
-	height: auto;
+	height: auto !important;
 	padding-bottom: 200px;
 	-webkit-font-smoothing: antialiased;
 	background: #f8f8f8;
 }
 a{
 	cursor: pointer;
+}
+*{
+	outline: none;
 }
 .btn-generate{
 	width: 100%;
@@ -689,3 +694,6 @@ action-viewer{
 
 
 
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

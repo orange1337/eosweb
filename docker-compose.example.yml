@@ -1,25 +1,26 @@
 version: "3"
 
 services:
+  
   mongodb:
-    image: 'bitnami/mongodb:latest'
+    image: mongo:4.0
     restart: always
     volumes:
-      - /bitnami/mongo:/bitnami
+      - ./mongo:/data/db
     ports:
-      - "27017:27017"
+      - "27018:27017"
     environment:
-      - MONGODB_ROOT_PASSWORD=test123
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=test123
 
   eosweb:
     image: rost1337/eosweb:latest
     ports: 
       - 3039:3039
-      - 3001:3001
+      - 9615:9615
     restart: always
     links:
       - mongodb
     volumes:
-      - ./logs:/home/eosweb/server/logs
       - ./config.js:/home/eosweb/config.js
 

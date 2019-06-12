@@ -2,6 +2,18 @@
 	Utils functions
 */
 
+class logWrapper { 
+	constructor (logName){
+		this.logName = logName;
+	}
+	info (result){
+		console.log('\x1b[36m%s\x1b[0m', `[${new Date().toISOString()}] ${this.logName} -`, result);
+	}
+	error (result){
+		console.error('\x1b[33m%s\x1b[0m', `[${new Date().toISOString()}] ${this.logName} - `, result);
+	}
+}
+
 class asyncWrapper {
 	constructor (log){
 		this.log = log;
@@ -25,4 +37,4 @@ async function asyncForEach(array, callback) {
   }
 }
 
-module.exports = { asyncWrapper, asyncForEach };
+module.exports = { asyncWrapper, asyncForEach, logWrapper };

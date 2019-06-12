@@ -20,5 +20,24 @@ export const environment = {
         httpEndpoint: 'https://bp.cryptolions.io',
         chainId: chain,
         verbose: false
+    },
+    frontConfig: {
+       coin: 'EOS',
+       tokenContract: 'eosio.token',
+       totalBalance: 'EOS',
+       convertToUSD: true,
+       customBalance: false,
+       logo: '/assets/images/eosweb.png',
+       name: {
+          big: 'eos',
+          small: 'web'
+       },
+       nets: [{ name: 'Mainnet', url: 'https://eosweb.net', active: true },
+              { name: 'Jungle', url: 'https://jungle.eosweb.net', active: false }],
+       disableNets: false,
+       voteDonationAcc: 'eoswebnetbp1',
+       disableVoteDonation: false,
+       version: '2.2.8',
+       producers: 1000
     }
 };

@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { forkJoin } from "rxjs/observable/forkJoin";
 import { MainService } from '../../services/mainapp.service';
 import { Socket } from 'ng-socket-io';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'producers-page',
@@ -31,10 +32,7 @@ export class ProducersPageComponent implements OnInit, OnDestroy{
   globalTable;
   chainPercentage;
   chainNumber;
-  frontConfig = {
-      coin: 'EOS',
-      producers: 1000
-  };
+  frontConfig = environment.frontConfig;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -127,9 +125,6 @@ export class ProducersPageComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
-     if (localStorage.getItem('frontConf')){
-          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
-     }
      this.getBlockData();
      this.firstLoad = false;
      this.MainService.currentMessage.subscribe(message => this.producer = message);

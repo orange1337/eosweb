@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
 import { MainService } from '../../services/mainapp.service';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'account-page',
@@ -39,13 +40,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   elementsLimit = 100;
   creator;
   actionsNotSorted;
-  frontConfig = {
-      coin: 'EOS',
-      totalBalance: 'EOS',
-      convertToUSD: true,
-      customBalance: false,
-      tokenContract: 'eosio.token'
-  };
+  frontConfig = environment.frontConfig;
 
 
   constructor(private route: ActivatedRoute, 
@@ -252,9 +247,6 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   ngOnInit() {
     this.block = this.route.params.subscribe(params => {
        this.accountId = params['id'];
-       if (localStorage.getItem('frontConf')){
-          this.frontConfig = JSON.parse(localStorage.getItem('frontConf'));
-       }
        this.getBlockData(this.accountId);
        this.getControlledAccounts(this.accountId);
        this.getAllTokens(this.accountId);

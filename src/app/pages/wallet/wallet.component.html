@@ -1,35 +1,35 @@
 <div class="container">
 
-<div class="spinner-container" *ngIf="spinner">
+<div class="spinner-container" *ngIf="scatterService.spinnerRAM">
     <mat-spinner class="spinner-color"></mat-spinner>
 </div>
 
 	<h1 class="market-header">{{frontConfig?.coin}} web Wallet</h1>
 
-	<div class="col-sm-4 block-info-line" *ngIf="!identity">
-		  <button mat-raised-button class="btn-generate" color="primary" (click)="loginScatter()">login with Scatter</button>
+	<div class="col-sm-4 block-info-line" *ngIf="!loginEOSService.accountName">
+		  <button mat-raised-button class="btn-generate" color="primary" (click)="loginEOSService.openPopup()">Connect Wallet</button>
 	</div>
 
-	<div class="block-info" *ngIf="identity">
+	<div class="block-info" *ngIf="loginEOSService.accountName">
 			<div class="col-sm-4">
 			 <div class="col-sm-12 no-padding">
 					<div class="avatatar-img">
 				 		<img src="/assets/images/user-astronaut-solid.svg" width="25" >
 				 	</div>
-				 	<a [routerLink]="['/account', identity]" class="color-green acc-name">
-				  		{{ identity }}
+				 	<a [routerLink]="['/account', loginEOSService.accountName]" class="color-green acc-name">
+				  		{{ loginEOSService.accountName }}
 				 	</a>
 			 </div>
 				
 			<div class="col-sm-12 acc-list no-padding">
 				  <div class="balance-acc">
-    			     Total Balance: <strong>{{ balance?.toLocaleString() }} {{frontConfig?.coin}}</strong>
+    			     Total Balance: <strong>{{ scatterService.balance?.toLocaleString() }} {{frontConfig?.coin}}</strong>
     			  </div>
     			  <div class="balance-acc">
-    			     Unstaked: <small><strong>{{ unstaked?.toLocaleString() }} {{frontConfig?.coin}}</strong></small>
+    			     Unstaked: <small><strong>{{ scatterService.unstaked?.toLocaleString() }} {{frontConfig?.coin}}</strong></small>
     			  </div>
     			  <div class="balance-acc">
-    			     Staked: <small><strong>{{ staked?.toLocaleString() }} {{frontConfig?.coin}}</strong></small>
+    			     Staked: <small><strong>{{ scatterService.staked?.toLocaleString() }} {{frontConfig?.coin}}</strong></small>
     			  </div>
     		</div>
     
@@ -39,8 +39,8 @@
       			  CPU:
       			</div>
       			<div class="analytics-text-right">
-        			<mat-progress-bar mode="determinate" value="{{mainData?.cpu_limit?.used / mainData?.cpu_limit?.max * 100}}" class="progress-bar-usage account-cpu"></mat-progress-bar>
-        			<small>{{ (mainData?.cpu_limit?.used / 1000000).toFixed(2) }} sec</small> / <small>{{ (mainData?.cpu_limit?.max / 1000000).toFixed(2) }} sec</small>
+        			<mat-progress-bar mode="determinate" value="{{scatterService.mainDataRAM?.cpu_limit?.used / scatterService.mainDataRAM?.cpu_limit?.max * 100}}" class="progress-bar-usage account-cpu"></mat-progress-bar>
+        			<small>{{ (scatterService.mainDataRAM?.cpu_limit?.used / 1000000).toFixed(2) }} sec</small> / <small>{{ (scatterService.mainDataRAM?.cpu_limit?.max / 1000000).toFixed(2) }} sec</small>
       		    </div>
     		</div>
 
@@ -49,8 +49,8 @@
     		    NET:
     		  </div>
     		  <div class="analytics-text-right ">
-        			<mat-progress-bar mode="determinate" value="{{mainData?.net_limit?.used / mainData?.net_limit?.max * 100}}" class="progress-bar-usage account-net"></mat-progress-bar>
-        			<small>{{ (mainData?.net_limit?.used / 1024).toFixed(2) }} kb</small> / <small>{{ (mainData?.net_limit?.max / 1024).toFixed(2) }} kb</small>
+        			<mat-progress-bar mode="determinate" value="{{scatterService.mainDataRAM?.net_limit?.used / scatterService.mainDataRAM?.net_limit?.max * 100}}" class="progress-bar-usage account-net"></mat-progress-bar>
+        			<small>{{ (scatterService.mainDataRAM?.net_limit?.used / 1024).toFixed(2) }} kb</small> / <small>{{ (scatterService.mainDataRAM?.net_limit?.max / 1024).toFixed(2) }} kb</small>
       		 	</div>
     		 </div>
     		 
@@ -59,13 +59,13 @@
     			    RAM:
     			  </div>
     			  <div class="analytics-text-right">
-    			    <mat-progress-bar mode="determinate" value="{{mainData?.ram_usage / mainData?.ram_quota * 100}}" class="progress-bar-usage account-ram"></mat-progress-bar>
-        			<small>{{ (mainData?.ram_usage / 1024).toFixed(2) }} kb</small> / <small>{{ (mainData?.ram_quota / 1024).toFixed(2) }} kb</small>
+    			    <mat-progress-bar mode="determinate" value="{{scatterService.mainDataRAM?.ram_usage / scatterService.mainDataRAM?.ram_quota * 100}}" class="progress-bar-usage account-ram"></mat-progress-bar>
+        			<small>{{ (scatterService.mainDataRAM?.ram_usage / 1024).toFixed(2) }} kb</small> / <small>{{ (scatterService.mainDataRAM?.ram_quota / 1024).toFixed(2) }} kb</small>
       			  </div>
    			</div>
 
-        <div class="col-sm-12 acc-list no-padding" *ngIf="identity">
-            <button mat-raised-button class="btn-generate" color="primary" (click)="logoutScatter()">Logout</button>
+        <div class="col-sm-12 acc-list no-padding" *ngIf="loginEOSService.accountName">
+            <button mat-raised-button class="btn-generate" color="primary" (click)="loginEOSService.logout()">Logout</button>
         </div>
 
 			</div>
@@ -95,33 +95,33 @@
   							  <textarea matInput placeholder="Memo" [(ngModel)]="transfer.memo"></textarea>
   							</mat-form-field>
 
-  							<button mat-raised-button color="primary" class="btn-generate" (click)="generateTransaction()">Generate Transaction</button>
+  							<button mat-raised-button color="primary" class="btn-generate" (click)="scatterService.generateTrxTransfer(transfer)">Generate Transaction</button>
 				  		</div>
 				  </mat-tab>
 				  <mat-tab label="Contracts">
-				  	<div class="col-sm-2" *ngIf="!contract"></div>
-						<div class="col-sm-7" *ngIf="!contract">
+				  	<div class="col-sm-2" *ngIf="!scatterService.contractStruct"></div>
+						<div class="col-sm-7" *ngIf="!scatterService.contractStruct">
   							<mat-form-field>
   							  <input matInput placeholder="Enter contract name" required="true" [(ngModel)]="contractName">
   							</mat-form-field>
 
-  							<button mat-raised-button color="primary" class="btn-generate" (click)="getContract(contractName)">Get Contract</button>
+  							<button mat-raised-button color="primary" class="btn-generate" (click)="scatterService.getContract(contractName)">Get Contract</button>
 				  		</div>
-				  		<div class="col-sm-4" *ngIf="contract">
+				  		<div class="col-sm-4" *ngIf="scatterService.contractStruct">
                     <mat-form-field>
                       <mat-select placeholder="Select contract method" [(ngModel)]="contractMethod" (change)="selectContractMethod(contractMethod)">
-                        <mat-option value="{{ method.name }}" *ngFor="let method of contract;">{{ method.name }}</mat-option>
+                        <mat-option value="{{ method.name }}" *ngFor="let method of scatterService.contractStruct;">{{ method.name }}</mat-option>
                       </mat-select>
                     </mat-form-field>
 				  		</div>
-              <div class="col-sm-8" *ngIf="contract">
+              <div class="col-sm-8" *ngIf="scatterService.contractStruct">
                     <mat-form-field *ngFor="let field of contractFieldsRender; let i = index;">
                       <input matInput placeholder="{{ field.name }}" required="true" [(ngModel)]="contractField[field.name]">
                     </mat-form-field>
               </div>
-              <div class="col-sm-4" *ngIf="contract && contractMethod"></div>
-              <div class="col-sm-8" *ngIf="contract && contractMethod">
-                <button mat-raised-button color="primary" class="btn-generate" (click)="generateContractTransaction(contractField, contractMethod)">Generate Transaction</button>
+              <div class="col-sm-4" *ngIf="scatterService.contractStruct && contractMethod"></div>
+              <div class="col-sm-8" *ngIf="scatterService.contractStruct && contractMethod">
+                <button mat-raised-button color="primary" class="btn-generate" (click)="scatterService.generateContractTransaction(contractField, contractMethod, contractFieldsRender)">Generate Transaction</button>
               </div>
 				  </mat-tab>
 				</mat-tab-group>
