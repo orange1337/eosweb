@@ -190,22 +190,6 @@ module.exports 	= (router, config, request, log, mongoMain, MARIA) => {
 	* params - offset
 	*/
 	router.post('/api/v1/get_chart_ram', async (req, res) => {
-		/*let dateFrom = +new Date(req.body.from);
-		let daysMax = +new Date() - 30 * 7 * 24 * 3600000;
-		let date;
-		if (daysMax < dateFrom){
-			date = daysMax;
-		}
-		date = dateFrom;
-	   	
-	   	RAM.find({ date : { $gte: new Date(date) } })
-	   	 		.exec((err, result) => {
-	   	 		if (err){
-	   	 			log.error(err);
-	   	 			return res.status(500).end();
-	   	 		}
-	   	 		res.json(result);
-	   	});*/
 	   	let result;
 	   	let interval 	= 3; // mins. 
 	   	let dateFrom 	= (req.body.from === 0) ? 0 : +new Date(req.body.from);
@@ -214,7 +198,7 @@ module.exports 	= (router, config, request, log, mongoMain, MARIA) => {
 	   	let match 		= (dateFrom === 0) ? {} : { date : { $gte: new Date(dateFrom) } };
 
 	   	if (dateFrom > month && dateFrom < week) {
-	   		interval = 60;// mins
+	   		interval = 60; // mins
 	   	} else if (dateFrom === 0){
 			interval = 180; // mins
 	   	}
@@ -230,7 +214,7 @@ module.exports 	= (router, config, request, log, mongoMain, MARIA) => {
   			      ]
   			    }
   			  },
-  			  arr: { $push: { quote: "$quote", base: "$base" } }
+  			  first: { $first: { quote: "$quote", base: "$base" } }
   			}},
   			{ $sort: { _id: 1 } }
 	   	];

@@ -617,6 +617,9 @@ action-viewer{
 .ram-page{
 	height: 400px;
 }
+.button-menu-container{
+	margin-top: 54px;
+}
 
 @media only screen and (max-width: 1280px) {
 	.container{
@@ -713,6 +716,12 @@ action-viewer{
 	}
 	.ram-page{
 		height: 250px;
+	}
+	h1{
+		font-size: 1.5rem;
+	}
+	.button-menu-container{
+		margin-top: 20px;
 	}
 }
 

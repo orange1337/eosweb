@@ -42,8 +42,8 @@ export class RamPageComponent implements OnInit{
       fitContainer : true
   }; 
   mainCurrencyChartDataRes;
-  defaultTimeName = 'Day';
-  timeArray = ['Week', 'Month', 'All'];
+  defaultTimeName = '1d';
+  timeArray = ['1d', '1w', '1m', 'all'];
   dateFrom = new Date(+new Date() - 24 * 60 * 60 * 1000);
   frontConfig = environment.frontConfig;
 
@@ -68,12 +68,12 @@ export class RamPageComponent implements OnInit{
   }
 
   getChart(dateFrom) {
-    this.spinner = true;
+        this.scatterService.spinnerRAM = true;
         this.http.post(`/api/v1/get_chart_ram`, { from: dateFrom } )
                   .subscribe(
                       (res: any) => {
                            this.mainCurrencyChartDataRes = this.createChartArr(res);
-                           this.spinner = false;
+                           this.scatterService.spinnerRAM = false;
                       },
                       (error) => {
                           console.error(error);
@@ -83,25 +83,25 @@ export class RamPageComponent implements OnInit{
   createChartArr(data){
     let result = [];
       data.forEach(elem => {
-          let quoteBalance  = Number(elem.arr[0].quote.split(' ')[0]);
-          let baseBalance   = Number(elem.arr[0].base.split(' ')[0]);
+          let quoteBalance  = Number(elem.first.quote.split(' ')[0]);
+          let baseBalance   = Number(elem.first.base.split(' ')[0]);
           result.push({ name: new Date(elem._id), value: (quoteBalance / baseBalance * 1024).toFixed(8) });
       });
     return result;
   }
 
   selectDay(name){
-      this.timeArray.push(this.defaultTimeName);
-      this.timeArray.splice(this.timeArray.indexOf(name), 1);
+      //this.timeArray.push(this.defaultTimeName);
+      //this.timeArray.splice(this.timeArray.indexOf(name), 1);
       this.defaultTimeName = name;
       let date;
-      if (name === 'Day'){
+      if (name === '1d'){
           date = +new Date() - 24 * 3600000;
-      } else if (name === 'Week'){
+      } else if (name === '1w'){
           date = +new Date() - 7 * 24 * 3600000;
-      } else if (name === 'Month'){
+      } else if (name === '1m'){
           date = +new Date() - 30 * 7 * 24 * 3600000;
-      } else if (name === 'All'){
+      } else if (name === 'all'){
           date = 0;
       }
       this.getChart(date);

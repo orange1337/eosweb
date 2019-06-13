@@ -7,11 +7,14 @@
 <div class="col-sm-8 col-md-9 padding-left-no">
    <h1 class="market-header col-sm-8">{{frontConfig?.coin}} RAM price <small>{{frontConfig?.coin}}/kb RAM</small></h1>
    <div class="col-sm-4 button-menu-container no-padding">
-     <button mat-raised-button color="primary" class="pull-right" [matMenuTriggerFor]="menu">{{ defaultTimeName }}</button>
+      <!--<button mat-raised-button color="primary" class="pull-right" [matMenuTriggerFor]="menu">{{ defaultTimeName }}</button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item *ngFor="let elem of timeArray;" (click)="selectDay(elem)">{{ elem }}</button>
-      </mat-menu>
+      </mat-menu>-->
       <!--<a mat-mini-fab color="primary" class="pull-right alert-button" href="https://t.me/EOSwebRamBot" target="_blank"><i class="fas fa-bell"></i></a>-->
+      <div class="pull-right">
+        <span class="widget-chart-btn" [ngClass]="{'widget-btn-active': elem === defaultTimeName}" *ngFor="let elem of timeArray;" (click)="selectDay(elem)">{{ elem }}</span>
+      </div>
    </div>
    
    <div [ngClass]="{'ram-scale': autoscale, 'ram-page': !autoscale}">
