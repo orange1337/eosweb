@@ -60,7 +60,7 @@ module.exports = function(router, config, request, log) {
 	   	res.sendFile(indexPath);
 	});
 
-	router.get('/widget/ram', (req, res) => {
+	router.get('/widget/ram', removeFrameguard, (req, res) => {
 	   	res.sendFile(indexPath);
 	});
 
@@ -80,12 +80,16 @@ module.exports = function(router, config, request, log) {
 	   	res.sendFile(path.join(__dirname, '../../robots.txt'));
 	});
 
-	router.get('/test/widget', (req, res) => {
+	router.get('/test/widget', removeFrameguard, (req, res) => {
 	   	res.sendFile(path.join(__dirname, '../../test_widget/index.html'));
 	});
 // ============== END of exports 
 };
 
+function removeFrameguard (req, res, next) {
+  req.removeHeader('X-Frame-Options');
+  next();
+}
 
 
 
