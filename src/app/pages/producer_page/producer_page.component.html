@@ -27,7 +27,7 @@
         </div>
       </div>
 
-      <div class="col-sm-12 block-info-line">
+      <div class="col-sm-12 block-info-line" *ngIf="voters?.votesCounter">
         <div class="col-sm-3">
           <strong class="block-info-header">All voters:</strong>
         </div>
@@ -89,7 +89,7 @@
         </div>
       </div>
 
-      <div class="col-sm-12 block-info-line">
+      <div class="col-sm-12 block-info-line" *ngIf="voters?.voters">
         <div class="col-sm-3">
           <strong class="block-info-header">Last voters:</strong>
         </div>

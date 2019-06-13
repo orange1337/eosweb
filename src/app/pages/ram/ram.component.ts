@@ -131,9 +131,13 @@ export class RamPageComponent implements OnInit{
      this.scatterService.getRam();
      this.getChart(this.dateFrom);
 
-     this.loginEOSService.loggedIn.subscribe(res => {
-           this.scatterService.getOrderHistory();
-     });
+     if (this.loginEOSService.accountName){
+     	this.scatterService.getOrderHistory();	
+     } else {
+     	this.loginEOSService.loggedIn.subscribe(res => {
+        	this.scatterService.getOrderHistory();
+     	});
+     }
 
      this.socket.on('get_ram', res => {
           this.scatterService.countRamPrice(res);

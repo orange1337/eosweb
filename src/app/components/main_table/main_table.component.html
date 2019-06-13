@@ -44,7 +44,7 @@
     <ng-container matColumnDef="Time">
       <mat-header-cell *matHeaderCellDef> Time</mat-header-cell>
       <mat-cell *matCellDef="let element" class="text-center change-container"> 
-            {{ moment(element?.timestamp).format('MMMM Do YYYY, h:mm:ss a') }}
+            {{ moment(element?.timestamp).format('lll') }}
       </mat-cell>
     </ng-container>
 
