@@ -1,14 +1,11 @@
 /*
-  App configuration example created by eoswebnetbp1 (31.08.18)
+  App configuration example created by eoswebnetbp1
 */
 const path = require('path');
 let config = {};
 
 // production mod
 config.PROD = false;
-
-//swagger-stats-lions
-config.saveRequestsMetrics = true;
 
 // mongo uri and options
 config.MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/EOSweb';
@@ -21,7 +18,7 @@ config.MONGO_OPTIONS = {
 
 // cron processes (aggregation of main stat - actions, transactions, accounts, analytics)
 config.CRON = false;
-config.CRON_API = 'http://bp.cryptolions.io';
+config.CRON_API = 'https://public.eosinfra.io';
 
 // anable TPS APS daemon aggregation
 config.TPS_ENABLE = true;
@@ -33,7 +30,7 @@ config.CUSTOM_GLOBA_STATS = false;
 // producer json name
 config.producerJSON = 'bp.json';
 
-// telegram alert bot
+// telegram alert bot (depreceted)
 config.telegram = {
   ON: false,
   TOKEN: '',
@@ -41,11 +38,16 @@ config.telegram = {
 };
 
 // reserve nodes
-config.endpoints = ['https://eos.greymass.com', 'http://bp.cryptolions.io', 'http://eosbp-0.atticlab.net'];
+config.endpoints = [
+      'http://bp.cryptolions.io',
+      'https://eos.greymass.com',
+      'https://public.eosinfra.io', 
+      'http://eosbp-0.atticlab.net'
+];
 
 // eosjs
 config.eosConfig = {
-  chainId: "038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca",
+  chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
   keyProvider: "",
   httpEndpoint: config.endpoints[0],
   expireInSeconds: 60,
@@ -53,7 +55,6 @@ config.eosConfig = {
   debug: false,
   sign: true,
   logger: {
-    //log: console.log,
     error: console.error
   }
 };
