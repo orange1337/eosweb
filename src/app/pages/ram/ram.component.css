@@ -49,19 +49,5 @@ mat-tab-group{
 	margin-top: 20px;
     margin-bottom: 0px;
 }
-.widget-chart-btn{
-    padding: 5px 7px;
-    color: #9f9fa1;
-    margin-left: 8px;
-    font-size: 13px;
-    background: #f1f1f1;
-    border-radius: 4px;
-    cursor: pointer;
-}
-.widget-btn-active, .widget-chart-btn:hover{
-	background: linear-gradient(to right, #3fa3eb, #3568e4);
-	background: -webkit-gradient(linear, left top, right top, from(#3fa3eb), to(#3568e4));
-	color: #fff;
-}
 
 

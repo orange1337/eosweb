@@ -620,6 +620,19 @@ action-viewer{
 .button-menu-container{
 	margin-top: 54px;
 }
+.widget-chart-btn{
+    padding: 5px 7px;
+    color: #9f9fa1;
+    margin-left: 8px;
+    font-size: 13px;
+    background: #f1f1f1;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.widget-btn-active, .widget-chart-btn:hover{
+	background: linear-gradient(to right, #3fa3eb, #3568e4) !important;
+	color: #fff;
+}
 
 @media only screen and (max-width: 1280px) {
 	.container{
