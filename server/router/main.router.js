@@ -87,7 +87,7 @@ module.exports = function(router, config, request, log) {
 };
 
 function removeFrameguard (req, res, next) {
-  req.removeHeader('X-Frame-Options');
+  res.removeHeader('X-Frame-Options');
   next();
 }
 
