@@ -44,6 +44,7 @@ let imports = [
   ],
   imports:  imports,
   providers: [],
+  exports: [RamPageComponent],
   bootstrap: [ RamPageComponent ]
 })
 export class RamPageModule {}

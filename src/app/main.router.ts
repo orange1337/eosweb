@@ -12,6 +12,7 @@ import { RamPageComponent } from './pages/ram/ram.component';
 import { SoonComponent } from './pages/soon/soon.component';
 import { WalletPageComponent } from './pages/wallet/wallet.component';
 import { VotePageComponent } from './pages/vote/vote.component';
+import { WidgetComponent } from './components/ram_widget/widget.component';
 
 export const routes: Routes = [
   { 
@@ -66,6 +67,10 @@ export const routes: Routes = [
   { 
     path: 'tokens', 
     component: TokensPageComponent 
+  },
+  {
+    path: "widget/ram",
+    component: WidgetComponent
   },
   { 
     path: 'notfound', 

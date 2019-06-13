@@ -75,6 +75,10 @@ module.exports = function(router, config, request, log) {
 	router.get('/robots.txt', (req, res) => {
 	   	res.sendFile(path.join(__dirname, '../../robots.txt'));
 	});
+
+	router.get('/test/widget', (req, res) => {
+	   	res.sendFile(path.join(__dirname, '../../test_widget/index.html'));
+	});
 // ============== END of exports 
 };
 

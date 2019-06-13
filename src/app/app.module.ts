@@ -16,7 +16,7 @@ import { AppComponent } from './app.component';
 import { appRoutes, appRoutingProviders } from './main.router';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { SimpleNotificationsModule } from 'angular2-notifications';
+//import { SimpleNotificationsModule } from 'angular2-notifications';
 //import { AuthService } from './services/auth.service';
 
 import { MainPageModule } from './pages/main_page/main_page.module';
@@ -35,6 +35,8 @@ import { SoonModule } from './pages/soon/soon.module';
 import { MainTcustomizeModule } from './components/main_customize_charts/main_tcustomize.module';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+
+import { WidgetModule } from './components/ram_widget/widget.module';
 
 import { environment } from '../environments/environment';
 import { LoginEOSModule } from 'eos-ulm';
@@ -66,7 +68,7 @@ const socketConfig: SocketIoConfig = { url: '/', options: {
     MatMenuModule,
     MatSelectModule,
     MainTcustomizeModule,
-    SimpleNotificationsModule.forRoot(),
+    //SimpleNotificationsModule.forRoot(),
     SocketIoModule.forRoot(socketConfig),
     LeafletModule.forRoot(),
     LoginEOSModule.forRoot({
@@ -92,7 +94,8 @@ const socketConfig: SocketIoConfig = { url: '/', options: {
     ProducerModule,
     AnalyticsPageModule,
     RamPageModule,
-    SoonModule
+    SoonModule,
+    WidgetModule
   ],
   providers: [appRoutingProviders, ScatterService],
   bootstrap: [AppComponent]
