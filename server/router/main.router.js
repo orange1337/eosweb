@@ -60,6 +60,10 @@ module.exports = function(router, config, request, log) {
 	   	res.sendFile(indexPath);
 	});
 
+	router.get('/widget/ram', (req, res) => {
+	   	res.sendFile(indexPath);
+	});
+
 	router.get('/notfound', (req, res) => {
 	   	res.sendFile(indexPath);
 	});
