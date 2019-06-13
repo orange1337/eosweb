@@ -98,7 +98,7 @@
 					<span *ngFor="let token of tokensArray?.balances">
 						<strong *ngIf="token?.currency !== frontConfig?.coin" class="small-tokens">
 							<small >{{ token?.amount }}</small> {{ token?.currency }} - 
-							<a href="/account/{{token?.contract}}" class="color-green">{{ token?.contract }}</a>
+							<a routerLink="/account/{{token?.contract}}" class="color-green">{{ token?.contract }}</a>
 						</strong>
 					</span>
 				</div>
@@ -142,7 +142,7 @@
 					<strong class="block-info-header">Created by:</strong>
 				</div>
 				<div class="col-sm-9">
-					<a href="/account/{{creator?.act?.data?.creator}}" class="color-green">
+					<a routerLink="/account/{{creator?.act?.data?.creator}}" class="color-green">
 						{{creator?.act?.data?.creator}}
 				    </a>
 				</div>
@@ -306,12 +306,12 @@
 										</div>
 									</div>
 									<div class="actions-list">
-										<a href="/account/{{action?.action_trace?.act?.data?.from}}" class="color-green">
+										<a routerLink="/account/{{action?.action_trace?.act?.data?.from}}" class="color-green">
 											<strong>{{ action?.action_trace?.act?.data?.from }}</strong>
 										</a>
 									</div>
 									<div class="actions-list">
-										<a href="/account/{{action?.action_trace?.act?.data?.to}}" class="color-green">
+										<a routerLink="/account/{{action?.action_trace?.act?.data?.to}}" class="color-green">
 											<strong>{{ action?.action_trace?.act?.data?.to }}</strong>
 										</a>
 									</div>
@@ -356,7 +356,7 @@
 					          	</a>
 					          	<div *ngIf="element?.required_auth?.accounts?.length">
 					          		<div *ngFor="let elem of element?.required_auth?.accounts;" class="multisig-container">
-					          			<a href="/account/{{elem?.permission?.actor}}" class="color-green">{{elem?.permission?.actor}}</a> -   
+					          			<a routerLink="/account/{{elem?.permission?.actor}}" class="color-green">{{elem?.permission?.actor}}</a> -   
 					          			weight: <strong>{{elem?.weight}}</strong>
 					          		</div>
 					          	</div>
@@ -385,7 +385,7 @@
 
 				   <mat-tab label="Controlled Accounts ({{ controlledAccount?.controlled_accounts?.length }})">
 				  		  <div *ngFor="let acc of controlledAccount?.controlled_accounts;" class="controlled-acc">
-				  		  	<a href="/account/{{acc}}" class="color-green">
+				  		  	<a routerLink="/account/{{acc}}" class="color-green">
 					          		<strong>{{ acc }}</strong>
 					      	</a> 
 				  		  </div>

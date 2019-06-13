@@ -57,6 +57,12 @@ a{
 .no-padding-right{
 	padding-right: 0 !important;
 }
+.padding-left-no{
+	padding-left: 0 !important;
+}
+.padding-right-no{
+	padding-left: 0 !important;
+}
 .mat-fab.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary{
 	background: linear-gradient(to right,#3fa3eb,#3568e4);
 	background: -webkit-gradient(linear,left top,right top,from(#3fa3eb),to(#3568e4));
@@ -605,7 +611,12 @@ action-viewer{
 	margin-top: -4px;
 }
 
-
+.ram-scale{
+	height: 300px;
+}
+.ram-page{
+	height: 400px;
+}
 
 @media only screen and (max-width: 1280px) {
 	.container{
@@ -697,6 +708,12 @@ action-viewer{
     .filter-header{
     	margin-top: 15px;
     }
+    .ram-scale{
+		height: 250px;
+	}
+	.ram-page{
+		height: 250px;
+	}
 }
 
 

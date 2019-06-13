@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import * as moment from 'moment';
@@ -16,7 +16,9 @@ import { LoginEOSService } from 'eos-ulm';
   styleUrls: ['./ram.component.css']
 })
 export class RamPageComponent implements OnInit{
-  
+   
+  @Input() autoscale;
+
   spinner = false;
   displayedColumns = ['Tx', 'Type', 'Price', 'Amount', 'Date'];
   eosToInt = Math.pow(10, 13);
@@ -27,7 +29,6 @@ export class RamPageComponent implements OnInit{
       colorScheme : {
           domain: ['#44a264']
       },
-      view : [900, 400],
       showXAxis : true,
       showYAxis : true,
       gradient : true,
@@ -42,7 +43,7 @@ export class RamPageComponent implements OnInit{
   }; 
   mainCurrencyChartDataRes;
   defaultTimeName = 'Day';
-  timeArray = ['Week'];
+  timeArray = ['Week', 'Month', 'All'];
   dateFrom = new Date(+new Date() - 24 * 60 * 60 * 1000);
   frontConfig = environment.frontConfig;
 
@@ -82,9 +83,9 @@ export class RamPageComponent implements OnInit{
   createChartArr(data){
     let result = [];
       data.forEach(elem => {
-          let quoteBalance  = Number(elem.quote.split(' ')[0]);
-          let baseBalance   = Number(elem.base.split(' ')[0]);
-          result.push({ name: new Date(elem.date), value: (quoteBalance / baseBalance * 1024).toFixed(8) });
+          let quoteBalance  = Number(elem.arr[0].quote.split(' ')[0]);
+          let baseBalance   = Number(elem.arr[0].base.split(' ')[0]);
+          result.push({ name: new Date(elem._id), value: (quoteBalance / baseBalance * 1024).toFixed(8) });
       });
     return result;
   }
@@ -100,6 +101,8 @@ export class RamPageComponent implements OnInit{
           date = +new Date() - 7 * 24 * 3600000;
       } else if (name === 'Month'){
           date = +new Date() - 30 * 7 * 24 * 3600000;
+      } else if (name === 'All'){
+          date = 0;
       }
       this.getChart(date);
   }

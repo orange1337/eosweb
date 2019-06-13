@@ -189,14 +189,15 @@ module.exports 	= (router, config, request, log, mongoMain, MARIA) => {
 	* router - get_chart_ram
 	* params - offset
 	*/
-	router.post('/api/v1/get_chart_ram', (req, res) => {
-		let dateFrom = +new Date(req.body.from);
+	router.post('/api/v1/get_chart_ram', async (req, res) => {
+		/*let dateFrom = +new Date(req.body.from);
 		let daysMax = +new Date() - 30 * 7 * 24 * 3600000;
 		let date;
 		if (daysMax < dateFrom){
 			date = daysMax;
 		}
 		date = dateFrom;
+	   	
 	   	RAM.find({ date : { $gte: new Date(date) } })
 	   	 		.exec((err, result) => {
 	   	 		if (err){
@@ -204,7 +205,43 @@ module.exports 	= (router, config, request, log, mongoMain, MARIA) => {
 	   	 			return res.status(500).end();
 	   	 		}
 	   	 		res.json(result);
-	   	});
+	   	});*/
+	   	let result;
+	   	let interval 	= 3; // mins. 
+	   	let dateFrom 	= (req.body.from === 0) ? 0 : +new Date(req.body.from);
+	   	let week 		= +new Date() - 8 * 7 * 24 * 3600000; 
+	   	let month 		= +new Date() - 32 * 7 * 24 * 3600000;
+	   	let match 		= (dateFrom === 0) ? {} : { date : { $gte: new Date(dateFrom) } };
+
+	   	if (dateFrom > month && dateFrom < week) {
+	   		interval = 60;// mins
+	   	} else if (dateFrom === 0){
+			interval = 180; // mins
+	   	}
+
+	   	let query = [
+	   		{ $match: match },
+  			{ $group: {
+  			  _id: {
+  			    $toDate: {
+  			      $subtract: [
+  			        { $toLong: "$date" },
+  			        { $mod: [ { "$toLong": "$date" }, 1000 * 60 * interval ] }
+  			      ]
+  			    }
+  			  },
+  			  arr: { $push: { quote: "$quote", base: "$base" } }
+  			}},
+  			{ $sort: { _id: 1 } }
+	   	];
+	   	
+	   	try {
+	   		result = await RAM.aggregate(query);
+	   	} catch (err){
+			log.error(err);
+	   	 	return res.status(500).end();
+	   	}
+	   	res.json(result);
 	});
 
 	/*

@@ -246,6 +246,10 @@ export class AccountPageComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
     this.block = this.route.params.subscribe(params => {
+       this.actionsArray = [];
+       this.tables = [];
+       this.actions = [];
+       this.dataSource = [];
        this.accountId = params['id'];
        this.getBlockData(this.accountId);
        this.getControlledAccounts(this.accountId);
@@ -254,9 +258,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy() {
-    this.block.unsubscribe(); 
-    this.actionsArray = [];
-    this.tables = [];
+    this.block.unsubscribe();
   }	
 }
 
