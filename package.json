@@ -25,7 +25,7 @@
     "@swimlane/ngx-charts": "^12.0.1",
     "angular2-notifications": "^2.0.0",
     "core-js": "^2.5.4",
-    "eos-ulm": "^0.1.4",
+    "eos-ulm": "^0.1.6",
     "hammerjs": "^2.0.8",
     "leaflet": "^1.5.1",
     "moment": "^2.24.0",
