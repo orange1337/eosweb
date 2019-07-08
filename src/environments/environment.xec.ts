@@ -1,18 +1,18 @@
-const chain = '3feda55004306ea093f725febe25d10bd9d8104bbca2ab82804b901d3a23f976';
+const chain = '26cb0c47ce429d6a489d4aa088abe1c8daaffb352fd048b9cd2b5a9ebff0b965';
 export const environment = {
     production: true,
     appName: 'XECweb',
     network: {
         blockchain: 'eos',
-        host: 'testnet.europechain.io',
-        port: 4388,
+        host: 'api.xec.cryptolions.io',
+        port: 443,
         protocol: 'https',
         expireInSeconds: 120,
         chainId: chain
     },
     chain: chain,
     Eos: {
-        httpEndpoint: 'https://testnet.europechain.io',
+        httpEndpoint: 'https://api.xec.cryptolions.io',
         chainId: chain,
         verbose: false
     },
