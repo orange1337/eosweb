@@ -32,7 +32,7 @@ export const environment = {
               { name: 'Jungle', url: 'https://jungle.eosweb.net', active: false }],
        disableNets: false,
        voteDonationAcc: 'eoswebnetbp1',
-       disableVoteDonation: false,
+       disableVoteDonation: true,
        version: '1.0.0',
        producers: 100
     }
