@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
   };
   search;
   frontConfig = environment.frontConfig;
+  env = environment;
   netName;
   networks = [];
   darkTheme = (localStorage.getItem('darkTheme') === 'true') ? true : false;

@@ -38,6 +38,14 @@ export const environment = {
        voteDonationAcc: 'eoswebnetbp1',
        disableVoteDonation: false,
        version: '2.2.8',
-       producers: 1000
+       producers: 1000,
+       social: [
+         { link: '', icon: 'fa-github' },
+         { link: '', icon: 'fa-facebook' },
+         { link: '', icon: 'fa-reddit-alien' },
+         { link: 'https://medium.com/europechain', icon: 'fa-medium' },
+         { link: 'https://twitter.com/europechain_', icon: 'fa-twitter' },
+         { link: 'https://t.me/europechain', icon: 'fa-telegram-plane' }
+       ]
     }
 };

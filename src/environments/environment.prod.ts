@@ -33,6 +33,14 @@ export const environment = {
        voteDonationAcc: 'eoswebnetbp1',
        disableVoteDonation: false,
        version: '2.2.8',
-       producers: 1000
+       producers: 1000,
+       social: [
+         { link: 'https://github.com/orange1337/eosweb', icon: 'fa-github' },
+         { link: 'https://www.facebook.com/EOSwebnet-199076424068961', icon: 'fa-facebook' },
+         { link: 'https://www.reddit.com/user/eosweb', icon: 'fa-reddit-alien' },
+         { link: 'https://medium.com/@EoswebN', icon: 'fa-medium' },
+         { link: 'https://twitter.com/EoswebN', icon: 'fa-twitter' },
+         { link: 'https://t.me/eoswebdevchat', icon: 'fa-telegram-plane' }
+       ]
     }
 };
