@@ -24,7 +24,7 @@ export const environment = {
        customBalance: false,
        logo: '/assets/images/xec.png',
        name: {
-          big: 'XEC',
+          big: 'xec',
           small: 'web'
        },
        nets: [{ name: 'Europechain', url: 'https://xec.eosweb.net', active: true },

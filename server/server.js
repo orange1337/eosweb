@@ -42,6 +42,7 @@ const mongoMain = mongoose.createConnection(config.MONGO_URI, config.MONGO_OPTIO
     }
     log.info('[Connected to Mongo EOS] : 27017');
 });
+mongoose.set('useCreateIndex', true);
 
 /**
  * PM2 Metrics
