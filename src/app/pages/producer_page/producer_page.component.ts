@@ -47,7 +47,7 @@ export class ProducerComponent implements OnInit, OnDestroy{
       forkJoin([producers, global])
   				 .subscribe(
                       (res: any) => {
-                          this.totalProducerVoteWeight = res[1].rows[0].total_producer_vote_weight;
+                          this.totalProducerVoteWeight = Number(res[1].rows[0].total_producer_vote_weight);
                           this.mainElement = this.findProducer(this.MainService.countRate(this.MainService.sortArray(res[0].rows), this.totalProducerVoteWeight));
                           console.log(this.mainElement)
                           this.getBP(this.mainElement);
