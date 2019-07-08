@@ -8,7 +8,7 @@ const wrapper = new asyncWrapper(log);
 const PRODUCERS_LIMITS 	= 500;
 const defaultImg 		= '/assets/images/eosio.png';
 const bpsImg 			= '/assets/images/bps/';
-const bpsImgPath 		= path.join(__dirname, '../../src/assets/images/bps/');
+const bpsImgPath 		= path.join(__dirname, '../../dist/assets/images/bps/');
 const sharp 			= require('sharp');
 
 async function updateProducersInfo(){
