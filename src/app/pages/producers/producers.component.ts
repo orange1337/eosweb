@@ -48,7 +48,7 @@ export class ProducersPageComponent implements OnInit, OnDestroy{
       forkJoin([producers, global, bpInfo])
   				 .subscribe(
                       (results: any) => {
-                          this.totalProducerVoteWeight = results[1].rows[0].total_producer_vote_weight;
+                          this.totalProducerVoteWeight = Number(results[1].rows[0].total_producer_vote_weight);
                           this.bpJson = results[2];
                           this.globalTable = results[1];
                           this.getSupplyEOS(this.globalTable);

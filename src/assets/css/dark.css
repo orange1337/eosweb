@@ -8,6 +8,9 @@ body{
 .mat-form-field-label {
   color: #b1b6bf;
 }
+.main-table{
+	background: #2d2d31 !important;
+}
 .main-table .mat-header-row, 
 .mat-paginator,
 .mat-expansion-panel,

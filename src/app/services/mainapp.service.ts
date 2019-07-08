@@ -73,8 +73,8 @@ export class MainService {
       }, 0);
       data.forEach((elem, index) => {
         elem.index   = index + 1;
-        elem.rate    = (elem.all_votes / totalProducerVoteWeight * 100).toLocaleString();
-        elem.rewards = this.countRewards(elem.all_votes, elem.index, totalProducerVoteWeight);
+        elem.rate    = (!totalProducerVoteWeight) ? 0 : (elem.all_votes / totalProducerVoteWeight * 100).toLocaleString();
+        elem.rewards = (!totalProducerVoteWeight) ? 0 : this.countRewards(elem.all_votes, elem.index, totalProducerVoteWeight);
       });
       
       return data;
