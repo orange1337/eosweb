@@ -1,4 +1,4 @@
-const chain = '26cb0c47ce429d6a489d4aa088abe1c8daaffb352fd048b9cd2b5a9ebff0b965';
+const chain = 'f778f7d2f124b110e0a71245b310c1d0ac1a0edd21f131c5ecb2e2bc03e8fe2e';
 export const environment = {
     production: true,
     appName: 'XECweb',
