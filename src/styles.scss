@@ -365,11 +365,14 @@ small{
 }
 .main-table{
 	position: relative;
-	min-height: 446px;
+	min-height: 300px;
 	box-shadow: none;
 	font-family: 'ClanProNews';
 	font-weight: 400;
 	background: #fff;
+}
+.main-table-latest-actions{
+	min-height: 446px;
 }
 .main-table .mat-header-row{
 	background-color: #f1f1f2;

@@ -36,7 +36,7 @@
 
 <footer>
   <div class="container">
-  <div class="pull-left">Copyright © 2018. EOSweb. <span *ngIf="!frontConfig?.disableVoteDonation">Donation - <a routerLink="/account/{{frontConfig?.voteDonationAcc}}" class="color-green"><strong>{{frontConfig?.voteDonationAcc}}</strong></a></span></div>
+  <div class="pull-left">Copyright © 2018 EOSweb <span *ngIf="!frontConfig?.disableVoteDonation">Donation - <a routerLink="/account/{{frontConfig?.voteDonationAcc}}" class="color-green"><strong>{{frontConfig?.voteDonationAcc}}</strong></a></span></div>
   <ul class="pull-right">
        <li *ngFor="let elem of env.frontConfig.social;">
           <a [href]="elem.link" target="_blank"><i class="fab {{elem.icon}}" *ngIf="elem.link"></i></a>
