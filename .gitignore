@@ -11,6 +11,7 @@
 /server/logs
 /config.js
 /jungle.config.js
+/xec.config.js
 
 # profiling files
 chrome-profiler-events.json

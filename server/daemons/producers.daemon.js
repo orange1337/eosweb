@@ -22,7 +22,6 @@ async function updateProducersInfo(){
 				table: "producers",
 				limit: PRODUCERS_LIMITS
 			}, 
-			rejectUnauthorized: false,
 			json: true
 	};
 	let data = await wrapper.toStrong(request(options));
@@ -41,7 +40,7 @@ async function updateProducersInfo(){
 	   	 		url = "http://" + url;
 	   	 	}
 	   	 	console.log(url);
-	   		req.get(url, (error, response, body) => {
+	   		req.get({url, rejectUnauthorized: false}, (error, response, body) => {
 	   		 		if (error){
 	   		 			console.error(error);
 	   		 			return cb();
@@ -91,7 +90,7 @@ function saveProducerInfo(bp, elem, callback){
 			 			callback(null);
 			 		});
 			 	} else {
-			 	  TABLE_DB.update({ name: bp.producer_account_name }, updateObg, (err) => {
+			 	  TABLE_DB.updateOne({ name: bp.producer_account_name }, updateObg, (err) => {
 			 	  		if (err){
 			 				return callback(err); 
 			 			}
