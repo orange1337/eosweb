@@ -22,6 +22,7 @@ async function updateProducersInfo(){
 				table: "producers",
 				limit: PRODUCERS_LIMITS
 			}, 
+			rejectUnauthorized: false,
 			json: true
 	};
 	let data = await wrapper.toStrong(request(options));
