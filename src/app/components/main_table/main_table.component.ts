@@ -43,7 +43,7 @@ export class MainTableComponent implements OnInit, OnDestroy{
   @ViewChild(MatSort) sort: MatSort;*/
 
   constructor(protected http: HttpClient,
-              @Inject(PLATFORM_ID) private platformId: Object, private socket : Socket, private MainService: MainService) {
+              @Inject(PLATFORM_ID) private platformId: Object, private socket : Socket, public mainService: MainService) {
   }
 
   getData() {
@@ -52,7 +52,7 @@ export class MainTableComponent implements OnInit, OnDestroy{
                   .subscribe(
                       (res: any) => {
                           this.mainData = res;
-                          let ELEMENT_DATA: Element[] = this.MainService.sortArray(this.mainData);
+                          let ELEMENT_DATA: Element[] = this.mainService.sortArray(this.mainData);
                           this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
 
                           let ELEMENT_DATA_TX: Element[] = this.createTransactionsArray(this.mainData);
@@ -113,7 +113,7 @@ export class MainTableComponent implements OnInit, OnDestroy{
       this.getData();
       this.socket.on('get_last_blocks', (data) => {
           this.mainData = data;
-          let ELEMENT_DATA: Element[] = this.MainService.sortArray(this.mainData);
+          let ELEMENT_DATA: Element[] = this.mainService.sortArray(this.mainData);
           this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
 
           let ELEMENT_DATA_TX: Element[] = this.createTransactionsArray(this.mainData);

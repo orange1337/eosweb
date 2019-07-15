@@ -23,6 +23,7 @@ export class MainService {
     }*/
   };
   ungerKey = "EOS1111111111111111111111111111111114T1Anm";
+  liveTXHide = localStorage.getItem('liveTXHide') ? true : false;
 
   private messageSource = new BehaviorSubject("");
   currentMessage = this.messageSource.asObservable();

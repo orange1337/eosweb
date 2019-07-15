@@ -84,9 +84,14 @@
            <div class="color-grey-text pull-left tps-text"><small>users online:</small></div>
            <div class="pull-left color-green"> {{ usersOnline }}</div>
       </div>
-      <h3 class="producer-candidate pull-right" *ngIf="!frontConfig?.disableVoteDonation">
-          <small>vote for us: </small> 
-          <strong><a routerLink="/vote" class="color-green">{{frontConfig?.voteDonationAcc}}</a></strong>
+      <h3 class="producer-candidate pull-right">
+          <small class="color-green live-actions" *ngIf="frontConfig?.liveTXenable" (click)="liveActions()">
+            Live Actions 
+            <i class="fas fa-chevron-up" *ngIf="!mainService.liveTXHide"></i>
+            <i class="fas fa-chevron-down" *ngIf="mainService.liveTXHide"></i>
+          </small>
+          <small *ngIf="!frontConfig?.disableVoteDonation">vote for us: </small> 
+          <strong *ngIf="!frontConfig?.disableVoteDonation"><a routerLink="/vote" class="color-green">{{frontConfig?.voteDonationAcc}}</a></strong>
       </h3>
     </div>
 

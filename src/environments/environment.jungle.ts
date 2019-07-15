@@ -41,6 +41,7 @@ export const environment = {
          { link: 'https://medium.com/@EoswebN', icon: 'fa-medium' },
          { link: 'https://twitter.com/EoswebN', icon: 'fa-twitter' },
          { link: 'https://t.me/eoswebdevchat', icon: 'fa-telegram-plane' }
-       ]
+       ],
+       liveTXenable: true
     }
 };

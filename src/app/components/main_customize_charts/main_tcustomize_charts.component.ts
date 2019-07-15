@@ -41,7 +41,9 @@ export class MainCustomizeChartsComponent implements OnInit{
   actionsTransactions;
   frontConfig = environment.frontConfig;
 
-  constructor(private http: HttpClient, private socket: Socket, private MainService: MainService){
+  constructor(private http: HttpClient, 
+              private socket: Socket, 
+              public mainService: MainService){
   }
 
   getData() {
@@ -49,7 +51,7 @@ export class MainCustomizeChartsComponent implements OnInit{
                   .subscribe(
                       (res: any) => {
                            this.currencyObj = res;
-                           this.MainService.setEosPrice(this.currencyObj);
+                           this.mainService.setEosPrice(this.currencyObj);
                            setTimeout(() => { this.getData() }, this.timeForUpdate);
                       },
                       (error) => {
@@ -91,6 +93,15 @@ export class MainCustomizeChartsComponent implements OnInit{
                       (error) => {
                           console.error(error);
                       });
+  }
+
+  liveActions(){
+    this.mainService.liveTXHide = !this.mainService.liveTXHide;
+    if (this.mainService.liveTXHide) {
+       localStorage.setItem('liveTXHide', 'hide');
+    } else {
+       localStorage.removeItem('liveTXHide');
+    }
   }
 
   /*getActionsTransactions(){
@@ -164,7 +175,7 @@ export class MainCustomizeChartsComponent implements OnInit{
           if (res && res.length === 2){
              this.TPSliveTx = this.countTPS(res);
              this.producer = (this.producer === res[1].producer) ? this.producer : res[1].producer;
-             this.MainService.changeMessage(this.producer);
+             this.mainService.changeMessage(this.producer);
           }
       });
 

@@ -42,6 +42,7 @@ export const environment = {
          { link: 'https://medium.com/europechain', icon: 'fa-medium' },
          { link: 'https://twitter.com/europechain_', icon: 'fa-twitter' },
          { link: 'https://t.me/europechain', icon: 'fa-telegram-plane' }
-       ]
+       ],
+       liveTXenable: true
     }
 };

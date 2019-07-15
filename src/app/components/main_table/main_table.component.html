@@ -1,5 +1,5 @@
     
-<div class="row">
+<div class="row" *ngIf="mainService.liveTXHide">
 
 <div class="spinner-container" *ngIf="spinner">
     <mat-spinner class="spinner-color"></mat-spinner>
@@ -8,7 +8,7 @@
 <div class="col-md-5">
 <h1 class="market-header">Blocks</h1>
 
-<div class="example-container mat-elevation-z8 main-table">
+<div class="example-container mat-elevation-z8 main-table main-table-latest-actions">
 
   <mat-table #table [dataSource]="dataSource">
 
