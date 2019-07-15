@@ -29,6 +29,7 @@
     "hammerjs": "^2.0.8",
     "leaflet": "^1.5.1",
     "lodash": "^4.17.13",
+    "lodash.mergewith": "^4.6.2",
     "moment": "^2.24.0",
     "ng-socket-io": "^0.2.4",
     "ngx-json-viewer": "^2.4.0",
