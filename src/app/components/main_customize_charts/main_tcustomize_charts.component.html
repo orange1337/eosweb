@@ -87,8 +87,8 @@
       <h3 class="producer-candidate pull-right">
           <small class="color-green live-actions" *ngIf="frontConfig?.liveTXenable" (click)="liveActions()">
             Live Actions 
-            <i class="fas fa-chevron-up" *ngIf="!mainService.liveTXHide"></i>
-            <i class="fas fa-chevron-down" *ngIf="mainService.liveTXHide"></i>
+            <i class="fas fa-chevron-up" *ngIf="mainService.liveTXHide"></i>
+            <i class="fas fa-chevron-down" *ngIf="!mainService.liveTXHide"></i>
           </small>
           <small *ngIf="!frontConfig?.disableVoteDonation">vote for us: </small> 
           <strong *ngIf="!frontConfig?.disableVoteDonation"><a routerLink="/vote" class="color-green">{{frontConfig?.voteDonationAcc}}</a></strong>
