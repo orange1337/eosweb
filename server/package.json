@@ -19,6 +19,7 @@
     "eosjs": "^16.0.9",
     "express": "^4.17.1",
     "helmet": "^3.18.0",
+    "lodash": "^4.17.13",
     "mongoose": "^5.5.14",
     "node-cron": "^2.0.3",
     "node-telegram-bot-api": "^0.30.0",
