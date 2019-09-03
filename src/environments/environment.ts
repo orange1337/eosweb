@@ -33,7 +33,9 @@ export const environment = {
           small: 'web'
        },
        nets: [{ name: 'Mainnet', url: 'https://eosweb.net', active: true },
-              { name: 'Jungle', url: 'https://jungle.eosweb.net', active: false }],
+              { name: 'Jungle', url: 'https://jungle.eosweb.net', active: false },
+              { name: 'Europechain', url: 'https://xec.eosweb.net', active: false },
+              { name: 'WAX', url: 'https://wax.eosweb.net', active: false }],
        disableNets: false,
        voteDonationAcc: 'eoswebnetbp1',
        disableVoteDonation: false,

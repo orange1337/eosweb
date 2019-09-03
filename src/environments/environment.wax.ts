@@ -1,10 +1,10 @@
-const chain = 'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473';
+const chain = '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4';
 export const environment = {
-    production: false,
-    appName: 'EOSweb Jungle Testnet',
+    production: true,
+    appName: 'WAXweb',
     network: {
         blockchain: 'eos',
-        host: 'jungle2.cryptolions.io',
+        host: 'wax.cryptolions.io',
         port: 443,
         protocol: 'https',
         expireInSeconds: 120,
@@ -12,30 +12,30 @@ export const environment = {
     },
     chain: chain,
     Eos: {
-        httpEndpoint: 'https://jungle2.cryptolions.io',
+        httpEndpoint: 'https://wax.cryptolions.io',
         chainId: chain,
         verbose: false
     },
     frontConfig: {
-       coin: 'EOS',
+       coin: 'WAX',
        tokenContract: 'eosio.token',
-       totalBalance: 'EOS',
+       totalBalance: 'WAX',
        convertToUSD: true,
        customBalance: false,
-       logo: '/assets/images/jungle.png',
+       logo: '/assets/images/wax.png',
        name: {
-          big: 'eos',
+          big: 'wax',
           small: 'web'
        },
        nets: [{ name: 'Mainnet', url: 'https://eosweb.net', active: false },
-              { name: 'Jungle', url: 'https://jungle.eosweb.net', active: true },
+              { name: 'Jungle', url: 'https://jungle.eosweb.net', active: false },
               { name: 'Europechain', url: 'https://xec.eosweb.net', active: false },
-              { name: 'WAX', url: 'https://wax.eosweb.net', active: false }],
+              { name: 'WAX', url: 'https://wax.eosweb.net', active: true }],
        disableNets: false,
-       voteDonationAcc: 'lioninjungle',
+       voteDonationAcc: 'cryptolions1',
        disableVoteDonation: false,
-       version: '2.2.8',
-       producers: 500,
+       version: '1.0.0',
+       producers: 1000,
        social: [
          { link: 'https://github.com/orange1337/eosweb', icon: 'fa-github' },
          { link: 'https://www.facebook.com/EOSwebnet-199076424068961', icon: 'fa-facebook' },

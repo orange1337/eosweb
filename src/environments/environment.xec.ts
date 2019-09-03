@@ -27,9 +27,10 @@ export const environment = {
           big: 'xec',
           small: 'web'
        },
-       nets: [{ name: 'Europechain', url: 'https://xec.eosweb.net', active: true },
-              { name: 'Mainnet', url: 'https://eosweb.net', active: false },
-              { name: 'Jungle', url: 'https://jungle.eosweb.net', active: false }],
+       nets: [{ name: 'Mainnet', url: 'https://eosweb.net', active: false },
+              { name: 'Jungle', url: 'https://jungle.eosweb.net', active: false },
+              { name: 'Europechain', url: 'https://xec.eosweb.net', active: true },
+              { name: 'WAX', url: 'https://wax.eosweb.net', active: false }],
        disableNets: false,
        voteDonationAcc: 'eoswebnetbp1',
        disableVoteDonation: true,

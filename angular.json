@@ -90,6 +90,23 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
+            },
+            "wax": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.wax.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
             }
           }
         },
@@ -103,10 +120,13 @@
               "browserTarget": "eosweb:build:production"
             },
             "jungle": {
-              "browserTarget": "simplemarket:build:jungle"
+              "browserTarget": "eosweb:build:jungle"
             },
             "xec": {
-              "browserTarget": "simplemarket:build:xec"
+              "browserTarget": "eosweb:build:xec"
+            },
+            "wax": {
+              "browserTarget": "eosweb:build:wax"
             }
           }
         },
@@ -168,6 +188,9 @@
             },
             "xec": {
               "devServerTarget": "eosweb:serve:xec"
+            },
+            "wax": {
+              "devServerTarget": "eosweb:serve:wax"
             }
           }
         },
