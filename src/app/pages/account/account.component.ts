@@ -89,7 +89,8 @@ export class AccountPageComponent implements OnInit, OnDestroy{
 
   getActions(accountName, pos){
       this.spinnerActions = true;
-      this.http.get(`/api/v1/get_actions/${accountName}/-${pos}/-${this.elementsLimit}`)
+      pos = (pos === 1) ? -1 : pos;
+      this.http.get(`/api/v1/get_actions/${accountName}/${pos}/-${this.elementsLimit}`)
            .subscribe((res: any) => {
                           this.actionsNotSorted = res.actions;
                           if(res.actions[0] && !res.actions[0].action_trace){

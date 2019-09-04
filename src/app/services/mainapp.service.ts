@@ -89,7 +89,7 @@ export class MainService {
     let percentageVotesRewarded = total_votes / (totalProducerVoteWeight - this.votesToRemove) * 100;
      
      if (position < 22) {
-       reward += (this.frontConfig.coin === 'EOS') ? 443 : 3382;
+       reward = (this.frontConfig.coin === 'EOS') ? reward + 443 : 4909;
      }
      if (this.frontConfig.coin === 'EOS'){
        reward += percentageVotesRewarded * 200;
@@ -101,7 +101,11 @@ export class MainService {
   }
 
   calculateEosFromVotes(votes){
-      let date = +new Date() / 1000 - 946684800;
+      let date = +new Date() / 1000 - 946684800; // 946... start timestamp
+      if (this.frontConfig.coin === 'WAX'){
+        let weight = parseInt(`${ date / (86400 * 7) }`, 10) / 13;
+        return votes / (2 ** weight) / 100000000;
+      }
       let weight = parseInt(`${ date / (86400 * 7) }`, 10) / 52; // 86400 = seconds per day 24*3600
       return votes / (2 ** weight) / 10000;
   };
