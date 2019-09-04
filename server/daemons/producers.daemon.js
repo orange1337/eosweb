@@ -67,9 +67,10 @@ async function updateProducersInfo(){
 }
 
 function saveProducerInfo(bp, elem, callback){
+	bp.producer_account_name = (bp.producer_account_name && bp.producer_account_name.length) ? bp.producer_account_name : bp.org.candidate_name;
 	if (!bp || !bp.producer_account_name || !bp.org || !bp.org.location || 
 		!bp.org.location.country || !bp.org.branding || !bp.org.branding.logo_256){
-	 		return callback(`Wong ${config.producerJSON} !!!!`);
+	 		return callback(`Wong ${bp.producer_account_name} ${config.producerJSON} !!!!`);
 	}
 	let updateObg = {  name: elem.owner, location: bp.org.location.country, image: defaultImg };
 	downloadBPImage(bp.org.branding.logo_256, `${bpsImgPath}${elem.owner}`, (err, format) => {

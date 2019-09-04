@@ -23,6 +23,7 @@ export const environment = {
     },
     frontConfig: {
        coin: 'EOS',
+       bp: 'bp.json',
        tokenContract: 'eosio.token',
        totalBalance: 'EOS',
        convertToUSD: true,

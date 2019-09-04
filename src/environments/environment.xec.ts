@@ -18,6 +18,7 @@ export const environment = {
     },
     frontConfig: {
        coin: 'XEC',
+       bp: 'xec.json',
        tokenContract: 'eosio.token',
        totalBalance: 'XEC',
        convertToUSD: false,

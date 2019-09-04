@@ -18,6 +18,7 @@ export const environment = {
     },
     frontConfig: {
        coin: 'WAX',
+       bp: 'bp.json',
        tokenContract: 'eosio.token',
        totalBalance: 'WAX',
        convertToUSD: true,

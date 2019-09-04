@@ -1,5 +1,6 @@
 import { Injectable, EventEmitter, Inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class MainService {
@@ -24,6 +25,7 @@ export class MainService {
   };
   ungerKey = "EOS1111111111111111111111111111111114T1Anm";
   liveTXHide = localStorage.getItem('liveTXHide') ? true : false;
+  frontConfig = environment.frontConfig;
 
   private messageSource = new BehaviorSubject("");
   currentMessage = this.messageSource.asObservable();
@@ -87,9 +89,11 @@ export class MainService {
     let percentageVotesRewarded = total_votes / (totalProducerVoteWeight - this.votesToRemove) * 100;
      
      if (position < 22) {
-       reward += 318;
+       reward += (this.frontConfig.coin === 'EOS') ? 443 : 3382;
      }
-     reward += percentageVotesRewarded * 200;
+     if (this.frontConfig.coin === 'EOS'){
+       reward += percentageVotesRewarded * 200;
+     }
      if (reward < 100) {
        reward = 0;
      }
