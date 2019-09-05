@@ -82,7 +82,7 @@ export class AccountPageComponent implements OnInit, OnDestroy{
                           if (this.frontConfig.customBalance){
                             this.balance = this.unstaked;
                           } else {
-                            this.balance = (this.frontConfig.coin !== 'WAX') ? this.unstaked + staked / 10000 : this.unstaked + staked / 10000000;
+                            this.balance = (this.frontConfig.coin !== 'WAX') ? this.unstaked + staked / 10000 : this.unstaked + staked / 100000000;
                           } 
                           this.eosRate = this.MainService.getEosPrice();
                       },
