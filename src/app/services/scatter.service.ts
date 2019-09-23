@@ -119,7 +119,7 @@ export class ScatterService {
             contract.buyram({
                 payer: this.loginEOSService.accountName,
                 receiver: this.loginEOSService.accountName,
-                quant: `${amount} EOS`
+                quant: `${amount} ${environment.frontConfig.coin}`
             }, this.loginEOSService.options).then(trx => {
                  console.log(trx);
                  this.saveOrder({ amount: this.buyRAM.kb * 1024, account: this.loginEOSService.accountName, type: 'buy', tx_id: trx.transaction_id, price: this.ramPrice });
@@ -177,7 +177,7 @@ export class ScatterService {
         return console.error('Identity error!!!');
     }
         let amount = Number(`${this.donation}`).toFixed(4);
-        this.loginEOSService.eos.transfer(this.loginEOSService.accountName, 'eoswebnetbp1', `${amount} EOS`, 'Donation', this.loginEOSService.options)
+        this.loginEOSService.eos.transfer(this.loginEOSService.accountName, 'eoswebnetbp1', `${amount} ${environment.frontConfig.coin}`, 'Donation', this.loginEOSService.options)
            .then(result => {
                 console.log(result);
                 this.getAccount();
