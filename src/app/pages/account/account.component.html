@@ -3,22 +3,22 @@
 <div class="spinner-container" *ngIf="spinner">
     <mat-spinner class="spinner-color"></mat-spinner>
 </div>
-	
+
 	<h1 class="market-header">Account: {{ mainData?.account_name }}</h1>
 
 	<div class="block-info">
-			
+
 			<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
 					<strong class="block-info-header">Total Balance:</strong>
 				</div>
 				<div class="col-sm-9">
-					<strong>{{ balance?.toLocaleString() }} {{frontConfig?.totalBalance}}</strong> 
-					<span *ngIf="frontConfig?.convertToUSD"> / </span> 
+					<strong>{{ balance?.toLocaleString() }} {{frontConfig?.totalBalance}}</strong>
+					<span *ngIf="frontConfig?.convertToUSD"> / </span>
 					<small *ngIf="frontConfig?.convertToUSD">{{ (balance * eosRate?.RAW[frontConfig.coin]?.USD?.PRICE).toLocaleString() }} USD</small>
 				</div>
 			</div>
-			
+
 			<div class="col-sm-12 block-info-line" *ngIf="!frontConfig?.customBalance">
 				<div class="col-sm-3">
 					<strong class="block-info-header">Unstaked:</strong>
@@ -97,8 +97,8 @@
 				<div class="col-sm-9 tokens-container">
 					<span *ngFor="let token of tokensArray?.balances">
 						<strong *ngIf="token?.currency !== frontConfig?.coin" class="small-tokens">
-							<small >{{ token?.amount }}</small> {{ token?.currency }} - 
-							<a routerLink="/account/{{token?.contract}}" class="color-green">{{ token?.contract }}</a>
+							<small >{{ token?.amount }}</small> {{ token?.currency }} -
+							<a routerLink="/account/{{token?.contract}}" class="color-primary">{{ token?.contract }}</a>
 						</strong>
 					</span>
 				</div>
@@ -113,7 +113,7 @@
 					<span class="account-info"> NET weight: <small>{{ mainData?.total_resources?.net_weight }}</small></span>
 					<span class="account-info"> Owner: <small>{{ mainData?.total_resources?.owner }}</small></span>
 				</div>
-			</div>	
+			</div>
 
 			<div class="col-sm-12 block-info-line" *ngIf="!frontConfig?.customBalance">
 				<div class="col-sm-3">
@@ -136,13 +136,13 @@
 					<span class="account-info"> Owner: <small>{{ mainData?.voter_info?.owner }}</small></span>
 				</div>
 			</div>
-			
+
 			<div class="col-sm-12 block-info-line" *ngIf="creator?.act?.data?.creator && !frontConfig?.customBalance">
 				<div class="col-sm-3">
 					<strong class="block-info-header">Created by:</strong>
 				</div>
 				<div class="col-sm-9">
-					<a routerLink="/account/{{creator?.act?.data?.creator}}" class="color-green">
+					<a routerLink="/account/{{creator?.act?.data?.creator}}" class="color-primary">
 						{{creator?.act?.data?.creator}}
 				    </a>
 				</div>
@@ -198,7 +198,7 @@
 
 			<div class="col-sm-12 block-info-line">
 				<mat-tab-group>
-				  
+
 				  <mat-tab label="Actions info">
 
 				  	<div class="spinner-container" *ngIf="spinnerActions">
@@ -208,24 +208,24 @@
 					<div class="col-sm-4">
 					  <mat-form-field>
 					      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter by action name">
-					  </mat-form-field> 
+					  </mat-form-field>
 					</div>
 
 				  	<div class="example-container mat-elevation-z8 main-table block-trx-table">
-					
-					  <mat-table #table [dataSource]="dataSource" class="big-table" matSort>	
-						
+
+					  <mat-table #table [dataSource]="dataSource" class="big-table" matSort>
+
 						<ng-container matColumnDef="#">
 					      <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
-					      <mat-cell *matCellDef="let element; let index = index;" class="number-flex"> 
+					      <mat-cell *matCellDef="let element; let index = index;" class="number-flex">
 					      	    {{ index + 1 }}
 					      </mat-cell>
 					    </ng-container>
 
 						<ng-container matColumnDef="tx">
 					      <mat-header-cell *matHeaderCellDef class="account-action-name"> Tx id </mat-header-cell>
-					      <mat-cell *matCellDef="let element"> 
-					      	<a routerLink="/transaction/{{element?.action_trace?.trx_id}}" class="color-green tx-hash">
+					      <mat-cell *matCellDef="let element">
+					      	<a routerLink="/transaction/{{element?.action_trace?.trx_id}}" class="color-primary tx-hash">
 					          	{{element?.action_trace?.trx_id}}
 					        </a>
 					      </mat-cell>
@@ -233,7 +233,7 @@
 
 					    <ng-container matColumnDef="date">
 					      <mat-header-cell *matHeaderCellDef class="account-action-name"> Date</mat-header-cell>
-					      <mat-cell *matCellDef="let element"> 
+					      <mat-cell *matCellDef="let element">
 					          	<span class="color-light-grey">{{ moment(element?.block_time).format('lll') }}</span>
 					      </mat-cell>
 					    </ng-container>
@@ -251,7 +251,7 @@
 					    <!-- Weight Column -->
 					    <ng-container matColumnDef="data">
 					      <mat-header-cell *matHeaderCellDef class="actions-list-container"> Action data</mat-header-cell>
-					      <mat-cell *matCellDef="let element"> 
+					      <mat-cell *matCellDef="let element">
 					          	<action-viewer [data]="element?.action_trace?.act" [length]="50" class="color-light-grey actions-list-container"></action-viewer>
 					      </mat-cell>
 					    </ng-container>
@@ -259,7 +259,7 @@
 					    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 					    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 					  </mat-table>
-					
+
               		  <div class="col-sm-4 load-more" *ngIf="actionsNotSorted?.length !== 0">
                			 	<button mat-raised-button color="primary" class="btn-generate" (click)="nextPage(pageIndex + 1)">Load More </button>
               		  </div>
@@ -298,7 +298,7 @@
 										 <strong>{{ moment(action?.block_time).format('lll')  }}</strong>
 									</div>
 									<div class="actions-list text-center">
-										<div *ngIf="action?.action_trace?.act?.data?.to === mainData?.account_name" class="color-green">
+										<div *ngIf="action?.action_trace?.act?.data?.to === mainData?.account_name" class="color-primary">
 											<strong>In</strong>
 										</div>
 										<div *ngIf="action?.action_trace?.act?.data?.to !== mainData?.account_name" class="color-red">
@@ -306,12 +306,12 @@
 										</div>
 									</div>
 									<div class="actions-list">
-										<a routerLink="/account/{{action?.action_trace?.act?.data?.from}}" class="color-green">
+										<a routerLink="/account/{{action?.action_trace?.act?.data?.from}}" class="color-primary">
 											<strong>{{ action?.action_trace?.act?.data?.from }}</strong>
 										</a>
 									</div>
 									<div class="actions-list">
-										<a routerLink="/account/{{action?.action_trace?.act?.data?.to}}" class="color-green">
+										<a routerLink="/account/{{action?.action_trace?.act?.data?.to}}" class="color-primary">
 											<strong>{{ action?.action_trace?.act?.data?.to }}</strong>
 										</a>
 									</div>
@@ -323,11 +323,11 @@
 										<strong>{{ action?.action_trace?.act?.data?.quantity }}</strong>
 									</div>
 									<div class="actions-list">
-										<a routerLink="/transaction/{{action?.action_trace?.trx_id}}" class="color-green tx-hash">
+										<a routerLink="/transaction/{{action?.action_trace?.trx_id}}" class="color-primary tx-hash">
 											{{ action?.action_trace?.trx_id }}
 										</a>
 									</div>
-								  </div>		 
+								  </div>
 						</div>
 				  </mat-tab>
 
@@ -337,42 +337,42 @@
 
 				  <mat-tab label="Permissions ({{ mainData?.permissions.length }})">
 				  	<div class="example-container mat-elevation-z8 main-table block-trx-table">
-					
-					  <mat-table #table [dataSource]="dataSourcePermission" class="big-table" matSort>	
+
+					  <mat-table #table [dataSource]="dataSourcePermission" class="big-table" matSort>
 
 					    <!-- Weight Column -->
 					    <ng-container matColumnDef="Permission">
 					      <mat-header-cell *matHeaderCellDef> Permission</mat-header-cell>
-					      <mat-cell *matCellDef="let element"> 
+					      <mat-cell *matCellDef="let element">
 					          	<strong>{{ element?.perm_name }}</strong>
 					      </mat-cell>
 					    </ng-container>
 
 					    <ng-container matColumnDef="Address">
 					      <mat-header-cell *matHeaderCellDef class="account-address"> Account/Address</mat-header-cell>
-					      <mat-cell *matCellDef="let element" class="account-address"> 
-					          	<a routerLink="/address/{{element?.required_auth?.keys[0]?.key}}" class="color-green" *ngIf="element?.required_auth?.keys?.length">
+					      <mat-cell *matCellDef="let element" class="account-address">
+					          	<a routerLink="/address/{{element?.required_auth?.keys[0]?.key}}" class="color-primary" *ngIf="element?.required_auth?.keys?.length">
 					          		{{ element?.required_auth?.keys[0]?.key }}
 					          	</a>
 					          	<div *ngIf="element?.required_auth?.accounts?.length">
 					          		<div *ngFor="let elem of element?.required_auth?.accounts;" class="multisig-container">
-					          			<a routerLink="/account/{{elem?.permission?.actor}}" class="color-green">{{elem?.permission?.actor}}</a> -   
+					          			<a routerLink="/account/{{elem?.permission?.actor}}" class="color-primary">{{elem?.permission?.actor}}</a> -
 					          			weight: <strong>{{elem?.weight}}</strong>
 					          		</div>
 					          	</div>
 					      </mat-cell>
 					    </ng-container>
-						
+
 						<ng-container matColumnDef="Threshold">
 					      <mat-header-cell *matHeaderCellDef> Threshold</mat-header-cell>
-					      <mat-cell *matCellDef="let element"> 
+					      <mat-cell *matCellDef="let element">
 					          	{{ element?.required_auth?.threshold }}
 					      </mat-cell>
 					    </ng-container>
 
 						<ng-container matColumnDef="Weight">
 					      <mat-header-cell *matHeaderCellDef> Weight</mat-header-cell>
-					      <mat-cell *matCellDef="let element"> 
+					      <mat-cell *matCellDef="let element">
 					          	{{ element?.required_auth?.keys[0]?.weight }}
 					      </mat-cell>
 					    </ng-container>
@@ -385,14 +385,14 @@
 
 				   <mat-tab label="Controlled Accounts ({{ controlledAccount?.controlled_accounts?.length }})">
 				  		  <div *ngFor="let acc of controlledAccount?.controlled_accounts;" class="controlled-acc">
-				  		  	<a routerLink="/account/{{acc}}" class="color-green">
+				  		  	<a routerLink="/account/{{acc}}" class="color-primary">
 					          		<strong>{{ acc }}</strong>
-					      	</a> 
+					      	</a>
 				  		  </div>
 				  </mat-tab>
 
 				</mat-tab-group>
 			</div>
-			
+
 	</div>
 </div>
