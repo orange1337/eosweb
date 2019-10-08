@@ -16,7 +16,7 @@ import { LoginEOSService } from 'eos-ulm';
   styleUrls: ['./ram.component.css']
 })
 export class RamPageComponent implements OnInit{
-   
+
   @Input() autoscale;
 
   spinner = false;
@@ -27,7 +27,7 @@ export class RamPageComponent implements OnInit{
   moment = moment;
   ngxChartOptions = {
       colorScheme : {
-          domain: ['#44a264']
+          domain: ['#3d6ff7']
       },
       showXAxis : true,
       showYAxis : true,
@@ -40,14 +40,14 @@ export class RamPageComponent implements OnInit{
       autoScale : true,
       timeline: true,
       fitContainer : true
-  }; 
+  };
   mainCurrencyChartDataRes;
   defaultTimeName = '1d';
   timeArray = ['1d', '1w', '1m', 'all'];
   dateFrom = new Date(+new Date() - 24 * 60 * 60 * 1000);
   frontConfig = environment.frontConfig;
 
-  constructor(protected http: HttpClient, 
+  constructor(protected http: HttpClient,
               private socket: Socket,
               private MainService: MainService,
               public scatterService: ScatterService,
@@ -118,7 +118,7 @@ export class RamPageComponent implements OnInit{
   }
   sellChangeKB(e) {
       this.scatterService.sellRAM.eos = this.scatterService.ramPrice * this.scatterService.sellRAM.kb;
-  }  
+  }
 
 
   parseNumber(number) {
@@ -128,14 +128,14 @@ export class RamPageComponent implements OnInit{
       return parseFloat(number).toFixed(4);
   }
 
-  
+
   ngOnInit() {
      this.getGlobal();
      this.scatterService.getRam();
      this.getChart(this.dateFrom);
 
      if (this.loginEOSService.accountName){
-     	this.scatterService.getOrderHistory();	
+     	this.scatterService.getOrderHistory();
      } else {
      	this.loginEOSService.loggedIn.subscribe(res => {
         	this.scatterService.getOrderHistory();
