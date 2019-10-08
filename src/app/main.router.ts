@@ -10,71 +10,71 @@ import { AnalyticsPageComponent } from './pages/analytics/analytics.component';
 import { TokensPageComponent } from './pages/tokens/tokens.component';
 import { RamPageComponent } from './pages/ram/ram.component';
 import { SoonComponent } from './pages/soon/soon.component';
-import { WalletPageComponent } from './pages/wallet/wallet.component';
-import { VotePageComponent } from './pages/vote/vote.component';
+// import { WalletPageComponent } from './pages/wallet/wallet.component';
+// import { VotePageComponent } from './pages/vote/vote.component';
 import { WidgetComponent } from './components/ram_widget/widget.component';
 
 export const routes: Routes = [
-  { 
-  	path: '', 
-  	component: MainPageComponent, 
-  	pathMatch: 'full' 
+  {
+  	path: '',
+  	component: MainPageComponent,
+  	pathMatch: 'full'
   },
-   { 
-  	path: 'block/:id', 
-  	component: BlockPageComponent 
-  },
-  { 
-    path: 'account/:id', 
-    component: AccountPageComponent
-  },
-  { 
-    path: 'address/:id', 
-    component: AddressPageComponent 
-  },
-  { 
-    path: 'producers', 
-    component: ProducersPageComponent 
-  },
-  { 
-    path: 'producer/:id', 
-    component: ProducerComponent 
-  },
-  { 
-    path: 'analytics', 
-    component: AnalyticsPageComponent 
-  },
-  { 
-    path: 'accounts', 
-    component: AnalyticsPageComponent 
+   {
+  	path: 'block/:id',
+  	component: BlockPageComponent
   },
   {
-    path: 'ram', 
-    component: RamPageComponent 
+    path: 'account/:id',
+    component: AccountPageComponent
   },
-  { 
-    path: 'transaction/:id', 
-    component: TransactionPageComponent 
+  {
+    path: 'address/:id',
+    component: AddressPageComponent
   },
-  { 
-    path: 'wallet', 
-    component: WalletPageComponent 
+  {
+    path: 'producers',
+    component: ProducersPageComponent
   },
-  { 
-    path: 'vote', 
-    component: VotePageComponent 
+  {
+    path: 'producer/:id',
+    component: ProducerComponent
   },
-  { 
-    path: 'tokens', 
-    component: TokensPageComponent 
+  {
+    path: 'analytics',
+    component: AnalyticsPageComponent
+  },
+  {
+    path: 'accounts',
+    component: AnalyticsPageComponent
+  },
+  {
+    path: 'ram',
+    component: RamPageComponent
+  },
+  {
+    path: 'transaction/:id',
+    component: TransactionPageComponent
+  },
+  // {
+  //   path: 'wallet',
+  //   component: WalletPageComponent
+  // },
+  // {
+  //   path: 'vote',
+  //   component: VotePageComponent
+  // },
+  {
+    path: 'tokens',
+    component: TokensPageComponent
   },
   {
     path: "widget/ram",
     component: WidgetComponent
   },
-  { 
-    path: 'notfound', 
-    component: SoonComponent 
+  {
+    path: 'notfound',
+    component: SoonComponent
   },
   { path: '**', redirectTo: '' },
 ]

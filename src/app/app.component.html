@@ -4,15 +4,18 @@
   <a routerLink="" class="logo pull-left">
     <img src="{{frontConfig?.logo}}" width="30" alt="">
     <span class="name-explorer">{{frontConfig?.name?.small}}</span>
-    <span class="name-eos">{{frontConfig?.name?.big}}</span> 
+    <span class="name-eos">{{frontConfig?.name?.big}}</span>
   </a>
   <div class="main-search">
     <i class="fal fa-search" (click)="searchGlobal(search)"></i>
     <input type="search" placeholder="Search by block, tx, account, address" [(ngModel)]="search" (keyup)="onKey($event)">
   </div>
   <ul class="pull-right main-nav-middle">
-    <li *ngIf="!frontConfig?.customBalance"><button mat-button color="basic" routerLink="wallet" [ngClass]="{'nav-active': activeMenu() === '/wallet'}" class="mobile-no">wallet</button></li>
-    <li *ngIf="!frontConfig?.customBalance"><button mat-button color="basic" routerLink="vote" [ngClass]="{'nav-active': activeMenu() === '/vote'}" class="mobile-no">vote</button></li>
+
+    <!-- <li *ngIf="!frontConfig?.customBalance"><button mat-button color="basic" routerLink="wallet" [ngClass]="{'nav-active': activeMenu() === '/wallet'}" class="mobile-no">wallet</button></li> -->
+
+    <!-- <li *ngIf="!frontConfig?.customBalance"><button mat-button color="basic" routerLink="vote" [ngClass]="{'nav-active': activeMenu() === '/vote'}" class="mobile-no">vote</button></li> -->
+
     <li *ngIf="!frontConfig?.customBalance"><button mat-button color="basic" routerLink="analytics" [ngClass]="{'nav-active': activeMenu() === '/analytics'}">Analytics</button></li>
     <li *ngIf="!frontConfig?.customBalance"><button mat-button color="basic" routerLink="ram" [ngClass]="{'nav-active': activeMenu()  === '/ram'}">Ram</button></li>
     <li><button mat-button color="basic" routerLink="producers" [ngClass]="{'nav-active': activeMenu()  === '/producers'}">Producers</button></li>
