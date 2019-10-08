@@ -54,13 +54,13 @@ export const environment = {
     }
 };*/
 
-const chain = '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4';
+const chain = '37ec63023f051ad81db28e72e0b45ab81e60a150e80da240a5e6fa92b42fd7b7';
 export const environment = {
     production: true,
-    appName: 'WAXweb',
+    appName: 'DAObet',
     network: {
         blockchain: 'eos',
-        host: 'wax.cryptolions.io',
+        host: 'api.daobet.org',
         port: 443,
         protocol: 'https',
         expireInSeconds: 120,
@@ -68,38 +68,42 @@ export const environment = {
     },
     chain: chain,
     Eos: {
-        httpEndpoint: 'https://wax.cryptolions.io',
+        httpEndpoint: 'https://api.daobet.org',
         chainId: chain,
         verbose: false
     },
     frontConfig: {
-       coin: 'WAX',
+       coin: 'BET',
        bp: 'bp.json',
        tokenContract: 'eosio.token',
-       totalBalance: 'WAX',
+       totalBalance: 'BET',
        convertToUSD: true,
        customBalance: false,
-       logo: '/assets/images/wax.png',
+       logo: '/assets/images/daobet_logo.svg',
        name: {
-          big: 'wax',
-          small: 'web'
+          big: 'DAO',
+          small: 'bet'
        },
-       nets: [{ name: 'Mainnet', url: 'https://eosweb.net', active: false },
-              { name: 'Jungle', url: 'https://jungle.eosweb.net', active: false },
-              { name: 'Europechain', url: 'https://xec.eosweb.net', active: false },
-              { name: 'WAX', url: 'https://wax.eosweb.net', active: true }],
+
+       nets: [
+              { name: 'Mainnet', url: 'https://explorer.daobet.org/', active: false },
+              { name: 'Testnet', url: 'https://explorer.daobet.org/', active: true },
+              // { name: 'Europechain', url: 'https://xec.eosweb.net', active: false },
+              // { name: 'WAX', url: 'https://wax.eosweb.net', active: true }
+             ],
+
        disableNets: false,
-       voteDonationAcc: 'cryptolions1',
-       disableVoteDonation: false,
+       voteDonationAcc: 'doanteAccName',
+       disableVoteDonation: true,
        version: '1.0.0',
        producers: 1000,
        social: [
-         { link: 'https://github.com/orange1337/eosweb', icon: 'fa-github' },
-         { link: 'https://www.facebook.com/EOSwebnet-199076424068961', icon: 'fa-facebook' },
-         { link: 'https://www.reddit.com/user/eosweb', icon: 'fa-reddit-alien' },
-         { link: 'https://medium.com/@EoswebN', icon: 'fa-medium' },
-         { link: 'https://twitter.com/EoswebN', icon: 'fa-twitter' },
-         { link: 'https://t.me/eoswebdevchat', icon: 'fa-telegram-plane' }
+         { link: 'https://github.com/daocasino', icon: 'fa-github' },
+         { link: 'https://www.facebook.com/Dao.casino', icon: 'fa-facebook' },
+         // { link: 'https://www.reddit.com/user/eosweb', icon: 'fa-reddit-alien' },
+         // { link: 'https://medium.com/@EoswebN', icon: 'fa-medium' },
+         { link: 'https://twitter.com/daocasino', icon: 'fa-twitter' },
+         { link: 'https://t.me/daobet_validators', icon: 'fa-telegram-plane' }
        ],
        liveTXenable: true
     }

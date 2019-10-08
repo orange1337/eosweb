@@ -1,22 +1,22 @@
-<div class="main-chart-cust-container"> 
+<div class="main-chart-cust-container">
 <div class="container">
 <div class="row main-custom-chart-container">
-    
+
     <div class="col-sm-4 chart-child-container customize-containers-not-active customize-containers-active grid-cs-5-inline" [style.width]="frontConfig?.convertToUSD ? '' : '19.68%'" *ngIf="frontConfig?.convertToUSD">
       <div class="col-xs-8 no-padding first-container-widget">
-       <div class="color-grey-text">{{frontConfig.coin}} - usd</div> 
+       <div class="color-grey-text">{{frontConfig.coin}} - usd</div>
        <div class="chart-child-container-dollar">
           <div class="pull-left"><i class="fas fa-dollar-sign"></i> {{ currencyObj?.RAW[frontConfig.coin]?.USD?.PRICE?.toFixed(3) }}</div>
-          <div class="pull-right chart-child-container-change first-container-change"> 
+          <div class="pull-right chart-child-container-change first-container-change">
             <div class="color-green" [ngClass]="{'color-red': currencyObj?.RAW[frontConfig.coin]?.USD?.CHANGEDAY < 0}">
               <i class="material-icons">{{ (currencyObj?.RAW[frontConfig.coin]?.USD?.CHANGEDAY < 0) ? 'arrow_drop_down' : 'keyboard_arrow_up' }}</i>
               {{ (currencyObj?.RAW[frontConfig.coin]?.USD?.CHANGEDAY?.toFixed(2)).replace('-', '') }} <i class="fas fa-percent"></i>
             </div>
           </div>
-       </div>        
+       </div>
       </div>
       <div class="col-xs-4 no-padding widget-chart-container">
-          <div class="currency-page-main-chart"> 
+          <div class="currency-page-main-chart">
             <ngx-charts-line-chart *ngIf="mainCurrencyChartDataRes"
               [view]="ngxChartOptions.view"
               [scheme]="ngxChartOptions.colorScheme"
@@ -31,24 +31,24 @@
               [yAxisLabel]="ngxChartOptions.yAxisLabel"
               [autoScale]="ngxChartOptions.autoScale"
               [curve]="curve">
-            </ngx-charts-line-chart> 
-          </div>        
-      </div> 
-    </div>
-    
-    <div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline" [style.width]="frontConfig?.convertToUSD ? '' : '19.68%'">
-       <div class="color-grey-text">Ram price </div> 
-       <div class="chart-child-container-dollar">
-          <div class="pull-left color-green"> {{ ramPrice }} </div>
-           <small style="margin-left: 5px"> {{frontConfig?.coin}}/kb </small>
-       </div> 
+            </ngx-charts-line-chart>
+          </div>
+      </div>
     </div>
 
     <div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline" [style.width]="frontConfig?.convertToUSD ? '' : '19.68%'">
-       <div class="color-grey-text">Accounts</div> 
+       <div class="color-grey-text">Ram price </div>
+       <div class="chart-child-container-dollar">
+          <div class="pull-left color-green"> {{ ramPrice }} </div>
+           <small style="margin-left: 5px"> {{frontConfig?.coin}}/kb </small>
+       </div>
+    </div>
+
+    <div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline" [style.width]="frontConfig?.convertToUSD ? '' : '19.68%'">
+       <div class="color-grey-text">Accounts</div>
        <div class="chart-child-container-dollar">
           <div class="pull-left color-green"> {{ aggragationData?.accounts?.toLocaleString() }}</div>
-       </div> 
+       </div>
     </div>
 
     <div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline" [style.width]="frontConfig?.convertToUSD ? '' : '19.68%'">
@@ -62,16 +62,16 @@
        <div class="color-grey-text">Actions</div>
        <div class="chart-child-container-dollar">
           <div class="pull-left color-green"> {{ aggragationData?.actions?.toLocaleString() }}</div>
-       </div> 
-    </div>  
-    
+       </div>
+    </div>
+
     <div class="col-sm-2 draggble chart-child-container customize-containers-not-active grid-cs-5-inline" [style.width]="frontConfig?.convertToUSD ? '' : '19.68%'">
-       <div class="color-grey-text">Producer</div> 
+       <div class="color-grey-text">Producer</div>
        <div class="chart-child-container-dollar">
-          <div class="pull-left color-green"> 
-            <a routerLink="/producer/{{producer}}" class="color-green">{{ producer }}</a> 
+          <div class="pull-left color-green">
+            <a routerLink="/producer/{{producer}}" class="color-green">{{ producer }}</a>
           </div>
-       </div> 
+       </div>
     </div>
 
     <div class="col-sm-12">
@@ -86,17 +86,17 @@
       </div>
       <h3 class="producer-candidate pull-right">
           <small class="color-green live-actions" *ngIf="frontConfig?.liveTXenable" (click)="liveActions()">
-            Live Actions 
+            Live Actions
             <i class="fas fa-chevron-up" *ngIf="mainService.liveTXHide"></i>
             <i class="fas fa-chevron-down" *ngIf="!mainService.liveTXHide"></i>
           </small>
-          <small *ngIf="!frontConfig?.disableVoteDonation">vote for us: </small> 
+          <small *ngIf="!frontConfig?.disableVoteDonation">vote for us: </small>
           <strong *ngIf="!frontConfig?.disableVoteDonation"><a routerLink="/vote" class="color-green">{{frontConfig?.voteDonationAcc}}</a></strong>
       </h3>
     </div>
 
     <!--<div class="col-sm-2 chart-child-container customize-container grid-cs-5-inline" [style.width]="frontConfig?.convertToUSD ? '' : '19.68%'">
-      <a class="customize-button text-center"> 
+      <a class="customize-button text-center">
         <div class="custom-widget-title"><span class="customize">Customize</span> widgets <i class="far fa-question-circle"></i></div>
         <div class="learn-more">Learn more <i class="fas fa-chevron-right"></i></div>
       </a>

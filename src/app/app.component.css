@@ -36,7 +36,8 @@
 	font-weight: 300;
 }
 .logo img{
-	margin-top: 5px;
+	margin-top: 12px;
+  width: 126px;
 }
 .logo span{
     margin-left: 10px;
@@ -140,7 +141,7 @@
 	color: #6de29a;
 }
 .main-nav-right{
-	margin-right: 30px !important; 
+	margin-right: 30px !important;
 }
 .main-nav-right li button{
 	text-transform: inherit;
@@ -221,7 +222,7 @@ footer a{
 	color: #fff;
 	text-decoration: none;
 	font-size: 14px;
-}	
+}
 footer i{
 	font-size: 20px;
 }

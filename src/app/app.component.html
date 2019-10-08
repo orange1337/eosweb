@@ -2,9 +2,9 @@
 
 <nav class="main-navigation">
   <a routerLink="" class="logo pull-left">
-    <img src="{{frontConfig?.logo}}" width="30" alt="">
-    <span class="name-explorer">{{frontConfig?.name?.small}}</span>
-    <span class="name-eos">{{frontConfig?.name?.big}}</span>
+    <img src="{{frontConfig?.logo}}" alt="DAOBet">
+    <!-- <span class="name-explorer">{{frontConfig?.name?.small}}</span> -->
+    <!-- <span class="name-eos">{{frontConfig?.name?.big}}</span> -->
   </a>
   <div class="main-search">
     <i class="fal fa-search" (click)="searchGlobal(search)"></i>
@@ -19,6 +19,7 @@
     <li *ngIf="!frontConfig?.customBalance"><button mat-button color="basic" routerLink="analytics" [ngClass]="{'nav-active': activeMenu() === '/analytics'}">Analytics</button></li>
     <li *ngIf="!frontConfig?.customBalance"><button mat-button color="basic" routerLink="ram" [ngClass]="{'nav-active': activeMenu()  === '/ram'}">Ram</button></li>
     <li><button mat-button color="basic" routerLink="producers" [ngClass]="{'nav-active': activeMenu()  === '/producers'}">Producers</button></li>
+
     <li class="select-network" *ngIf="!frontConfig?.disableNets">
         <button mat-button [matMenuTriggerFor]="menu">{{netName}} <i class="fas fa-sort-down"></i></button>
         <mat-menu #menu="matMenu">
@@ -39,12 +40,12 @@
 
 <footer>
   <div class="container">
-  <div class="pull-left">Copyright © 2018 EOSweb <span *ngIf="!frontConfig?.disableVoteDonation">Donation - <a routerLink="/account/{{frontConfig?.voteDonationAcc}}" class="color-green"><strong>{{frontConfig?.voteDonationAcc}}</strong></a></span></div>
+  <div class="pull-left">Copyright © 2019 DAObet <span *ngIf="!frontConfig?.disableVoteDonation">Donation - <a routerLink="/account/{{frontConfig?.voteDonationAcc}}" class="color-green"><strong>{{frontConfig?.voteDonationAcc}}</strong></a></span></div>
   <ul class="pull-right">
        <li *ngFor="let elem of env.frontConfig.social;">
           <a [href]="elem.link" target="_blank"><i class="fab {{elem.icon}}" *ngIf="elem.link"></i></a>
       </li>
-      <li><a href="mailto:dev.eosweb.net@gmail.com">Support</a></li>
+      <!-- <li><a href="https://t.me/daocasino">Support</a></li> -->
   </ul>
    </div>
 </footer>

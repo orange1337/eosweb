@@ -3,7 +3,7 @@
 	"producer_public_key": "EOS5sT6mdCkTBLZM8vZnwqmBpA6gjtbdSTEeGL2k26JQFnjaCg6j2",
 	"org": {
 	"candidate_name": "EOSweb",
-	"website": "https://eosweb.net/",
+	"website": "https://daobet.org/",
 	"code_of_conduct": "",
 	"email": "",
 	"branding": {
@@ -12,8 +12,8 @@
 	"logo_svg": ""
 },
 	"location": {
-	"name": "Kiev",
-	"country": "UA",
+	"name": "Moscow",
+	"country": "RU",
 	"latitude": 50.431782,
 	"longitude": 30.516382
 },

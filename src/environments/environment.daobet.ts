@@ -1,7 +1,7 @@
 const chain = '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4';
 export const environment = {
     production: true,
-    appName: 'WAXweb',
+    appName: 'DAObet',
     network: {
         blockchain: 'eos',
         host: 'wax.cryptolions.io',
@@ -17,13 +17,13 @@ export const environment = {
         verbose: false
     },
     frontConfig: {
-       coin: 'WAX',
+       coin: 'BET',
        bp: 'bp.json',
        tokenContract: 'eosio.token',
-       totalBalance: 'WAX',
+       totalBalance: 'BET',
        convertToUSD: true,
        customBalance: false,
-       logo: '/assets/images/wax.png',
+       logo: '/assets/images/daobet_logo.svg',
        name: {
           big: 'wax',
           small: 'web'
