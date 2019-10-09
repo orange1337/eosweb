@@ -11,6 +11,7 @@
     font-size: 14px;
     border-radius: 3px;
     height: 80px;
+    overflow: hidden;
 }
 .chart-child-container-dollar{
 	color: #fff;

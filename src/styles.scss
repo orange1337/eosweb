@@ -373,6 +373,8 @@ small{
   min-width: 100%;
 }
 .main-table{
+  overflow: hidden;
+  border-radius:3px;
 	position: relative;
 	box-shadow: none;
 	font-family: 'ClanProNews';
