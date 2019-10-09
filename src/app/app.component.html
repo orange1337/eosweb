@@ -26,12 +26,13 @@
           <a *ngFor="let net of networks;" href="{{net?.url}}" mat-menu-item>{{net.name}}</a>
         </mat-menu>
     </li>
-    <li>
+    <li>&nbsp;&nbsp;&nbsp;</li>
+    <!-- <li>
         <a class="telegram-button" (click)="darkEnable(!darkTheme)">
           <i class="fas fa-moon" *ngIf="!darkTheme"></i>
           <i class="fas fa-sun" *ngIf="darkTheme"></i>
         </a>
-    </li>
+    </li> -->
   </ul>
 </nav>
 
