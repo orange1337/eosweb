@@ -1,6 +1,5 @@
-
 .main-navigation{
-	background-color: #111113;
+	background-color: #010217;
 	color: #fff;
 	font-family: 'ClanProNews';
 	display: table;
@@ -103,14 +102,14 @@
     color: #fff;
 }
 .main-search input{
-	background: #29292c;
+	  background: transparent;
     padding: 3px 10px;
     width: 270px;
     margin-left: 10px;
     outline: none;
     border: 0;
     font-size: 12px;
-    border-left: 1px solid #4c4b4d;
+    /*border-left: 1px solid #4c4b4d;*/
     color: #bebdbe;
     -webkit-transition: all .5s;
     -moz-transition: all .5s;
@@ -199,7 +198,7 @@ footer{
 	bottom: 0;
 	width: 100%;
 	display: table;
-	background-color: #141419;
+	background-color: #010217;
 }
 footer div{
 	color: #fff;

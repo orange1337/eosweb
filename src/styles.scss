@@ -25,20 +25,21 @@ $primary_color: #3d6ff7;
   src: url(assets/fonts/ClanPro-News.otf);
 }
 
+html { background: #010217; }
 html {
     position: relative;
     width: 100vw;
     min-height: 100%;
     height: auto !important;
 }
-body{
+body {
 	margin: 0 !important;
 	font-family: 'ClanProNews' !important;
 	overflow-x: hidden;
 	height: auto !important;
 	padding-bottom: 200px;
 	-webkit-font-smoothing: antialiased;
-	background: #f8f8f8;
+  background:#f8f8f8;
 }
 .mat-table{
 	font-family: 'ClanProNews' !important;
