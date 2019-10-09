@@ -21,7 +21,7 @@ body {
 	background-color: #030328;
 }
 .mat-table{
-	background-color: #2d2d32;
+	background-color: #0f0f28;
 }
 .actions-main-container{
 	border-bottom: 1px solid #33333b;
@@ -50,10 +50,10 @@ body {
 	background-color: #b1b6bf;
 }
 .spinner-container{
-	background: rgba(41, 41, 45, 0.8);
+	background: rgba(14, 14, 52, 0.8);
 }
 .main-table .mat-row{
-	box-shadow: 1px 1px 1px #29292d;
+	box-shadow: 1px 1px 1px #11112e;
 }
 .account-ram .mat-progress-bar-buffer {
 	background: #515d65; /*#0794ec;*/
