@@ -38,6 +38,9 @@ body{
 .mat-tab-label, .mat-tab-link,
 .mat-expansion-panel-header-title{
 	color: #b1b6bf !important;
+  color: rgba(255,255,255,0.88) !important;
+  letter-spacing: 0.5px;
+  font-weight: 100;
 }
 .block-info-line{
 	border-top: 1px solid #2d2d32;
