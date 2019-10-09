@@ -1,8 +1,9 @@
-body{
-	/*background: #29292d;*/
-  background: #101121;
+body {
 	color: #fff;
+  background: #0a0b2a;
+  background-image: linear-gradient(to right, #02031c, #04042e);
 }
+
 .strong-content{
 	color: #fff;
 }

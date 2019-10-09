@@ -9,7 +9,6 @@
 
 $primary_color: #3d6ff7;
 
-
 @font-face {
   font-family: Crypto;
   src: url(assets/fonts/cryptofont-webfont.ttf);
@@ -374,7 +373,7 @@ small{
 }
 .main-table{
   overflow: hidden;
-  border-radius:3px;
+  border-radius:5px;
 	position: relative;
 	box-shadow: none;
 	font-family: 'ClanProNews';
