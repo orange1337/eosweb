@@ -8,7 +8,7 @@
   <h1 class="market-header">History <small>Transactions</small></h1>
    <ngx-charts-line-chart
               [view]="ngxChartOptions.view"
-              [scheme]="{ domain: ['#44a264'] }"
+              [scheme]="{ domain: ['#3d6ff7'] }"
               [results]="[{ name: '', series: trx || [{name: '0', value: 1}] }]"
               [gradient]="ngxChartOptions.gradient"
               [xAxis]="ngxChartOptions.showXAxis"
@@ -21,7 +21,7 @@
               [autoScale]="ngxChartOptions.autoScale"
               [timeline]="ngxChartOptions.timeline"
               [curve]="curve">
- </ngx-charts-line-chart> 
+ </ngx-charts-line-chart>
 </div>-->
 
 <div class="col-sm-6 padding-left-no pie-chart">
@@ -33,7 +33,7 @@
               [gradient]="ngxChartOptions.gradient"
               [legend]="true"
               [labels]="true">
- </ngx-charts-pie-chart> 
+ </ngx-charts-pie-chart>
 </div>
 
 <div class="col-md-12">
@@ -48,20 +48,20 @@
           <strong>{{ i + 1 }}</strong>
       </mat-cell>
     </ng-container>
-    
+
     <!-- Name Column -->
     <ng-container matColumnDef="Name">
       <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
       <mat-cell *matCellDef="let element" class="marketcap-container">
-          <a [routerLink]="['/account', element?.account_name ]" class="color-green">
+          <a [routerLink]="['/account', element?.account_name ]" class="color-primary">
           	<strong>{{ element?.account_name }}</strong>
           </a>
        </mat-cell>
     </ng-container>
-    
+
     <ng-container matColumnDef="Balance">
       <mat-header-cell *matHeaderCellDef> Total Balance </mat-header-cell>
-      <mat-cell *matCellDef="let element"> 
+      <mat-cell *matCellDef="let element">
              <strong>{{element?.balance_eos?.toLocaleString() }} {{frontConfig?.coin}}</strong>
       </mat-cell>
     </ng-container>
@@ -69,24 +69,24 @@
     <!-- Weight Column -->
     <ng-container matColumnDef="Staked">
       <mat-header-cell *matHeaderCellDef> Staked </mat-header-cell>
-      <mat-cell *matCellDef="let element" class="color-light-grey"> 
+      <mat-cell *matCellDef="let element" class="color-light-grey">
           <strong>{{element?.staked?.toLocaleString() }} {{frontConfig?.coin}}</strong>
       </mat-cell>
     </ng-container>
 
-    
+
     <!-- Name Column -->
     <ng-container matColumnDef="Unstaked">
       <mat-header-cell *matHeaderCellDef> Unstaked </mat-header-cell>
-      <mat-cell *matCellDef="let element" class="change-container"> 
+      <mat-cell *matCellDef="let element" class="change-container">
            <strong> {{ element?.unstaked?.toLocaleString() }} {{frontConfig?.coin}}</strong>
       </mat-cell>
     </ng-container>
-    
-        <!-- Name Column 
+
+        <!-- Name Column
     <ng-container matColumnDef="Currencies Array">
       <mat-header-cell *matHeaderCellDef> Tokens Array</mat-header-cell>
-      <mat-cell *matCellDef="let element" class="change-container"> 
+      <mat-cell *matCellDef="let element" class="change-container">
            <strong *ngFor="let bal of element?.balance"> {{ bal }} </strong>
       </mat-cell>
     </ng-container>-->

@@ -6,6 +6,9 @@
 @import "~leaflet/dist/leaflet.css";
 /*@import "https://use.fontawesome.com/releases/v5.0.6/css/all.css"*/
 
+
+$primary_color: #3d6ff7;
+
 @font-face {
   font-family: Crypto;
   src: url(assets/fonts/cryptofont-webfont.ttf);
@@ -21,20 +24,21 @@
   src: url(assets/fonts/ClanPro-News.otf);
 }
 
+html { background: #010217; }
 html {
     position: relative;
     width: 100vw;
     min-height: 100%;
     height: auto !important;
 }
-body{
+body {
 	margin: 0 !important;
 	font-family: 'ClanProNews' !important;
 	overflow-x: hidden;
 	height: auto !important;
 	padding-bottom: 200px;
 	-webkit-font-smoothing: antialiased;
-	background: #f8f8f8;
+  background:#f8f8f8;
 }
 .mat-table{
 	font-family: 'ClanProNews' !important;
@@ -67,13 +71,13 @@ a{
 	background: linear-gradient(to right,#3fa3eb,#3568e4);
 	background: -webkit-gradient(linear,left top,right top,from(#3fa3eb),to(#3568e4));
 }
-.mat-fab.mat-warn, .mat-mini-fab.mat-warn, .mat-raised-button.mat-warn { 
+.mat-fab.mat-warn, .mat-mini-fab.mat-warn, .mat-raised-button.mat-warn {
 	background: linear-gradient(to right,#ff9048,#f44336);
-	background: -webkit-gradient(linear,left top,right top,from(#ff9048),to(#f44336)); 
+	background: -webkit-gradient(linear,left top,right top,from(#ff9048),to(#f44336));
 }
 .mat-fab.mat-accent, .mat-mini-fab.mat-accent, .mat-raised-button.mat-accent{
 	background: linear-gradient(to right,#ff9389,#ff8ea4);
-	background: -webkit-gradient(linear,left top,right top,from(#ff9389),to(#ff8ea4)); 
+	background: -webkit-gradient(linear,left top,right top,from(#ff9389),to(#ff8ea4));
 }
 .text-right{
 	text-align: right;
@@ -89,29 +93,29 @@ a{
 	color: #333;
 }
 .nav-active{
-	color: #71d479 !important;
+	color: $primary_color !important;
 }
 .account-cpu .mat-progress-bar-fill::after {
-  	background-color: #71d479;
-}	
+  	background-color: $primary_color;
+}
 .account-cpu .mat-progress-bar-buffer {
 	background: #cdefd0;
 }
 .account-net .mat-progress-bar-fill::after {
   	background-color: #f0b90b;
-}	
+}
 .account-net .mat-progress-bar-buffer {
 	background: #ffe9a5;
 }
 .account-ram-usage .mat-progress-bar-fill::after {
   	background-color: #FF9149;
-}	
+}
 .account-ram-usage .mat-progress-bar-buffer {
 	background: #ffdac3;
 }
 .account-ram .mat-progress-bar-fill::after {
   	background-color: #0794ec;
-}	
+}
 .account-ram .mat-progress-bar-buffer {
 	background: #98d7ff;
 }
@@ -124,16 +128,20 @@ a{
 .color-grey-text{
 	color: #b2b6be;
 }
-.color-green{
+.color-green {
 	color: #71d479 !important;
 	text-decoration: none;
+}
+.color-primary{
+  color: $primary_color !important;
+  text-decoration: none;
 }
 .arrows-prev-next{
 	font-size: 14px !important;
 }
 .arrows-prev-next a:nth-child(2) {
 	margin-left: 10px;
-}   
+}
 .color-red{
 	color: red !important;
 }
@@ -167,7 +175,7 @@ a{
 	top: 20%;
 }
 .spinner-color circle, .mat-spinner circle {
-	stroke: #71d479;
+	stroke: $primary_color;
 }
 .simple-notification-wrapper{
 	z-index: 100000 !important;
@@ -205,7 +213,7 @@ a{
 .top-text-small{
 	font-size: 15px;
 	text-align: center;
-	color: #98999f;	
+	color: #98999f;
 	padding: 10px 50px;
 }
 .social-buttons{
@@ -324,10 +332,10 @@ a{
 	display: none;
 }
 /*.simple-notification.error{
-	background-color: #e36956 !important; 
+	background-color: #e36956 !important;
 }
 .simple-notification.success{
-	background-color: #71d479 !important;
+	background-color: $primary_color !important;
 }
  End Customize notify messages */
 .telegram-button{
@@ -364,6 +372,8 @@ small{
   min-width: 100%;
 }
 .main-table{
+  overflow: hidden;
+  border-radius:5px;
 	position: relative;
 	box-shadow: none;
 	font-family: 'ClanProNews';
@@ -554,7 +564,7 @@ action-viewer{
 }
 
 .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
-	background-color: #71d479 !important;
+	background-color: $primary_color !important;
 }
 .mat-tab-body-content{
 	padding: 25px 15px;

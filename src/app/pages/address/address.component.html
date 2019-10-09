@@ -3,7 +3,7 @@
 <div class="spinner-container" *ngIf="spinner">
     <mat-spinner class="spinner-color"></mat-spinner>
 </div>
-	
+
 	<h1 class="market-header">Address</h1>
 
 	<div class="block-info">
@@ -13,21 +13,21 @@
 					<strong class="block-info-header">Key:</strong>
 				</div>
 				<div class="col-sm-9">
-					<small class="color-green">{{ address }}</small>
+					<small class="color-primary">{{ address }}</small>
 				</div>
 			</div>
-			
+
 			<div class="col-sm-12 block-info-line">
 				<div class="col-sm-3">
 					<strong class="block-info-header">Accounts:</strong>
 				</div>
 				<div class="col-sm-9">
 					<div *ngFor="let name of mainData?.account_names" class="accounts-container">
-						<a [routerLink]="['/account', name]" class="color-green">
+						<a [routerLink]="['/account', name]" class="color-primary">
 							<strong>{{ name }}</strong>
 						</a>
 					</div>
-					
+
 				</div>
 			</div>
 	</div>

@@ -16,11 +16,11 @@
 					<div class="avatatar-img">
 				 		<img src="/assets/images/user-astronaut-solid.svg" width="25" >
 				 	</div>
-				 	<a [routerLink]="['/account', loginEOSService.accountName]" class="color-green acc-name">
+				 	<a [routerLink]="['/account', loginEOSService.accountName]" class="color-primary acc-name">
 				  		{{ loginEOSService.accountName }}
 				 	</a>
 			 </div>
-				
+
 			<div class="col-sm-12 acc-list no-padding">
 				  <div class="balance-acc">
     			     Total Balance: <strong>{{ scatterService.balance?.toLocaleString() }} {{frontConfig?.coin}}</strong>
@@ -32,7 +32,7 @@
     			     Staked: <small><strong>{{ scatterService.staked?.toLocaleString() }} {{frontConfig?.coin}}</strong></small>
     			  </div>
     		</div>
-    
+
 
     		<div class="col-sm-12 acc-list no-padding">
       				<div class="analytics-header-right top-ten">
@@ -53,7 +53,7 @@
         			<small>{{ (scatterService.mainDataRAM?.net_limit?.used / 1024).toFixed(2) }} kb</small> / <small>{{ (scatterService.mainDataRAM?.net_limit?.max / 1024).toFixed(2) }} kb</small>
       		 	</div>
     		 </div>
-    		 
+
     		 <div class="col-sm-12 acc-list no-padding">
     			  <div class="analytics-header-right top-ten">
     			    RAM:
@@ -67,7 +67,7 @@
         <div class="col-sm-12 acc-list no-padding" *ngIf="loginEOSService.accountName">
             <button mat-raised-button class="btn-generate" color="primary" (click)="loginEOSService.logout()">Logout</button>
         </div>
-        
+
 
 			</div>
 
@@ -79,11 +79,11 @@
   							<mat-form-field>
   							      <input matInput placeholder="Voter" required="true" [(ngModel)]="vote.voter">
   							</mat-form-field>
-							
+
 								<!--<mat-form-field>
   							  		<input matInput placeholder="Proxy" required="true" [(ngModel)]="vote.proxy">
   							</mat-form-field>-->
-							
+
 								<mat-form-field>
   							  		<mat-chip-list #chipList>
                         <mat-chip *ngFor="let bp of vote.producers" [selectable]="selectable"

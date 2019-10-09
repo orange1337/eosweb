@@ -1,7 +1,9 @@
-body{
-	background: #29292d;
+body {
 	color: #fff;
+  background: #0a0b2a;
+  background-image: linear-gradient(to right, #02031c, #04042e);
 }
+
 .strong-content{
 	color: #fff;
 }
@@ -9,26 +11,26 @@ body{
   color: #b1b6bf;
 }
 .main-table{
-	background: #2d2d31 !important;
+	background: #1b1c2f !important;
 }
-.main-table .mat-header-row, 
+.main-table .mat-header-row,
 .mat-paginator,
 .mat-expansion-panel,
 .token-tranfer-table,
 .mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus, .mat-tab-group.mat-primary .mat-tab-link:not(.mat-tab-disabled):focus, .mat-tab-nav-bar.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus, .mat-tab-nav-bar.mat-primary .mat-tab-link:not(.mat-tab-disabled):focus{
-	background-color: #33333a; 
+	background-color: #030328;
 }
 .mat-table{
-	background-color: #2d2d32;
+	background-color: #0f0f28;
 }
 .actions-main-container{
 	border-bottom: 1px solid #33333b;
 }
-.market-header, 
+.market-header,
 .mat-select-value,
 .main-table .mat-header-cell,
-.mat-paginator, 
-.mat-paginator-page-size .mat-select-trigger, 
+.mat-paginator,
+.mat-paginator-page-size .mat-select-trigger,
 .mat-paginator-icon,
 .mat-select-arrow,
 .mat-cell,
@@ -37,6 +39,9 @@ body{
 .mat-tab-label, .mat-tab-link,
 .mat-expansion-panel-header-title{
 	color: #b1b6bf !important;
+  color: rgba(255,255,255,0.88) !important;
+  letter-spacing: 0.5px;
+  font-weight: 100;
 }
 .block-info-line{
 	border-top: 1px solid #2d2d32;
@@ -45,23 +50,23 @@ body{
 	background-color: #b1b6bf;
 }
 .spinner-container{
-	background: rgba(41, 41, 45, 0.8);
+	background: rgba(14, 14, 52, 0.8);
 }
 .main-table .mat-row{
-	box-shadow: 1px 1px 1px #29292d;
+	box-shadow: 1px 1px 1px #11112e;
 }
 .account-ram .mat-progress-bar-buffer {
-	background: #515d65; /*#0794ec;*/ 
+	background: #515d65; /*#0794ec;*/
 }
 .account-ram .mat-progress-bar-fill::after{
-	background-color: #0984ef; 
+	background-color: #0984ef;
 }
 .account-net .mat-progress-bar-buffer{
 	background: #69624d;
 }
 .account-cpu .mat-progress-bar-buffer {
     background: #5e715f;
-}	
+}
 .segment-key{
 	color: #c08aef !important;
 }

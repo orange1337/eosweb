@@ -16,7 +16,7 @@ export class MainCustomizeChartsComponent implements OnInit{
    mainCurrencyChartDataRes;
    ngxChartOptions = {
       colorScheme : {
-          domain: ['#44a264']
+          domain: ['#3d6ff7']
       },
       view : [130, 70],
       showXAxis : false,
@@ -28,7 +28,7 @@ export class MainCustomizeChartsComponent implements OnInit{
       showYAxisLabel : false,
       yAxisLabel : 'Population',
       autoScale : true,
-  }; 
+  };
   curve = shape.curveCardinal;
   blockchainData;
   aggragationData;
@@ -41,8 +41,8 @@ export class MainCustomizeChartsComponent implements OnInit{
   actionsTransactions;
   frontConfig = environment.frontConfig;
 
-  constructor(private http: HttpClient, 
-              private socket: Socket, 
+  constructor(private http: HttpClient,
+              private socket: Socket,
               public mainService: MainService){
   }
 

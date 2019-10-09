@@ -14,7 +14,7 @@
           <img src="{{bpData?.org?.branding?.logo_256}}" alt="" class="branding-logo">
         </div>
         <div class="col-sm-9">
-          <strong class="account-name"><a [routerLink]="['/account', producerId]" class="color-green">{{producerId}}</a></strong>
+          <strong class="account-name"><a [routerLink]="['/account', producerId]" class="color-primary">{{producerId}}</a></strong>
         </div>
       </div>
 
@@ -85,7 +85,7 @@
           <strong class="block-info-header">Public Key:</strong>
         </div>
         <div class="col-sm-9">
-          <small class="tx-mobile-hash"> <a [routerLink]="['/address', mainElement?.producer_key]" class="color-green"> {{ mainElement?.producer_key }} </a> </small>
+          <small class="tx-mobile-hash"> <a [routerLink]="['/address', mainElement?.producer_key]" class="color-primary"> {{ mainElement?.producer_key }} </a> </small>
         </div>
       </div>
 
@@ -96,7 +96,7 @@
         <div class="col-sm-9 tokens-container">
           <span *ngFor="let voter of voters?.voters">
             <strong *ngIf="voter?.currency !== frontConfig?.coin" class="small-tokens">
-              <a [routerLink]="['/account', voter?.act?.data?.voter ]" class="color-green">{{ voter?.act?.data?.voter }}</a>
+              <a [routerLink]="['/account', voter?.act?.data?.voter ]" class="color-primary">{{ voter?.act?.data?.voter }}</a>
               <small> stake </small> - <strong>{{ (voter?.stake) ? voter?.stake?.toLocaleString() : 0 }} {{frontConfig?.coin}}</strong>
             </strong>
           </span>
@@ -115,7 +115,7 @@
         </div>
       </div>
 
-    </div>  
+    </div>
 
 </div>
 

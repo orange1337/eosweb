@@ -1,4 +1,4 @@
-    
+
 <div class="row" *ngIf="!mainService.liveTXHide">
 
 <div class="spinner-container" *ngIf="spinner">
@@ -15,16 +15,16 @@
     <ng-container matColumnDef="Number">
       <mat-header-cell *matHeaderCellDef> Number </mat-header-cell>
       <mat-cell *matCellDef="let element; let i = index">
-        <a [routerLink]="['/block', element?.block_num ]" class="color-green tx-hash">
+        <a [routerLink]="['/block', element?.block_num ]" class="color-primary tx-hash">
           <strong>{{ element?.block_num.toLocaleString() }}</strong>
         </a>
       </mat-cell>
     </ng-container>
-  
-    
+
+
     <ng-container matColumnDef="Transactions">
       <mat-header-cell *matHeaderCellDef> Transactions</mat-header-cell>
-      <mat-cell *matCellDef="let element" class="trx-mainpage"> 
+      <mat-cell *matCellDef="let element" class="trx-mainpage">
           <strong>{{element?.transactions.length}}</strong>
       </mat-cell>
     </ng-container>
@@ -32,18 +32,18 @@
     <!-- Weight Column -->
     <ng-container matColumnDef="Producer">
       <mat-header-cell *matHeaderCellDef> Producer </mat-header-cell>
-      <mat-cell *matCellDef="let element"> 
-          <a [routerLink]="['/producer', element?.producer]" class="color-green">
+      <mat-cell *matCellDef="let element">
+          <a [routerLink]="['/producer', element?.producer]" class="color-primary">
               <strong>{{ element?.producer }}</strong>
           </a>
       </mat-cell>
     </ng-container>
 
-    
+
     <!-- Name Column -->
     <ng-container matColumnDef="Time">
       <mat-header-cell *matHeaderCellDef> Time</mat-header-cell>
-      <mat-cell *matCellDef="let element" class="text-center change-container"> 
+      <mat-cell *matCellDef="let element" class="text-center change-container">
             {{ moment(element?.timestamp).format('lll') }}
       </mat-cell>
     </ng-container>
@@ -60,19 +60,19 @@
 <div class="example-container mat-elevation-z8 main-table main-table-latest-actions">
 
   <mat-table #table [dataSource]="dataSourceTrx">
-    
+
       <ng-container matColumnDef="Number">
       <mat-header-cell *matHeaderCellDef style="flex: 0.9;"> Tx Hash </mat-header-cell>
       <mat-cell *matCellDef="let element; let i = index" style="flex: 0.9;">
-        <a [routerLink]="['/transaction', element?.block_num ]" class="color-green tx-hash">
+        <a [routerLink]="['/transaction', element?.block_num ]" class="color-primary tx-hash">
           <strong>{{ element?.block_num.toLocaleString() }}</strong>
         </a>
       </mat-cell>
     </ng-container>
-    
+
     <ng-container matColumnDef="Name">
       <mat-header-cell *matHeaderCellDef> Action Name </mat-header-cell>
-      <mat-cell *matCellDef="let element" style="flex: 0.8"> 
+      <mat-cell *matCellDef="let element" style="flex: 0.8">
              <strong>{{ element?.name }}</strong>
       </mat-cell>
     </ng-container>
@@ -80,7 +80,7 @@
     <!-- Weight Column -->
     <ng-container matColumnDef="Data">
       <mat-header-cell *matHeaderCellDef style="flex: 2.8"> Data </mat-header-cell>
-      <mat-cell *matCellDef="let element" class="color-light-grey" style="flex: 2.8"> 
+      <mat-cell *matCellDef="let element" class="color-light-grey" style="flex: 2.8">
           <action-viewer [data]="element" [length]="50"></action-viewer>
       </mat-cell>
     </ng-container>

@@ -11,6 +11,7 @@
     font-size: 14px;
     border-radius: 3px;
     height: 80px;
+    overflow: hidden;
 }
 .chart-child-container-dollar{
 	color: #fff;
@@ -20,13 +21,13 @@
     margin-top: 13px;
 }
 .customize-containers-not-active{
-    background-color: #29292d; 
+    background-color: #030328;
     margin-right: 4px;
 }
 .customize-containers-active{
     padding-top: 0;
-    padding-right: 1px; 
-    padding-bottom: 0; 
+    padding-right: 1px;
+    padding-bottom: 0;
     width: 22%;
     margin-left: 5px;
 }
@@ -35,7 +36,7 @@
 }
 .widget-chart-container{
     height: 100%;
-    background-color: #2d2d32;
+    background-color: #030328;
     padding-top: 6px;
 }
 .first-container-widget{
@@ -52,7 +53,7 @@
     display: table;
 }
 .main-chart-cust-container{
-	background-color: #111113;
+	background-color: #04051f;
 	padding-top: 10px;
 	padding-bottom: 2px;
 }

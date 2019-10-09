@@ -16,11 +16,11 @@
 					<div class="avatatar-img">
 				 		<img src="/assets/images/user-astronaut-solid.svg" width="25" >
 				 	</div>
-				 	<a [routerLink]="['/account', loginEOSService.accountName]" class="color-green acc-name">
+				 	<a [routerLink]="['/account', loginEOSService.accountName]" class="color-primary acc-name">
 				  		{{ loginEOSService.accountName }}
 				 	</a>
 			 </div>
-				
+
 			<div class="col-sm-12 acc-list no-padding">
 				  <div class="balance-acc">
     			     Total Balance: <strong>{{ scatterService.balance?.toLocaleString() }} {{frontConfig?.coin}}</strong>
@@ -32,7 +32,7 @@
     			     Staked: <small><strong>{{ scatterService.staked?.toLocaleString() }} {{frontConfig?.coin}}</strong></small>
     			  </div>
     		</div>
-    
+
 
     		<div class="col-sm-12 acc-list no-padding">
       				<div class="analytics-header-right top-ten">
@@ -53,7 +53,7 @@
         			<small>{{ (scatterService.mainDataRAM?.net_limit?.used / 1024).toFixed(2) }} kb</small> / <small>{{ (scatterService.mainDataRAM?.net_limit?.max / 1024).toFixed(2) }} kb</small>
       		 	</div>
     		 </div>
-    		 
+
     		 <div class="col-sm-12 acc-list no-padding">
     			  <div class="analytics-header-right top-ten">
     			    RAM:
@@ -78,13 +78,13 @@
   							<mat-form-field>
   							  <input matInput placeholder="To" required="true" [(ngModel)]="transfer.to">
   							</mat-form-field>
-							
+
 							<div class="col-sm-9 no-padding">
 								<mat-form-field>
   							  		<input matInput placeholder="Amount" required="true" [(ngModel)]="transfer.amount">
   								</mat-form-field>
 							</div>
-							
+
 							<div class="col-sm-3 no-padding-right">
 								<mat-form-field>
   							  		<input matInput placeholder="Symbol" required="true" [(ngModel)]="transfer.symbol">

@@ -28,9 +28,9 @@ export class AppComponent implements OnInit {
   env = environment;
   netName;
   networks = [];
-  darkTheme = (localStorage.getItem('darkTheme') === 'true') ? true : false;
+  darkTheme = (localStorage.getItem('darkTheme') === 'false') ? false : true;
 
-  constructor(private http: HttpClient, 
+  constructor(private http: HttpClient,
               private router: Router,
               public scatterService: ScatterService,
               public loginEOSService: LoginEOSService){}
