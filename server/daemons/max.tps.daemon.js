@@ -15,6 +15,9 @@ let currentTrx = 0,
 	actCounter = 0,
 	newAccounts = [];
 
+let counterMaxBloks  = 0;
+let maxBloksPerRound = 100000;
+
 async function getMaxTps(){
 	let settings = await wrapper.toStrong(SETTINGS_DB.findOne({}));
 	if (!settings){
@@ -92,6 +95,11 @@ async function getBlockRecursive(settings, info, elements){
 				log.error(err);
 			}
 		}
+	}
+	counterMaxBloks += 1;
+	if (counterMaxBloks === maxBloksPerRound){
+		elements = [];
+		counterMaxBloks = 0;
 	}
 	settings.cursor_max_tps = blockNumber;
 	elements.shift();
