@@ -5,7 +5,8 @@ const { eos, STATS_ACCOUNT_DB, log, config, asyncjs } = require('./header')('acc
 const { asyncWrapper, asyncForEach } = require('../utils/main.utils');
 const wrapper = new asyncWrapper(log);
 
-const eosToInt = 10000;
+const toInt = config.toInt;
+const coin  = config.coin;
 
 let usersMaxLimit = 100000;
 let usersMaxSkip = 0;
@@ -51,7 +52,7 @@ function findBalanceAndUpdate(account, callback) {
 		  balance: []
 	  };
       if (account && account.voter_info && account.voter_info.staked){
-			accInfo.staked = account.voter_info.staked / eosToInt;
+			accInfo.staked = account.voter_info.staked / toInt;
       }
 
  	  eos.getCurrencyBalance({
@@ -60,7 +61,7 @@ function findBalanceAndUpdate(account, callback) {
 			}).then(balance => {
 	   	 		accInfo.balance = Array.isArray(balance) ? balance : [];
 	   	 		accInfo.balance.forEach((elem) => {
-	   	 			if (elem.indexOf('EOS') !== -1){
+	   	 			if (elem.indexOf(coin) !== -1){
 	   	 				accInfo.unstaked = !isNaN(Number(elem.split(' ')[0])) ? Number(elem.split(' ')[0]) : 0;
 	   	 			}
 	   	 		});
