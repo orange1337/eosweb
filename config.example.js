@@ -7,8 +7,8 @@ let config = {};
 // production mod
 config.PROD = false;
 
-config.toInt = 100000000;
-config.coin = 'WAX';
+config.toInt = 10000;
+config.coin = 'EOS';
 
 // mongo uri and options
 config.MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/EOSweb';
