@@ -3,6 +3,7 @@ version: "3"
 services:
 
   eosweb:
+    container_name: eosweb
     build: .
     ports:
       - 3039:3039
@@ -17,7 +18,8 @@ services:
 
 
   daomongohistory:
-    image: daomongohistory:latest
+    container_name: eosweb_history
+    image: mixbytes/dao-mongo-history-api:latest
     ports:
       - 3333:3333
     restart: always
