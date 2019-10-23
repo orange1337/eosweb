@@ -10,7 +10,7 @@
 /node_modules
 /server/node_modules
 /server/logs
-/config.js
+#/config.js
 /jungle.config.js
 /xec.config.js
 /wax.config.js
