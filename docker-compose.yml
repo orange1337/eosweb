@@ -24,7 +24,7 @@ services:
       - 3333:3333
     restart: always
     environment:
-      MONGO_URI: ${HISTORY_MONGO_URI}
+      MONGO_URI: ${NODE_MONGO_URI}
       NODE_URI: ${NODE_URI}
 
 
