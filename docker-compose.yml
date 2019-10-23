@@ -2,25 +2,28 @@ version: "3"
 
 services:
 
-  mongodb:
-    image: mongo:4.0
-    restart: always
-    volumes:
-      - ./mongo:/data/db
-    # ports:
-      # - "27018:27017"
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=test123
-
-  daowebserver:
+  eosweb:
     build: .
     ports:
       - 3039:3039
       - 9615:9615
     restart: always
     links:
-      - mongodb
-    volumes:
-      - ./config.js:/home/eosweb/config.js
+      - daomongohistory
+    environment:
+      MONGO_URI: ${NODE_MONGO_URI}
+      NODE_URI: ${NODE_URI}
+      HISTORY_URI: "http://daomongohistory:3333"
+
+
+  daomongohistory:
+    image: daomongohistory:latest
+    ports:
+      - 3333:3333
+    restart: always
+    environment:
+      MONGO_URI: ${HISTORY_MONGO_URI}
+      NODE_URI: ${NODE_URI}
+
+
 

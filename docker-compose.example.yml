@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+
+  mongodb:
+    image: mongo:4.0
+    restart: always
+    volumes:
+      - ./mongo:/data/db
+    # ports:
+      # - "27018:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=test123
+
+  daowebserver:
+    build: .
+    ports:
+      - 3039:3039
+      - 9615:9615
+    restart: always
+    links:
+      - mongodb
+    volumes:
+      - ./config.js:/home/eosweb/config.js
+
