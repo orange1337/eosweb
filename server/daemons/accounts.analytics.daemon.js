@@ -60,7 +60,7 @@ function findBalanceAndUpdate(account, callback) {
 			}).then(balance => {
 	   	 		accInfo.balance = Array.isArray(balance) ? balance : [];
 	   	 		accInfo.balance.forEach((elem) => {
-	   	 			if (elem.indexOf('EOS') !== -1){
+	   	 			if (elem.indexOf('BET') !== -1){
 	   	 				accInfo.unstaked = !isNaN(Number(elem.split(' ')[0])) ? Number(elem.split(' ')[0]) : 0;
 	   	 			}
 	   	 		});
@@ -71,7 +71,7 @@ function findBalanceAndUpdate(account, callback) {
 	   	 						   balance: accInfo.balance,
 	   	 						   ram_usage: account.ram_usage,
 	   	 						   ram_quota: account.ram_quota,
-	   	 						   created: new Date(account.created) 
+	   	 						   created: new Date(account.created)
 	   	 						  };
 	   	 		STATS_ACCOUNT_DB.findOneAndUpdate({ account_name: account.account_name }, saveObject, {multi: true})
 	   	 				     	.exec((err) => {
