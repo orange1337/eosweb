@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+
+  eosweb:
+    image: daobetweb:latest
+    build:
+      context: https://github.com/DaoCasino/DAObetweb.git
+    ports:
+      - 3039:3039
+      - 9615:9615
+    restart: always
+    links:
+      - daomongohistory
+    environment:
+      MONGO_URI: ${NODE_MONGO_URI}
+      NODE_URI: ${NODE_URI}
+      HISTORY_URI: "http://daomongohistory:3333"
+
+
+  daomongohistory:
+    image: daomongohistory:latest
+    build:
+      context: https://github.com/mixbytes/DAO-mongo-history-API.git
+    ports:
+      - 3333:3333
+    restart: always
+    environment:
+      MONGO_URI: ${HISTORY_MONGO_URI}
+      NODE_URI: ${NODE_URI}
+
+
+
