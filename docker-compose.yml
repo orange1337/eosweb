@@ -3,9 +3,7 @@ version: "3"
 services:
 
   eosweb:
-    image: daobetweb:latest
-    build:
-      context: https://github.com/DaoCasino/DAObetweb.git
+    build: .
     ports:
       - 3039:3039
       - 9615:9615
@@ -20,8 +18,6 @@ services:
 
   daomongohistory:
     image: daomongohistory:latest
-    build:
-      context: https://github.com/mixbytes/DAO-mongo-history-API.git
     ports:
       - 3333:3333
     restart: always
