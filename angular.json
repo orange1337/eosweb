@@ -107,6 +107,23 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
+            },
+            "lynx": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.lynx.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
             }
           }
         },
@@ -127,6 +144,9 @@
             },
             "wax": {
               "browserTarget": "eosweb:build:wax"
+            },
+            "lynx": {
+              "browserTarget": "eosweb:build:lynx"
             }
           }
         },
@@ -191,6 +211,9 @@
             },
             "wax": {
               "devServerTarget": "eosweb:serve:wax"
+            },
+            "lynx": {
+              "devServerTarget": "eosweb:serve:lynx"
             }
           }
         },
