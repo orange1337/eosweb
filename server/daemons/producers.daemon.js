@@ -67,7 +67,7 @@ async function updateProducersInfo(){
 }
 
 function saveProducerInfo(bp, elem, callback){
-	bp.producer_account_name = (bp.producer_account_name && bp.producer_account_name.length) ? bp.producer_account_name : bp.org.candidate_name;
+	bp.producer_account_name = ( (bp.producer_account_name && bp.producer_account_name.length) || !bp.org) ? bp.producer_account_name : bp.org.candidate_name;
 	if (!bp || !bp.producer_account_name || !bp.org || !bp.org.location || 
 		!bp.org.location.country || !bp.org.branding || !bp.org.branding.logo_256){
 	 		return callback(`Wong ${bp.producer_account_name} ${config.producerJSON} !!!!`);
