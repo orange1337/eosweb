@@ -4,7 +4,10 @@
     
     <div class="col-sm-4 chart-child-container customize-containers-not-active customize-containers-active grid-cs-5-inline" [style.width]="frontConfig?.convertToUSD ? '' : '19.68%'" *ngIf="frontConfig?.convertToUSD">
       <div class="col-xs-8 no-padding first-container-widget">
-       <div class="color-grey-text">{{frontConfig.coin}} - usd</div> 
+       <div class="color-grey-text">
+        {{frontConfig.coin}} - usd 
+        <a href="https://changenow.io/exchange?amount=1&from=eos&link_id=ea69546af2da50&to=usdterc20" rel="noopener" target="_blank" class="color-green" style="margin-left: 25px; text-transform: none;" *ngIf="frontConfig?.coin === 'EOS'">exchange</a>
+      </div> 
        <div class="chart-child-container-dollar">
           <div class="pull-left"><i class="fas fa-dollar-sign"></i> {{ currencyObj?.RAW[frontConfig.coin]?.USD?.PRICE?.toFixed(3) }}</div>
           <div class="pull-right chart-child-container-change first-container-change"> 

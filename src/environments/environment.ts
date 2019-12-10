@@ -3,7 +3,7 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-/*const chain = 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906';
+const chain = 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906';
 export const environment = {
     production: false,
     appName: 'EOSweb',
@@ -52,9 +52,9 @@ export const environment = {
        ],
        liveTXenable: true
     }
-};*/
+};
 
-const chain = '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4';
+/*const chain = '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4';
 export const environment = {
     production: true,
     appName: 'WAXweb',
@@ -104,4 +104,4 @@ export const environment = {
        ],
        liveTXenable: true
     }
-};
+};*/

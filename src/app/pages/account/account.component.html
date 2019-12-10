@@ -16,6 +16,7 @@
 					<strong>{{ balance?.toLocaleString() }} {{frontConfig?.totalBalance}}</strong> 
 					<span *ngIf="frontConfig?.convertToUSD"> / </span> 
 					<small *ngIf="frontConfig?.convertToUSD">{{ (balance * eosRate?.RAW[frontConfig.coin]?.USD?.PRICE).toLocaleString() }} USD</small>
+					<a href="https://changenow.io/exchange?amount=1&from=eos&link_id=ea69546af2da50&to=usdterc20" rel="noopener" target="_blank" mat-raised-button color="primary" style="margin-left: 25px;" *ngIf="frontConfig?.coin === 'EOS'">Exchange Now</a>
 				</div>
 			</div>
 			
