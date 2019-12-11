@@ -1,15 +1,16 @@
 {
-  "name": "eosweb-server",
+  "name": "daobet-explorer-server",
   "version": "2.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "MONGO_URI=mongodb://157.230.121.199:27017/daobet-fn-0 NODE_URI=https://api.daobet.org HISTORY_URI=https://api.daobet.org node server.js"
   },
   "author": "orange1337",
   "license": "MIT",
   "dependencies": {
+    "@sentry/node": "5.10.2",
     "@pm2/io": "^4.2.3",
     "async": "^3.0.1",
     "body-parser": "^1.19.0",

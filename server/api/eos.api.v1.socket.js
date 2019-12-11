@@ -13,8 +13,8 @@ const request         = require('request');
 const { logWrapper } = require('../utils/main.utils');
 const log            = new logWrapper('socket_io');
 
-const customSlack   = require('../modules/slack.module');
-const logSlack      = customSlack.configure(config.loggerSlack.alerts);
+// const customSlack   = require('../modules/slack.module');
+// const logSlack      = customSlack.configure(config.loggerSlack.alerts);
 
 const updateTimeBlocks = config.blockUpdateTime;
 const updateTPS        = config.updateTPS;
@@ -54,7 +54,7 @@ module.exports = (io, mongoMain, metrics) => {
           log.info('====== No users online');
           return setTimeout(getDataSocket, updateTimeBlocks);;
       }
-      let timeRequestStart = +new Date(); 
+      let timeRequestStart = +new Date();
       async.parallel({
         info: cb => {
           global.eos.getInfo({})
@@ -88,10 +88,10 @@ module.exports = (io, mongoMain, metrics) => {
           let date = +new Date();
           if (err){
              console.error('========= ', err);
-             // change nodeos API 
+             // change nodeos API
              //if (date > SOCKET_HANGUP_TIME){
                  changeAPI += 1;
-                 changeAPI = (config.endpoints.length === changeAPI) ? 0 : changeAPI; 
+                 changeAPI = (config.endpoints.length === changeAPI) ? 0 : changeAPI;
                  config.eosConfig.httpEndpoint = config.endpoints[changeAPI];
                  global.eos = EOS(config.eosConfig);
                  console.error('\x1b[33m%s\x1b[0m', `Change API to [${config.eosConfig.httpEndpoint}], socket error - ${err}`);
@@ -108,7 +108,7 @@ module.exports = (io, mongoMain, metrics) => {
   }
 
   function getTPS(){
-      let timeRequestStart = +new Date(); 
+      let timeRequestStart = +new Date();
       customFunctions.getLastBlocks(eos, [1, 2], (err, result) => {
             if (err){
                 console.error(err);
@@ -120,8 +120,8 @@ module.exports = (io, mongoMain, metrics) => {
   }
 
   function getProducersTable(){
-      let timeRequestStart = +new Date(); 
-      let formData = { 
+      let timeRequestStart = +new Date();
+      let formData = {
         json: true,
         code: 'eosio',
         scope: 'eosio',
@@ -195,7 +195,7 @@ module.exports = (io, mongoMain, metrics) => {
             });
             ram.save(err => {
                if (err) {
-                 log.error(err); 
+                 log.error(err);
                  return setTimeout(getRam, getSleepTime(timeRequestStart));
                }
                log.info('ram market price data ========= ', ram);
@@ -242,7 +242,7 @@ module.exports = (io, mongoMain, metrics) => {
   //getHistory();
   getRam();
 
-  // === end function export 
+  // === end function export
 }
 
 

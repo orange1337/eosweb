@@ -1,5 +1,5 @@
 /*
-  Created by eoswebnetbp1 
+  Created by eoswebnetbp1
 */
 //require('appmetrics-dash').monitor();
 const express       = require('express');
@@ -11,6 +11,12 @@ const helmet        = require('helmet');
 const compression   = require('compression');
 const request       = require('request');
 const async			    = require('async');
+
+const Sentry = require('@sentry/node');
+Sentry.init({
+  dsn: 'https://88caaa7f26a24288a3db3f9b6b69d12a@sentry.io/1853380',
+  environment: process.env.ENVIRONMENT || 'local',
+});
 
 const configName    = (process.env.CONFIG) ? process.env.CONFIG : 'config';
 const config        = require(`../${configName}`);
@@ -24,12 +30,11 @@ global.eos          = EOS(config.eosConfig);
 const { logWrapper } = require('./utils/main.utils');
 const log            = new logWrapper('server');
 
-const customSlack   = require('./modules/slack.module');
-const logSlack      = customSlack.configure(config.loggerSlack.alerts);
-
-process.on('uncaughtException', (err) => {
-    logSlack(`======= UncaughtException Main Server :  ${err}`);
-});
+// const customSlack   = require('./modules/slack.module');
+// const logSlack      = customSlack.configure(config.loggerSlack.alerts);
+// process.on('uncaughtException', (err) => {
+//     logSlack(`======= UncaughtException Main Server :  ${err}`);
+// });
 
 process.setMaxListeners(0);
 
