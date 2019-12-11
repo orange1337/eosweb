@@ -11,7 +11,7 @@ COPY . /home/eosweb
 
 RUN npm install -g pm2@2.10.4
 RUN npm install -g @angular/cli@7.1.4
-RUN cd /home/eosweb && npm install && npm update
+RUN cd /home/eosweb && npm install
 RUN cd /home/eosweb && node patch
 RUN cd /home/eosweb/server && npm install
 RUN cd /home/eosweb && ng build --configuration=${CONFIG_NET}
