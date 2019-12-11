@@ -35,7 +35,7 @@
     "ng-socket-io": "^0.2.4",
     "ngx-json-viewer": "^2.4.0",
     "rxjs": "~6.3.3",
-    "rxjs-compat": "^6.3.3",
+    "rxjs-compat": "~6.3.3",
     "set-value": "^2.0.1",
     "tslib": "^1.9.0",
     "webpack-dev-server": "^3.9.0",
