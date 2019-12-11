@@ -12,6 +12,7 @@ services:
     links:
       - daomongohistory
     environment:
+      ENVIRONMENT: ${ENVIRONMENT}
       MONGO_URI: ${NODE_MONGO_URI}
       NODE_URI: ${NODE_URI}
       HISTORY_URI: "http://daomongohistory:3333"
@@ -26,6 +27,5 @@ services:
     environment:
       MONGO_URI: ${NODE_MONGO_URI}
       NODE_URI: ${NODE_URI}
-
 
 

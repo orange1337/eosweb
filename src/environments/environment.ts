@@ -86,8 +86,8 @@ export const environment = {
        },
 
        nets: [
-              { name: 'Mainnet', url: 'https://explorer.daobet.org/', active: false },
-              { name: 'Testnet', url: 'https://explorer.daobet.org/', active: true },
+              { name: 'Mainnet', url: 'http://mainnet.daovalidator.com/', active: false },
+              { name: 'Testnet', url: 'http://testnet.daovalidator.com/', active: true },
               // { name: 'Europechain', url: 'https://xec.eosweb.net', active: false },
               // { name: 'WAX', url: 'https://wax.eosweb.net', active: true }
              ],

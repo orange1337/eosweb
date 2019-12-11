@@ -8,7 +8,7 @@ import { ProducersPageComponent } from './pages/producers/producers.component';
 import { ProducerComponent } from './pages/producer_page/producer_page.component';
 import { AnalyticsPageComponent } from './pages/analytics/analytics.component';
 import { TokensPageComponent } from './pages/tokens/tokens.component';
-import { RamPageComponent } from './pages/ram/ram.component';
+// import { RamPageComponent } from './pages/ram/ram.component';
 import { SoonComponent } from './pages/soon/soon.component';
 // import { WalletPageComponent } from './pages/wallet/wallet.component';
 // import { VotePageComponent } from './pages/vote/vote.component';
@@ -40,18 +40,18 @@ export const routes: Routes = [
     path: 'producer/:id',
     component: ProducerComponent
   },
-  {
-    path: 'analytics',
-    component: AnalyticsPageComponent
-  },
+  // {
+  //   path: 'analytics',
+  //   component: AnalyticsPageComponent
+  // },
   {
     path: 'accounts',
     component: AnalyticsPageComponent
   },
-  {
-    path: 'ram',
-    component: RamPageComponent
-  },
+  // {
+  //   path: 'ram',
+  //   component: RamPageComponent
+  // },
   {
     path: 'transaction/:id',
     component: TransactionPageComponent

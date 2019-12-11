@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Inject, APP_ID, PLATFORM_ID } from '@angular/core';
+import { NgModule, Inject, APP_ID, PLATFORM_ID, ErrorHandler, Injectable} from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { isPlatformBrowser } from '@angular/common';
 import { MatButtonModule,
@@ -10,7 +10,7 @@ import { MatButtonModule,
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { CdkTableModule } from '@angular/cdk/table'; 
+import { CdkTableModule } from '@angular/cdk/table';
 
 import { AppComponent } from './app.component';
 import { appRoutes, appRoutingProviders } from './main.router';
@@ -25,7 +25,7 @@ import { TokensPageModule } from './pages/tokens/tokens.module';
 import { ProducersPageModule } from './pages/producers/producers.module';
 import { ProducerModule } from './pages/producer_page/producer_page.module';
 import { AnalyticsPageModule } from './pages/analytics/analytics.module';
-import { RamPageModule } from './pages/ram/ram.module';
+// import { RamPageModule } from './pages/ram/ram.module';
 import { TransactionPageModule } from './pages/transactions/transactions.module';
 import { WalletPageModule } from './pages/wallet/wallet.module';
 import { VotePageModule } from './pages/vote/vote.module';
@@ -43,6 +43,13 @@ import { LoginEOSModule } from 'eos-ulm';
 
 import { ScatterService } from './services/scatter.service';
 
+import * as Sentry from '@sentry/browser';
+
+Sentry.init({
+  dsn: 'https://674c2c91e90e4d03813dba95c765d5b7@sentry.io/1853388',
+  environment: window.location.host
+});
+
 const socketConfig: SocketIoConfig = { url: '/', options: {
     autoConnect: true,
     reconnection: true,
@@ -50,6 +57,16 @@ const socketConfig: SocketIoConfig = { url: '/', options: {
     reconnectionDelayMax : 5000,
     reconnectionAttempts: 5
 }};
+
+@Injectable()
+export class SentryErrorHandler implements ErrorHandler {
+  constructor() {}
+  handleError(error) {
+    Sentry.captureException(error.originalError || error);
+    // const eventId = Sentry.captureException(error.originalError || error);
+    // Sentry.showReportDialog({ eventId });
+  }
+}
 
 @NgModule({
   declarations: [
@@ -93,11 +110,11 @@ const socketConfig: SocketIoConfig = { url: '/', options: {
     ProducersPageModule,
     ProducerModule,
     AnalyticsPageModule,
-    RamPageModule,
+    // RamPageModule,
     SoonModule,
     WidgetModule
   ],
-  providers: [appRoutingProviders, ScatterService],
+  providers: [appRoutingProviders, ScatterService, { provide: ErrorHandler, useClass: SentryErrorHandler }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

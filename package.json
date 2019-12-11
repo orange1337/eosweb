@@ -1,6 +1,6 @@
 {
-  "name": "eosweb",
-  "version": "0.0.0",
+  "name": "daobet-explorer",
+  "version": "0.1.0",
   "scripts": {
     "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build --prod --aot",
@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
     "@asymmetrik/ngx-leaflet": "^5.0.2",
+    "@sentry/browser": "^5.10.2",
     "@swimlane/ngx-charts": "^12.0.1",
     "angular2-notifications": "^2.0.0",
     "core-js": "^2.5.4",
