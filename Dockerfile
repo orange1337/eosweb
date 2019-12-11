@@ -14,7 +14,7 @@ RUN npm install -g @angular/cli@7.1.4
 RUN cd /home/eosweb && npm install
 RUN cd /home/eosweb && node patch
 RUN cd /home/eosweb/server && npm install
-RUN cd /home/eosweb && ng build --configuration=${CONFIG_NET}
+RUN cd /home/eosweb && ng build --configuration=${CONFIG_NET} --optimization=false
 
 CMD ["pm2-runtime", "/home/eosweb/server/ecosystem.config.js", "--web"]
 
