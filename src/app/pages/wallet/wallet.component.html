@@ -109,7 +109,7 @@
 				  		</div>
 				  		<div class="col-sm-4" *ngIf="scatterService.contractStruct">
                     <mat-form-field>
-                      <mat-select placeholder="Select contract method" [(ngModel)]="contractMethod" (selectionChange)="selectContractMethod(contractMethod)">
+                      <mat-select placeholder="Select contract method" [(ngModel)]="contractMethod" (change)="selectContractMethod(contractMethod)">
                         <mat-option value="{{ method.name }}" *ngFor="let method of scatterService.contractStruct;">{{ method.name }}</mat-option>
                       </mat-select>
                     </mat-form-field>

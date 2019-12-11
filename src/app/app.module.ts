@@ -2,11 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Inject, APP_ID, PLATFORM_ID } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { isPlatformBrowser } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule,
+         MatFormFieldModule,
+         MatInputModule,
+         MatSelectModule,
+         MatMenuModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 

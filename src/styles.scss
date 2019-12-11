@@ -278,9 +278,11 @@ a{
 .main-form .mat-form-field-underline{
 	background-color: #e5e6e8 !important;
 }
-.main-form .mat-form-field-invalid .mat-form-field-labelor: #e36956 !important;
+.main-form .mat-form-field-invalid .mat-form-field-placeholder{
+	color: #e36956 !important;
 }
-.main-form .mat-f.mat-form-field-label: 14px;
+.main-form .mat-form-field-placeholder{
+	font-size: 14px;
 }
 .icon-close{
 	color: #d6d6d7;

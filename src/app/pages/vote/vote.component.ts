@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, Inject } from '@angular/core';
 import { MainService } from '../../services/mainapp.service';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { MatChipInputEvent } from '@angular/material';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { environment } from '../../../environments/environment';
 

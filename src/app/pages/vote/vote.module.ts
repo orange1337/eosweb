@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { VotePageComponent } from './vote.component';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatButtonModule } from '@angular/material/button';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
-import { MatTabsModule } from '@angular/material/tabs';
+import { MatAutocompleteModule,
+         MatButtonModule,
+         MatInputModule,
+         MatPaginatorModule,
+         MatProgressSpinnerModule,
+         MatProgressBarModule,
+         MatSelectModule,
+         MatSortModule,
+         MatTableModule,
+         MatFormFieldModule,
+         MatExpansionModule,
+         MatTabsModule,
+         MatDialogModule,
+         MatChipsModule,
+         MatIconModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { appRoutes } from '../../main.router';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
