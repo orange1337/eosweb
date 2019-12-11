@@ -10,24 +10,24 @@
   "author": "orange1337",
   "license": "MIT",
   "dependencies": {
-    "@pm2/io": "^4.2.3",
-    "async": "^3.0.1",
+    "@pm2/io": "^4.3.3",
+    "async": "^3.1.0",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.4",
-    "csv-parser": "^2.3.0",
+    "csv-parser": "^2.3.2",
     "eosjs": "^16.0.9",
     "express": "^4.17.1",
-    "helmet": "^3.18.0",
-    "lodash": "^4.17.13",
-    "mongoose": "^5.7.5",
+    "helmet": "^3.21.2",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.8.0",
     "node-cron": "^2.0.3",
     "node-telegram-bot-api": "^0.30.0",
     "path": "^0.12.7",
     "request": "^2.88.0",
-    "request-promise": "^4.2.4",
+    "request-promise": "^4.2.5",
     "sharp": "^0.22.1",
     "slack": "^11.0.2",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.3.0"
   }
 }
