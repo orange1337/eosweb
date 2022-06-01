@@ -26,7 +26,7 @@
     "path": "^0.12.7",
     "request": "^2.88.0",
     "request-promise": "^4.2.5",
-    "sharp": "^0.22.1",
+    "sharp": "^0.30.5",
     "slack": "^11.0.2",
     "socket.io": "^2.3.0"
   }
