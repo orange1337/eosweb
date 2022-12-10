@@ -17,7 +17,7 @@
     "cookie-parser": "^1.4.4",
     "csv-parser": "^2.3.2",
     "eosjs": "^16.0.9",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "helmet": "^3.21.2",
     "lodash": "^4.17.15",
     "mongoose": "^5.8.0",
